@@ -57,7 +57,7 @@ export default function Rows(): JSX.Element {
               <div>
                 <div className={styles.title}>Details</div>
                 <div>
-                  <div>Date - 1st March, 2022</div>
+                  <div>Date - 1st March, 2023</div>
                   <div>Mode - Online and individual participation</div>
                   <div>Prizes Worth - ₹ 20,000</div>
                   <div>Prizes would be decided by in-game leaderbaord</div>

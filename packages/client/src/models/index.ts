@@ -29,13 +29,25 @@ export interface AuthStatusResponse {
 
 /**
  * @export
- * @enum {string}
  */
-export enum AuthStatusResponseStatusEnum {
-  Authenticated = 'AUTHENTICATED',
-  ProfileIncomplete = 'PROFILE_INCOMPLETE',
-  ActivationPending = 'ACTIVATION_PENDING',
-}
+export const AuthStatusResponseStatusEnum = {
+  Authenticated: 'AUTHENTICATED',
+  ProfileIncomplete: 'PROFILE_INCOMPLETE',
+  ActivationPending: 'ACTIVATION_PENDING',
+} as const;
+export type AuthStatusResponseStatusEnum =
+  typeof AuthStatusResponseStatusEnum[keyof typeof AuthStatusResponseStatusEnum];
+
+/**
+ *
+ * @export
+ */
+export const ChallengeType = {
+  Code: 'CODE',
+  Map: 'MAP',
+} as const;
+export type ChallengeType = typeof ChallengeType[keyof typeof ChallengeType];
+
 /**
  * Code model
  * @export
@@ -50,10 +62,10 @@ export interface Code {
   code: string;
   /**
    *
-   * @type {Date}
+   * @type {string}
    * @memberof Code
    */
-  lastSavedAt: Date;
+  lastSavedAt: string;
   /**
    *
    * @type {Language}
@@ -99,10 +111,10 @@ export interface CodeRevision {
   language: Language;
   /**
    *
-   * @type {Date}
+   * @type {string}
    * @memberof CodeRevision
    */
-  createdAt: Date;
+  createdAt: string;
 }
 /**
  * Model for complete profile request
@@ -273,6 +285,56 @@ export interface CurrentUserProfile {
    * @memberof CurrentUserProfile
    */
   isProfileComplete: boolean;
+  /**
+   *
+   * @type {boolean}
+   * @memberof CurrentUserProfile
+   */
+  isTutorialComplete: boolean;
+}
+/**
+ * Get current-user daily challenge
+ * @export
+ * @interface DailyChallengeGetRequest
+ */
+export interface DailyChallengeGetRequest {
+  /**
+   *
+   * @type {string}
+   * @memberof DailyChallengeGetRequest
+   */
+  challName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DailyChallengeGetRequest
+   */
+  chall: string;
+  /**
+   *
+   * @type {ChallengeType}
+   * @memberof DailyChallengeGetRequest
+   */
+  challType: ChallengeType;
+}
+/**
+ * Response model for daily challenge leaderboard
+ * @export
+ * @interface DailyChallengeLeaderBoardResponse
+ */
+export interface DailyChallengeLeaderBoardResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof DailyChallengeLeaderBoardResponse
+   */
+  userName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DailyChallengeLeaderBoardResponse
+   */
+  score?: string;
 }
 /**
  * Forgot password request
@@ -332,10 +394,10 @@ export interface GameMap {
   map: string;
   /**
    *
-   * @type {Date}
+   * @type {string}
    * @memberof GameMap
    */
-  lastSavedAt: Date;
+  lastSavedAt: string;
 }
 /**
  * GameMap revision model
@@ -363,10 +425,10 @@ export interface GameMapRevision {
   parentRevision?: string;
   /**
    *
-   * @type {Date}
+   * @type {string}
    * @memberof GameMapRevision
    */
-  createdAt: Date;
+  createdAt: string;
   /**
    *
    * @type {string}
@@ -374,17 +436,19 @@ export interface GameMapRevision {
    */
   message: string;
 }
+
 /**
  *
  * @export
- * @enum {string}
  */
-export enum GameStatus {
-  Idle = 'IDLE',
-  Executing = 'EXECUTING',
-  Executed = 'EXECUTED',
-  ExecuteError = 'EXECUTE_ERROR',
-}
+export const GameStatus = {
+  Idle: 'IDLE',
+  Executing: 'EXECUTING',
+  Executed: 'EXECUTED',
+  ExecuteError: 'EXECUTE_ERROR',
+} as const;
+export type GameStatus = typeof GameStatus[keyof typeof GameStatus];
+
 /**
  * Model for Generic Error
  * @export
@@ -398,17 +462,19 @@ export interface GenericError {
    */
   message?: string;
 }
+
 /**
  * Language of source files
  * @export
- * @enum {string}
  */
-export enum Language {
-  C = 'C',
-  Cpp = 'CPP',
-  Java = 'JAVA',
-  Python = 'PYTHON',
-}
+export const Language = {
+  C: 'C',
+  Cpp: 'CPP',
+  Java: 'JAVA',
+  Python: 'PYTHON',
+} as const;
+export type Language = typeof Language[keyof typeof Language];
+
 /**
  * Leaderboard entry model
  * @export
@@ -460,10 +526,10 @@ export interface Match {
   matchVerdict: Verdict;
   /**
    *
-   * @type {Date}
+   * @type {string}
    * @memberof Match
    */
-  createdAt: Date;
+  createdAt: string;
   /**
    *
    * @type {PublicUser}
@@ -477,16 +543,18 @@ export interface Match {
    */
   user2: PublicUser;
 }
+
 /**
  * Match Mode
  * @export
- * @enum {string}
  */
-export enum MatchMode {
-  Self = 'SELF',
-  Manual = 'MANUAL',
-  Auto = 'AUTO',
-}
+export const MatchMode = {
+  Self: 'SELF',
+  Manual: 'MANUAL',
+  Auto: 'AUTO',
+} as const;
+export type MatchMode = typeof MatchMode[keyof typeof MatchMode];
+
 /**
  * Notification model
  * @export
@@ -513,10 +581,10 @@ export interface Notification {
   content: string;
   /**
    *
-   * @type {Date}
+   * @type {string}
    * @memberof Notification
    */
-  createdAt: Date;
+  createdAt: string;
   /**
    *
    * @type {boolean}
@@ -613,10 +681,10 @@ export interface RatingHistory {
   ratingDeviation: number;
   /**
    *
-   * @type {Date}
+   * @type {string}
    * @memberof RatingHistory
    */
-  validFrom: Date;
+  validFrom: string;
 }
 /**
  * Register user request
@@ -672,6 +740,12 @@ export interface RegisterUserRequest {
    * @memberof RegisterUserRequest
    */
   avatarId: number;
+  /**
+   *
+   * @type {string}
+   * @memberof RegisterUserRequest
+   */
+  recaptchaCode: string;
 }
 /**
  * Reset password request
@@ -697,6 +771,19 @@ export interface ResetPasswordRequest {
    * @memberof ResetPasswordRequest
    */
   passwordConfirmation: string;
+}
+/**
+ * Get the tutorial level of the current user
+ * @export
+ * @interface TutorialLevelResponse
+ */
+export interface TutorialLevelResponse {
+  /**
+   *
+   * @type {number}
+   * @memberof TutorialLevelResponse
+   */
+  level?: number;
 }
 /**
  * Update current user profile request
@@ -728,6 +815,12 @@ export interface UpdateCurrentUserProfile {
    * @memberof UpdateCurrentUserProfile
    */
   avatarId?: number | null;
+  /**
+   *
+   * @type {number}
+   * @memberof UpdateCurrentUserProfile
+   */
+  tutorialLevel?: number | null;
 }
 /**
  * Update latest code request
@@ -829,13 +922,14 @@ export interface UserStats {
    */
   ties: number;
 }
+
 /**
  * Match/Game verdict
  * @export
- * @enum {string}
  */
-export enum Verdict {
-  Player1 = 'PLAYER1',
-  Player2 = 'PLAYER2',
-  Tie = 'TIE',
-}
+export const Verdict = {
+  Player1: 'PLAYER1',
+  Player2: 'PLAYER2',
+  Tie: 'TIE',
+} as const;
+export type Verdict = typeof Verdict[keyof typeof Verdict];

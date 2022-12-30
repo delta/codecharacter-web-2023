@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { Notification } from '@codecharacter-2022/client';
+import { Notification } from '@codecharacter-2023/client';
 import styles from './Notifs.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';

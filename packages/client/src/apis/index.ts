@@ -3,6 +3,7 @@
 export * from './AuthApi';
 export * from './CodeApi';
 export * from './CurrentUserApi';
+export * from './DailyChallengesApi';
 export * from './GameApi';
 export * from './LeaderboardApi';
 export * from './MapApi';

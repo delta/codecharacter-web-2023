@@ -1,7 +1,7 @@
 import {
   MapDesignerComponent,
   MapDesignerUtils,
-} from '@codecharacter-2022/map-designer';
+} from '@codecharacter-2023/map-designer';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { withKnobs, object, button } from '@storybook/addon-knobs';
 

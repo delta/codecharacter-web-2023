@@ -1,4 +1,4 @@
-import { CodeRevision, GameMapRevision } from '@codecharacter-2022/client';
+import { CodeRevision, GameMapRevision } from '@codecharacter-2023/client';
 import React, { useState } from 'react';
 import { VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';

@@ -2,6 +2,7 @@
 src/apis/AuthApi.ts
 src/apis/CodeApi.ts
 src/apis/CurrentUserApi.ts
+src/apis/DailyChallengesApi.ts
 src/apis/GameApi.ts
 src/apis/LeaderboardApi.ts
 src/apis/MapApi.ts
@@ -12,3 +13,4 @@ src/apis/index.ts
 src/index.ts
 src/models/index.ts
 src/runtime.ts
+tsconfig.esm.json

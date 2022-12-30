@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { ApiError, authConfig } from '../../../../../api/ApiConfig';
-import { AuthApi } from '@codecharacter-2022/client';
+import { AuthApi } from '@codecharacter-2023/client';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Toast from 'react-hot-toast';
 

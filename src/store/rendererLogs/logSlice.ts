@@ -1,4 +1,4 @@
-import { RendererUtils } from '@codecharacter-2022/renderer';
+import { RendererUtils } from '@codecharacter-2023/renderer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { getLogs } from './logAPI';

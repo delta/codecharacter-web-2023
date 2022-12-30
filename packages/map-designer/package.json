@@ -1,18 +1,18 @@
 {
-  "name": "@codecharacter-2022/map-designer",
-  "description": "Webcomponent for CodeCharacter Map Designer 2022",
+  "name": "@codecharacter-2023/map-designer",
+  "description": "Webcomponent for CodeCharacter Map Designer 2023",
   "license": "MIT",
   "author": "Delta Force",
-  "version": "2022.0.0",
-  "main": "./dist/codecharacter-map-designer-2022.es.js",
-  "module": "./dist/codecharacter-map-designer-2022.es.js",
+  "version": "2023.0.0",
+  "main": "./dist/codecharacter-map-designer-2023.es.js",
+  "module": "./dist/codecharacter-map-designer-2023.es.js",
   "types": "./dist/src/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/codecharacter-map-designer-2022.es.js"
+      "import": "./dist/codecharacter-map-designer-2023.es.js"
     }
   },
   "scripts": {

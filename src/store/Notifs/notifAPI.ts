@@ -1,4 +1,4 @@
-import { NotificationApi, Notification } from '@codecharacter-2022/client';
+import { NotificationApi, Notification } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 
 export const getNotifs = (): Promise<Notification[]> => {

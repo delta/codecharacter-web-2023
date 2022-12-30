@@ -11,7 +11,7 @@ import {
   user,
 } from '../../store/User/UserSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { AuthApi } from '@codecharacter-2022/client';
+import { AuthApi } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Toast from 'react-hot-toast';
 

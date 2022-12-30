@@ -2,7 +2,7 @@ import replace from '@rollup/plugin-replace';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { generateSW } from 'rollup-plugin-workbox';
-import { defineConfig } from 'vite';
+import { defineConfig, Plugin } from 'vite';
 
 export default defineConfig({
   base: '',
@@ -25,8 +25,8 @@ export default defineConfig({
           'typeof PLUGIN_FBINSTANT': "'false'",
           'typeof FEATURE_SOUND': "'false'",
           preventAssignment: true,
-        }),
-      ],
+        }) as Plugin,
+      ] as Plugin[],
     },
   },
   plugins: [

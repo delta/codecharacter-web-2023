@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import { getUserDetailsAction } from '../../../../../store/User/UserSlice';
 import AlertMessage from '../../Alert/Alert';
-import { CurrentUserApi } from '@codecharacter-2022/client';
+import { CurrentUserApi } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../../../../api/ApiConfig';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../../store/hooks';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { MapDesignerComponent } from '@codecharacter-2022/map-designer';
-import { MapApi } from '@codecharacter-2022/client';
+import { MapDesignerComponent } from '@codecharacter-2023/map-designer';
+import { MapApi } from '@codecharacter-2023/client';
 import Toast from 'react-hot-toast';
 import styles from './MapDesigner.module.css';
 import { apiConfig, ApiError } from '../../api/ApiConfig';

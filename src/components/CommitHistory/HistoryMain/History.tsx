@@ -8,7 +8,7 @@ import {
   CodeRevision,
   GameMapRevision,
   MapApi,
-} from '@codecharacter-2022/client';
+} from '@codecharacter-2023/client';
 import {
   changeHistoryEditorMap,
   changeHistoryEditorCode,

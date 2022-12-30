@@ -9,7 +9,7 @@ import {
   MatchApi,
   LeaderboardEntry,
   MatchMode,
-} from '@codecharacter-2022/client';
+} from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Loader from '../Loader/Loader';
 import swordImage from '../../assets/sword.png';
