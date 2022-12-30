@@ -1,6 +1,6 @@
 import replace from '@rollup/plugin-replace';
 import path from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
@@ -8,9 +8,9 @@ export default defineConfig({
   build: {
     lib: {
       formats: ['es'],
-      name: 'codecharacter-map-designer-2022',
+      name: 'codecharacter-map-designer-2023',
       entry: path.resolve(__dirname, 'src/index.ts'),
-      fileName: 'codecharacter-map-designer-2022',
+      fileName: 'codecharacter-map-designer-2023',
     },
     rollupOptions: {
       external: ['phaser', 'lit', 'react'],
@@ -23,8 +23,8 @@ export default defineConfig({
           'typeof PLUGIN_FBINSTANT': "'false'",
           'typeof FEATURE_SOUND': "'false'",
           preventAssignment: true,
-        }),
-      ],
+        }) as Plugin,
+      ] as Plugin[],
       output: {
         globals: {
           phaser: 'Phaser',

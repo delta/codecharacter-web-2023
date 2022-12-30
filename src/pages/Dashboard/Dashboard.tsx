@@ -1,5 +1,5 @@
-import { CodeApi, Language } from '@codecharacter-2022/client';
-import { RendererComponent } from '@codecharacter-2022/renderer';
+import { CodeApi, Language } from '@codecharacter-2023/client';
+import { RendererComponent } from '@codecharacter-2023/renderer';
 import Toast from 'react-hot-toast';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {

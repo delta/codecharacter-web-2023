@@ -1,4 +1,4 @@
-import { CodeRevision } from '@codecharacter-2022/client';
+import { CodeRevision } from '@codecharacter-2023/client';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/prism/c';
 import cpp from 'react-syntax-highlighter/dist/esm/languages/prism/cpp';

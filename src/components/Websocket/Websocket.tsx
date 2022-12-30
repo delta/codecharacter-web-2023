@@ -3,7 +3,7 @@ import {
   Game,
   GameStatus,
   Notification,
-} from '@codecharacter-2022/client';
+} from '@codecharacter-2023/client';
 import { apiConfig } from '../../api/ApiConfig';
 import { Stomp } from '@stomp/stompjs';
 import { useEffect } from 'react';

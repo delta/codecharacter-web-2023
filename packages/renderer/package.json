@@ -1,18 +1,18 @@
 {
-  "name": "@codecharacter-2022/renderer",
-  "description": "Webcomponent for CodeCharacter Renderer 2022",
+  "name": "@codecharacter-2023/renderer",
+  "description": "Webcomponent for CodeCharacter Renderer 2023",
   "license": "MIT",
   "author": "Delta Force",
-  "version": "2022.0.0",
-  "main": "./dist/codecharacter-renderer-2022.es.js",
-  "module": "./dist/codecharacter-renderer-2022.es.js",
+  "version": "2023.0.0",
+  "main": "./dist/codecharacter-renderer-2023.es.js",
+  "module": "./dist/codecharacter-renderer-2023.es.js",
   "types": "./dist/src/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/codecharacter-renderer-2022.es.js"
+      "import": "./dist/codecharacter-renderer-2023.es.js"
     }
   },
   "scripts": {

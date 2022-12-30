@@ -1,4 +1,4 @@
-import { UserApi, AuthApi, CurrentUserApi } from '@codecharacter-2022/client';
+import { UserApi, AuthApi, CurrentUserApi } from '@codecharacter-2023/client';
 import { apiConfig, ApiError, authConfig } from '../../api/ApiConfig';
 import { User } from './UserSlice';
 import Toast from 'react-hot-toast';

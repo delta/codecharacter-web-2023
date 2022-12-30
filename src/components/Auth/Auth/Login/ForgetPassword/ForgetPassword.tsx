@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import AlertMessage from '../../Alert/Alert';
 import styles from './forgetpassword.module.css';
-import { AuthApi } from '@codecharacter-2022/client';
+import { AuthApi } from '@codecharacter-2023/client';
 import { ApiError, authConfig } from '../../../../../api/ApiConfig';
 import Toast from 'react-hot-toast';
 

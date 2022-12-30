@@ -23,7 +23,7 @@ import {
   MapApi,
   MatchApi,
   MatchMode,
-} from '@codecharacter-2022/client';
+} from '@codecharacter-2023/client';
 import Toast from 'react-hot-toast';
 import { isloggedIn } from '../../store/User/UserSlice';
 
