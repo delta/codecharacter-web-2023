@@ -9,9 +9,12 @@
 }
 
 .about {
-  background-color: #ccc;
   padding-top: 50px;
   padding-bottom: 20px;
+  height: 100vh;
+  /* background-image: url('/public/assets/Landing.png'); */
+  align-items: center;
+  display: flex;
 }
 
 .details {
@@ -43,4 +46,23 @@
 
 img {
   max-width: 100%;
+}
+
+.content{
+  color: #ffffff;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 35px;
+}
+
+.col1{
+  display: flex;
+  align-items: center;
+  border-right: 3px solid #4D4D4D;
+}
+
+.dummy{
+  /* background-color: #ffffff; */
+  height: 100%;
+  /* z-index: 10000000; */
 }
