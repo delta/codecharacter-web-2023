@@ -1,35 +1,28 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   IsSettingsOpen,
   isSettingsOpened,
 } from '../../store/EditorSettings/settings';
-import {
-  faCode,
-  faTrophy,
-  faGlobeAsia,
-  faCodeBranch,
-  faTv,
-  faSignOutAlt,
-  faTools,
-  faBook,
-} from '@fortawesome/free-solid-svg-icons';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import code from '../../assets/code.png';
+import map from '../../assets/map.png';
+import leaderboard from '../../assets/leaderboard.png';
+import commit from '../../assets/commit.png';
+import battletv from '../../assets/tv.png';
+import documentation from '../../assets/documentation.png';
+
+import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styles from './SideBar.module.css';
-import { logout } from '../../store/User/UserSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import deltaLogo from '../../assets/deltaLogo.png';
-import { cookieDomain } from '../../config/config.example';
 
 const icons = [
-  { icon: faCode, route: 'dashboard', tooltip: 'Code Editor' },
-  { icon: faGlobeAsia, route: 'mapdesigner', tooltip: 'Map Designer' },
-  { icon: faTrophy, route: 'leaderboard', tooltip: 'Leaderboard' },
-  { icon: faCodeBranch, route: 'history', tooltip: 'Commits' },
-  { icon: faTv, route: 'battletv', tooltip: 'Battle TV' },
-  { icon: faTools, route: 'settings', tooltip: 'Editor Settings' },
-  { icon: faSignOutAlt, route: 'login', tooltip: 'Logout' },
+  { icon: code, route: 'dashboard', tooltip: 'Code Editor' },
+  { icon: map, route: 'mapdesigner', tooltip: 'Map Designer' },
+  { icon: leaderboard, route: 'leaderboard', tooltip: 'Leaderboard' },
+  { icon: commit, route: 'history', tooltip: 'Commits' },
+  { icon: battletv, route: 'battletv', tooltip: 'Battle TV' },
+  { icon: documentation, route: 'settings', tooltip: 'Editor Settings' },
 ];
 
 const SideBar: React.FunctionComponent = () => {
@@ -45,23 +38,7 @@ const SideBar: React.FunctionComponent = () => {
     setpathName(location.pathname);
   }, [location]);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  function deleteCookie(name: string) {
-    document.cookie =
-      name +
-      `=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;domain=${cookieDomain};`;
-  }
-
-  const handleLogout = (icon: string) => {
-    if (icon == 'Logout') {
-      dispatch(logout());
-      localStorage.removeItem('token');
-      deleteCookie('bearer-token');
-
-      navigate('/login', { replace: true });
-    }
-  };
   return (
     <div>
       {pathName != '/' &&
@@ -76,11 +53,12 @@ const SideBar: React.FunctionComponent = () => {
               if (icon.tooltip === 'Editor Settings') {
                 return (
                   <div key={icons.indexOf(icon)} className={styles.sideBarIcon}>
-                    <FontAwesomeIcon
-                      className={styles.sideBarIconComponent}
+                    <img
+                      src={icon.icon as string}
+                      alt={icon.tooltip}
                       title={icon.tooltip}
-                      icon={icon.icon as IconProp}
                       onClick={handleOpenSettings}
+                      className={styles.sideBarIconComponent}
                     />
                   </div>
                 );
@@ -88,13 +66,11 @@ const SideBar: React.FunctionComponent = () => {
                 return (
                   <div key={icons.indexOf(icon)} className={styles.sideBarIcon}>
                     <Link to={icon.route} key={icon.route}>
-                      <FontAwesomeIcon
-                        className={styles.sideBarIconComponent}
+                      <img
+                        src={icon.icon as string}
+                        alt={icon.tooltip}
                         title={icon.tooltip}
-                        onClick={() => {
-                          handleLogout(icon.tooltip);
-                        }}
-                        icon={icon.icon as IconProp}
+                        className={styles.sideBarIconComponent}
                       />
                     </Link>
                   </div>
@@ -109,10 +85,10 @@ const SideBar: React.FunctionComponent = () => {
                   href="https://codecharacter-docs-2022.vercel.app/"
                   rel="noreferrer noopener"
                 >
-                  <FontAwesomeIcon
+                  <img
+                    src={documentation}
+                    alt="delta"
                     className={styles.sideBarIconComponent}
-                    title="View Documentation"
-                    icon={faBook as IconProp}
                   />
                 </a>
               </div>
