@@ -103,3 +103,11 @@
   position: relative;
   margin-right: 0.6rem;
 }
+
+.dcIcon {
+  height: 2rem;
+  width: auto;
+  margin: auto;
+  position: relative;
+  margin-right: 2rem;
+}
