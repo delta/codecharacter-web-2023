@@ -20,12 +20,18 @@ import { cookieDomain } from '../../config/config.example';
 import sign_up from '../../assets/sign_up.png';
 import sign_in from '../../assets/sign_in.png';
 
+// import challenge_available from '../../assets/challenge_available.png';
+import challenge_done from '../../assets/challenge_done.png';
+
+
 const NavBar: React.FunctionComponent = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
+  // add new state here for dc
+
   // useEffect(() => {
   //   if (window.location.hash == '#/register')
   //     navigate('/register', { replace: true });
@@ -99,7 +105,9 @@ const NavBar: React.FunctionComponent = () => {
         </div>
 
         {(location.pathname === '/' || location.pathname === '/register') &&
-          !isloggedIn && (
+
+          !isLogged && (
+
             <div className={styles.navContainer}>
               <NavLink to="/login" className={`${styles.navLink}`}>
                 <img src={sign_in} />
@@ -107,7 +115,9 @@ const NavBar: React.FunctionComponent = () => {
               </NavLink>
             </div>
           )}
-        {location.pathname === '/login' && (
+
+        {location.pathname === '/login' && !isLogged && (
+
           <div className={styles.navContainer}>
             <NavLink to="/register" className={`${styles.navLink}`}>
               <img src={sign_up} />
@@ -120,6 +130,13 @@ const NavBar: React.FunctionComponent = () => {
       location.pathname != '/incomplete-profile' &&
       location.pathname != '/' ? (
         <div className={styles.profileIcons}>
+          <div className={styles.notifIconContainer}>
+            <img
+              src={challenge_done}
+              className={styles.dcIcon}
+              title="Daily Challenge"
+            />
+          </div>
           <div className={styles.notifIcon}>
             <Notifs />
           </div>
