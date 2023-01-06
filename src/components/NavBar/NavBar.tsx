@@ -80,7 +80,6 @@ const NavBar: React.FunctionComponent = () => {
     dispatch(logout());
     localStorage.removeItem('token');
     deleteCookie('bearer-token');
-
     navigate('/login', { replace: true });
   };
 
@@ -113,7 +112,6 @@ const NavBar: React.FunctionComponent = () => {
               </NavLink>
             </div>
           )}
-
         {location.pathname === '/login' && !isLogged && (
           <div className={styles.navContainer}>
             <NavLink to="/register" className={`${styles.navLink}`}>
