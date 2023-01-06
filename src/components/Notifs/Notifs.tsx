@@ -2,9 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Notification } from '@codecharacter-2023/client';
 import styles from './Notifs.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import bell from '../../assets/bell_icon.png';
 
 import {
   getNotifAction,
@@ -78,10 +76,11 @@ const Notifs: React.FunctionComponent = () => {
         ref={notifIconRef}
         onClick={toggleNotifModal}
       >
-        <FontAwesomeIcon
-          size="1x"
+        <img
+          src={bell}
+          title="Notifications"
           className={styles.notifIcon}
-          icon={faBell as IconProp}
+          alt="BellIcon"
         />
         {unreadNotifs > 0 ? (
           <div className={styles.notifUnreadCounter}>{unreadNotifs}</div>

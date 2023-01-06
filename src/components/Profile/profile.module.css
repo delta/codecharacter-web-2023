@@ -2,14 +2,25 @@
     width: 0rem;
 }
 
+.profileBody {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
 .Container {
     width: 30rem;
     font-family: Montserrat;
+    text-align: center;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+    box-shadow: 5px 5px 10px black;
 }
 
 .header {
     background-color: #2b3760;
     color: white;
+    padding: 1rem;
 }
 
 .close {

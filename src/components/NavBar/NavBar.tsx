@@ -1,7 +1,6 @@
 import { Link, useNavigate, useLocation, NavLink } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './NavBar.module.css';
-import Profile from '../Profile/Profile';
 import Notifs from '../Notifs/Notifs';
 import { getAvatarByID } from '../Avatar/Avatar';
 import {
@@ -9,11 +8,17 @@ import {
   isloggedIn,
   loggedIn,
   user,
+  logout,
 } from '../../store/User/UserSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { AuthApi } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Toast from 'react-hot-toast';
+import DashboardOptions from '../DashboardOptions/DashboardOptions';
+import { cookieDomain } from '../../config/config.example';
+
+import sign_up from '../../assets/sign_up.png';
+import sign_in from '../../assets/sign_in.png';
 
 const NavBar: React.FunctionComponent = () => {
   const dispatch = useAppDispatch();
@@ -59,8 +64,6 @@ const NavBar: React.FunctionComponent = () => {
           } else if (status === 'AUTHENTICATED') {
             if (localStorage.getItem('token') != null) {
               navigate('/dashboard', { replace: true });
-            } else {
-              handleClose();
             }
           }
         })
@@ -71,31 +74,44 @@ const NavBar: React.FunctionComponent = () => {
         });
     }
   }, [isLogged]);
-  const [open, isOpen] = useState(false);
-  const handleOpen = () => {
-    isOpen(true);
-  };
 
-  const handleClose = () => {
-    isOpen(false);
+  function deleteCookie(name: string) {
+    document.cookie =
+      name +
+      `=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;domain=${cookieDomain};`;
+  }
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem('token');
+    deleteCookie('bearer-token');
+
+    navigate('/login', { replace: true });
   };
 
   return (
     <div className={styles.navBar}>
       <div className={styles.navBarContainer}>
-        <Profile open={open} handleClose={handleClose} />
         <div className={styles.branding}>
           <Link to="/" className={styles.logoLink}>
-            <div className={styles.navLogo}>CodeCharacter</div>
+            <div className={styles.navLogo}>{'<CodeCharacter/>'}</div>
           </Link>
         </div>
-        {location.pathname === '/' && (
+
+        {(location.pathname === '/' || location.pathname === '/register') &&
+          !isloggedIn && (
+            <div className={styles.navContainer}>
+              <NavLink to="/login" className={`${styles.navLink}`}>
+                <img src={sign_in} />
+                Sign In
+              </NavLink>
+            </div>
+          )}
+        {location.pathname === '/login' && (
           <div className={styles.navContainer}>
-            <NavLink to="/login" className={`${styles.navLink}`}>
-              Login
-            </NavLink>
             <NavLink to="/register" className={`${styles.navLink}`}>
-              Register
+              <img src={sign_up} />
+              Sign Up
             </NavLink>
           </div>
         )}
@@ -107,15 +123,20 @@ const NavBar: React.FunctionComponent = () => {
           <div className={styles.notifIcon}>
             <Notifs />
           </div>
-          <div className={styles.profile} onClick={handleOpen}>
-            <div className={styles.ProfileIcon}>
-              <img
-                className={styles.profileIconImg}
-                src={getAvatarByID(loggedInUser.avatarId).url}
-                alt="Profile Icon"
-              />
-            </div>
-            <h3 className={styles.profileName}>{loggedInUser?.username}</h3>
+          <div className={styles.ProfileIcon}>
+            <DashboardOptions
+              image={
+                <img
+                  className={styles.profileIconImg}
+                  src={getAvatarByID(loggedInUser.avatarId).url}
+                  alt="Profile Icon"
+                  title="Profile Icon"
+                />
+              }
+              onLogout={() => {
+                handleLogout();
+              }}
+            />
           </div>
         </div>
       ) : (
