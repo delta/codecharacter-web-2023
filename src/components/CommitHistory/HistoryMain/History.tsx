@@ -79,26 +79,16 @@ export default function History(): JSX.Element {
   const changesEditorDetails = () => {
     if (BigButton == 'Code' && currentCode != '') {
       dispatch(changeHistoryEditorCode(currentCode));
-    } else if (BigButton == 'Map' && currentMap != []) {
+    } else if (BigButton == 'Map' && currentMap.length != 0) {
       dispatch(changeHistoryEditorMap(currentMap));
     }
   };
 
   return (
-    <Container className={styles.historyMain}>
+    <Container fluid className={styles.historyMain}>
       <div className={styles.buttonContainer}>
         <div className={styles.codeMapButton}>
           <ButtonGroup>
-            <Button
-              className={
-                BigButton == 'Code' ? styles.largeButton : styles.smallButton
-              }
-              onClick={() => {
-                setBigButton('Code');
-              }}
-            >
-              Code
-            </Button>
             <Button
               className={
                 BigButton == 'Map' ? styles.largeButton : styles.smallButton
@@ -106,15 +96,26 @@ export default function History(): JSX.Element {
               onClick={() => {
                 setBigButton('Map');
               }}
+              variant="outline-light"
             >
-              Map
+              MAP
+            </Button>
+            <Button
+              variant="outline-light"
+              className={
+                BigButton == 'Code' ? styles.largeButton : styles.smallButton
+              }
+              onClick={() => {
+                setBigButton('Code');
+              }}
+            >
+              CODE
             </Button>
           </ButtonGroup>
         </div>
       </div>
       <Row className={styles.viewContainer}>
-        <Col lg="3">
-          <div></div>
+        <Col lg="4" style={{ marginLeft: '5%' }}>
           <div className={styles.completeTimeline}>
             {completeMapHistory && completeCodeHistroy ? (
               <CommitHistory
@@ -130,7 +131,6 @@ export default function History(): JSX.Element {
               <h1 className={styles.noCommitDataHeader}>Loading...</h1>
             )}
           </div>
-          <div></div>
         </Col>
         <Col lg="9" className={styles.codeView}>
           <div className={BigButton == 'Code' ? styles.codeBox : styles.mapBox}>
@@ -143,11 +143,11 @@ export default function History(): JSX.Element {
           <div className={styles.select}>
             <Button
               className={styles.selectButton}
-              variant="primary"
               size="lg"
               onClick={changesEditorDetails}
+              variant="outline-light"
             >
-              Select
+              LOAD COMMIT
             </Button>
           </div>
         </Col>

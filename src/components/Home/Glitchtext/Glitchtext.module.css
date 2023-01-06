@@ -10,10 +10,10 @@
 .glitchtext {
   text-align: center;
   color: #fff;
-  font-size: 90px;
+  font-size: 120px;
   letter-spacing: 4px;
   font-weight: 800;
-  font-family: 'Montserrat';
+  font-family: 'Bai Jamjuree';
   animation: glitch1 2.5s infinite;
   width: max-content;
   max-width: 90vw;
