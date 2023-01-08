@@ -46,6 +46,7 @@ const SideBar: React.FunctionComponent = () => {
       pathName != '/login' &&
       pathName != '/activate' &&
       pathName != '/reset-password' &&
+      pathName != '/profile' &&
       pathName != '/incomplete-profile' ? (
         <div className={styles.sideBar}>
           <div className={styles.up}>
