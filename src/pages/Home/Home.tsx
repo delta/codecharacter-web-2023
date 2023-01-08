@@ -2,21 +2,13 @@ import Footer from '../../components/Home/Footer/Footer';
 import Glitchtext from '../../components/Home/Glitchtext/Glitchtext';
 import AboutGame from '../../components/Home/AboutGame/AboutGame';
 import styles from './Home.module.css';
-import { useState } from 'react';
 
 export default function Home(): JSX.Element {
-  const [pageNum, setPageNum] = useState<number>(1);
   return (
     <main className={styles.mainContainer}>
       <div className={styles.jumbotron}>
         <Glitchtext value="Code Character" />
-        <img
-          onClick={() => {
-            setPageNum(1);
-          }}
-          className={styles.arrow}
-          src="/assets/DownArrow.svg"
-        ></img>
+        <img className={styles.arrow} src="/assets/DownArrow.svg"></img>
       </div>
       <AboutGame />
       <Footer />

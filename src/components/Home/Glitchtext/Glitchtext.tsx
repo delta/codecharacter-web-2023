@@ -31,6 +31,9 @@ export default function Glitchtext(prop: { value: string }): JSX.Element {
         setPlaceholder('_');
         index.current = 0;
       }, 3000);
+      return () => {
+        clearTimeout(reloop);
+      };
     }
   }, [placeholder]);
 

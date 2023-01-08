@@ -1,5 +1,3 @@
-import renderer from '../../../assets/renderer.png';
-import trophy from '../../../assets/home-trophy.png';
 import styles from './AboutGame.module.css';
 import { Container, Row, Col } from 'react-bootstrap';
 
@@ -21,7 +19,7 @@ export default function AboutGame(): JSX.Element {
               }}
             >
               <div className={styles.content}>
-                The objective is to destroy and vanquish the opponent's
+                The objective is to destroy and vanquish the opponent&apos;s
                 territory by writing code and creating defenses via the in-game
                 map. With progress and implementation of new competitive
                 strategies, fight your way through, and dominate the top of the

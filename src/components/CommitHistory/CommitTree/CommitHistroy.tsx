@@ -1,12 +1,11 @@
 import { CodeRevision, GameMapRevision } from '@codecharacter-2023/client';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import './CommitHistory.css';
-import { useAppDispatch } from '../../../store/hooks';
 
 type PropsType = {
   commitID: (commitID: string) => void;
@@ -20,7 +19,6 @@ export default function CommitHistory(props: PropsType): JSX.Element {
     color: '#fff',
   };
 
-  const dispatch = useAppDispatch();
   const [commitNumber, setCommitNumber] = useState('0');
 
   const parseTimeFormat = (machineTime: string) => {

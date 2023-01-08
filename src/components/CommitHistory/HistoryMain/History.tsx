@@ -16,7 +16,6 @@ import {
 import { useAppDispatch } from '../../../store/hooks';
 import styles from './History.module.css';
 import CodeView from '../CodeMapViewbox/CodeView';
-import MapView from '../CodeMapViewbox/MapView';
 import { Col, Container, Row } from 'react-bootstrap';
 import Toast from 'react-hot-toast';
 

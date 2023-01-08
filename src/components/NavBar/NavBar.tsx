@@ -29,21 +29,8 @@ const NavBar: React.FunctionComponent = () => {
   const location = useLocation();
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
-  const [dailyChallengeStatus, SetDailyChallengeStatus] =
-    useState<boolean>(false);
+  const dailyChallengeStatus = false;
   // add new state here for dc
-
-  // useEffect(() => {
-  //   if (window.location.hash == '#/register')
-  //     navigate('/register', { replace: true });
-  //   if (
-  //     localStorage.getItem('token') == null &&
-  //     window.location.hash != '#/register'
-  //   ) {
-  //     console.log('navbar redirect');
-  //     navigate('/login', { replace: true });
-  //   }
-  // }, [window.location.hash]);
   useEffect(() => {
     const cookieValue = document.cookie;
     const bearerToken = cookieValue.split(';');
@@ -98,11 +85,11 @@ const NavBar: React.FunctionComponent = () => {
 
   const [showCompleted, setShowCompleted] = useState(false);
   const handleCloseCompleted = () => setShowCompleted(false);
-  const handleShowCompleted = () => setShowCompleted(true);
+  // const handleShowCompleted = () => setShowCompleted(true);
 
   const [showAvailable, setShowAvailable] = useState(false);
   const handleCloseAvailable = () => setShowAvailable(false);
-  const handleShowAvailable = () => setShowAvailable(true);
+  // const handleShowAvailable = () => setShowAvailable(true);
 
   return (
     <div className={styles.navBar}>
@@ -114,7 +101,9 @@ const NavBar: React.FunctionComponent = () => {
         <Modal.Header closeButton>
           <Modal.Title>Daily Challenge</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you've completed today's challenges!</Modal.Body>
+        <Modal.Body>
+          Woohoo, youv&apos;e completed today&apos;s challenges!
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseCompleted}>
             Nice!
@@ -133,7 +122,7 @@ const NavBar: React.FunctionComponent = () => {
           <Modal.Title>Daily Challenge</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Commander we hope you are ready for today's daily chellenge
+          Commander we hope you are ready for today&apos;s daily chellenge
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseAvailable}>
