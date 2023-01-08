@@ -352,17 +352,17 @@ const Profile = (): JSX.Element => {
                   </div>
                 </div>
               </Form.Group>
-              <div
-                className={classnames('d-grid gap-2', styles.submitContainer)}
-              >
+              <div className={classnames('d-grid gap-2')}>
                 <Button
-                  variant="light"
+                  variant="secondary"
                   onClick={handleSubmit}
                   disabled={
                     userName.length < 5 &&
                     collegeName.length == 0 &&
                     selectedAvatar === loggedInUser.avatarId
                   }
+                  size="lg"
+                  className={styles.submitContainer}
                 >
                   Save Changes{' '}
                   {loadingStatus ? (
@@ -505,11 +505,9 @@ const Profile = (): JSX.Element => {
                   <></>
                 )}
               </Form.Group>
-              <div
-                className={classnames('d-grid gap-2', styles.submitContainer)}
-              >
+              <div className={classnames('d-grid gap-2')}>
                 <Button
-                  variant="light"
+                  variant="secondary"
                   onClick={handleCreditionals}
                   disabled={
                     oldpasswordError ||
@@ -519,6 +517,8 @@ const Profile = (): JSX.Element => {
                     password.length == 0 ||
                     confirmPassword.length == 0
                   }
+                  size="lg"
+                  className={styles.submitContainer}
                 >
                   Submit{' '}
                   {loadingStatus ? (

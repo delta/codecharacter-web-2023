@@ -13,6 +13,7 @@
   font-size: 24px;
   height: 2rem;
   width: auto;
+  margin-left: 5px;
 }
 .notifIcon:hover {
   opacity: 0.8;
@@ -45,7 +46,7 @@
   width: 70vw;
   background-color: #242a3c;
   top: 40px;
-  left: -200px;
+  left: -220px;
   border-radius: 8px;
   box-shadow: 0px 3px 6px 4px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
