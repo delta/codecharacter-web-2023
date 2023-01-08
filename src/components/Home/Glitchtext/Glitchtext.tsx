@@ -1,9 +1,9 @@
 import styles from './Glitchtext.module.css';
 import { useState, useEffect, useRef } from 'react';
 export default function Glitchtext(prop: { value: string }): JSX.Element {
-  const [placeholder, setPlaceholder] = useState<String>('_');
+  const [placeholder, setPlaceholder] = useState<string>('_');
 
-  const string: String = prop.value,
+  const string: string = prop.value,
     index = useRef(0);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Glitchtext(prop: { value: string }): JSX.Element {
       index.current++;
     }
     if (index.current < string.length) {
-      let addChar = setInterval(tick, 150);
+      const addChar = setInterval(tick, 150);
       return () => {
         clearInterval(addChar);
         // console.log(placeholder);

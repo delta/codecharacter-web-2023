@@ -5,7 +5,7 @@ import styles from './Home.module.css';
 import { useState } from 'react';
 
 export default function Home(): JSX.Element {
-  const [pageNum, setPageNum] = useState<Number>(1);
+  const [pageNum, setPageNum] = useState<number>(1);
   return (
     <main className={styles.mainContainer}>
       <div className={styles.jumbotron}>
