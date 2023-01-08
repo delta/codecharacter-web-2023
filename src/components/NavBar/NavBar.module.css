@@ -111,5 +111,14 @@
   margin: auto;
   position: relative;
   margin-right: 2rem;
+}
 
+.modal{
+  background-color: #242a3c;
+  box-shadow: 0px 3px 6px 4px rgb(0 0 0 / 20%);
+  color: white;
+}
+
+.modal > *{
+  border: 0;
 }

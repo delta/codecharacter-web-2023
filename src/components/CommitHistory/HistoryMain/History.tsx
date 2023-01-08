@@ -21,7 +21,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import Toast from 'react-hot-toast';
 
 export default function History(): JSX.Element {
-  const [BigButton, setBigButton] = useState('Code');
+  const [SelectedButton, setSelectedButton] = useState('Code');
   const [completeCodeHistroy, setCodeHistory] = useState<CodeRevision[]>([]);
   const [completeMapHistory, setMapHistory] = useState<GameMapRevision[]>([]);
   const [currentCode, setCurrentCode] = useState('');
@@ -77,9 +77,9 @@ export default function History(): JSX.Element {
   };
 
   const changesEditorDetails = () => {
-    if (BigButton == 'Code' && currentCode != '') {
+    if (SelectedButton == 'Code' && currentCode != '') {
       dispatch(changeHistoryEditorCode(currentCode));
-    } else if (BigButton == 'Map' && currentMap.length != 0) {
+    } else if (SelectedButton == 'Map' && currentMap.length != 0) {
       dispatch(changeHistoryEditorMap(currentMap));
     }
   };
@@ -91,10 +91,10 @@ export default function History(): JSX.Element {
           <ButtonGroup>
             <Button
               className={
-                BigButton == 'Map' ? styles.largeButton : styles.smallButton
+                SelectedButton == 'Map' ? styles.whiteButton : styles.darkButton
               }
               onClick={() => {
-                setBigButton('Map');
+                setSelectedButton('Map');
               }}
               variant="outline-light"
             >
@@ -103,10 +103,12 @@ export default function History(): JSX.Element {
             <Button
               variant="outline-light"
               className={
-                BigButton == 'Code' ? styles.largeButton : styles.smallButton
+                SelectedButton == 'Code'
+                  ? styles.whiteButton
+                  : styles.darkButton
               }
               onClick={() => {
-                setBigButton('Code');
+                setSelectedButton('Code');
               }}
             >
               CODE
@@ -121,11 +123,11 @@ export default function History(): JSX.Element {
               <CommitHistory
                 commitID={commitID}
                 commitHistoryDetails={
-                  BigButton === 'Code'
+                  SelectedButton === 'Code'
                     ? completeCodeHistroy
                     : completeMapHistory
                 }
-                BigButton={BigButton}
+                SelectedButton={SelectedButton}
               />
             ) : (
               <h1 className={styles.noCommitDataHeader}>Loading...</h1>
@@ -133,11 +135,15 @@ export default function History(): JSX.Element {
           </div>
         </Col>
         <Col lg="9" className={styles.codeView}>
-          <div className={BigButton == 'Code' ? styles.codeBox : styles.mapBox}>
-            {BigButton == 'Code' ? (
+          <div
+            className={
+              SelectedButton == 'Code' ? styles.codeBox : styles.mapBox
+            }
+          >
+            {SelectedButton == 'Code' ? (
               <CodeView code={currentCode} codeLang={codeLanguage} />
             ) : (
-              <MapView mapCoordinates={currentMap} />
+              <img src="/assets/Map.png" />
             )}
           </div>
           <div className={styles.select}>

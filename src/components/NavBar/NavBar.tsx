@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation, NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './NavBar.module.css';
 import Notifs from '../Notifs/Notifs';
 import { getAvatarByID } from '../Avatar/Avatar';
@@ -19,10 +19,9 @@ import { cookieDomain } from '../../config/config.example';
 
 import sign_up from '../../assets/sign_up.png';
 import sign_in from '../../assets/sign_in.png';
-
-// import challenge_available from '../../assets/challenge_available.png';
 import challenge_done from '../../assets/challenge_done.png';
-
+import challenge_available from '../../assets/challenge_available.png';
+import { Modal, Button } from 'react-bootstrap';
 
 const NavBar: React.FunctionComponent = () => {
   const dispatch = useAppDispatch();
@@ -30,6 +29,8 @@ const NavBar: React.FunctionComponent = () => {
   const location = useLocation();
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
+  const [dailyChallengeStatus, SetDailyChallengeStatus] =
+    useState<boolean>(false);
   // add new state here for dc
 
   // useEffect(() => {
@@ -95,8 +96,54 @@ const NavBar: React.FunctionComponent = () => {
     navigate('/login', { replace: true });
   };
 
+  const [showCompleted, setShowCompleted] = useState(false);
+  const handleCloseCompleted = () => setShowCompleted(false);
+  const handleShowCompleted = () => setShowCompleted(true);
+
+  const [showAvailable, setShowAvailable] = useState(false);
+  const handleCloseAvailable = () => setShowAvailable(false);
+  const handleShowAvailable = () => setShowAvailable(true);
+
   return (
     <div className={styles.navBar}>
+      <Modal
+        show={showCompleted}
+        onHide={handleCloseCompleted}
+        contentClassName={styles.modal}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Daily Challenge</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you've completed today's challenges!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseCompleted}>
+            Nice!
+          </Button>
+          <Button variant="primary" onClick={handleCloseCompleted}>
+            View challenges
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={showAvailable}
+        onHide={handleCloseAvailable}
+        contentClassName={styles.modal}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Daily Challenge</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Commander we hope you are ready for today's daily chellenge
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseAvailable}>
+            Not Right Now!
+          </Button>
+          <Button variant="primary" onClick={handleCloseAvailable}>
+            Take me there
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className={styles.navBarContainer}>
         <div className={styles.branding}>
           <Link to="/" className={styles.logoLink}>
@@ -105,9 +152,7 @@ const NavBar: React.FunctionComponent = () => {
         </div>
 
         {(location.pathname === '/' || location.pathname === '/register') &&
-
           !isLogged && (
-
             <div className={styles.navContainer}>
               <NavLink to="/login" className={`${styles.navLink}`}>
                 <img src={sign_in} />
@@ -117,7 +162,6 @@ const NavBar: React.FunctionComponent = () => {
           )}
 
         {location.pathname === '/login' && !isLogged && (
-
           <div className={styles.navContainer}>
             <NavLink to="/register" className={`${styles.navLink}`}>
               <img src={sign_up} />
@@ -132,9 +176,14 @@ const NavBar: React.FunctionComponent = () => {
         <div className={styles.profileIcons}>
           <div className={styles.notifIconContainer}>
             <img
-              src={challenge_done}
+              src={dailyChallengeStatus ? challenge_done : challenge_available}
               className={styles.dcIcon}
               title="Daily Challenge"
+              onClick={() => {
+                dailyChallengeStatus
+                  ? setShowCompleted(true)
+                  : setShowAvailable(true);
+              }}
             />
           </div>
           <div className={styles.notifIcon}>

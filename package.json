@@ -46,7 +46,6 @@
     "react-ace": "^10.1.0",
     "react-ansi": "^3.0.2",
     "react-bootstrap": "^2.7.0",
-    "react-code-blocks": "^0.0.9-0",
     "react-dom": "^18.2.0",
     "react-flags-select": "^2.2.3",
     "react-google-recaptcha": "^2.1.0",
@@ -58,12 +57,9 @@
     "react-split-pane": "^0.1.92",
     "react-step-progress-bar": "^1.0.3",
     "react-syntax-highlighter": "^15.5.0",
-    "react-tsparticles": "^2.7.1",
     "react-vertical-timeline-component": "^3.6.0",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
-    "tsparticles": "^2.7.1",
-    "tsparticles-path-polygon": "^2.7.1",
     "websocket": "^1.0.34"
   },
   "devDependencies": {
