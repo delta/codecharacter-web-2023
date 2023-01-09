@@ -90,7 +90,9 @@ function PaginatedItems() {
                     <th className={styles.tableHeader}>COINS USED</th>
                     <th className={styles.tableHeader}></th>
                     <th className={styles.tableHeader}>DESTRUCTION %</th>
-                    <th className={styles.tableHeader}>DEFENDER</th>
+                    <th className={styles.tableHeader} colSpan={2}>
+                      DEFENDER
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -134,6 +136,12 @@ function PaginatedItems() {
                           ].destruction.toFixed(2)}
                         </td>
                         <td className={styles.score}>{match.user2.username}</td>
+                        <td className={styles.score}>
+                          <img
+                            className={styles.pic}
+                            src={getAvatarByID(match.user2.avatarId).url}
+                          ></img>
+                        </td>
                       </tr>
                     ))}
                 </tbody>
