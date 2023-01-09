@@ -13,7 +13,7 @@ export interface settingsStateType {
 const initialState: settingsStateType = {
   isSettingsOpen: false,
   fontSize: 16,
-  theme: 'monokai',
+  theme: 'vs-dark',
   keyboardHandler: 'default',
   enableBasicAutoComplete: true,
   enableSnippets: true,

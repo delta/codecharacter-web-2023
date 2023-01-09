@@ -1,3 +1,6 @@
 [submodule "src/assets/codes"]
 	path = src/assets/codes
 	url = https://github.com/delta/codecharacter-default-codes-2022
+[submodule "codecharacter-web-2023"]
+	path = codecharacter-web-2023
+	url = https://github.com/delta/codecharacter-web-2023.git

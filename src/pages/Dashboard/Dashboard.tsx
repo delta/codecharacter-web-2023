@@ -43,10 +43,7 @@ import {
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
 import { loggedIn } from '../../store/User/UserSlice';
-import {
-  IsSettingsOpen,
-  isSettingsOpened,
-} from '../../store/EditorSettings/settings';
+import { Theme, themeChanged } from '../../store/EditorSettings/settings';
 
 type SplitPaneState = {
   horizontalPercent: string;
@@ -67,6 +64,14 @@ export default function Dashboard(): JSX.Element {
   const [verticalPercent, setVerticalPercent] = useState(
     storedSplitPaneState?.verticalPercent || '50%',
   );
+
+  const theme = useAppSelector(Theme);
+
+  const editorThemes = ['vs', 'vs-dark', 'hc-black'];
+
+  function handleThemeChange(newTheme: string) {
+    dispatch(themeChanged(newTheme));
+  }
 
   const updateDividerPosition = (position: number) => {
     setDividerPosition(position);
@@ -251,10 +256,20 @@ export default function Dashboard(): JSX.Element {
         allowResize={true}
       >
         <div className={styles.leftPane}>
-          <ButtonToolbar className={styles.toolbar} as={Row}>
-            <Col className={styles.toolbarColumn} xs="2">
+          <ButtonToolbar
+            className={
+              styles.toolbar +
+              (theme == 'vs-dark'
+                ? ' vs-dark'
+                : theme == 'vs'
+                ? ' vs'
+                : ' hc-black')
+            }
+            as={Row}
+          >
+            <Col className={styles.toolbarColumn1} sm="3">
               <Form.Select
-                className={styles.toolbarButton}
+                className={styles.toolbarButton1}
                 value={languageChose}
                 onChange={e => handleLanguageChange(e.target.value)}
               >
@@ -265,27 +280,17 @@ export default function Dashboard(): JSX.Element {
                 ))}
               </Form.Select>
             </Col>
-            <Col className={styles.toolbarColumn} xs="2">
-              <Button
-                className={styles.toolbarButton}
-                onClick={handleSave}
-                variant="primary"
-                title="Save"
-              >
+            <Col className={styles.toolbarColumn} sm="1">
+              <button className={styles.toolbarButton} onClick={handleSave}>
                 <FontAwesomeIcon icon={faSave as IconProp} /> Save
-              </Button>
+              </button>
             </Col>
-            <Col className={styles.toolbarColumn} xs="2">
-              <Button
-                className={styles.toolbarButton}
-                onClick={handleSimulate}
-                variant="primary"
-                title="Simulate"
-              >
+            <Col className={styles.toolbarColumn} sm="1">
+              <button className={styles.toolbarButton} onClick={handleSimulate}>
                 <FontAwesomeIcon icon={faPlay as IconProp} /> Simulate
-              </Button>
+              </button>
             </Col>
-            <Col className={styles.toolbarColumn} xs="2">
+            <Col className={styles.toolbarColumn} sm="1">
               <OverlayTrigger
                 trigger="click"
                 key={'bottom'}
@@ -303,42 +308,43 @@ export default function Dashboard(): JSX.Element {
                         placeholder="Commit message"
                       />
                       <br />
-                      <Button
+                      <button
                         className={styles.toolbarButton}
-                        variant="primary"
                         onClick={handleCommit}
                         title="Commit"
                       >
                         Commit
-                      </Button>
+                      </button>
                     </Popover.Body>
                   </Popover>
                 }
               >
-                <Button className={styles.toolbarButton} variant="primary">
+                <button className={styles.toolbarButton}>
                   <FontAwesomeIcon icon={faCodeBranch as IconProp} /> Commit
-                </Button>
+                </button>
               </OverlayTrigger>
             </Col>
-            <Col className={styles.toolbarColumn} xs="2">
-              <Button
-                className={styles.toolbarButton}
-                onClick={handleSubmit}
-                variant="primary"
-                title="Submit"
-              >
+            <Col className={styles.toolbarColumn} sm="1">
+              <button className={styles.toolbarButton} onClick={handleSubmit}>
                 <FontAwesomeIcon icon={faCloudUploadAlt as IconProp} /> Submit
-              </Button>
+              </button>
             </Col>
-            <Col className={styles.toolbarColumn} xs="auto">
-              <Button
-                className={styles.toolbarButton}
-                onClick={handleOpenSettings}
-                variant="primary"
-                title="Editor Settings"
+            <Col className={styles.toolbarColumn} sm="1">
+              <select
+                className={styles.settingDropdown}
+                value={theme}
+                onChange={e => handleThemeChange(e.target.value)}
               >
-                <FontAwesomeIcon icon={faGear as IconProp} />
-              </Button>
+                {editorThemes.map((themeValue: string) => (
+                  <option
+                    value={themeValue}
+                    key={themeValue}
+                    className={styles.optionsDropdown}
+                  >
+                    {themeValue}
+                  </option>
+                ))}
+              </select>
             </Col>
             <Button
               className={styles.closeEditorButton}
@@ -360,7 +366,7 @@ export default function Dashboard(): JSX.Element {
             </Button>
           </ButtonToolbar>
           <div className={styles.editorContainer}>
-            <Editor language={userLanguage}></Editor>
+            <Editor language={userLanguage} commit={handleCommit}></Editor>
           </div>
         </div>
         <SplitPane

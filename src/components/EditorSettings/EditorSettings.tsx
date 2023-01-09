@@ -31,22 +31,7 @@ const EditorSettings = (): JSX.Element => {
     fontSizeOptions.push(i);
   }
 
-  const editorThemes = [
-    'monokai',
-    'github',
-    'tomorrow',
-    'kuroir',
-    'twilight',
-    'xcode',
-    'textmate',
-    'solarized_dark',
-    'solarized_light',
-    'terminal',
-    'chaos',
-    'chrome',
-    'eclipse',
-    'dracula',
-  ];
+  const editorThemes = ['vs', 'vs-dark', 'hc-black'];
 
   const keyboardHandlers = ['default', 'emacs', 'vim'];
 
