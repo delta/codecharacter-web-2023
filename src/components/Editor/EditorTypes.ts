@@ -1,4 +1,5 @@
 export type Props = {
   language: string;
-  commit: any;
+  // Function commit
+  commit: () => void;
 };

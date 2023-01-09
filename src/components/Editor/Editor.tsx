@@ -1,6 +1,6 @@
 import * as Editor from './EditorTypes';
 import styles from './style.module.css';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
 import { CodeApi, Language } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
@@ -8,11 +8,9 @@ import Toast from 'react-hot-toast';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
-  EnableBasicAutoComplete,
   EnableSnippets,
   FontSize,
   KeyboardHandler,
-  keyboardHandlerChanged,
   Theme,
 } from '../../store/EditorSettings/settings';
 
@@ -56,14 +54,11 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const dispatch = useAppDispatch();
 
   const keyboardHandler = useAppSelector(KeyboardHandler);
-  const enableBasicAutoComplete = useAppSelector(EnableBasicAutoComplete);
   const enableSnippets = useAppSelector(EnableSnippets);
 
   const language = props.language;
-  const commit = props.commit;
+  const commit: () => void = props.commit;
   console.log(keyboardHandler);
-
-  let cursorS = keyboardHandler == 'emacs' ? 'block' : 'line';
 
   useEffect(() => {
     if (divEl.current) {
@@ -90,7 +85,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       });
     }
 
-    editor.onDidChangeModelContent(e => {
+    editor.onDidChangeModelContent(() => {
       const codeNlanguage: CodeAndLanguage = {
         currentUserCode: editor.getValue(),
         currentUserLanguage: language,
@@ -148,7 +143,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     <div
       className={styles.Editor}
       ref={divEl}
-      onChange={e => {
+      onChange={() => {
         const codeNlanguage: CodeAndLanguage = {
           currentUserCode: editor.getValue(),
           currentUserLanguage: language,
