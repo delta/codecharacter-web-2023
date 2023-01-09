@@ -12,6 +12,7 @@ import {
   changePageState,
   changeSimulationState,
 } from '../../store/DailyChallenge/dailyChallenge';
+import { Table } from 'react-bootstrap';
 
 function getIcon(loggedInUser: User, match: Match) {
   if (loggedInUser.username === match.user1.username) {
@@ -47,7 +48,7 @@ function PaginatedItems() {
   const [currentItems, setCurrentItems] = useState<Match[]>([]);
   const navigate = useNavigate();
 
-  const itemsPerPage = 4;
+  const itemsPerPage = 8;
 
   const { battletv, loading, hasbeenFetched, hasErrors } =
     useAppSelector(battleTvSelector);
@@ -152,15 +153,11 @@ function PaginatedItems() {
         <ReactPaginate
           previousLabel="Previous"
           nextLabel="Next"
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
+          pageLinkClassName={styles.pageNum}
+          previousLinkClassName={styles.pageNum}
+          nextLinkClassName={styles.pageNum}
           breakLabel="..."
-          breakClassName="page-item"
-          breakLinkClassName="page-link"
+          breakLinkClassName={styles.pageNum}
           pageCount={pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
@@ -175,26 +172,14 @@ function PaginatedItems() {
 export default function BattleTV(): JSX.Element {
   return (
     <div className={styles.body}>
-      <div className={styles.title}>Battle TV</div>
-      <div className={styles.item}>
-        <div
-          className={styles.battlecardHeader}
-          style={{
-            backgroundColor: '#',
-          }}
-        >
-          <div className={styles.pic}></div>
-          <div className={styles.username}></div>
-          <div className={styles.coinused}>Coins Used</div>
-          <div className={styles.destruction}>Destruction %</div>
-          <div className={styles.vs}>VS</div>
-          <div className={styles.destruction}>Destruction %</div>
-          <div className={styles.coinused}>Coins Used</div>
-          <div className={styles.username}></div>
-          <div className={styles.pic}></div>
-        </div>
+      <div className={styles.header}>
+        <h1 className={styles.header__title}>
+          <span>Battle Tv</span>
+        </h1>
       </div>
-      <PaginatedItems />
+      <div className={styles.ranklist}>
+        <PaginatedItems />
+      </div>
     </div>
   );
 }

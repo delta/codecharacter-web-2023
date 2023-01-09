@@ -4,7 +4,7 @@ body,
 html {
   height: 100%;
   width: 100%;
-  background: #242a3c;
+  background: rgba(30, 30, 30, 0.87);
   color: #333;
 }
 
@@ -12,13 +12,12 @@ html {
   max-width: 1000px;
   margin: 50px auto;
   border-radius: 12px;
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  /* margin-left: 35%; */
   padding: 10px 25px;
   color: #e8ecfd;
-  background: radial-gradient(circle, #3f5efb 0%, rgba(48, 67, 124, 1) 100%);
 }
 
 .header__icon {
@@ -28,8 +27,7 @@ html {
 }
 
 .header__title {
-  margin-left: auto;
-  font-size: 25px;
+  font-size: 48px;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 4.5px;
@@ -46,28 +44,66 @@ html {
 
 .list {
   margin: 0 auto;
-  border-radius: 12px;
-  background: radial-gradient(
-    circle,
-    rgba(184, 207, 205, 1) 0%,
-    rgba(133, 157, 217, 1) 100%
-  );
+  background: transparent;
   box-shadow: 0 0 4rem 0 rgba(0, 0, 0, 0.1),
     0 1rem 2rem -1rem rgba(0, 0, 0, 0.3);
   text-align: center;
   vertical-align: middle;
+  border: none;
+  border-spacing: 0px 15px;
+  border-collapse: separate;
 }
 
 .item {
-  border: 0;
+  border: 1px;
+  border-style: solid none;
+  border-radius: 5px;
+  background: rgba(30, 30, 30, 0.87);
+  margin: 5px;
+}
+
+.tier3 {
+  background: brown !important;
+  border-left-style: solid rgba(30, 30, 30, 0.87);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.tier2 {
+  background: silver !important;
+  border-left-style: solid rgba(30, 30, 30, 0.87);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.tier1 {
+  background: gold !important;
+  border-left-style: solid rgba(30, 30, 30, 0.87);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.tier0 {
+  background: white !important;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .currentUserItem {
-  background: rgb(7, 126, 116);
+  background: #20b5a3;
+  border-radius: 5px;
+  margin: 5px;
+  border: none;
+}
+
+.tierheader {
+  width: 50px;
 }
 
 .list .item .pos {
   text-align: center;
+  color: white;
+  border: none;
 }
 
 .list .item .pic {
@@ -77,6 +113,7 @@ html {
   border-radius: 50%;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2),
     0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
+  border: none;
 }
 
 .list .item .name {
@@ -85,23 +122,47 @@ html {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  color: white;
   margin-right: 5px;
+  border: none;
 }
 
 .list .item .score {
   font-family: monospace;
+  color: white;
+  background-color: transparent;
   margin-right: 1.5rem;
   opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
 }
 
 .list .item .score:after {
   margin-right: 1rem;
   opacity: 0.8;
+  background-color: transparent;
+  border: none;
+}
+
+.list .item .score:last-child {
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.list .tableHeader {
+  font-family: monospace;
+  color: white;
+  background: transparent;
+  letter-spacing: 5px;
+  margin-right: 1.5rem;
+  opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
 }
 
 .attackButton {
   background-color: transparent;
   cursor: pointer;
+  border: none;
+  color: white;
 }
 
 .attackImg:hover {
@@ -111,18 +172,24 @@ html {
 .attackImg {
   width: 2rem;
   height: 2rem;
-  color: #3f5efb;
+  color: white;
 }
 
 .paginationouter {
   text-align: center;
+  flex: 1;
 }
 
 .pagination {
-  font-family: 'Quicksand', sans-serif;
+  font-family: monospace, sans-serif;
+  text-decoration: none;
+  letter-spacing: 2px;
   display: inline-flex;
-  margin-top: 20px;
   position: relative;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: rgba(30, 30, 30, 0.87);
+  border-radius: 10px;
 }
 
 .matchHeader {
@@ -148,4 +215,50 @@ html {
 
 .matchButton {
   background: #2b3760;
+}
+
+.pagination .pageNum {
+  border-radius: 8px;
+  color: white;
+  padding: 8px 15px;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  margin: 5px;
+}
+
+.pagination .pageNum:hover {
+  background-color: white;
+  color: rgba(30, 30, 30, 0.87);
+  text-decoration: none;
+  border: 1px;
+}
+
+.pagination .break {
+  background-color: black;
+}
+
+.pagination .active {
+  background-color: white;
+
+  text-decoration: none;
+  color: #0a1c2a;
+  border: 1px;
+}
+
+.button {
+  background-color: white;
+  color: #0a1c2a;
+  margin: 0px 8px;
+  border: 1px;
+  padding: 8px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-family: monospace, sans-serif;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.menu {
+  background: white;
+  color: black;
 }
