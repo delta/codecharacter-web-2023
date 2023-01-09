@@ -8,6 +8,7 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { getAvatarByID } from '../Avatar/Avatar';
 import { Match, Verdict } from '@codecharacter-2023/client';
 import { User, user } from '../../store/User/UserSlice';
+import { Table } from 'react-bootstrap';
 
 function getIcon(loggedInUser: User, match: Match) {
   if (loggedInUser.username === match.user1.username) {
@@ -43,7 +44,7 @@ function PaginatedItems() {
   const [currentItems, setCurrentItems] = useState<Match[]>([]);
   const navigate = useNavigate();
 
-  const itemsPerPage = 4;
+  const itemsPerPage = 8;
 
   const { battletv, loading, hasbeenFetched, hasErrors } =
     useAppSelector(battleTvSelector);
@@ -79,62 +80,65 @@ function PaginatedItems() {
           </div>
         ) : (
           <>
-            {currentItems &&
-              currentItems.map((match: Match) => (
-                <div className={styles.item} key={match.id}>
-                  <div
-                    className={
-                      styles.battlecard + ' ' + getIcon(loggedInUser, match)
-                    }
-                  >
-                    <div className={styles.pic}>
-                      <img src={getAvatarByID(match.user1.avatarId).url}></img>
-                    </div>
-                    <div className={[styles.username, styles.left].join(' ')}>
-                      {match.user1.username}
-                    </div>
-                    <div className={styles.coinused}>
-                      {[...match.games.values()][0].coinsUsed}
-                    </div>
-                    <div className={styles.destruction}>
-                      {[...match.games.values()][0].destruction.toFixed(2)}
-                    </div>
-                    <div
-                      className={styles.watchButton}
-                      onClick={() => {
-                        dispatch(
-                          getLogAction({
-                            id: getUsersGame(loggedInUser, match).id,
-                            callback: () => {
-                              navigate('/dashboard');
-                            },
-                          }),
-                        );
-                      }}
-                    >
-                      Watch
-                    </div>
-                    <div className={styles.destruction}>
-                      {[...match.games.values()][
-                        [...match.games.values()].length === 1 ? 0 : 1
-                      ].destruction.toFixed(2)}
-                    </div>
-                    <div className={styles.coinused}>
-                      {
-                        [...match.games.values()][
-                          [...match.games.values()].length === 1 ? 0 : 1
-                        ].coinsUsed
-                      }
-                    </div>
-                    <div className={[styles.username, styles.right].join(' ')}>
-                      {match.user2.username}
-                    </div>
-                    <div className={styles.pic}>
-                      <img src={getAvatarByID(match.user2.avatarId).url}></img>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className={styles.list}>
+              <Table hover className={styles.list} responsive>
+                <thead>
+                  <tr className={styles.tableHeader}>
+                    <th className={styles.tableHeader} colSpan={2}>
+                      ATTACKER
+                    </th>
+                    <th className={styles.tableHeader}>COINS USED</th>
+                    <th className={styles.tableHeader}></th>
+                    <th className={styles.tableHeader}>DESTRUCTION %</th>
+                    <th className={styles.tableHeader}>DEFENDER</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentItems &&
+                    currentItems.map((match: Match) => (
+                      <tr
+                        className={
+                          styles.item + ' ' + getIcon(loggedInUser, match)
+                        }
+                        key={match.user1.username}
+                      >
+                        <td className={styles.score}>
+                          <img
+                            className={styles.pic}
+                            src={getAvatarByID(match.user1.avatarId).url}
+                          ></img>
+                        </td>
+                        <td className={styles.score}>{match.user1.username}</td>
+                        <td className={styles.score}>
+                          {[...match.games.values()][0].coinsUsed}
+                        </td>
+                        <td>
+                          <img
+                            src="/src/assets/watch.png"
+                            className={styles.watchButton}
+                            onClick={() => {
+                              dispatch(
+                                getLogAction({
+                                  id: getUsersGame(loggedInUser, match).id,
+                                  callback: () => {
+                                    navigate('/dashboard');
+                                  },
+                                }),
+                              );
+                            }}
+                          />
+                        </td>
+                        <td className={styles.score}>
+                          {[...match.games.values()][
+                            [...match.games.values()].length === 1 ? 0 : 1
+                          ].destruction.toFixed(2)}
+                        </td>
+                        <td className={styles.score}>{match.user2.username}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </div>
           </>
         )}
       </>
@@ -142,15 +146,11 @@ function PaginatedItems() {
         <ReactPaginate
           previousLabel="Previous"
           nextLabel="Next"
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
+          pageLinkClassName={styles.pageNum}
+          previousLinkClassName={styles.pageNum}
+          nextLinkClassName={styles.pageNum}
           breakLabel="..."
-          breakClassName="page-item"
-          breakLinkClassName="page-link"
+          breakLinkClassName={styles.pageNum}
           pageCount={pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
@@ -165,26 +165,14 @@ function PaginatedItems() {
 export default function BattleTV(): JSX.Element {
   return (
     <div className={styles.body}>
-      <div className={styles.title}>Battle TV</div>
-      <div className={styles.item}>
-        <div
-          className={styles.battlecardHeader}
-          style={{
-            backgroundColor: '#',
-          }}
-        >
-          <div className={styles.pic}></div>
-          <div className={styles.username}></div>
-          <div className={styles.coinused}>Coins Used</div>
-          <div className={styles.destruction}>Destruction %</div>
-          <div className={styles.vs}>VS</div>
-          <div className={styles.destruction}>Destruction %</div>
-          <div className={styles.coinused}>Coins Used</div>
-          <div className={styles.username}></div>
-          <div className={styles.pic}></div>
-        </div>
+      <div className={styles.header}>
+        <h1 className={styles.header__title}>
+          <span>Battle Tv</span>
+        </h1>
       </div>
-      <PaginatedItems />
+      <div className={styles.ranklist}>
+        <PaginatedItems />
+      </div>
     </div>
   );
 }
