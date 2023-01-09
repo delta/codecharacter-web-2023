@@ -17,34 +17,13 @@ html {
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  padding: 10px 25px;
+  justify-content: space-between;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
   color: #ffffff;
-}
-
-.header__title {
-  font-size: 48px;
-  text-align: center;
-  font-family: 'Roboto Mono', monospace;
-}
-
-.ranklist {
-  max-width: 75vw;
-  display: block;
-  align-items: center;
-  padding-top: 10px;
-  font-family: 'Red Hat Display', sans-serif;
-  margin: auto;
-}
-
-.list {
-  margin: 0 auto;
-  background: transparent;
-  text-align: center;
-  vertical-align: middle;
-  border: none;
-  border-spacing: 0px 15px;
-  border-collapse: separate;
+  margin: 20px auto 0 auto;
+  padding: 0 2%;
 }
 
 .item {
