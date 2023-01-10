@@ -1,38 +1,39 @@
-.levelTitle {
-  text-align: center;
-  margin: 0.5rem 0rem 0.5rem 0rem;
-  font-size: 25px;
-  color: whitesmoke;
+
+.formContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
 }
 
-.error {
-  background: #ffdddd !important;
+.flagContainer {
+  color: black;
+  background-color: transparent;
+  height: 44px;
+  border: 3px solid #AAAAAA;
 }
 
-.correct {
-  background: #c9ffad !important;
-}
-
-.normal {
-  background: #ffffff !important;
-}
-
-.alert {
-  min-height: 30px;
-  margin-top: 5px;
-  padding: 0px;
-  padding-left: 5px;
-}
-
-.eyeContainer {
-  position: relative;
-}
-
-.eye {
-  color: #242a3c;
-  position: absolute;
-  bottom: 2px;
-  right: 5px;
+.password,
+.email,
+.name,
+.confirmPassword,
+.username,
+.collegeName{
+  width: auto;
+  background-color: transparent;
+  box-sizing: border-box;
+  padding-left: 11px;
+  padding-right: 11px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 3px solid #AAAAAA;
+  margin: auto;
+  text-align: start;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 27px;
+  line-height: 45px;
+  color: #EAEAEA;
 }
 
 .grecaptcha-badge {

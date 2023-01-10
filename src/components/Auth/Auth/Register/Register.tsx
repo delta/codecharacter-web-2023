@@ -1,10 +1,9 @@
-import { Form, Container, Card, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronRight,
   faChevronLeft,
-  faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { default as ReCAPTCHA } from 'react-google-recaptcha';
 import styles from '../auth.module.css';
@@ -13,16 +12,14 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import UserDetails from './FormDetails/UserDetails';
 import UserCreditionals from './FormDetails/UserCreditionals';
 import OtherDetails from './FormDetails/OtherDetails';
-import ProgressBar from '../ProgressBar/Progressbar';
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import {
-  loading,
   isRegistered,
   registerAction,
   registeredError,
 } from '../../../../store/User/UserSlice';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import Toast from 'react-hot-toast';
+import Toast, { toast } from 'react-hot-toast';
 let increment = 1;
 let passCondition = 0;
 export default function Register(): JSX.Element {
@@ -30,6 +27,7 @@ export default function Register(): JSX.Element {
   const [formNumber, setFormnumber] = useState(1);
   const [email, setEmail] = useState('');
   const [fullName, setfullName] = useState('');
+  const [recaptchaCode, setRecpatchaCode] = useState<string | null>(null);
   const [college, setCollege] = useState('');
   const [userName, setUsername] = useState('');
   const [password, setpassword] = useState('');
@@ -46,7 +44,6 @@ export default function Register(): JSX.Element {
   const [collegeError, iscollegeError] = useState(false);
   const [isHuman, setIshuman] = useState(false);
   const [avatarID, setAvatarID] = useState(0);
-  const loadingStatus = useAppSelector(loading);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   let registeredStatus = false;
@@ -79,6 +76,8 @@ export default function Register(): JSX.Element {
     }
   }, [registeredStatus]);
   const handleRecaptcha = (value: string | null) => {
+    console.log('value' + value);
+    setRecpatchaCode(value);
     if (value) setIshuman(true);
   };
   const handleFullname = () => {
@@ -155,37 +154,25 @@ export default function Register(): JSX.Element {
       }
     }
   };
-  const handleForm1 = () => {
-    if (formNumber > 1) {
-      setFormnumber(1);
-      increment = 1;
-    }
-  };
-
-  const handleForm2 = () => {
-    if (formNumber > 2) {
-      setFormnumber(2);
-      increment = 2;
-    }
-  };
   const handleStepSubmit = (step: number) => {
     switch (step) {
       case 1:
         issubmitFirst(true);
         passCondition = 0;
         handleFullname();
-        handleUsername();
         handleEmail();
+        handlepassword();
+        handleConfirmpassword();
         break;
       case 2:
         issubmitSecond(true);
         passCondition = 0;
-        handlepassword();
-        handleConfirmpassword();
+        handleUsername();
         break;
     }
   };
   const handleForm = (level: number) => {
+    console.log(increment);
     if (passCondition == 0) {
       if (level == 1) {
         increment += 1;
@@ -259,6 +246,34 @@ export default function Register(): JSX.Element {
   const handleNext = () => {
     handleStepSubmit(formNumber);
     handleForm(1);
+    handleError(formNumber);
+  };
+
+  const handleError = (formNumber: number) => {
+    if (formNumber == 1) {
+      if (fullNameError) {
+        toast.error('Name should have atleast 5 characters');
+      }
+      if (emailError) {
+        toast.error('Invalid email');
+      }
+      if (passwordError) {
+        toast.error(
+          'Password should be greater than 8 characters\nPassword should contain atleast \n1 UpperCase letter, \n1 SpecialCharacter, \n1 number',
+        );
+      }
+      if (confirmpasswordError) {
+        toast.error('Check your Password');
+      }
+    }
+    if (formNumber == 2) {
+      if (collegeError) {
+        toast.error('Please enter your college name');
+      }
+      if (userNameError) {
+        toast.error('Username should have atleast 5 characters');
+      }
+    }
   };
 
   const handlePrevious = () => {
@@ -287,6 +302,7 @@ export default function Register(): JSX.Element {
         country: getCountryName(selected),
         college: college,
         avatarId: avatarID,
+        recaptchaCode: recaptchaCode,
       }),
     );
   };
@@ -295,138 +311,116 @@ export default function Register(): JSX.Element {
   };
   return (
     <div className={styles.mainContainer}>
-      <Card className={styles.cardContainer}>
-        <div className={styles.titleContainer}>
-          <h1> Register to CodeCharacter</h1>
-          <Container className={styles.subTitle}>
-            <p> Register now and code your way through! </p>
-          </Container>
-        </div>
-        <ProgressBar
-          formNumber={formNumber}
-          completed={completed}
-          handleForm1={handleForm1}
-          handleForm2={handleForm2}
-        />
-        <div className={styles.formContainer}>
-          <Form>
-            {formNumber === 1 ? (
-              <>
-                <UserDetails
-                  submitFirst={submitFirst}
-                  handleFullNameChange={handleFullNameChange}
-                  handleUserNameChange={handleUserNameChange}
-                  handleEmailChange={handleEmailChange}
-                  fullName={fullName}
-                  fullNameError={fullNameError}
-                  userName={userName}
-                  userNameError={userNameError}
-                  email={email}
-                  emailError={emailError}
+      <div className={styles.titleContainer}>
+        <h1> Sign Up</h1>
+      </div>
+      <div className={styles.registerContainer}>
+        <Form>
+          {formNumber === 1 ? (
+            <>
+              <UserDetails
+                submitFirst={submitFirst}
+                handleFullNameChange={handleFullNameChange}
+                handleEmailChange={handleEmailChange}
+                fullName={fullName}
+                fullNameError={fullNameError}
+                email={email}
+                emailError={emailError}
+                register={true}
+                handlePasswordChange={handlePasswordChange}
+                handleConfirmPasswordChange={handleConfirmPasswordChange}
+                password={password}
+                passwordError={passwordError}
+                confirmPassword={confirmPassword}
+                confirmpasswordError={confirmpasswordError}
+              />
+            </>
+          ) : formNumber === 2 ? (
+            <>
+              <UserCreditionals
+                submitSecond={submitSecond}
+                selectedCode={selected}
+                userName={userName}
+                userNameError={userNameError}
+                handleUserNameChange={handleUserNameChange}
+                handleFlagSelect={handleFlagSelect}
+                formNumber={formNumber}
+                handleCollegeChange={handleCollegeChange}
+                college={college}
+                collegeError={collegeError}
+              />
+            </>
+          ) : formNumber === 3 ? (
+            <>
+              <div className={styles.formContainer}></div>
+              <div>
+                <OtherDetails
+                  handleAvatarChange={handleAvatarChange}
+                  submitThird={submitThird}
                   register={true}
                 />
-              </>
-            ) : formNumber === 2 ? (
-              <>
-                <UserCreditionals
-                  submitSecond={submitSecond}
-                  handlePasswordChange={handlePasswordChange}
-                  handleConfirmPasswordChange={handleConfirmPasswordChange}
-                  password={password}
-                  passwordError={passwordError}
-                  confirmPassword={confirmPassword}
-                  confirmpasswordError={confirmpasswordError}
-                />
-              </>
-            ) : formNumber === 3 ? (
-              <>
-                <div>
-                  <OtherDetails
-                    selectedCode={selected}
-                    handleFlagSelect={handleFlagSelect}
-                    formNumber={formNumber}
-                    handleCollegeChange={handleCollegeChange}
-                    handleAvatarChange={handleAvatarChange}
-                    college={college}
-                    collegeError={collegeError}
-                    submitThird={submitThird}
-                    register={true}
-                  />
-                  <div className="form-row d-flex justify-content-center my-1">
-                    <div className="d-flex justify-content-center input-group">
-                      <ReCAPTCHA
-                        sitekey={SITE_KEY}
-                        onChange={handleRecaptcha}
-                        theme="dark"
-                      />
-                    </div>
-                  </div>
-                  <div className={styles.registerButton}>
-                    <div className="d-grid gap-2">
-                      <Button
-                        variant="outline-success"
-                        onClick={handleCollege}
-                        disabled={!isHuman}
-                      >
-                        Register{'  '}
-                        {loadingStatus ? (
-                          <FontAwesomeIcon icon={faSpinner as IconProp} />
-                        ) : (
-                          <></>
-                        )}
-                      </Button>
-                    </div>
+                <div className="form-row d-flex justify-content-center my-1">
+                  <div className="d-flex justify-content-center input-group">
+                    <ReCAPTCHA sitekey={SITE_KEY} onChange={handleRecaptcha} />
                   </div>
                 </div>
-              </>
-            ) : (
-              <></>
-            )}
-          </Form>
-          <div className={styles.linkContainer}>
-            Already have an account?{' '}
-            <span>
-              {' '}
-              <b>
-                <NavLink to="/login" className={styles.link}>
-                  {' '}
-                  Login now{' '}
-                </NavLink>
-              </b>
-            </span>
-          </div>
-        </div>
-        <div className={styles.footerContainer}>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
           <div>
             {formNumber > 1 ? (
-              <Button
-                variant="primary"
+              <button
                 onClick={handlePrevious}
-                type="submit"
-                className={styles.previous}
+                className={styles.previousButton}
               >
-                <FontAwesomeIcon icon={faChevronLeft as IconProp} />
-              </Button>
+                <div>
+                  <FontAwesomeIcon icon={faChevronLeft as IconProp} />
+                  &nbsp; BACK
+                </div>
+              </button>
             ) : (
               <></>
             )}
           </div>
-
           <div>
             {formNumber < 3 ? (
-              <Button
-                variant="primary"
-                onClick={handleNext}
-                className={styles.next}
-              >
+              <button onClick={handleNext} className={styles.nextButton}>
+                <div>NEXT &nbsp;</div>
                 <FontAwesomeIcon icon={faChevronRight as IconProp} />
-              </Button>
+              </button>
             ) : (
               <></>
             )}
           </div>
-        </div>
-      </Card>
+          <div>
+            {formNumber == 3 ? (
+              <button
+                disabled={!isHuman}
+                onClick={handleCollege}
+                className={styles.signUpButton}
+              >
+                <div>SIGN UP &nbsp;</div>
+                <FontAwesomeIcon icon={faChevronRight as IconProp} />
+              </button>
+            ) : (
+              <></>
+            )}
+          </div>
+        </Form>
+      </div>
+      <div className={styles.linkContainer}>
+        <span>
+          {' '}
+          <b>
+            <NavLink to="/login" className={styles.link}>
+              {' '}
+              Login now{' '}
+            </NavLink>
+          </b>
+        </span>
+      </div>
     </div>
   );
 }

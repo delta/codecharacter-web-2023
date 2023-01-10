@@ -1,85 +1,50 @@
-import { Form } from 'react-bootstrap';
-import AlertMessage from '../../Alert/Alert';
+import { useState } from 'react';
 import styles from './user.module.css';
 
 export default function UserDetails(props: user): JSX.Element {
+  const [passwordType, setPasswordType] = useState<{
+    password: string;
+    confirmPassword: string;
+  }>({ password: 'password', confirmPassword: 'password' });
   return (
-    <div>
-      <div className={styles.levelTitle}>User Details</div>
-      <Form.Group className="mb-3" controlId="formBasicFullName">
-        <Form.Label>Fullname</Form.Label>
-        <Form.Control
+    <div className={styles.formContainer}>
+      <div>
+        <input
           type="text"
-          placeholder="Fullname"
+          placeholder="Name"
           autoComplete="off"
           value={props.fullName}
           onChange={props.handleFullNameChange}
-          className={
-            props.submitFirst
-              ? props.fullNameError
-                ? styles.error
-                : styles.correct
-              : styles.normal
-          }
+          className={styles.name}
         />
-        {props.submitFirst && props.fullNameError ? (
-          <AlertMessage
-            err={props.fullNameError}
-            content={'Name should be atleast 5 characters'}
-          />
-        ) : (
-          <></>
-        )}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicUserName">
-        <Form.Label>Username</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Username"
-          autoComplete="off"
-          value={props.userName}
-          onChange={props.handleUserNameChange}
-          className={
-            props.submitFirst
-              ? props.userNameError
-                ? styles.error
-                : styles.correct
-              : styles.normal
-          }
-        />
-        {props.submitFirst && props.userNameError ? (
-          <AlertMessage
-            err={props.userNameError}
-            content={'Username should be atleast 5 characters'}
-          />
-        ) : (
-          <></>
-        )}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
+      </div>
+      <div>
+        <input
           type="text"
           placeholder="Email"
           value={props.email}
-          className={
-            props.submitFirst
-              ? props.emailError
-                ? styles.error
-                : styles.correct
-              : styles.normal
-          }
+          className={styles.email}
           onChange={props.handleEmailChange}
         />
-        {props.submitFirst && props.emailError ? (
-          <AlertMessage
-            err={props.emailError}
-            content={'Please! Enter a valid email'}
-          />
-        ) : (
-          <></>
-        )}
-      </Form.Group>
+      </div>
+      <div>
+        <input
+          type={passwordType.password}
+          placeholder="Password"
+          value={props.password}
+          onChange={props.handlePasswordChange}
+          className={styles.password}
+        />
+      </div>
+      <div>
+        <input
+          type={passwordType.confirmPassword}
+          placeholder="Confirm Password"
+          value={props.confirmPassword}
+          onChange={props.handleConfirmPasswordChange}
+          className={styles.confirmPassword}
+        />
+      </div>
     </div>
   );
 }
@@ -89,6 +54,12 @@ interface user {
   handleFullNameChange?: React.ChangeEventHandler<HTMLInputElement>;
   handleUserNameChange?: React.ChangeEventHandler<HTMLInputElement>;
   handleEmailChange?: React.ChangeEventHandler<HTMLInputElement>;
+  handlePasswordChange?: React.ChangeEventHandler<HTMLInputElement>;
+  handleConfirmPasswordChange?: React.ChangeEventHandler<HTMLInputElement>;
+  password?: string;
+  passwordError?: boolean;
+  confirmPassword?: string;
+  confirmpasswordError?: boolean;
   fullName?: string;
   fullNameError?: boolean;
   userName?: string;

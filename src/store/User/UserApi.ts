@@ -16,6 +16,7 @@ export const startRegister = (user: User): Promise<{ user: User }> => {
         country: user.country,
         college: user.college,
         avatarId: user.avatarId,
+        recaptchaCode: user.recaptchaCode,
       })
       .then(() => {
         resolve({ user: user });

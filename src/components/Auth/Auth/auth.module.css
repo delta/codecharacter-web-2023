@@ -3,140 +3,187 @@
   padding: 0px;
 }
 
-.mainContainer {
+.mainContainer{
   min-height: 100%;
   background-color: #242a3c;
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  color: white;
-  font-family: Montserrat;
-  margin: 0px;
-  font-size: 20px;
+  flex-direction: column;
+  vertical-align: middle;
+  gap: 3rem;
 }
 
-.cardContainer {
-  max-width: 500px;
-  padding: 2%;
-  padding-top: 0%;
-  margin: auto;
-  background-color: #2d3342;
-}
-
-.titleContainer {
+.titleContainer{
   text-align: center;
-  margin-top: 15px;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 53px;
+  color: #AAAAAA;
 }
 
-.titleContainer h1 {
-  font-weight: 510;
-}
-
-.subTitle {
-  margin-top: 1rem;
-  font-weight: lighter;
-}
-
-.subTitle p {
-  font-weight: 200;
-  font-size: 16px;
-}
-
-.formContainer {
-  margin: 1.5rem 1rem 1rem 1rem;
-}
-
-.submitContainer {
-  text-align: center;
-  background: white;
-  border-radius: 5px;
-  margin: 2rem 0rem 0rem 0rem;
-}
-
-.registerButton {
-  width: 100%;
-  background-color: white;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.footerContainer {
-  text-align: center;
+.cardContainer{
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 3fr 3fr 3fr;
+  margin: auto; 
+  width: auto;
 }
-
-.previous,
-.next {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-}
-
-.link {
-  text-decoration: none;
-}
-
-.previous {
+.externalAuthButtons{
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6rem;
   float: left;
 }
 
-.next {
-  width: 2.5rem;
-  height: 2.5rem;
-  float: right;
-  border-radius: 50%;
+.separator{
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  gap: 0.5rem;
 }
 
-.externalAuthButtons {
+.formContainer{
   display: flex;
-  flex-direction: row;
+  box-sizing: border-box;
+  flex-direction: column;
   justify-content: center;
-  gap: 4rem;
+  float: right;
+  margin: auto;
+}
+
+.registerContainer{
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+
+.verticalLine{
+  align-self: center;
+  border-left: 2px solid #868484;
+  height: 90px;
 }
 
 .googleButton,
-.githubButton {
-  text-align: center;
-}
-
-.linkContainer {
-  text-align: center;
-  margin-top: 5%;
-}
-
-.linkContainer span {
-  color: blue;
-}
-
-.error {
-  background: #ffdddd !important;
-}
-
-.correct {
-  background: #c9ffad !important;
-}
-
-.normal {
-  background: #ffffff !important;
-}
-
-.grecaptcha-badge {
-  visibility: hidden;
-}
-
-.eyeContainer {
-  position: relative;
-}
-
-.eye {
-  color: #242a3c;
+.githubButton{
+  background-color: transparent;
+  box-sizing: border-box;
+  padding: 5px 20px 5px 20px;
   position: absolute;
-  bottom: 2px;
-  right: 5px;
+  border: 3px solid #AAAAAA;
+  letter-spacing: 2px;
+  margin: auto;
+  text-align: center;
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 53px;
+  color: #EAEAEA;
 }
 
-.forgotPassword {
-  margin-top: 0.3rem;
+.iconAlign{
+  display: flex;
+}
+
+.login{
+  flex: 7;
+  text-align: start;
+}
+
+.icon{
+  flex: 1;
+  align-self: center;
+}
+
+.loginButton{
+  width: 100%;
+  background-color: transparent;
+  box-sizing: border-box;
+  border: 3px solid #AAAAAA;
+  text-align: center;
+  font-family: "Roboto Mono";
+  font-style: normal;
+  padding: 5px 3px 5px 10px;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 40px;
+  color: #EAEAEA;
+  margin-top: 7px;
+  
+}
+.loginCredentialsContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.email,
+.password{
+  width: 100%;
+  background-color: transparent;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 3px solid #AAAAAA;
+  margin: auto;
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  color: #EAEAEA;
+}
+
+.subText{
+  margin: auto;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 25px;
+  line-height: 20px;
+  color: #AAAAAA;
+}
+
+.forgotPassword{
+  margin: auto;
+  text-align: center;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  margin: 5px 2px 9px 2px ;
+  font-size: 17px;
+  color: #a7a4a4;
   float: right;
 }
+
+.nextButton,
+.signUpButton{
+  border: none;
+  align-self: flex-end;
+  background-color: transparent;
+  float: right;
+  display: flex;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: 19px;
+  
+}
+
+
+.previousButton{
+  background-color: transparent;
+  margin-top: 10px;
+  border: none;
+  float: left;
+  display: flex;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+}
+

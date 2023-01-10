@@ -1,16 +1,9 @@
-import { Form, Button, Container, Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { useState, useEffect } from 'react';
-import AlertMessage from '../Alert/Alert';
 import styles from '../auth.module.css';
 import { NavLink, useNavigate } from 'react-router-dom';
-import classnames from 'classnames';
-import {
-  faEye,
-  faEyeSlash,
-  faSpinner,
-} from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { BASE_PATH } from '../../../../config/config';
 import {
   loginAction,
@@ -21,6 +14,7 @@ import {
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import ForgetPassword from './ForgetPassword/ForgetPassword';
+import toast from 'react-hot-toast';
 
 function Login(): JSX.Element {
   const navigate = useNavigate();
@@ -47,6 +41,7 @@ function Login(): JSX.Element {
       case 'Invalid Password':
         setPassword('');
         ispasswordError(true);
+        toast.error('Invalid Password');
         break;
       case 'User not found':
         setEmail('');
@@ -54,6 +49,7 @@ function Login(): JSX.Element {
         setPassword('');
         ispasswordError(true);
         islogin(false);
+        toast.error('user not found');
         break;
     }
   }, [loggedInError]);
@@ -84,6 +80,8 @@ function Login(): JSX.Element {
     if (!(emailError && passwordError)) {
       isTyping(false);
       hookDispatch(loginAction({ email: email, password: password }));
+    } else {
+      toast.error('Invalid Username or Password');
     }
   };
 
@@ -117,154 +115,111 @@ function Login(): JSX.Element {
 
   return (
     <div className={styles.mainContainer}>
-      <Card className={styles.cardContainer}>
-        <div className={styles.titleContainer}>
-          <h1 className={styles.name}>Welcome To CodeCharacter!</h1>
-          <Container className={styles.subTitle}>
-            Log in to access your dashboard and profile{' '}
-          </Container>
+      <div className={styles.titleContainer}>
+        <h1> Sign In</h1>
+      </div>
+      <div className={styles.cardContainer}>
+        <div className={styles.externalAuthButtons}>
+          <div>
+            <a
+              href={`${BASE_PATH}/oauth2/authorization/google`}
+              rel="noreferrer"
+            >
+              <button className={styles.googleButton}>
+                <div>
+                  {' '}
+                  LOGIN WITH GOOGLE &nbsp;
+                  <FontAwesomeIcon icon={faGoogle as IconProp} />
+                </div>
+              </button>
+            </a>
+          </div>
+          <div>
+            <a
+              href={`${BASE_PATH}/oauth2/authorization/github`}
+              rel="noreferrer"
+            >
+              <button className={styles.githubButton}>
+                <div>
+                  {' '}
+                  LOGIN WITH GITHUB &nbsp;{' '}
+                  <FontAwesomeIcon icon={faGithub as IconProp} />
+                </div>
+              </button>
+            </a>
+          </div>
+        </div>
+        <div className={styles.separator}>
+          <div className={styles.verticalLine} />
+          <h2 className={styles.subText}>OR</h2>
+          <div className={styles.verticalLine} />
         </div>
         <form className={styles.formContainer}>
-          <div>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="name"
-                placeholder="Email"
+          <div className={styles.loginCredentialsContainer}>
+            <div>
+              <input
+                type="email"
                 value={email}
-                className={
-                  login
-                    ? emailError
-                      ? styles.error
-                      : styles.correct
-                    : styles.normal
-                }
+                className={styles.email}
                 onChange={handleEmailSubmit}
+                placeholder="EMAIL"
               />
-              {emailError && login ? (
-                <AlertMessage
-                  err={emailError}
-                  content={'Please enter a valid Email ID'}
-                />
-              ) : (
-                <></>
-              )}
-            </Form.Group>
-          </div>
-
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <div className={styles.eyeContainer}>
-              <Form.Control
-                type={passwordType}
-                placeholder="Password"
-                value={password}
-                onChange={handlePasswordSubmit}
-                className={
-                  login
-                    ? passwordError
-                      ? styles.error
-                      : styles.correct
-                    : styles.normal
-                }
-              />
-              <div className={styles.eye}>
-                {passwordType === 'password' ? (
-                  <FontAwesomeIcon
-                    size="sm"
-                    icon={faEyeSlash as IconProp}
-                    onClick={passwordTypeAction}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    size="sm"
-                    icon={faEye as IconProp}
-                    onClick={passwordTypeAction}
-                  />
-                )}
-              </div>
             </div>
-            {passwordError && login ? (
-              <>
-                <AlertMessage
-                  err={passwordError}
-                  content={'Check your password'}
-                />
-              </>
-            ) : (
-              <></>
-            )}
-          </Form.Group>
-          {loggedInError != 'NIL' ? (
-            <AlertMessage err={true && !typing} content={loggedInError} />
-          ) : (
-            <></>
-          )}
-
-          <div className={classnames('d-grid gap-2', styles.submitContainer)}>
-            <Button variant="outline-primary" onClick={handleLoginSubmit}>
-              Login{' '}
-              {loadingStatus ? (
-                <FontAwesomeIcon icon={faSpinner as IconProp} />
-              ) : (
-                <></>
-              )}
-            </Button>
+            <div>
+              <input
+                type={passwordType}
+                value={password}
+                placeholder="PASSWORD"
+                onChange={handlePasswordSubmit}
+                className={styles.password}
+              />
+            </div>
           </div>
-          <div className={styles.forgotPassword}>
-            <Button variant="link" onClick={handleForgetPassword}>
+
+          <div>
+            <div
+              className={styles.forgotPassword}
+              onClick={handleForgetPassword}
+            >
               {' '}
-              Forgot Password?{' '}
-            </Button>
+              FORGOT PASSWORD{' '}
+            </div>
             <ForgetPassword
               open={open}
               handleForgetPassword={handleForgetPassword}
             />
           </div>
+          <div>
+            <div>
+              <button
+                className={styles.loginButton}
+                onClick={handleLoginSubmit}
+              >
+                <div className={styles.iconAlign}>
+                  <div className={styles.login}>LOGIN</div>
+                  <FontAwesomeIcon
+                    className={styles.icon}
+                    icon={faChevronRight as IconProp}
+                  />
+                </div>
+              </button>
+            </div>
+          </div>
         </form>
-        <div className={styles.externalAuthButtons}>
-          <div className={styles.googleButton}>
-            <a
-              href={`${BASE_PATH}/oauth2/authorization/google`}
-              rel="noreferrer"
-            >
-              <Button variant="primary">
-                <div>
-                  <FontAwesomeIcon icon={faGoogle as IconProp} /> Login with
-                  Google
-                </div>
-              </Button>
-            </a>
-          </div>
-          <div className={styles.githubButton}>
-            <a
-              href={`${BASE_PATH}/oauth2/authorization/github`}
-              rel="noreferrer"
-            >
-              <Button variant="dark">
-                <div>
-                  <FontAwesomeIcon icon={faGithub as IconProp} /> Login with
-                  Github
-                </div>
-              </Button>
-            </a>
-          </div>
-        </div>
-        <div className={styles.linkContainer}>
-          Do not have an account?{' '}
-          <span>
+      </div>
+      <div className={styles.linkContainer}>
+        <span>
+          {' '}
+          <NavLink
+            to={'/register'}
+            className={styles.link}
+            onClick={switchRegisterAction}
+          >
             {' '}
-            <NavLink
-              to={'/register'}
-              className={styles.link}
-              onClick={switchRegisterAction}
-            >
-              {' '}
-              <b>register</b>
-            </NavLink>
-          </span>
-        </div>
-      </Card>
+            <b>register</b>
+          </NavLink>
+        </span>
+      </div>
     </div>
   );
 }

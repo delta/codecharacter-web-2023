@@ -1,17 +1,9 @@
-.levelTitle {
-  text-align: center;
-  margin: 0.5rem 0rem 0.5rem 0rem;
-  font-size: 25px;
-  color: whitesmoke;
-}
 
-.flagContainer {
-  color: black;
-  background-color: white;
-  height: 44px;
-  border-radius: 5px;
+.formContainer{
+  max-width: 500px;
+  justify-content: center;
+  gap: 1.5rem;
 }
-
 .avatarContainer {
   display: flex;
   flex-direction: row;
@@ -24,16 +16,15 @@
 
 .avatarContainer::-webkit-scrollbar {
   height: 5px;
-  border-radius: 4px;
 }
 
 .avatarContainer::-webkit-scrollbar-track {
-  background-color: lightblue;
+  background-color: #AAAAAA;
   border-radius: 4px;
 }
 
 .avatarContainer::-webkit-scrollbar-thumb {
-  background-color: blue;
+  background-color: transparent;
   border-radius: 4px;
 }
 
@@ -60,14 +51,7 @@
   height: 100%;
 }
 
-.error {
-  background: #ffdddd !important;
-}
 
-.correct {
-  background: #c9ffad !important;
-}
 
-.normal {
-  background: #ffffff !important;
-}
+
+
