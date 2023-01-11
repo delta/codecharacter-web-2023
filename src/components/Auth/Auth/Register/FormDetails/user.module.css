@@ -33,9 +33,24 @@
   font-weight: 400;
   font-size: 27px;
   line-height: 45px;
-  color: #EAEAEA;
+  color: #AAAAAA;
 }
 
 .grecaptcha-badge {
   visibility: hidden;
+}
+
+@media only screen and (max-width: 400px){
+  .formContainer{
+    width: 100%;
+  }
+  .password,
+  .email,
+  .name,
+  .username,
+  .collegeName,
+  .confirmPassword{
+    font-size: 18px;
+    line-height: 30px;
+  }
 }

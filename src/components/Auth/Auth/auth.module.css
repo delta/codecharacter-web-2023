@@ -3,19 +3,12 @@
   padding: 0px;
 }
 
-
 .mainContainer{
   min-height: 100%;
   background: rgba(30, 30, 30, 0.87);
   display: flex;
   justify-content: center;
   flex-direction: column;
-  vertical-align: middle;
-  gap: 3rem;
-}
-
-input::after{
-  src: url(/src/assets/email.svg);
 }
 
 .titleContainer{
@@ -26,6 +19,7 @@ input::after{
   font-size: 40px;
   line-height: 53px;
   color: #AAAAAA;
+  
 }
 
 .cardContainer{
@@ -34,6 +28,7 @@ input::after{
   margin: auto; 
   width: auto;
 }
+
 .externalAuthButtons{
   display: flex;
   box-sizing: border-box;
@@ -121,7 +116,6 @@ input::after{
   align-self: center;
   padding: 1px 10px 1px 0px;
   size: 2em;
-
 }
 
 .loginButton{
@@ -129,10 +123,9 @@ input::after{
   background-color: transparent;
   box-sizing: border-box;
   border: 3px solid #AAAAAA;
-  
   margin-top: 7px;
-  
 }
+
 .loginCredentialsContainer{
   display: flex;
   flex-direction: column;
@@ -157,12 +150,11 @@ input::after{
 .subText{
   margin: auto;
   font-family: 'Bai Jamjuree';
-font-style: normal;
-font-weight: 500;
-font-size: 36px;
-line-height: 45px;
-
-color: #AAAAAA;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 45px;
+  color: #AAAAAA;
 }
 
 .forgotPassword{
@@ -172,8 +164,8 @@ color: #AAAAAA;
   font-size: 17px;
   color: #AAAAAA;
   font-family: 'Roboto Condensed';
-font-style: normal;
-font-weight: 400;
+  font-style: normal;
+  font-weight: 400;
   float: right;
 }
 
@@ -206,32 +198,48 @@ font-weight: 400;
 }
 
 @media  only screen and (max-width: 600px) {
-  .mainContainer{width: 100%;
-  justify-content: center;}
+  .mainContainer{
+    width: 100%;
+    justify-content: center;
+  }
   .cardContainer{
     width: 100%;
-  display: flex;
-flex-direction: column-reverse;
-gap: 3rem;
-justify-content: center;}
-.externalAuthButtons{width: 80%;
- margin: auto;
-gap: 4rem;float: none;}
-  .formContainer{width: 80%;}
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 3rem;
+    justify-content: center;
+  }
+  .externalAuthButtons{width: 80%;
+    margin: auto;
+    gap: 4rem;
+    float: none;
+  }
+  .formContainer{
+    width: 80%;
+  }
   .separator{
     display: none;
   }
-  .githubButton,.googleButton{font-size: 18px;
-  line-height: 30px;
-  width: 80%;
+  .githubButton,.googleButton{
+    font-size: 18px;
+    line-height: 30px;
+    width: 80%;
+} 
+  .loginText{
+    font-size: 18px;
 }
-.loginText{font-size: 18px;}
-.email,.password{
-  font-size: 18px;
-  line-height: 30px;
+  .email,.password{
+    font-size: 18px;
+    line-height: 30px;
 }
-.forgotPassword{
-  font-size: 14px;
+  .forgotPassword{
+    font-size: 14px;
+}
+
+.nextButton,
+.previousButton{
+  font-size: 20px;
+  line-height: 30px;
 }
   
 }
@@ -241,26 +249,38 @@ gap: 4rem;float: none;}
     width: 100%;
     justify-content: center;
   }
-  .cardContainer{width: 100%;
-  padding:10px;
-grid-template-columns: 2fr 1fr 2fr;}
-  .externalAuthButtons{width: 100%;
-float: none;
-gap: 8rem;
-justify-content: start;}
-  .formContainer{width: 100%;
-float: none;}
-  .googleButton,.githubButton{font-size: 20px;
+  .cardContainer{
+    width: 100%;
+    padding:10px;
+    grid-template-columns: 2fr 1fr 2fr;
+  }
+  .externalAuthButtons{
+    width: 100%;
+    float: none;
+    gap: 8rem;
+    justify-content: start;
+  }
+  .formContainer{
+    width: 100%;
+    float: none;
+  }
+  .googleButton,.githubButton{
+    font-size: 20px;
     width: 40%;
-  line-height: 35px;}
-  .subText{font-size: 20px;}
-  .loginText{font-size: 20px;}
-  .email,.password{font-size: 20px;
-  line-height: 30px;}
-  .forgotPassword{font-size: 18px;
-  line-height: 30px;}
-  
-
+    line-height: 35px;
+  }
+  .subText{
+    font-size: 20px;
+  }
+  .loginText{
+    font-size: 20px;
+  }
+  .email,.password{
+    font-size: 20px;
+    line-height: 30px;
+  }
+  .forgotPassword{
+    font-size: 18px;
+    line-height: 30px;
+  }
 }
-
-

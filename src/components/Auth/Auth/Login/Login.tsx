@@ -7,7 +7,6 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { BASE_PATH } from '../../../../config/config';
 import {
   loginAction,
-  loading,
   switchRegister,
   loginError,
 } from '../../../../store/User/UserSlice';
@@ -23,18 +22,9 @@ function Login(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, islogin] = useState(false);
-  const [passwordType, setPasswordType] = useState<string>('password');
   const [typing, isTyping] = useState<boolean>(false);
   const [open, isOpen] = useState<boolean>(false);
-  const passwordTypeAction = () => {
-    if (passwordType === 'password') {
-      setPasswordType('text');
-    } else {
-      setPasswordType('password');
-    }
-  };
   const hookDispatch = useAppDispatch();
-  const loadingStatus = useAppSelector(loading);
   const loggedInError = useAppSelector(loginError);
   useEffect(() => {
     switch (loggedInError) {
@@ -67,6 +57,10 @@ function Login(): JSX.Element {
     const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/;
     const passwordFormat =
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/;
+    if (loggedInError != 'NIL' && !typing) {
+      toast.error(loggedInError);
+    }
+
     if (email.match(mailformat)) {
       isemailError(false);
     } else {
@@ -80,7 +74,8 @@ function Login(): JSX.Element {
     if (!(emailError && passwordError)) {
       isTyping(false);
       hookDispatch(loginAction({ email: email, password: password }));
-    } else {
+    }
+    if ((emailError && login) || (passwordError && login)) {
       toast.error('Invalid Username or Password');
     }
   };
@@ -115,9 +110,7 @@ function Login(): JSX.Element {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.titleContainer}>
-        <h1> Sign In</h1>
-      </div>
+      <h1 className={styles.titleContainer}> Sign In</h1>
       <div className={styles.cardContainer}>
         <div className={styles.externalAuthButtons}>
           <div>
@@ -167,7 +160,7 @@ function Login(): JSX.Element {
             </div>
             <div>
               <input
-                type={passwordType}
+                type="password"
                 value={password}
                 placeholder="PASSWORD"
                 onChange={handlePasswordSubmit}

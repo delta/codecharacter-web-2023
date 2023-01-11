@@ -1,11 +1,6 @@
-import { useState } from 'react';
 import styles from './user.module.css';
 
 export default function UserDetails(props: user): JSX.Element {
-  const [passwordType, setPasswordType] = useState<{
-    password: string;
-    confirmPassword: string;
-  }>({ password: 'password', confirmPassword: 'password' });
   return (
     <div className={styles.formContainer}>
       <div>
@@ -29,7 +24,7 @@ export default function UserDetails(props: user): JSX.Element {
       </div>
       <div>
         <input
-          type={passwordType.password}
+          type="password"
           placeholder="Password"
           value={props.password}
           onChange={props.handlePasswordChange}
@@ -38,7 +33,7 @@ export default function UserDetails(props: user): JSX.Element {
       </div>
       <div>
         <input
-          type={passwordType.confirmPassword}
+          type="password"
           placeholder="Confirm Password"
           value={props.confirmPassword}
           onChange={props.handleConfirmPasswordChange}

@@ -50,7 +50,7 @@ export default function Register(): JSX.Element {
   registeredStatus = useAppSelector(isRegistered);
   const registerError = useAppSelector(registeredError);
   useEffect(() => {
-    if (localStorage.getItem('token') != null) {
+    if (localStorage.getItem('token') != null && completed) {
       navigate('/dashboard', { replace: true });
     }
   }, []);
