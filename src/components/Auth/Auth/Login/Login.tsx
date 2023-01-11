@@ -196,7 +196,8 @@ function Login(): JSX.Element {
                 onClick={handleLoginSubmit}
               >
                 <div className={styles.iconAlign}>
-                  <div className={styles.login}>LOGIN</div>
+                  <div className={styles.loginText}>LOGIN</div>
+                  <div className={styles.line} />
                   <FontAwesomeIcon
                     className={styles.icon}
                     icon={faChevronRight as IconProp}

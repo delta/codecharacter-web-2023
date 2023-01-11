@@ -19,7 +19,7 @@ export interface User {
   country: string;
   college: string;
   avatarId: number;
-  recaptchaCode: string | null;
+  recaptchaCode: string;
 }
 
 interface register {

@@ -27,7 +27,7 @@ export default function Register(): JSX.Element {
   const [formNumber, setFormnumber] = useState(1);
   const [email, setEmail] = useState('');
   const [fullName, setfullName] = useState('');
-  const [recaptchaCode, setRecpatchaCode] = useState<string | null>(null);
+  const [recaptchaCode, setRecpatchaCode] = useState('');
   const [college, setCollege] = useState('');
   const [userName, setUsername] = useState('');
   const [password, setpassword] = useState('');
@@ -76,9 +76,10 @@ export default function Register(): JSX.Element {
     }
   }, [registeredStatus]);
   const handleRecaptcha = (value: string | null) => {
-    console.log('value' + value);
-    setRecpatchaCode(value);
     if (value) setIshuman(true);
+    if (value != null) {
+      setRecpatchaCode(value);
+    }
   };
   const handleFullname = () => {
     if (fullName.trim().length < 5) {
@@ -172,7 +173,6 @@ export default function Register(): JSX.Element {
     }
   };
   const handleForm = (level: number) => {
-    console.log(increment);
     if (passCondition == 0) {
       if (level == 1) {
         increment += 1;
