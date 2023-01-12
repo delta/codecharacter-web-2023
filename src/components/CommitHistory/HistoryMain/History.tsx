@@ -91,8 +91,6 @@ export default function History(): JSX.Element {
     }
   };
 
-  console.log(currentCode);
-
   return (
     <Container fluid className={styles.historyMain}>
       <div className={styles.buttonContainer}>

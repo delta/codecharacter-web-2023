@@ -1,5 +1,5 @@
 import Footer from '../../components/Home/Footer/Footer';
-import Glitchtext from '../../components/Home/Glitchtext/Glitchtext';
+import Glitchtext from '../../components/Home/Glitchtext/Title';
 import AboutGame from '../../components/Home/AboutGame/AboutGame';
 import styles from './Home.module.css';
 import { useRef } from 'react';
