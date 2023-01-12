@@ -44,7 +44,6 @@ const Profile = (): JSX.Element => {
   const [userName, setUsername] = useState('');
   const [submitCollege, issubmitCollege] = useState(false);
   const [submitUsername, issubmitUsername] = useState(false);
-  const [formNumber, setFormNumber] = useState(1);
   const [userNameError, isuserNameError] = useState(false);
   const [collegeError, isCollegeError] = useState(false);
   const [passwordError, ispasswordError] = useState(false);
