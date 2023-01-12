@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 .navBar {
   display: flex;
   flex-direction: row;
@@ -21,7 +22,7 @@
 }
 
 .navLink {
-  font-family: 'Bai Jamjuree';
+  font-family: 'Bai Jamjuree', sans-serif;
   margin: auto 80px;
   text-decoration: none;
   display: flex;
@@ -46,7 +47,7 @@
 }
 
 .navLogo {
-  font-family: 'Bai Jamjuree';
+  font-family: 'Bai Jamjuree', sans-serif;
   color: #ffffff;
   font-size: 33px;
   margin: 0.5rem 1rem;
@@ -92,7 +93,7 @@
 }
 
 .profileName {
-  font-family: 'Bai Jamjuree';
+  font-family: 'Bai Jamjuree', sans-serif;
   color: #ffffff;
   margin: 0 0.5rem;
   font-weight: 500;

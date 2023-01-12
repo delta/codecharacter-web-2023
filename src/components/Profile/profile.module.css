@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
 .canvas {
     width: 0rem;
 }
@@ -6,6 +8,7 @@
     display: flex;
     margin-top: 2rem;
     flex-direction: column;
+    height: 1900px;
 }
 
 .Container {
@@ -23,6 +26,8 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin-bottom: 2rem;
+    font-family: 'Roboto Mono', monospace;
 }
 
 .userNameContent {
@@ -34,6 +39,12 @@
     font-size: 45px;
     color: #EAEAEA;
     margin-top: -1rem;
+}
+
+.changeCredsHeader {
+    font-size: 45px;
+    color: #EAEAEA;
+    margin-bottom: 2rem;
 }
 
 .close {
@@ -76,6 +87,9 @@
 
 .formContainer {
     margin: 2rem 2rem 0rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
 }
 
 
@@ -111,6 +125,7 @@
     font-size: 33px;
     border-radius: 3px;
     margin-bottom: 25px;
+    transition: all 3s ease;
 }
 
 .eyeContainer {
@@ -180,17 +195,35 @@
 }
 
 .inputField{
-    border: 2px #AAAAAA solid;
+    border: 2px #AAAAAA solid !important;
     background-color: rgba(255, 255, 255, 0);
     font-size: 33px;
     border-radius: 1px;
     color: #AAAAAA;
     /* width: 30rem; */
-    font-family: 'Roboto Mono';
-
+    font-family: 'Roboto Mono', monospace;
+    transition: all 0.3s ease;
 }
 
 .inputField > button {
     color: #AAAAAA;
+}
+
+.inputField:focus {
+    box-shadow: 5px 5px 5px black;
+}
+
+.downIcon {
+    height: 3rem;
+    margin-top: 2.5rem;
+    transition: all 0.4s ease;
+}
+
+.downIcon:hover {
+    transform:translateY(10px) scale(1.1);
+}
+
+.formContainer > div:nth-child(1) {
+    height: 55rem;
 }
 

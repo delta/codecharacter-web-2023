@@ -27,6 +27,7 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import PasswordAlertMessage from '../Auth/Auth/Alert/PassworAlert';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { getAvatarByID, getAllAvatars } from '../Avatar/Avatar';
+import downArrowIcon from '../../assets/down_arrow.svg';
 
 const Profile = (): JSX.Element => {
   const navigate = useNavigate();
@@ -232,12 +233,21 @@ const Profile = (): JSX.Element => {
     setSelectedAvatar(id);
   };
 
-  const handleGoBack = () => {
+  const handleGoBacktoDash = () => {
     navigate(-1);
   };
+
+  const handleDownButton = () => {
+    document.getElementById('submit')?.scrollIntoView();
+  };
+
+  const handleGoBacktoProfile = () => {
+    document.getElementById('navbar')?.scrollIntoView();
+  };
+
   return (
     <div className={styles.profileBody}>
-      <div className={styles.header}>
+      <div className={styles.header} id="header">
         <div className={styles.userNameContent}>
           HEY, <p className={styles.userName}>{loggedInUser.username}</p>{' '}
         </div>
@@ -251,310 +261,311 @@ const Profile = (): JSX.Element => {
 
       <div className={styles.Container}>
         <Form className={styles.formContainer}>
-          {formNumber == 1 ? (
-            <div>
-              <Form.Group
-                className={classnames('mb-4', styles.formField)}
-                controlId="formBasicUserName"
-              >
-                <Form.Control
-                  type="text"
-                  placeholder={loggedInUser.name || 'Full Name'}
-                  value={userName}
-                  className={classnames(
-                    submitUsername
-                      ? userNameError
-                        ? styles.error
-                        : styles.correct
-                      : styles.normal,
-                    styles.inputField,
-                  )}
-                  onChange={handleUserNameChange}
-                />
-                {submitUsername && userNameError ? (
-                  <AlertMessage err={userNameError} content={'Invalid name'} />
-                ) : (
-                  <></>
-                )}
-              </Form.Group>
-              <Form.Group
-                className={classnames('mb-4', styles.formField)}
-                controlId="formBasicCollege"
-              >
-                <Form.Control
-                  type="text"
-                  placeholder={loggedInUser.college || 'College'}
-                  value={collegeName}
-                  className={classnames(
-                    submitCollege
-                      ? collegeError
-                        ? styles.error
-                        : styles.correct
-                      : styles.normal,
-                    styles.inputField,
-                  )}
-                  onChange={handleCollegeChange}
-                />
-                {collegeError ? (
-                  <AlertMessage
-                    err={collegeError}
-                    content={'Please enter a valid College name'}
-                  />
-                ) : (
-                  <></>
-                )}
-              </Form.Group>
-              <Form.Group
-                className={classnames('mb-4', styles.formField)}
-                controlId="formBasicEmail"
-              >
-                <ReactFlagsSelect
-                  selected={selected}
-                  searchable={true}
-                  id="flags"
-                  placeholder="Search your country"
-                  onSelect={code => {
-                    setSelected(code);
-                  }}
-                  className={classnames(
-                    styles.flagContainer,
-                    styles.inputField,
-                  )}
-                  selectedSize={33}
-                />
-              </Form.Group>
-              <Form.Group
-                className={classnames('mb-4')}
-                controlId="formBasicAvatar"
-              >
-                <div>
-                  <div className={styles.avatarContainer}>
-                    {avatars.map((avatar, index: number) => (
-                      <div
-                        key={index}
-                        className={`${styles.avatar} ${
-                          selectedAvatar === avatar.id
-                            ? styles.avatarSelected
-                            : ''
-                        }`}
-                        onClick={() => {
-                          setSelectedAvatar(avatar.id);
-                          handleAvatarChange(avatar.id);
-                        }}
-                      >
-                        <img
-                          className={styles.avatarImg}
-                          src={avatar.url}
-                          alt="avatar"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </Form.Group>
-              <div className={classnames('d-grid gap-2')}>
-                <Button
-                  variant="secondary"
-                  onClick={handleSubmit}
-                  disabled={
-                    userName.length < 5 &&
-                    collegeName.length == 0 &&
-                    selectedAvatar === loggedInUser.avatarId
-                  }
-                  size="lg"
-                  className={styles.submitContainer}
-                >
-                  Save Changes{' '}
-                  {loadingStatus ? (
-                    <FontAwesomeIcon icon={faSpinner as IconProp} />
-                  ) : (
-                    <></>
-                  )}
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div>
-              <Form.Group
-                className={classnames('mb-4', styles.formField)}
-                controlId="formBasicoldPassword"
-              >
-                <div className={styles.eyeContainer}>
-                  <Form.Control
-                    type={passwordType.oldpassword}
-                    placeholder="Old Password"
-                    value={oldPassword}
-                    onChange={hanldeOldPasswordChange}
-                    className={classnames(
-                      submitoldPassword
-                        ? oldpasswordError && err
-                          ? styles.error
-                          : oldpasswordError == false && err == false
-                          ? styles.correct
-                          : styles.normal
-                        : styles.normal,
-                      styles.inputField,
-                    )}
-                  />
-                  <div className={styles.eye}>
-                    {passwordType.oldpassword === 'password' ? (
-                      <FontAwesomeIcon
-                        size="sm"
-                        icon={faEyeSlash as IconProp}
-                        onClick={oldpasswordTypeAction}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        size="sm"
-                        icon={faEye as IconProp}
-                        onClick={oldpasswordTypeAction}
-                      />
-                    )}
-                  </div>
-                </div>
-                {oldpasswordError && err ? (
-                  <AlertMessage
-                    err={oldpasswordError}
-                    content={'Incorrect Old Password'}
-                  />
-                ) : (
-                  <></>
-                )}
-              </Form.Group>
-              <Form.Group
-                className={classnames('mb-4', styles.formField)}
-                controlId="formBasicPassword"
-              >
-                <div className={styles.eyeContainer}>
-                  <Form.Control
-                    type={passwordType.password}
-                    placeholder="Password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    className={classnames(
-                      submitPassword
-                        ? passwordError
-                          ? styles.error
-                          : styles.correct
-                        : styles.normal,
-                      styles.inputField,
-                    )}
-                  />
-                  <div className={styles.eye}>
-                    {passwordType.password === 'password' ? (
-                      <FontAwesomeIcon
-                        size="sm"
-                        icon={faEyeSlash as IconProp}
-                        onClick={passwordTypeAction}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        size="sm"
-                        icon={faEye as IconProp}
-                        onClick={passwordTypeAction}
-                      />
-                    )}
-                  </div>
-                </div>
-                <PasswordAlertMessage
-                  err={submitPassword && passwordError}
-                  variantColor="danger"
-                />
-              </Form.Group>
-              <Form.Group
-                className={classnames('mb-4', styles.formField)}
-                controlId="formBasicConfirmPassword"
-              >
-                <div className={styles.eyeContainer}>
-                  <Form.Control
-                    type={passwordType.confirmPassword}
-                    placeholder="Confirm Password"
-                    value={confirmPassword}
-                    className={classnames(
-                      submitconfirmPassword
-                        ? confirmpasswordError
-                          ? styles.error
-                          : styles.correct
-                        : styles.normal,
-                      styles.inputField,
-                    )}
-                    onChange={handleConfirmPasswordChange}
-                  />
-                  <div className={styles.eye}>
-                    {passwordType.confirmPassword === 'password' ? (
-                      <FontAwesomeIcon
-                        size="sm"
-                        icon={faEyeSlash as IconProp}
-                        onClick={confirmpasswordTypeAction}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        size="sm"
-                        icon={faEye as IconProp}
-                        onClick={confirmpasswordTypeAction}
-                      />
-                    )}
-                  </div>
-                </div>
-                {confirmpasswordError ? (
-                  <AlertMessage
-                    err={confirmpasswordError}
-                    content={'Please check your password'}
-                  />
-                ) : (
-                  <></>
-                )}
-              </Form.Group>
-              <div className={classnames('d-grid gap-2')}>
-                <Button
-                  variant="secondary"
-                  onClick={handleCreditionals}
-                  disabled={
-                    oldpasswordError ||
-                    passwordError ||
-                    confirmpasswordError ||
-                    oldPassword.length == 0 ||
-                    password.length == 0 ||
-                    confirmPassword.length == 0
-                  }
-                  size="lg"
-                  className={styles.submitContainer}
-                >
-                  Submit{' '}
-                  {loadingStatus ? (
-                    <FontAwesomeIcon icon={faSpinner as IconProp} />
-                  ) : (
-                    <></>
-                  )}
-                </Button>
-              </div>
-            </div>
-          )}
-        </Form>
-        <div className={styles.footer}>
-          {
-            <Button
-              variant="link"
-              onClick={() => {
-                formNumber == 2 ? setFormNumber(1) : handleGoBack();
-              }}
-              className={styles.linkButton}
+          <div>
+            <Form.Group
+              className={classnames('mb-4', styles.formField)}
+              controlId="formBasicUserName"
             >
-              {'< Go Back'}
-            </Button>
-          }
-          {formNumber == 1 && (
-            <Button
-              variant="link"
+              <Form.Control
+                type="text"
+                placeholder={loggedInUser.name || 'Full Name'}
+                value={userName}
+                className={classnames(
+                  submitUsername
+                    ? userNameError
+                      ? styles.error
+                      : styles.correct
+                    : styles.normal,
+                  styles.inputField,
+                )}
+                onChange={handleUserNameChange}
+              />
+              {submitUsername && userNameError ? (
+                <AlertMessage err={userNameError} content={'Invalid name'} />
+              ) : (
+                <></>
+              )}
+            </Form.Group>
+            <Form.Group
+              className={classnames('mb-4', styles.formField)}
+              controlId="formBasicCollege"
+            >
+              <Form.Control
+                type="text"
+                placeholder={loggedInUser.college || 'College'}
+                value={collegeName}
+                className={classnames(
+                  submitCollege
+                    ? collegeError
+                      ? styles.error
+                      : styles.correct
+                    : styles.normal,
+                  styles.inputField,
+                )}
+                onChange={handleCollegeChange}
+              />
+              {collegeError ? (
+                <AlertMessage
+                  err={collegeError}
+                  content={'Please enter a valid College name'}
+                />
+              ) : (
+                <></>
+              )}
+            </Form.Group>
+            <Form.Group
+              className={classnames('mb-4', styles.formField)}
+              controlId="formBasicEmail"
+            >
+              <ReactFlagsSelect
+                selected={selected}
+                searchable={true}
+                id="flags"
+                placeholder="Search your country"
+                onSelect={code => {
+                  setSelected(code);
+                }}
+                className={classnames(styles.flagContainer, styles.inputField)}
+                selectedSize={33}
+              />
+            </Form.Group>
+            <Form.Group
+              className={classnames('mb-4')}
+              controlId="formBasicAvatar"
+            >
+              <div>
+                <div className={styles.avatarContainer}>
+                  {avatars.map((avatar, index: number) => (
+                    <div
+                      key={index}
+                      className={`${styles.avatar} ${
+                        selectedAvatar === avatar.id
+                          ? styles.avatarSelected
+                          : ''
+                      }`}
+                      onClick={() => {
+                        setSelectedAvatar(avatar.id);
+                        handleAvatarChange(avatar.id);
+                      }}
+                    >
+                      <img
+                        className={styles.avatarImg}
+                        src={avatar.url}
+                        alt="avatar"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Form.Group>
+            <div className={classnames('d-grid gap-2')}>
+              <Button
+                variant="secondary"
+                onClick={handleSubmit}
+                disabled={
+                  userName.length < 5 &&
+                  collegeName.length == 0 &&
+                  selectedAvatar === loggedInUser.avatarId
+                }
+                size="lg"
+                className={styles.submitContainer}
+              >
+                Save Changes{' '}
+                {loadingStatus ? (
+                  <FontAwesomeIcon icon={faSpinner as IconProp} />
+                ) : (
+                  <></>
+                )}
+              </Button>
+            </div>
+            <div className={styles.footer}>
+              {
+                <Button
+                  variant="link"
+                  onClick={handleGoBacktoDash}
+                  className={styles.linkButton}
+                >
+                  {'< Go Back'}
+                </Button>
+              }
+            </div>
+            <img
+              src={downArrowIcon}
+              className={styles.downIcon}
               onClick={() => {
-                setFormNumber(2);
+                handleDownButton();
                 dispatch(creditionals());
               }}
-              className={styles.linkButton}
+              alt="Change Credentials"
+              title="Change Credentials"
+            />
+          </div>
+          <div>
+            <div className={styles.changeCredsHeader}>Change Credentials</div>
+            <Form.Group
+              className={classnames('mb-4', styles.formField)}
+              controlId="formBasicoldPassword"
             >
-              {'Change Credentials? >'}
-            </Button>
-          )}
+              <div className={styles.eyeContainer}>
+                <Form.Control
+                  type={passwordType.oldpassword}
+                  placeholder="Old Password"
+                  value={oldPassword}
+                  onChange={hanldeOldPasswordChange}
+                  className={classnames(
+                    submitoldPassword
+                      ? oldpasswordError && err
+                        ? styles.error
+                        : oldpasswordError == false && err == false
+                        ? styles.correct
+                        : styles.normal
+                      : styles.normal,
+                    styles.inputField,
+                  )}
+                />
+                <div className={styles.eye}>
+                  {passwordType.oldpassword === 'password' ? (
+                    <FontAwesomeIcon
+                      size="sm"
+                      icon={faEyeSlash as IconProp}
+                      onClick={oldpasswordTypeAction}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      size="sm"
+                      icon={faEye as IconProp}
+                      onClick={oldpasswordTypeAction}
+                    />
+                  )}
+                </div>
+              </div>
+              {oldpasswordError && err ? (
+                <AlertMessage
+                  err={oldpasswordError}
+                  content={'Incorrect Old Password'}
+                />
+              ) : (
+                <></>
+              )}
+            </Form.Group>
+            <Form.Group
+              className={classnames('mb-4', styles.formField)}
+              controlId="formBasicPassword"
+            >
+              <div className={styles.eyeContainer}>
+                <Form.Control
+                  type={passwordType.password}
+                  placeholder="Password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  className={classnames(
+                    submitPassword
+                      ? passwordError
+                        ? styles.error
+                        : styles.correct
+                      : styles.normal,
+                    styles.inputField,
+                  )}
+                />
+                <div className={styles.eye}>
+                  {passwordType.password === 'password' ? (
+                    <FontAwesomeIcon
+                      size="sm"
+                      icon={faEyeSlash as IconProp}
+                      onClick={passwordTypeAction}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      size="sm"
+                      icon={faEye as IconProp}
+                      onClick={passwordTypeAction}
+                    />
+                  )}
+                </div>
+              </div>
+              <PasswordAlertMessage
+                err={submitPassword && passwordError}
+                variantColor="danger"
+              />
+            </Form.Group>
+            <Form.Group
+              className={classnames('mb-4', styles.formField)}
+              controlId="formBasicConfirmPassword"
+            >
+              <div className={styles.eyeContainer}>
+                <Form.Control
+                  type={passwordType.confirmPassword}
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  className={classnames(
+                    submitconfirmPassword
+                      ? confirmpasswordError
+                        ? styles.error
+                        : styles.correct
+                      : styles.normal,
+                    styles.inputField,
+                  )}
+                  onChange={handleConfirmPasswordChange}
+                />
+                <div className={styles.eye}>
+                  {passwordType.confirmPassword === 'password' ? (
+                    <FontAwesomeIcon
+                      size="sm"
+                      icon={faEyeSlash as IconProp}
+                      onClick={confirmpasswordTypeAction}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      size="sm"
+                      icon={faEye as IconProp}
+                      onClick={confirmpasswordTypeAction}
+                    />
+                  )}
+                </div>
+              </div>
+              {confirmpasswordError ? (
+                <AlertMessage
+                  err={confirmpasswordError}
+                  content={'Please check your password'}
+                />
+              ) : (
+                <></>
+              )}
+            </Form.Group>
+            <div className={classnames('d-grid gap-2')}>
+              <Button
+                variant="secondary"
+                onClick={handleCreditionals}
+                disabled={
+                  oldpasswordError ||
+                  passwordError ||
+                  confirmpasswordError ||
+                  oldPassword.length == 0 ||
+                  password.length == 0 ||
+                  confirmPassword.length == 0
+                }
+                size="lg"
+                id="submit"
+                className={styles.submitContainer}
+              >
+                Submit{' '}
+                {loadingStatus ? (
+                  <FontAwesomeIcon icon={faSpinner as IconProp} />
+                ) : (
+                  <></>
+                )}
+              </Button>
+            </div>
+          </div>
+        </Form>
+        <div className={styles.footer}>
+          <Button
+            variant="link"
+            onClick={handleGoBacktoProfile}
+            className={styles.linkButton}
+          >
+            {'< Go Back'}
+          </Button>
         </div>
       </div>
     </div>
