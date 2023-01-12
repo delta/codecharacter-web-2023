@@ -85,18 +85,16 @@ const NavBar: React.FunctionComponent = () => {
 
   const [showCompleted, setShowCompleted] = useState(false);
   const handleCloseCompleted = () => setShowCompleted(false);
-  // const handleShowCompleted = () => setShowCompleted(true);
 
   const [showAvailable, setShowAvailable] = useState(false);
   const handleCloseAvailable = () => setShowAvailable(false);
-  // const handleShowAvailable = () => setShowAvailable(true);
 
   return (
     <div className={styles.navBar}>
       <Modal
         show={showCompleted}
         onHide={handleCloseCompleted}
-        contentClassName={styles.modal}
+        contentClassName={styles.dcmodal}
       >
         <Modal.Header closeButton>
           <Modal.Title>Daily Challenge</Modal.Title>
@@ -105,10 +103,10 @@ const NavBar: React.FunctionComponent = () => {
           Woohoo, youv&apos;e completed today&apos;s challenges!
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseCompleted}>
+          <Button className={styles.dcmodalBtn} onClick={handleCloseCompleted}>
             Nice!
           </Button>
-          <Button variant="primary" onClick={handleCloseCompleted}>
+          <Button className={styles.dcmodalBtn} onClick={handleCloseCompleted}>
             View challenges
           </Button>
         </Modal.Footer>
@@ -116,7 +114,7 @@ const NavBar: React.FunctionComponent = () => {
       <Modal
         show={showAvailable}
         onHide={handleCloseAvailable}
-        contentClassName={styles.modal}
+        contentClassName={styles.dcmodal}
       >
         <Modal.Header closeButton>
           <Modal.Title>Daily Challenge</Modal.Title>
@@ -125,10 +123,10 @@ const NavBar: React.FunctionComponent = () => {
           Commander we hope you are ready for today&apos;s daily chellenge
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseAvailable}>
+          <Button className={styles.dcmodalBtn} onClick={handleCloseAvailable}>
             Not Right Now!
           </Button>
-          <Button variant="primary" onClick={handleCloseAvailable}>
+          <Button className={styles.dcmodalBtn} onClick={handleCloseAvailable}>
             Take me there
           </Button>
         </Modal.Footer>

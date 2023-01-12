@@ -113,12 +113,28 @@
   margin-right: 2rem;
 }
 
-.modal{
-  background-color: #242a3c;
-  box-shadow: 0px 3px 6px 4px rgb(0 0 0 / 20%);
+.dcIcon:hover{
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.dcmodal{
+  background-color: #1B2926;
+  box-shadow: 0px 3px 6px 4px rgb(28 32 33 / 20%);
   color: white;
 }
 
-.modal > *{
+.dcmodal > *{
   border: 0;
 }
+
+.dcmodalBtn{
+  border: 1px solid white;
+  background-color: inherit;
+  font-family: 'Bai Jamjuree';
+}
+
+.dcmodalBtn:hover{
+  background-color: white;
+  color: #000000;
+} 

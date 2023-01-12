@@ -13,7 +13,7 @@
   position: absolute;
   top: 67px;
   left: 18px;
-  height: calc(142%);
+  height: calc(148%) !important;
   width: 4px;
   background: white;
 }
@@ -28,8 +28,8 @@
 }
 
 .vertical-timeline-element-date {
-  font-size: 1.5rem !important;
-  padding-top: 1rem !important;
+  font-size: 1.4rem !important;
+  font-family: Bai Jamjuree ;
 }
 
 .vertical-timeline-element-content {
@@ -38,7 +38,7 @@
   padding-left: 1rem;
   border-radius: 0%;
   border-radius: 10px;
-  width: 75%; 
+  width: 92%; 
   max-width: 350px;
   margin-left: 25%;
   display: flex;
@@ -59,27 +59,19 @@
 }
 
 .vertical-timeline-element-title {
-  font-family: Montserrat;
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   padding: 1rem;
   -ms-overflow-style: none;
   overflow-x: auto;
   overflow-y: auto;
-  max-height: 100px;
+  height: 70px;
   margin-bottom: 0rem;
   max-width: 250px;
   padding-left: 0 !important;
   margin-top: 0.5rem;
-}
-
-.vertical-timeline-element-title{
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  color: #EAEAEA;
-  font-size: 34px;
 }
 
 .vertical-timeline-element-title::-webkit-scrollbar {

@@ -17,7 +17,8 @@ import { useAppDispatch } from '../../../store/hooks';
 import styles from './History.module.css';
 import CodeView from '../CodeMapViewbox/CodeView';
 import { Col, Container, Row } from 'react-bootstrap';
-import Toast from 'react-hot-toast';
+import Toast, { toast } from 'react-hot-toast';
+import { updateUserCode } from '../../../store/editor/code';
 
 export default function History(): JSX.Element {
   const [SelectedButton, setSelectedButton] = useState('Code');
@@ -78,10 +79,19 @@ export default function History(): JSX.Element {
   const changesEditorDetails = () => {
     if (SelectedButton == 'Code' && currentCode != '') {
       dispatch(changeHistoryEditorCode(currentCode));
+      dispatch(
+        updateUserCode({
+          currentUserLanguage: codeLanguage,
+          currentUserCode: currentCode,
+        }),
+      );
+      toast.success('Loaded');
     } else if (SelectedButton == 'Map' && currentMap.length != 0) {
       dispatch(changeHistoryEditorMap(currentMap));
     }
   };
+
+  console.log(currentCode);
 
   return (
     <Container fluid className={styles.historyMain}>

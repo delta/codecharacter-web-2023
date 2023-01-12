@@ -1,5 +1,5 @@
 .footerContainer {
-  background-color: rgb(32, 26, 26);
+  background-color: #1C2021;
   color: white;
   display: flex;
   flex-wrap: wrap;
@@ -18,6 +18,7 @@
   font-size: 32px;
   margin-bottom: 30px;
   text-decoration: underline;
+  font-family: 'Inter';
 }
 
 .container > div {

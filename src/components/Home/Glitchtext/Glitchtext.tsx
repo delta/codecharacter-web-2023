@@ -24,7 +24,6 @@ export default function Glitchtext(prop: { value: string }): JSX.Element {
       const addChar = setInterval(tick, 150);
       return () => {
         clearInterval(addChar);
-        // console.log(placeholder);
       };
     } else {
       const reloop = setTimeout(() => {

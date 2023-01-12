@@ -3,9 +3,13 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 export default function AboutGame(): JSX.Element {
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: "url('/public/assets/Landing.png')",
+      }}
+    >
       <div className={styles.about}>
-        <Container className={styles.aboutcontainer}>
+        <Container fluid className={styles.aboutcontainer}>
           <Row>
             <Col className={styles.col1}>
               <div className={styles.content}>

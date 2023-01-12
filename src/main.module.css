@@ -1,5 +1,7 @@
 @import url('http://fonts.cdnfonts.com/css/montserrat');
-@import url('https://fonts.cdnfonts.com/css/bai-jamjuree');
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Roboto&display=swap');
 * {
   margin: 0px;
   padding: 0px;
@@ -15,7 +17,7 @@
 .gameArea {
   width: 0;
   flex-grow: 1;
-  /* background: url('/public/assets/Landing.png'); */
+  background: url('/public/assets/Landing.png');
 }
 
 body {

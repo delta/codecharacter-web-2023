@@ -19,11 +19,17 @@
 
 .delta {
   display: flex;
-  background-color: #eee;
+  background-color: #000000;
 }
 
 .delta > div {
   margin: auto;
+  color: antiquewhite;
+}
+
+.delta > div > a{
+  color: antiquewhite;
+  text-decoration: none;
 }
 
 .heart {
@@ -42,6 +48,6 @@
 
 @media screen and (max-width: 1000px) {
   .jumbotron > div {
-    font-size: 25px;
+    font-size: 2px;
   }
 }
