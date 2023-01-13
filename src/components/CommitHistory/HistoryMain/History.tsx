@@ -9,16 +9,14 @@ import {
   GameMapRevision,
   MapApi,
 } from '@codecharacter-2023/client';
-import {
-  changeHistoryEditorMap,
-  changeHistoryEditorCode,
-} from '../../../store/historyEditor/historyEditorSlice';
+import { changeHistoryEditorMap } from '../../../store/historyEditor/historyEditorSlice';
 import { useAppDispatch } from '../../../store/hooks';
 import styles from './History.module.css';
 import CodeView from '../CodeMapViewbox/CodeView';
 import { Col, Container, Row } from 'react-bootstrap';
 import Toast, { toast } from 'react-hot-toast';
-import { updateUserCode } from '../../../store/editor/code';
+import { updateUserCode, changeLanguage } from '../../../store/editor/code';
+import { useNavigate } from 'react-router-dom';
 
 export default function History(): JSX.Element {
   const [SelectedButton, setSelectedButton] = useState('Code');
@@ -27,6 +25,9 @@ export default function History(): JSX.Element {
   const [currentCode, setCurrentCode] = useState('');
   const [codeLanguage, setCodeLanguage] = useState('');
   const [currentMap, setCurrentMap] = useState<Array<Array<number>>>([]);
+  const [currentCommitMessage, setCurrentCommitMessage] = useState<string>('');
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -64,9 +65,10 @@ export default function History(): JSX.Element {
 
   const commitID = (id: string) => {
     completeCodeHistroy.forEach(codeData => {
-      if (codeData.id == id) {
+      if (codeData.id === id) {
         setCurrentCode(codeData.code);
         setCodeLanguage(codeData.language.toLowerCase());
+        setCurrentCommitMessage(codeData.message);
       }
     });
     completeMapHistory.forEach(mapData => {
@@ -78,14 +80,28 @@ export default function History(): JSX.Element {
 
   const changesEditorDetails = () => {
     if (SelectedButton == 'Code' && currentCode != '') {
-      dispatch(changeHistoryEditorCode(currentCode));
       dispatch(
         updateUserCode({
-          currentUserLanguage: codeLanguage,
+          currentUserLanguage: codeLanguage === 'cpp' ? 'c_cpp' : codeLanguage,
           currentUserCode: currentCode,
         }),
       );
-      toast.success('Loaded');
+      dispatch(changeLanguage(codeLanguage === 'cpp' ? 'c_cpp' : codeLanguage));
+      switch (codeLanguage) {
+        case 'cpp':
+          localStorage.setItem('languageChose', 'C++');
+          break;
+        case 'python':
+          localStorage.setItem('languageChose', 'Python');
+          break;
+        case 'java':
+          localStorage.setItem('languageChose', 'Java');
+          break;
+        default:
+          dispatch(changeLanguage('c_cpp'));
+      }
+      toast.success(` Loaded commit -> ${currentCommitMessage}`);
+      navigate('/dashboard', { replace: true });
     } else if (SelectedButton == 'Map' && currentMap.length != 0) {
       dispatch(changeHistoryEditorMap(currentMap));
     }

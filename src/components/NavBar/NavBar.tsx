@@ -103,10 +103,18 @@ const NavBar: React.FunctionComponent = () => {
           Woohoo, youv&apos;e completed today&apos;s challenges!
         </Modal.Body>
         <Modal.Footer>
-          <Button className={styles.dcmodalBtn} onClick={handleCloseCompleted}>
+          <Button
+            variant="outline-light"
+            className={styles.dcmodalBtn}
+            onClick={handleCloseCompleted}
+          >
             Nice!
           </Button>
-          <Button className={styles.dcmodalBtn} onClick={handleCloseCompleted}>
+          <Button
+            variant="outline-light"
+            className={styles.dcmodalBtn}
+            onClick={handleCloseCompleted}
+          >
             View challenges
           </Button>
         </Modal.Footer>
@@ -123,10 +131,18 @@ const NavBar: React.FunctionComponent = () => {
           Commander we hope you are ready for today&apos;s daily chellenge
         </Modal.Body>
         <Modal.Footer>
-          <Button className={styles.dcmodalBtn} onClick={handleCloseAvailable}>
+          <Button
+            variant="outline-danger"
+            className={styles.dcmodalBtn}
+            onClick={handleCloseAvailable}
+          >
             Not Right Now!
           </Button>
-          <Button className={styles.dcmodalBtn} onClick={handleCloseAvailable}>
+          <Button
+            variant="outline-light"
+            className={styles.dcmodalBtn}
+            onClick={handleCloseAvailable}
+          >
             Take me there
           </Button>
         </Modal.Footer>

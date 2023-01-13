@@ -151,8 +151,16 @@
 }
 
 
-@media only screen and (max-height : 750px) {
+@media only screen and (max-height : 840px) {
     .codeBox,.mapBox{
-      height: 65vh;
+      height: 75vh;
     }
+    .selectButton{
+      font-size: 14px;
+    }
+}
+@media only screen and (max-height : 72 `0px) {
+  .codeBox,.mapBox{
+    height: 70vh;
+  }
 }

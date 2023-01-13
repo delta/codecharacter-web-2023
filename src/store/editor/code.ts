@@ -42,10 +42,12 @@ export const editorSlice = createSlice({
     },
 
     updateUserCode: (state, action: PayloadAction<CodeAndLanguage>) => {
+      console.log('called');
       const tempCurrentUserLanguage = action.payload.currentUserLanguage;
       const desiredIndex = languagesAvailable.indexOf(tempCurrentUserLanguage);
       state.allLanguagesCode[desiredIndex] = action.payload.currentUserCode;
       state.userCode = action.payload.currentUserCode;
+      console.log(tempCurrentUserLanguage);
     },
 
     changeLanguage: (state, action: PayloadAction<string>) => {

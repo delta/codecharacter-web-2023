@@ -5,23 +5,23 @@ export default function AboutGame(): JSX.Element {
   return (
     <div
       style={{
-        backgroundImage: "url('/public/assets/Landing.png')",
+        background: 'rgba(30, 30, 30, 0.87)',
       }}
     >
       <div className={styles.about}>
         <Container fluid className={styles.aboutcontainer}>
           <Row>
             <Col className={styles.col1}>
-              <div className={styles.content}>
-                CodeCharacter is a game but what game is it? That content your
-                mom will come write or what?
+              <div className={styles.aboutImage}>
+                <img
+                  src="/assets/aboutPlaceholder.jpg"
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                ></img>
               </div>
             </Col>
-            <Col
-              style={{
-                paddingLeft: '3%',
-              }}
-            >
+            <Col className={styles.col2}>
               <div className={styles.content}>
                 The objective is to destroy and vanquish the opponent&apos;s
                 territory by writing code and creating defenses via the in-game

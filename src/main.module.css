@@ -17,7 +17,8 @@
 .gameArea {
   width: 0;
   flex-grow: 1;
-  background: url('/public/assets/Landing.png');
+  background: rgba(30, 30, 30, 0.87);
+  /* background: url('/public/assets/Landing.png'); */
 }
 
 body {

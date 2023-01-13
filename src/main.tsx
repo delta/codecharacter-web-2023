@@ -33,6 +33,20 @@ ReactDOM.render(
             <div className={styles.mainWindow}>
               <SideBar />
               <div className={styles.gameArea}>
+                <video
+                  src="/assets/bgEffect.webm"
+                  autoPlay
+                  loop
+                  muted
+                  style={{
+                    zIndex: '-100',
+                    position: 'fixed',
+                    top: 0,
+                    width: '100vw',
+                    height: '100vh',
+                    objectFit: 'cover',
+                  }}
+                />
                 <AllRoutes />
               </div>
             </div>
