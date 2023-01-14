@@ -21,7 +21,8 @@ import sign_up from '../../assets/sign_up.png';
 import sign_in from '../../assets/sign_in.png';
 import challenge_done from '../../assets/challenge_done.png';
 import challenge_available from '../../assets/challenge_available.png';
-import { Modal, Button } from 'react-bootstrap';
+import DcCompleted from '../DcModals/DcCompleted';
+import DcAvailable from '../DcModals/DcAvailable';
 
 const NavBar: React.FunctionComponent = () => {
   const dispatch = useAppDispatch();
@@ -29,8 +30,8 @@ const NavBar: React.FunctionComponent = () => {
   const location = useLocation();
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
-  const dailyChallengeStatus = false;
-  // add new state here for dc
+  //add Dcstates here with backend
+  const dailyChallengeStatus = true;
   useEffect(() => {
     const cookieValue = document.cookie;
     const bearerToken = cookieValue.split(';');
@@ -83,70 +84,25 @@ const NavBar: React.FunctionComponent = () => {
     navigate('/login', { replace: true });
   };
 
-  const [showCompleted, setShowCompleted] = useState(false);
-  const handleCloseCompleted = () => setShowCompleted(false);
-
   const [showAvailable, setShowAvailable] = useState(false);
   const handleCloseAvailable = () => setShowAvailable(false);
 
+  const [showCompleted, setShowCompleted] = useState(false);
+  const handleCloseCompleted = () => {
+    //Add logic for redirection to view dc leaderboard once done
+    setShowCompleted(false);
+  };
+
   return (
     <div className={styles.navBar}>
-      <Modal
-        show={showCompleted}
-        onHide={handleCloseCompleted}
-        contentClassName={styles.dcmodal}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Daily Challenge</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Woohoo, youv&apos;e completed today&apos;s challenges!
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="outline-light"
-            className={styles.dcmodalBtn}
-            onClick={handleCloseCompleted}
-          >
-            Nice!
-          </Button>
-          <Button
-            variant="outline-light"
-            className={styles.dcmodalBtn}
-            onClick={handleCloseCompleted}
-          >
-            View challenges
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <Modal
-        show={showAvailable}
-        onHide={handleCloseAvailable}
-        contentClassName={styles.dcmodal}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Daily Challenge</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Commander we hope you are ready for today&apos;s daily chellenge
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="outline-danger"
-            className={styles.dcmodalBtn}
-            onClick={handleCloseAvailable}
-          >
-            Not Right Now!
-          </Button>
-          <Button
-            variant="outline-light"
-            className={styles.dcmodalBtn}
-            onClick={handleCloseAvailable}
-          >
-            Take me there
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <DcCompleted
+        showCompleted={showCompleted}
+        handleCloseCompleted={handleCloseCompleted}
+      />
+      <DcAvailable
+        showAvailable={showAvailable}
+        handleCloseAvailable={handleCloseAvailable}
+      />
       <div className={styles.navBarContainer}>
         <div className={styles.branding}>
           <Link to="/" className={styles.logoLink}>

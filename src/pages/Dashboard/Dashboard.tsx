@@ -91,7 +91,6 @@ export default function Dashboard(): JSX.Element {
   }, [horizontalPercent, verticalPercent, mainContainerRef.current]);
 
   const userLanguage = useAppSelector(UserLanguage);
-  console.log(userLanguage);
   const userCode = useAppSelector(UserCode);
   const dispatch = useAppDispatch();
 

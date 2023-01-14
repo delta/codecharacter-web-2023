@@ -17,6 +17,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import Toast, { toast } from 'react-hot-toast';
 import { updateUserCode, changeLanguage } from '../../../store/editor/code';
 import { useNavigate } from 'react-router-dom';
+import mapImage from '/assets/Map.jpeg';
 
 export default function History(): JSX.Element {
   const [SelectedButton, setSelectedButton] = useState('Code');
@@ -100,7 +101,7 @@ export default function History(): JSX.Element {
         default:
           dispatch(changeLanguage('c_cpp'));
       }
-      toast.success(` Loaded commit -> ${currentCommitMessage}`);
+      toast.success(` Loaded commit - ${currentCommitMessage}`);
       navigate('/dashboard', { replace: true });
     } else if (SelectedButton == 'Map' && currentMap.length != 0) {
       dispatch(changeHistoryEditorMap(currentMap));
@@ -166,7 +167,7 @@ export default function History(): JSX.Element {
             {SelectedButton == 'Code' ? (
               <CodeView code={currentCode} codeLang={codeLanguage} />
             ) : (
-              <img src="/assets/Map.png" />
+              <img className={styles.mapImg} src={mapImage} />
             )}
           </div>
           <div className={styles.select}>

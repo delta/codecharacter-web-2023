@@ -1,5 +1,6 @@
 import styles from './AboutGame.module.css';
 import { Container, Row, Col } from 'react-bootstrap';
+import mapimg from '/assets/Map.jpeg';
 
 export default function AboutGame(): JSX.Element {
   return (
@@ -14,7 +15,7 @@ export default function AboutGame(): JSX.Element {
             <Col className={styles.col1}>
               <div className={styles.aboutImage}>
                 <img
-                  src="/assets/aboutPlaceholder.jpg"
+                  src={mapimg}
                   style={{
                     objectFit: 'cover',
                   }}

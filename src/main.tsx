@@ -10,6 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import Loader from './components/Loader/Loader';
 import AllRoutes from './AllRoutes';
+import Backgroundvideo from './components/Background/BackgroundVideo';
 
 const persistor = persistStore(store);
 const NavBar = lazy(() => import('./components/NavBar/NavBar'));
@@ -33,20 +34,7 @@ ReactDOM.render(
             <div className={styles.mainWindow}>
               <SideBar />
               <div className={styles.gameArea}>
-                <video
-                  src="/assets/bgEffect.webm"
-                  autoPlay
-                  loop
-                  muted
-                  style={{
-                    zIndex: '-100',
-                    position: 'fixed',
-                    top: 0,
-                    width: '100vw',
-                    height: '100vh',
-                    objectFit: 'cover',
-                  }}
-                />
+                <Backgroundvideo />
                 <AllRoutes />
               </div>
             </div>

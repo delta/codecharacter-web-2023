@@ -125,7 +125,7 @@
   scrollbar-width: none;
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 77vh;
+  max-height: 67vh;
 }
 
 .completeTimeline::-webkit-scrollbar {
@@ -150,6 +150,12 @@
   display: none;
 }
 
+.mapImg{
+  object-fit:contain;
+  height:100%;
+  width:100%;
+}
+
 
 @media only screen and (max-height : 840px) {
     .codeBox,.mapBox{
@@ -158,9 +164,15 @@
     .selectButton{
       font-size: 14px;
     }
+    .completeTimeline{
+      height: 62vh;
+    }
 }
-@media only screen and (max-height : 72 `0px) {
+@media only screen and (max-height : 720px) {
   .codeBox,.mapBox{
     height: 70vh;
+  }
+  .completeTimeline{
+    height: 57vh;
   }
 }
