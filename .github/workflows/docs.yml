@@ -29,7 +29,7 @@ jobs:
       - name: Copy config
         run: |
           cp ./src/config/config.example.ts ./src/config/config.ts
-          sed -i 's/http:\/\/localhost:8080/https:\/\/stoplight.io\/mocks\/rinish-api-testbed\/codecharacter\/14036190/' ./src/config/config.ts
+          sed -i 's/http:\/\/localhost:8080/https:\/\/stoplight.io\/mocks\/code-character-23\/code-character-23\/126170383/' ./src/config/config.ts
       - name: Run build
         run: yarn build
       - name: Run tests
