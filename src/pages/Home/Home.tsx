@@ -3,7 +3,7 @@ import Glitchtext from '../../components/Home/Glitchtext/Title';
 import AboutGame from '../../components/Home/AboutGame/AboutGame';
 import styles from './Home.module.css';
 import { useRef } from 'react';
-import downArrow from '/assets/DownArrow.svg';
+import downArrow from '../../../public/assets/DownArrow.svg';
 
 export default function Home(): JSX.Element {
   const Contentdiv = useRef<HTMLDivElement>(null);

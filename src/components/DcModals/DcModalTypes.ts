@@ -1,9 +1,4 @@
-export type DcAvailableProps = {
-  showAvailable: boolean;
-  handleCloseAvailable: () => void;
-};
-
-export type DcCompletedProps = {
-  showCompleted: boolean;
-  handleCloseCompleted: () => void;
+export type DcProps = {
+  show: boolean;
+  handleClose: () => void;
 };

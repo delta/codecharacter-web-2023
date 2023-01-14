@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import styles from './BackgroundVideo.module.css';
-import bgvideo from '/assets/bgEffect.mp4';
+import bgvideo from '../../../public/assets/bgEffect.mp4';
 
 const Backgroundvideo = () => {
   const vid = useRef<HTMLVideoElement>(null);

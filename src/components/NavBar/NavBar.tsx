@@ -95,14 +95,8 @@ const NavBar: React.FunctionComponent = () => {
 
   return (
     <div className={styles.navBar}>
-      <DcCompleted
-        showCompleted={showCompleted}
-        handleCloseCompleted={handleCloseCompleted}
-      />
-      <DcAvailable
-        showAvailable={showAvailable}
-        handleCloseAvailable={handleCloseAvailable}
-      />
+      <DcCompleted show={showCompleted} handleClose={handleCloseCompleted} />
+      <DcAvailable show={showAvailable} handleClose={handleCloseAvailable} />
       <div className={styles.navBarContainer}>
         <div className={styles.branding}>
           <Link to="/" className={styles.logoLink}>

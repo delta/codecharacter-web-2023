@@ -1,12 +1,12 @@
 import { Modal, Button } from 'react-bootstrap';
 import styles from './DcModals.module.css';
-import { DcAvailableProps } from './DcModalTypes';
+import { DcProps } from './DcModalTypes';
 
-const DcAvailable = (props: DcAvailableProps) => {
+const DcAvailable = (props: DcProps) => {
   return (
     <Modal
-      show={props.showAvailable}
-      onHide={props.handleCloseAvailable}
+      show={props.show}
+      onHide={props.handleClose}
       contentClassName={styles.dcmodal}
     >
       <Modal.Header closeButton>
@@ -19,14 +19,14 @@ const DcAvailable = (props: DcAvailableProps) => {
         <Button
           variant="outline-danger"
           className={styles.dcmodalBtn}
-          onClick={props.handleCloseAvailable}
+          onClick={props.handleClose}
         >
           Not Right Now!
         </Button>
         <Button
           variant="outline-light"
           className={styles.dcmodalBtn}
-          onClick={props.handleCloseAvailable}
+          onClick={props.handleClose}
         >
           Take Me There
         </Button>

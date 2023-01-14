@@ -1,12 +1,12 @@
 import { Modal, Button } from 'react-bootstrap';
 import styles from './DcModals.module.css';
-import { DcCompletedProps } from './DcModalTypes';
+import { DcProps } from './DcModalTypes';
 
-const DcCompleted = (props: DcCompletedProps) => {
+const DcCompleted = (props: DcProps) => {
   return (
     <Modal
-      show={props.showCompleted}
-      onHide={props.handleCloseCompleted}
+      show={props.show}
+      onHide={props.handleClose}
       contentClassName={styles.dcmodal}
     >
       <Modal.Header closeButton>
@@ -19,14 +19,14 @@ const DcCompleted = (props: DcCompletedProps) => {
         <Button
           variant="outline-danger"
           className={styles.dcmodalBtn}
-          onClick={props.handleCloseCompleted}
+          onClick={props.handleClose}
         >
           Ok!
         </Button>
         <Button
           variant="outline-info"
           className={styles.dcmodalBtn}
-          onClick={props.handleCloseCompleted}
+          onClick={props.handleClose}
         >
           View Leaderboard
         </Button>
