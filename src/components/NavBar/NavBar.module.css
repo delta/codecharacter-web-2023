@@ -2,13 +2,16 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #262e4b;
+  background-color: #232627;
   width: 100%;
   z-index: 1000;
 }
 
 .navBarContainer {
   display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0.8rem;
 }
 
 .navContainer {
@@ -16,25 +19,41 @@
 }
 
 .navLink {
-  margin: auto 10px;
+  font-family: 'Montserrat';
+  margin: auto 80px;
   text-decoration: none;
-  color: gray;
-  font-weight: bold;
+  display: flex;
+  color: white;
+  align-items: center;
+  font-size: 28px;
+  gap: 0.9rem;
+  font-weight: 500;
+}
+
+.navLink > img {
+  height: 1.6rem;
 }
 
 .navLink:hover {
   color: white;
 }
 
+.profileLink {
+  text-decoration: none;
+  color: inherit;
+}
+
 .navLogo {
   font-family: 'Montserrat';
   color: #ffffff;
-  font-size: 24px;
+  font-size: 33px;
   margin: 0.5rem 1rem;
 }
 
 .logoLink {
   text-decoration: none;
+  font-weight: 600;
+  color: white;
 }
 
 .branding {
@@ -46,6 +65,7 @@
   margin: 0.5rem;
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .profile {
@@ -81,4 +101,22 @@
 .notifIcon {
   margin: auto;
   position: relative;
+  margin-right: 0.6rem;
+
 }
+
+.dcIcon {
+  height: 2rem;
+  width: auto;
+  margin: auto;
+  position: relative;
+  margin-right: 2rem;
+}
+
+.dcIcon:hover{
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+
+

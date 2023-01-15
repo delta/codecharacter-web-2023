@@ -4,6 +4,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  padding: 20px;
 }
 
 .viewContainer {
@@ -13,6 +14,9 @@
 .codeView {
   display: flex;
   flex-direction: column;
+  width: 57.33%;
+  height: 87%;
+  margin-left: 2rem;
 }
 
 .buttonContainer {
@@ -22,45 +26,46 @@
   margin: 1rem;
 }
 
-.largeButton {
+.whiteButton {
   align-content: right;
-  color: #ffffff;
-  font-weight: 600;
-  font-family: Montserrat;
+  color: #ffffff !important;
+  font-weight: 400;
+  font-family: Bai Jamjuree;
   font-style: normal;
-  background-color: #3894b1;
-  border: 0px;
-  border-radius: 2px;
+  background-color: inherit !important;
+  font-size: 2em ;
+  border-bottom: 2px solid white;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
   transition: 0.5s;
+  border-radius: 0;
 }
 
-.smallButton {
+.darkButton {
   align-content: right;
-  color: #ffffff;
-  background: #1a3051;
-  font-family: Montserrat;
-  font-weight: 600;
+  color: rgba(234, 234, 234, 0.6);
+  background-color: inherit !important;
+  font-family: Bai Jamjuree;
+  font-weight: 400;
   font-style: normal;
-  border: 0px;
-  border-radius: 2px;
+  border-bottom: 2px solid rgba(234, 234, 234, 0.6);
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  font-size: 2em ;
   transition: 0.5s;
+  border-radius: 0px;
   box-shadow: none !important;
 }
 
-.largeButton:active,
-.smallButton:active {
+.darkButton:hover{
+  color: #ffffff;
+}
+
+.whiteButton:active,
+.darkButton:active {
   box-shadow: none;
-}
-
-.codeBox {
-  flex-grow: 1;
-  font-family: Montserrat;
-  font-style: normal;
-  max-height: 80vh;
-}
-
-.codeBox > *::-webkit-scrollbar {
-  display: none;
 }
 
 .codeBox > * {
@@ -70,17 +75,22 @@
   padding: 0;
 }
 
-.mapBox {
-  flex-grow: 1;
-  font-family: Montserrat;
-  font-style: normal;
-  background: black;
+.codeBox > *::-webkit-scrollbar {
+  display: none;
 }
 
-.timeline {
-  display: grid;
-  grid-template-rows: 12% 70% 18%;
+.mapBox {
+  flex-grow: 1;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.mapBox > *::-webkit-scrollbar {
+  display: none;
+}
+
 
 .select {
   text-align: right;
@@ -90,16 +100,17 @@
 .selectButton {
   position: relative;
   color: #ffffff;
-  width: 158px;
-  height: 45px;
+  width: 190px;
+  height: 5vh;
   margin: 10px;
-  padding: 0 50px;
   font-weight: 600;
-  font-size: 22px;
+  font-size: 18px;
+  text-align: center;
   font-style: normal;
-  background-color: #48c6d8;
-  border: 0px;
-  border-radius: 2px;
+  background-color: inherit;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-family: Bai Jamjuree;
 }
 
 .selectButton:hover {
@@ -114,7 +125,7 @@
   scrollbar-width: none;
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 77vh;
+  max-height: 67vh;
 }
 
 .completeTimeline::-webkit-scrollbar {
@@ -131,7 +142,7 @@
   scrollbar-width: none;
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 80vh;
+  height: 80vh;
 }
 
 .mapBox::-webkit-scrollbar,
@@ -139,10 +150,29 @@
   display: none;
 }
 
-.selectBtn{
-  background: #4595CF;
-  border-radius: 0;
-  margin: 5px;
-  padding: 5px;
-  /* width: 100px; */
+.mapImg{
+  object-fit:contain;
+  height:100%;
+  width:100%;
+}
+
+
+@media only screen and (max-height : 840px) {
+    .codeBox,.mapBox{
+      height: 75vh;
+    }
+    .selectButton{
+      font-size: 14px;
+    }
+    .completeTimeline{
+      height: 62vh;
+    }
+}
+@media only screen and (max-height : 720px) {
+  .codeBox,.mapBox{
+    height: 70vh;
+  }
+  .completeTimeline{
+    height: 57vh;
+  }
 }

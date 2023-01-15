@@ -1,19 +1,14 @@
 .mainContainer {
-  background-color: white;
   max-width: 100%;
   overflow-x: hidden;
 }
 
 .jumbotron {
   width: 100%;
-  height: calc(100vh - 52px);
-
+  height: calc(100vh - 91px);
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background: url('../../assets/bytehoc_final.webp');
-  background-size: cover;
 }
 
 .jumbotron > div {
@@ -24,19 +19,35 @@
 
 .delta {
   display: flex;
-  background-color: #eee;
+  background-color: #000000;
 }
 
 .delta > div {
   margin: auto;
+  color: antiquewhite;
+}
+
+.delta > div > a{
+  color: antiquewhite;
+  text-decoration: none;
 }
 
 .heart {
   color: red;
 }
 
+.arrow{
+  position: absolute;
+  bottom: 8%;
+  transition-duration: 0.5s;
+}
+
+.arrow:hover{
+  transform: scale(1.5);
+}
+
 @media screen and (max-width: 1000px) {
   .jumbotron > div {
-    font-size: 25px;
+    font-size: 2px;
   }
 }

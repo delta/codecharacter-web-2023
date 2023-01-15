@@ -36,7 +36,7 @@ export const AuthStatusResponseStatusEnum = {
   ActivationPending: 'ACTIVATION_PENDING',
 } as const;
 export type AuthStatusResponseStatusEnum =
-  typeof AuthStatusResponseStatusEnum[keyof typeof AuthStatusResponseStatusEnum];
+  (typeof AuthStatusResponseStatusEnum)[keyof typeof AuthStatusResponseStatusEnum];
 
 /**
  *
@@ -46,7 +46,7 @@ export const ChallengeType = {
   Code: 'CODE',
   Map: 'MAP',
 } as const;
-export type ChallengeType = typeof ChallengeType[keyof typeof ChallengeType];
+export type ChallengeType = (typeof ChallengeType)[keyof typeof ChallengeType];
 
 /**
  * Code model
@@ -447,7 +447,7 @@ export const GameStatus = {
   Executed: 'EXECUTED',
   ExecuteError: 'EXECUTE_ERROR',
 } as const;
-export type GameStatus = typeof GameStatus[keyof typeof GameStatus];
+export type GameStatus = (typeof GameStatus)[keyof typeof GameStatus];
 
 /**
  * Model for Generic Error
@@ -473,7 +473,7 @@ export const Language = {
   Java: 'JAVA',
   Python: 'PYTHON',
 } as const;
-export type Language = typeof Language[keyof typeof Language];
+export type Language = (typeof Language)[keyof typeof Language];
 
 /**
  * Leaderboard entry model
@@ -553,7 +553,7 @@ export const MatchMode = {
   Manual: 'MANUAL',
   Auto: 'AUTO',
 } as const;
-export type MatchMode = typeof MatchMode[keyof typeof MatchMode];
+export type MatchMode = (typeof MatchMode)[keyof typeof MatchMode];
 
 /**
  * Notification model
@@ -932,4 +932,4 @@ export const Verdict = {
   Player2: 'PLAYER2',
   Tie: 'TIE',
 } as const;
-export type Verdict = typeof Verdict[keyof typeof Verdict];
+export type Verdict = (typeof Verdict)[keyof typeof Verdict];

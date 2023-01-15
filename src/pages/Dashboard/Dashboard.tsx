@@ -9,6 +9,7 @@ import {
   faCodeBranch,
   faPlay,
   faSave,
+  faGear,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
@@ -42,6 +43,10 @@ import {
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
 import { loggedIn } from '../../store/User/UserSlice';
+import {
+  IsSettingsOpen,
+  isSettingsOpened,
+} from '../../store/EditorSettings/settings';
 
 type SplitPaneState = {
   horizontalPercent: string;
@@ -68,7 +73,7 @@ export default function Dashboard(): JSX.Element {
     if (position === 0) {
       setHorizontalPercent('0%');
     } else if (position === 1) {
-      setHorizontalPercent('50%');
+      setHorizontalPercent('51%');
     } else if (position === 2) {
       setHorizontalPercent('100%');
     } else {
@@ -222,6 +227,13 @@ export default function Dashboard(): JSX.Element {
       });
   };
 
+  const isSettingsOpen = useAppSelector(IsSettingsOpen);
+
+  function handleOpenSettings() {
+    if (isSettingsOpen === true) dispatch(isSettingsOpened(false));
+    else dispatch(isSettingsOpened(true));
+  }
+
   return (
     <main className={styles.mainContainer} ref={mainContainerRef}>
       <SplitPane
@@ -240,7 +252,7 @@ export default function Dashboard(): JSX.Element {
       >
         <div className={styles.leftPane}>
           <ButtonToolbar className={styles.toolbar} as={Row}>
-            <Col className={styles.toolbarColumn} sm="3">
+            <Col className={styles.toolbarColumn} xs="2">
               <Form.Select
                 className={styles.toolbarButton}
                 value={languageChose}
@@ -253,25 +265,27 @@ export default function Dashboard(): JSX.Element {
                 ))}
               </Form.Select>
             </Col>
-            <Col className={styles.toolbarColumn} sm="2">
+            <Col className={styles.toolbarColumn} xs="2">
               <Button
                 className={styles.toolbarButton}
                 onClick={handleSave}
                 variant="primary"
+                title="Save"
               >
                 <FontAwesomeIcon icon={faSave as IconProp} /> Save
               </Button>
             </Col>
-            <Col className={styles.toolbarColumn} sm="2">
+            <Col className={styles.toolbarColumn} xs="2">
               <Button
                 className={styles.toolbarButton}
                 onClick={handleSimulate}
                 variant="primary"
+                title="Simulate"
               >
                 <FontAwesomeIcon icon={faPlay as IconProp} /> Simulate
               </Button>
             </Col>
-            <Col className={styles.toolbarColumn} sm="2">
+            <Col className={styles.toolbarColumn} xs="2">
               <OverlayTrigger
                 trigger="click"
                 key={'bottom'}
@@ -293,6 +307,7 @@ export default function Dashboard(): JSX.Element {
                         className={styles.toolbarButton}
                         variant="primary"
                         onClick={handleCommit}
+                        title="Commit"
                       >
                         Commit
                       </Button>
@@ -305,13 +320,24 @@ export default function Dashboard(): JSX.Element {
                 </Button>
               </OverlayTrigger>
             </Col>
-            <Col className={styles.toolbarColumn} sm="2">
+            <Col className={styles.toolbarColumn} xs="2">
               <Button
                 className={styles.toolbarButton}
                 onClick={handleSubmit}
                 variant="primary"
+                title="Submit"
               >
                 <FontAwesomeIcon icon={faCloudUploadAlt as IconProp} /> Submit
+              </Button>
+            </Col>
+            <Col className={styles.toolbarColumn} xs="auto">
+              <Button
+                className={styles.toolbarButton}
+                onClick={handleOpenSettings}
+                variant="primary"
+                title="Editor Settings"
+              >
+                <FontAwesomeIcon icon={faGear as IconProp} />
               </Button>
             </Col>
             <Button

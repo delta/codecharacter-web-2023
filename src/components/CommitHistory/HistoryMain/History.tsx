@@ -9,24 +9,26 @@ import {
   GameMapRevision,
   MapApi,
 } from '@codecharacter-2023/client';
-import {
-  changeHistoryEditorMap,
-  changeHistoryEditorCode,
-} from '../../../store/historyEditor/historyEditorSlice';
+import { changeHistoryEditorMap } from '../../../store/historyEditor/historyEditorSlice';
 import { useAppDispatch } from '../../../store/hooks';
 import styles from './History.module.css';
 import CodeView from '../CodeMapViewbox/CodeView';
-import MapView from '../CodeMapViewbox/MapView';
 import { Col, Container, Row } from 'react-bootstrap';
-import Toast from 'react-hot-toast';
+import Toast, { toast } from 'react-hot-toast';
+import { updateUserCode, changeLanguage } from '../../../store/editor/code';
+import { useNavigate } from 'react-router-dom';
+import mapImage from '/assets/Map.jpeg';
 
 export default function History(): JSX.Element {
-  const [BigButton, setBigButton] = useState('Code');
+  const [SelectedButton, setSelectedButton] = useState('Code');
   const [completeCodeHistroy, setCodeHistory] = useState<CodeRevision[]>([]);
   const [completeMapHistory, setMapHistory] = useState<GameMapRevision[]>([]);
   const [currentCode, setCurrentCode] = useState('');
   const [codeLanguage, setCodeLanguage] = useState('');
   const [currentMap, setCurrentMap] = useState<Array<Array<number>>>([]);
+  const [currentCommitMessage, setCurrentCommitMessage] = useState<string>('');
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -64,9 +66,10 @@ export default function History(): JSX.Element {
 
   const commitID = (id: string) => {
     completeCodeHistroy.forEach(codeData => {
-      if (codeData.id == id) {
+      if (codeData.id === id) {
         setCurrentCode(codeData.code);
         setCodeLanguage(codeData.language.toLowerCase());
+        setCurrentCommitMessage(codeData.message);
       }
     });
     completeMapHistory.forEach(mapData => {
@@ -77,77 +80,104 @@ export default function History(): JSX.Element {
   };
 
   const changesEditorDetails = () => {
-    if (BigButton == 'Code' && currentCode != '') {
-      dispatch(changeHistoryEditorCode(currentCode));
-    } else if (BigButton == 'Map' && currentMap != []) {
+    if (SelectedButton == 'Code' && currentCode != '') {
+      dispatch(
+        updateUserCode({
+          currentUserLanguage: codeLanguage === 'cpp' ? 'c_cpp' : codeLanguage,
+          currentUserCode: currentCode,
+        }),
+      );
+      dispatch(changeLanguage(codeLanguage === 'cpp' ? 'c_cpp' : codeLanguage));
+      switch (codeLanguage) {
+        case 'cpp':
+          localStorage.setItem('languageChose', 'C++');
+          break;
+        case 'python':
+          localStorage.setItem('languageChose', 'Python');
+          break;
+        case 'java':
+          localStorage.setItem('languageChose', 'Java');
+          break;
+        default:
+          dispatch(changeLanguage('c_cpp'));
+      }
+      toast.success(` Loaded commit - ${currentCommitMessage}`);
+      navigate('/dashboard', { replace: true });
+    } else if (SelectedButton == 'Map' && currentMap.length != 0) {
       dispatch(changeHistoryEditorMap(currentMap));
     }
   };
 
   return (
-    <Container className={styles.historyMain}>
+    <Container fluid className={styles.historyMain}>
       <div className={styles.buttonContainer}>
         <div className={styles.codeMapButton}>
           <ButtonGroup>
             <Button
               className={
-                BigButton == 'Code' ? styles.largeButton : styles.smallButton
+                SelectedButton == 'Map' ? styles.whiteButton : styles.darkButton
               }
               onClick={() => {
-                setBigButton('Code');
+                setSelectedButton('Map');
               }}
+              variant="outline-light"
             >
-              Code
+              MAP
             </Button>
             <Button
+              variant="outline-light"
               className={
-                BigButton == 'Map' ? styles.largeButton : styles.smallButton
+                SelectedButton == 'Code'
+                  ? styles.whiteButton
+                  : styles.darkButton
               }
               onClick={() => {
-                setBigButton('Map');
+                setSelectedButton('Code');
               }}
             >
-              Map
+              CODE
             </Button>
           </ButtonGroup>
         </div>
       </div>
       <Row className={styles.viewContainer}>
-        <Col lg="3">
-          <div></div>
+        <Col lg="4" style={{ marginLeft: '5%' }}>
           <div className={styles.completeTimeline}>
             {completeMapHistory && completeCodeHistroy ? (
               <CommitHistory
                 commitID={commitID}
                 commitHistoryDetails={
-                  BigButton === 'Code'
+                  SelectedButton === 'Code'
                     ? completeCodeHistroy
                     : completeMapHistory
                 }
-                BigButton={BigButton}
+                SelectedButton={SelectedButton}
               />
             ) : (
               <h1 className={styles.noCommitDataHeader}>Loading...</h1>
             )}
           </div>
-          <div></div>
         </Col>
         <Col lg="9" className={styles.codeView}>
-          <div className={BigButton == 'Code' ? styles.codeBox : styles.mapBox}>
-            {BigButton == 'Code' ? (
+          <div
+            className={
+              SelectedButton == 'Code' ? styles.codeBox : styles.mapBox
+            }
+          >
+            {SelectedButton == 'Code' ? (
               <CodeView code={currentCode} codeLang={codeLanguage} />
             ) : (
-              <MapView mapCoordinates={currentMap} />
+              <img className={styles.mapImg} src={mapImage} />
             )}
           </div>
           <div className={styles.select}>
             <Button
               className={styles.selectButton}
-              variant="primary"
               size="lg"
               onClick={changesEditorDetails}
+              variant="outline-light"
             >
-              Select
+              LOAD COMMIT
             </Button>
           </div>
         </Col>
