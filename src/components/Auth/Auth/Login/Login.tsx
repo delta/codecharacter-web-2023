@@ -2,14 +2,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { useState, useEffect } from 'react';
 import styles from '../auth.module.css';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { BASE_PATH } from '../../../../config/config';
-import {
-  loginAction,
-  switchRegister,
-  loginError,
-} from '../../../../store/User/UserSlice';
+import { loginAction, loginError } from '../../../../store/User/UserSlice';
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import ForgetPassword from './ForgetPassword/ForgetPassword';
@@ -104,13 +100,9 @@ function Login(): JSX.Element {
     }
   };
 
-  const switchRegisterAction = () => {
-    hookDispatch(switchRegister());
-  };
-
   return (
     <div className={styles.mainContainer}>
-      <h1 className={styles.titleContainer}> Sign In</h1>
+      <h1 className={styles.signInText}> Sign In</h1>
       <div className={styles.cardContainer}>
         <div className={styles.externalAuthButtons}>
           <div>
@@ -121,7 +113,7 @@ function Login(): JSX.Element {
               <button className={styles.googleButton}>
                 <div>
                   {' '}
-                  LOGIN WITH GOOGLE &nbsp;
+                  LOGIN WITH GOOGLE{' '}
                   <FontAwesomeIcon icon={faGoogle as IconProp} />
                 </div>
               </button>
@@ -135,7 +127,7 @@ function Login(): JSX.Element {
               <button className={styles.githubButton}>
                 <div>
                   {' '}
-                  LOGIN WITH GITHUB &nbsp;{' '}
+                  LOGIN WITH GITHUB{' '}
                   <FontAwesomeIcon icon={faGithub as IconProp} />
                 </div>
               </button>
@@ -151,7 +143,7 @@ function Login(): JSX.Element {
           <div className={styles.loginCredentialsContainer}>
             <div>
               <input
-                type="email"
+                type="text"
                 value={email}
                 className={styles.email}
                 onChange={handleEmailSubmit}
@@ -170,13 +162,13 @@ function Login(): JSX.Element {
           </div>
 
           <div>
-            <div
+            <button
               className={styles.forgotPassword}
               onClick={handleForgetPassword}
             >
               {' '}
               FORGOT PASSWORD{' '}
-            </div>
+            </button>
             <ForgetPassword
               open={open}
               handleForgetPassword={handleForgetPassword}
@@ -192,7 +184,7 @@ function Login(): JSX.Element {
                   <div className={styles.loginText}>LOGIN</div>
                   <div className={styles.line} />
                   <FontAwesomeIcon
-                    className={styles.icon}
+                    className={styles.loginIcon}
                     icon={faChevronRight as IconProp}
                   />
                 </div>
@@ -200,19 +192,6 @@ function Login(): JSX.Element {
             </div>
           </div>
         </form>
-      </div>
-      <div className={styles.linkContainer}>
-        <span>
-          {' '}
-          <NavLink
-            to={'/register'}
-            className={styles.link}
-            onClick={switchRegisterAction}
-          >
-            {' '}
-            <b>register</b>
-          </NavLink>
-        </span>
       </div>
     </div>
   );

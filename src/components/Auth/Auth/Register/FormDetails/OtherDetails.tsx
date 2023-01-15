@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Form } from 'react-bootstrap';
 
 import styles from './OtherDetails.module.css';
 import { getAllAvatars } from '../../../../Avatar/Avatar';
@@ -10,31 +9,24 @@ export default function OtherDetails(props: user): JSX.Element {
 
   return (
     <div className={styles.formContainer}>
-      <Form.Group className="mb-3" controlId="formBasicAvatar">
-        <Form.Label>Choose your Avatar</Form.Label>
-        <div>
-          <div className={styles.avatarContainer}>
-            {avatars.map((avatar, index: number) => (
-              <div
-                key={index}
-                className={`${styles.avatar} ${
-                  selectedAvatar === avatar.id ? styles.avatarSelected : ''
-                }`}
-                onClick={() => {
-                  setSelectedAvatar(avatar.id);
-                  props.handleAvatarChange(avatar.id);
-                }}
-              >
-                <img
-                  className={styles.avatarImg}
-                  src={avatar.url}
-                  alt="avatar"
-                />
-              </div>
-            ))}
-          </div>
+      <div>
+        <div className={styles.avatarContainer}>
+          {avatars.map((avatar, index: number) => (
+            <div
+              key={index}
+              className={`${styles.avatar} ${
+                selectedAvatar === avatar.id ? styles.avatarSelected : ''
+              }`}
+              onClick={() => {
+                setSelectedAvatar(avatar.id);
+                props.handleAvatarChange(avatar.id);
+              }}
+            >
+              <img className={styles.avatarImg} src={avatar.url} alt="avatar" />
+            </div>
+          ))}
         </div>
-      </Form.Group>
+      </div>
     </div>
   );
 }

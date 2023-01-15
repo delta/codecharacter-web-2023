@@ -7,7 +7,7 @@ export default function UserCreditionals(props: creditionals): JSX.Element {
       <div>
         <input
           type="text"
-          placeholder="UserName"
+          placeholder="USERNAME"
           value={props.userName}
           onChange={props.handleUserNameChange}
           className={styles.username}
@@ -29,7 +29,7 @@ export default function UserCreditionals(props: creditionals): JSX.Element {
       <div>
         <input
           type="text"
-          placeholder="College"
+          placeholder="COLLEGE"
           value={props.college}
           onChange={props.handleCollegeChange}
           className={styles.collegeName}

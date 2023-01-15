@@ -4,46 +4,55 @@
   justify-content: center;
   gap: 1.5rem;
 }
+
 .avatarContainer {
   display: flex;
   flex-direction: row;
   gap: 20px;
   overflow-x: scroll;
-  background-color: whitesmoke;
-  border: 1px solid white;
+  background-color: transparent;
+  border: 2px solid #AAAAAA;
   border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 .avatarContainer::-webkit-scrollbar {
   height: 5px;
+  background-color: #AAAAAA;
 }
 
 .avatarContainer::-webkit-scrollbar-track {
-  background-color: #AAAAAA;
-  border-radius: 4px;
+  background-color: transparent;
 }
 
 .avatarContainer::-webkit-scrollbar-thumb {
   background-color: transparent;
-  border-radius: 4px;
 }
 
 .avatar {
   min-width: 60px;
   height: 60px;
   text-align: center;
-  background-color: #262e4b;
-  border-radius: 5%;
-  margin: 2px;
+  background-color: transparent;
+  margin: 5px;
+  border-radius: 15%;
 }
 
 .avatar:hover {
-  background-color: #4595cf;
+  background-color: #AAAAAA;
   cursor: pointer;
 }
 
 .avatarSelected {
-  background-color: #4595cf;
+  background-color: #AAAAAA;
+}
+
+input::placeholder{
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 1.5px;
 }
 
 .avatarImg {
@@ -52,7 +61,7 @@
 }
 
 
-@media only screen and (max-width: 400px){
+@media only screen and (max-width: 500px){
   .formContainer{
     width: 100%;
     padding: auto;

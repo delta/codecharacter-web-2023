@@ -6,7 +6,7 @@ export default function UserDetails(props: user): JSX.Element {
       <div>
         <input
           type="text"
-          placeholder="Name"
+          placeholder="NAME"
           autoComplete="off"
           value={props.fullName}
           onChange={props.handleFullNameChange}
@@ -16,7 +16,7 @@ export default function UserDetails(props: user): JSX.Element {
       <div>
         <input
           type="text"
-          placeholder="Email"
+          placeholder="EMAIL"
           value={props.email}
           className={styles.email}
           onChange={props.handleEmailChange}
@@ -25,7 +25,7 @@ export default function UserDetails(props: user): JSX.Element {
       <div>
         <input
           type="password"
-          placeholder="Password"
+          placeholder="PASSWORD"
           value={props.password}
           onChange={props.handlePasswordChange}
           className={styles.password}
@@ -34,7 +34,7 @@ export default function UserDetails(props: user): JSX.Element {
       <div>
         <input
           type="password"
-          placeholder="Confirm Password"
+          placeholder="CONFIRM PASSWORD"
           value={props.confirmPassword}
           onChange={props.handleConfirmPasswordChange}
           className={styles.confirmPassword}

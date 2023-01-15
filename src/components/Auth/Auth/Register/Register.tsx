@@ -8,7 +8,7 @@ import {
 import { default as ReCAPTCHA } from 'react-google-recaptcha';
 import styles from '../auth.module.css';
 import { SITE_KEY } from '../../../../config/config';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import UserDetails from './FormDetails/UserDetails';
 import UserCreditionals from './FormDetails/UserCreditionals';
 import OtherDetails from './FormDetails/OtherDetails';
@@ -64,6 +64,7 @@ export default function Register(): JSX.Element {
         setEmail('');
         isemailError(true);
         isCompleted(false);
+        toast.error('Username/Email already exists');
         break;
     }
   }, [registerError]);
@@ -244,34 +245,31 @@ export default function Register(): JSX.Element {
     }
   };
   const handleNext = () => {
-    handleStepSubmit(formNumber);
-    handleForm(1);
-    handleError(formNumber);
+    if (handleError(formNumber)) {
+      handleStepSubmit(formNumber);
+      handleForm(1);
+    }
   };
 
   const handleError = (formNumber: number) => {
     if (formNumber == 1) {
       if (fullNameError) {
         toast.error('Name should have atleast 5 characters');
-      }
-      if (emailError) {
+      } else if (emailError) {
         toast.error('Invalid email');
-      }
-      if (passwordError) {
-        toast.error(
-          'Password should be greater than 8 characters\nPassword should contain atleast \n1 UpperCase letter, \n1 SpecialCharacter, \n1 number',
-        );
-      }
-      if (confirmpasswordError) {
+      } else if (confirmpasswordError) {
         toast.error('Check your Password');
+      } else {
+        return true;
       }
     }
     if (formNumber == 2) {
       if (collegeError) {
         toast.error('Please enter your college name');
-      }
-      if (userNameError) {
+      } else if (userNameError) {
         toast.error('Username should have atleast 5 characters');
+      } else {
+        return true;
       }
     }
   };
@@ -311,9 +309,7 @@ export default function Register(): JSX.Element {
   };
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.titleContainer}>
-        <h1> Sign Up</h1>
-      </div>
+      <h1 className={styles.signUpText}> Sign Up</h1>
       <div className={styles.registerContainer}>
         <Form>
           {formNumber === 1 ? (
@@ -369,57 +365,55 @@ export default function Register(): JSX.Element {
           ) : (
             <></>
           )}
-          <div>
-            {formNumber > 1 ? (
-              <button
-                onClick={handlePrevious}
-                className={styles.previousButton}
-              >
-                <div>
-                  <FontAwesomeIcon icon={faChevronLeft as IconProp} />
-                  &nbsp; BACK
-                </div>
-              </button>
-            ) : (
-              <></>
-            )}
-          </div>
-          <div>
-            {formNumber < 3 ? (
-              <button onClick={handleNext} className={styles.nextButton}>
-                <div>NEXT &nbsp;</div>
-                <FontAwesomeIcon icon={faChevronRight as IconProp} />
-              </button>
-            ) : (
-              <></>
-            )}
-          </div>
-          <div>
-            {formNumber == 3 ? (
-              <button
-                disabled={!isHuman}
-                onClick={handleCollege}
-                className={styles.signUpButton}
-              >
-                <div>SIGN UP &nbsp;</div>
-                <FontAwesomeIcon icon={faChevronRight as IconProp} />
-              </button>
-            ) : (
-              <></>
-            )}
+          <div className={styles.footerContainer}>
+            <div>
+              {formNumber > 1 ? (
+                <button
+                  onClick={handlePrevious}
+                  className={styles.previousButton}
+                >
+                  <FontAwesomeIcon
+                    className={styles.buttonIcon}
+                    icon={faChevronLeft as IconProp}
+                  />
+                  <div> BACK</div>
+                </button>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div>
+              {formNumber < 3 ? (
+                <button onClick={handleNext} className={styles.nextButton}>
+                  <div>NEXT </div>
+                  <FontAwesomeIcon
+                    className={styles.buttonIcon}
+                    icon={faChevronRight as IconProp}
+                  />
+                </button>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div>
+              {formNumber == 3 ? (
+                <button
+                  disabled={!isHuman}
+                  onClick={handleCollege}
+                  className={styles.signUpButton}
+                >
+                  <div>SIGN UP </div>
+                  <FontAwesomeIcon
+                    className={styles.buttonIcon}
+                    icon={faChevronRight as IconProp}
+                  />
+                </button>
+              ) : (
+                <></>
+              )}
+            </div>
           </div>
         </Form>
-      </div>
-      <div className={styles.linkContainer}>
-        <span>
-          {' '}
-          <b>
-            <NavLink to="/login" className={styles.link}>
-              {' '}
-              Login now{' '}
-            </NavLink>
-          </b>
-        </span>
       </div>
     </div>
   );

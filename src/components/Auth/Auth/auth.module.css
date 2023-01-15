@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed');
+
 * {
   margin: 0px;
   padding: 0px;
@@ -11,7 +15,8 @@
   flex-direction: column;
 }
 
-.titleContainer{
+.signUpText,
+.signInText{
   text-align: center;
   font-family: 'Roboto Mono';
   font-style: normal;
@@ -19,13 +24,14 @@
   font-size: 40px;
   line-height: 53px;
   color: #AAAAAA;
-  
+  padding: 10px;
+  margin-top: 150px;
 }
 
 .cardContainer{
   display: grid;
-  grid-template-columns: 3fr 3fr 3fr;
-  margin: auto; 
+  grid-template-columns: 3fr 2fr 3fr;
+  margin: 70px auto auto auto; 
   width: auto;
 }
 
@@ -33,9 +39,10 @@
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
-  justify-content: center;
-  gap: 6rem;
+  gap: 7rem;
   float: left;
+  margin: 5px 0px 70px 5px;
+  justify-content: center;
 }
 
 .separator{
@@ -60,6 +67,7 @@
   display: flex;
   flex-direction: column;
   align-self: center;
+  margin: 70px auto auto auto; 
 }
 
 
@@ -69,21 +77,19 @@
   height: 90px;
 }
 
-
 .googleButton,
 .githubButton{
   background-color: transparent;
   box-sizing: border-box;
-  padding: 5px 20px 5px 20px;
+  padding: 2px 60px 2px 60px;
   position: absolute;
   border: 3px solid #AAAAAA;
   letter-spacing: 2px;
-  margin: auto;
   text-align: center;
   font-family: "Roboto Mono";
   font-style: normal;
   font-weight: 400;
-  font-size: 25px;
+  font-size: 22px;
   line-height: 53px;
   color: #AAAAAA;
 }
@@ -94,9 +100,7 @@
 
 .line{
   flex: 1;
-  align-self: right;
   border-left: 2px solid #AAAAAA;
-  align-self: stretch;
   height: auto;  
 }
 
@@ -106,16 +110,25 @@
   font-family: "Roboto Mono";
   font-style: normal;
   font-weight: 400;
-  font-size: 25px;
+  font-size: 23px;
   color: #AAAAAA;
-  padding: 5px 3px 5px 18px;
+  padding: 10px 3px 10px 25px;
 }
 
-.icon{
+.loginIcon{
   flex: 1;
   align-self: center;
-  padding: 1px 10px 1px 0px;
-  size: 2em;
+  font-size: 1.7em;
+  padding: 3px 15px 3px 0px;
+  color: #AAAAAA;
+}
+
+.buttonIcon{
+  flex: 1;
+  align-self: center;
+  font-size: 1.4em;
+  padding: 3px 10px 3px 10px;
+  color: #AAAAAA;
 }
 
 .loginButton{
@@ -129,7 +142,7 @@
 .loginCredentialsContainer{
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .email,
@@ -137,14 +150,17 @@
   width: 100%;
   background-color: transparent;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 10px 20px 10px 20px;
   border: 3px solid #AAAAAA;
   margin: auto;
-  font-family: "Roboto Mono";
   font-style: normal;
   font-weight: 400;
   font-size: 25px;
-  color: #EAEAEA;
+  color: #AAAAAA;
+}
+
+.footerContainer{
+  margin-top: 30px;
 }
 
 .subText{
@@ -162,6 +178,8 @@
   text-align: center;
   margin: 5px 2px 9px 2px ;
   font-size: 17px;
+  background-color: transparent;
+  border: none;
   color: #AAAAAA;
   font-family: 'Roboto Condensed';
   font-style: normal;
@@ -172,29 +190,34 @@
 .nextButton,
 .signUpButton{
   border: none;
-  align-self: flex-end;
   background-color: transparent;
   float: right;
   display: flex;
+  color: #AAAAAA;
   font-family: 'Roboto Mono';
   font-style: normal;
-  margin-top: 10px;
   font-weight: 400;
-  font-size: 19px;
-  
+  font-size: 20px;
 }
 
+input::placeholder{
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+}
 
 .previousButton{
-  background-color: transparent;
-  margin-top: 10px;
   border: none;
+  background-color: transparent;
   float: left;
   display: flex;
+  color: #AAAAAA;
   font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
-  font-size: 19px;
+  font-size: 20px;
 }
 
 @media  only screen and (max-width: 600px) {
@@ -236,10 +259,10 @@
     font-size: 14px;
 }
 
-.nextButton,
-.previousButton{
-  font-size: 20px;
-  line-height: 30px;
+  .nextButton,
+  .previousButton{
+    font-size: 20px;
+    line-height: 30px;
 }
   
 }
@@ -257,8 +280,8 @@
   .externalAuthButtons{
     width: 100%;
     float: none;
-    gap: 8rem;
-    justify-content: start;
+    gap: 6rem;
+    justify-content: center;
   }
   .formContainer{
     width: 100%;

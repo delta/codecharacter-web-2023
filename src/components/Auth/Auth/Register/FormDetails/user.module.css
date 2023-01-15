@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');
 
 .formContainer{
   display: flex;
@@ -9,7 +10,6 @@
 .flagContainer {
   color: black;
   background-color: transparent;
-  height: 44px;
   border: 3px solid #AAAAAA;
 }
 
@@ -22,12 +22,10 @@
   width: auto;
   background-color: transparent;
   box-sizing: border-box;
-  padding-left: 11px;
-  padding-right: 11px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px 20px 5px 20px;
   border: 3px solid #AAAAAA;
   margin: auto;
+  font-family: 'Roboto-Mono';
   text-align: start;
   font-style: normal;
   font-weight: 400;
@@ -36,11 +34,19 @@
   color: #AAAAAA;
 }
 
+input::placeholder{
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+}
+
 .grecaptcha-badge {
   visibility: hidden;
 }
 
-@media only screen and (max-width: 400px){
+@media only screen and (max-width: 500px){
   .formContainer{
     width: 100%;
   }
