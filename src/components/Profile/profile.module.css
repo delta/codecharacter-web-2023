@@ -9,15 +9,16 @@
     margin-top: 2rem;
     flex-direction: column;
     height: 1900px;
+    /* overflow: hidden; */
 }
 
 .Container {
     width: 40rem;
-    text-align: center;
     border-radius: 0.5rem;
     align-self: center;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .header {
@@ -45,6 +46,7 @@
     font-size: 45px;
     color: #EAEAEA;
     margin-bottom: 2rem;
+    text-align: center;
 }
 
 .close {
@@ -100,6 +102,19 @@
     height: 65px;
     color: black;
 }
+.flagContainer > button {
+    position: relative;
+    bottom: 5px;
+} 
+
+.flagContainer > ul {
+    background-color: #232627;
+    width: 580px;
+}
+
+.flagContainer > ul > div {
+    background-color: #232627;
+}
 
 .footer {
     text-align: center;
@@ -120,30 +135,53 @@
 }
 
 .submitContainer {
+    font-family: 'Roboto Mono', monospace;
     text-align: center;
-    font-weight: 700;
     font-size: 33px;
     border-radius: 3px;
     margin-bottom: 25px;
-    transition: all 3s ease;
+    background-color: rgba(255, 255, 255, 0);
+    color: #aaaaaa;
+    border: 3px solid #AAAAAA;
+    transition: all 0.4s ease;
+}
+
+.submitContainer:disabled {
+    background-color: rgba(255, 255, 255, 0);
+    color: #aaaaaa57;
+    border: 3px solid #AAAAAA;
+
+}
+
+.submitContainer:hover {
+    background-color: rgba(255, 255, 255, 0);
+    border: 3px solid #AAAAAA;
 }
 
 .eyeContainer {
     display: flex;
     align-items: center;
-    width: 103%;
+    width: 104%;
 }
 
 .eye {
     color: #242a3c;
     position: relative;
-    right: 29px;
+    right: 34px;
 }
 
 .linkButton {
     text-decoration: none;
     color: #AAAAAA;
     font-size: 33px;
+}
+
+.linkButton:hover {
+    color: white;
+}
+
+.linkButton:active {
+    color: white !important;
 }
 
 .avatarContainer {
@@ -167,7 +205,7 @@
 }
 
 .avatarContainer::-webkit-scrollbar-thumb {
-    background-color: blue;
+    background-color: #232627;
     border-radius: 4px;
 }
 
@@ -175,7 +213,7 @@
     min-width: 60px;
     height: 60px;
     text-align: center;
-    background-color: #262e4b;
+    background-color: #1a1a1ab2;
     border-radius: 5%;
     margin: 2px;
 }
@@ -200,7 +238,6 @@
     font-size: 33px;
     border-radius: 1px;
     color: #AAAAAA;
-    /* width: 30rem; */
     font-family: 'Roboto Mono', monospace;
     transition: all 0.3s ease;
 }
@@ -213,17 +250,13 @@
     box-shadow: 5px 5px 5px black;
 }
 
-.downIcon {
-    height: 3rem;
-    margin-top: 2.5rem;
-    transition: all 0.4s ease;
-}
-
-.downIcon:hover {
-    transform:translateY(10px) scale(1.1);
-}
 
 .formContainer > div:nth-child(1) {
     height: 55rem;
 }
 
+.profileScrollBody {
+    height: 100%;
+    overflow-y: scroll;
+    transition: all 0.5s ease;
+}
