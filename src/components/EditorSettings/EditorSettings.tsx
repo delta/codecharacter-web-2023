@@ -31,7 +31,7 @@ const EditorSettings = (): JSX.Element => {
     fontSizeOptions.push(i);
   }
 
-  const editorThemes = ['vs', 'vs-dark', 'hc-black'];
+  const editorThemes = ['vs-light', 'vs-dark', 'high-contrast-black'];
 
   const keyboardHandlers = ['default', 'emacs', 'vim'];
 
@@ -127,66 +127,6 @@ const EditorSettings = (): JSX.Element => {
                       {keyboardHandlerValue}
                     </option>
                   ))}
-                </select>
-              </FormGroup>
-            </Col>
-
-            <Col xs={12} className={styles.settingFormGroup}>
-              <FormGroup controlId="basicAutoCompletion">
-                <div className={styles.settingLabel}>Basic Auto Completion</div>
-                <select
-                  className={styles.settingDropdown}
-                  value={enableBasicAutoComplete ? 'enable' : 'disable'}
-                  onChange={e =>
-                    handleAutoCompleteToggle(
-                      e.target.value === 'enable' ? true : false,
-                    )
-                  }
-                >
-                  <option
-                    value={'enable'}
-                    key={'enable'}
-                    className={styles.optionsDropdown}
-                  >
-                    enable
-                  </option>
-                  <option
-                    value={'disable'}
-                    key={'disable'}
-                    className={styles.optionsDropdown}
-                  >
-                    disable
-                  </option>
-                </select>
-              </FormGroup>
-            </Col>
-
-            <Col xs={12} className={styles.settingFormGroup}>
-              <FormGroup controlId="snippets">
-                <div className={styles.settingLabel}>Snippets</div>
-                <select
-                  className={styles.settingDropdown}
-                  value={enableSnippets ? 'enable' : 'disable'}
-                  onChange={e =>
-                    handleSnippetsToggle(
-                      e.target.value === 'enable' ? true : false,
-                    )
-                  }
-                >
-                  <option
-                    value={'enable'}
-                    key={'enable'}
-                    className={styles.optionsDropdown}
-                  >
-                    enable
-                  </option>
-                  <option
-                    value={'disable'}
-                    key={'disable'}
-                    className={styles.optionsDropdown}
-                  >
-                    disable
-                  </option>
                 </select>
               </FormGroup>
             </Col>

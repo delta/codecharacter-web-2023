@@ -1,5 +1,4 @@
 export type Props = {
   language: string;
-  // Function commit
-  commit: () => void;
+  setTrigerCommit: React.Dispatch<React.SetStateAction<boolean>>;
 };

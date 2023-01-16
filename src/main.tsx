@@ -22,6 +22,8 @@ const SelfMatchModal = lazy(
   () => import('./components/SelfMatchMakingModal/SelfMatchMakeModal'),
 );
 
+const EditorInfo = lazy(() => import('./components/EditorInfo/EditorInfo'));
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -29,6 +31,7 @@ ReactDOM.render(
         <HashRouter>
           <Suspense fallback={<Loader />}>
             <EditorSettings />
+            <EditorInfo />
             <SelfMatchModal />
             <NavBar />
             <div className={styles.mainWindow}>

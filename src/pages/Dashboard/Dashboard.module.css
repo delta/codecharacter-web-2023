@@ -10,8 +10,6 @@
   height: 100%;
 }
 
-
-
 .toolbar {
   justify-content: space-between;
   position: relative;
@@ -94,4 +92,13 @@
 .popOverBody {
   background-color: #1c1c1c;
   color: #ffffff;
+}
+
+.settingsIcon{
+  margin-top: 4px;
+}
+
+.hoverIcon:hover{
+  cursor: pointer;
+  color: #a5a5a5;
 }

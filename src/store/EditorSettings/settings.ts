@@ -8,6 +8,7 @@ export interface settingsStateType {
   keyboardHandler: string;
   enableBasicAutoComplete: boolean;
   enableSnippets: boolean;
+  isInfoOpen: boolean;
 }
 
 const initialState: settingsStateType = {
@@ -17,6 +18,7 @@ const initialState: settingsStateType = {
   keyboardHandler: 'default',
   enableBasicAutoComplete: true,
   enableSnippets: true,
+  isInfoOpen: false,
 };
 
 export interface CodeAndLanguage {
@@ -46,6 +48,9 @@ export const settingsSlice = createSlice({
     enableSnippetsChanged: (state, action: PayloadAction<boolean>) => {
       state.enableSnippets = action.payload;
     },
+    isInfoOpened: (state, action: PayloadAction<boolean>) => {
+      state.isInfoOpen = action.payload;
+    },
   },
 });
 
@@ -56,6 +61,7 @@ export const {
   keyboardHandlerChanged,
   enableBasicAutoCompleteChanged,
   enableSnippetsChanged,
+  isInfoOpened,
 } = settingsSlice.actions;
 
 export const IsSettingsOpen = (state: RootState): boolean =>
@@ -70,5 +76,7 @@ export const EnableBasicAutoComplete = (state: RootState): boolean =>
   state.codeEditorReducer.settingsState.enableBasicAutoComplete;
 export const EnableSnippets = (state: RootState): boolean =>
   state.codeEditorReducer.settingsState.enableSnippets;
+export const IsInfoOpen = (state: RootState): boolean =>
+  state.codeEditorReducer.settingsState.isInfoOpen;
 
 export default settingsSlice.reducer;

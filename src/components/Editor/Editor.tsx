@@ -1,6 +1,6 @@
 import * as Editor from './EditorTypes';
 import styles from './style.module.css';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import * as monaco from 'monaco-editor';
 import { CodeApi, Language } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
@@ -28,7 +28,7 @@ import {
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
 
-const codeAPI = new CodeApi(apiConfig);
+const codeAPI: CodeApi = new CodeApi(apiConfig);
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (_moduleId: any, label: string) {
@@ -46,23 +46,23 @@ self.MonacoEnvironment = {
 };
 
 export default function CodeEditor(props: Editor.Props): JSX.Element {
-  const divEl = useRef<HTMLDivElement>(null);
+  const divCodeEditor = useRef<HTMLDivElement>(null);
   let editor: monaco.editor.IStandaloneCodeEditor;
-  const userCode = useAppSelector(UserCode);
-  const fontSize = useAppSelector(FontSize);
-  const theme = useAppSelector(Theme);
-  const dispatch = useAppDispatch();
+  const userCode: string = useAppSelector(UserCode);
+  const fontSize: number = useAppSelector(FontSize);
+  const theme: string = useAppSelector(Theme);
+  const dispatch: React.Dispatch<unknown> = useAppDispatch();
 
   const keyboardHandler = useAppSelector(KeyboardHandler);
   const enableSnippets = useAppSelector(EnableSnippets);
 
   const language = props.language;
-  const commit: () => void = props.commit;
-  console.log(keyboardHandler);
+  const setTrigerCommit: React.Dispatch<React.SetStateAction<boolean>> =
+    props.setTrigerCommit;
 
   useEffect(() => {
-    if (divEl.current) {
-      editor = monaco.editor.create(divEl.current, {
+    if (divCodeEditor.current) {
+      editor = monaco.editor.create(divCodeEditor.current, {
         value: userCode,
         language: language == 'c_cpp' ? 'cpp' : language,
         fontSize: fontSize,
@@ -79,8 +79,12 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         lineNumbersMinChars: 3,
         lineDecorationsWidth: 10,
         automaticLayout: true,
-        theme: theme,
-        snippetSuggestions: enableSnippets ? 'inline' : 'none',
+        theme:
+          theme == 'vs-dark'
+            ? 'vs-dark'
+            : theme == 'vs-light'
+            ? 'vs'
+            : 'hc-black',
         cursorBlinking: 'smooth',
       });
     }
@@ -93,7 +97,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       dispatch(updateUserCode(codeNlanguage));
     });
 
-    //Keybinding for save CTRL+S
+    //Keybinding for save -> CTRL+S
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function () {
       let languageType: Language = Language.Cpp;
@@ -115,7 +119,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         });
     });
 
-    //Keybinding for Simulate CTRL+ALT+N
+    //Keybinding for Simulate -> CTRL+ALT+N
 
     editor.addCommand(
       monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
@@ -128,11 +132,36 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       },
     );
 
-    //Keybinfding for Commit CTRL+K
+    //Keybinding for Commit -> CTRL+K
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK, function () {
-      commit();
+      setTrigerCommit(true);
     });
+
+    //Keybinding for Submit -> CTRL+SHIFT+S
+
+    editor.addCommand(
+      monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyS,
+      function () {
+        let languageType: Language = Language.Cpp;
+        if (language === 'c_cpp') languageType = Language.Cpp;
+        else if (language === 'python') languageType = Language.Python;
+        else if (language === 'java') languageType = Language.Java;
+
+        codeAPI
+          .updateLatestCode({
+            code: userCode,
+            lock: true,
+            language: languageType,
+          })
+          .then(() => {
+            Toast.success('Code Submitted');
+          })
+          .catch(err => {
+            if (err instanceof ApiError) Toast.error(err.message);
+          });
+      },
+    );
 
     return () => {
       editor.dispose();
@@ -142,7 +171,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   return (
     <div
       className={styles.Editor}
-      ref={divEl}
+      ref={divCodeEditor}
       onChange={() => {
         const codeNlanguage: CodeAndLanguage = {
           currentUserCode: editor.getValue(),

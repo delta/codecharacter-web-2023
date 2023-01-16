@@ -10,6 +10,7 @@ import {
   faPlay,
   faSave,
   faGear,
+  faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
@@ -45,6 +46,13 @@ import {
 import { loggedIn } from '../../store/User/UserSlice';
 import { Theme, themeChanged } from '../../store/EditorSettings/settings';
 
+import {
+  IsSettingsOpen,
+  IsInfoOpen,
+  isSettingsOpened,
+  isInfoOpened,
+} from '../../store/EditorSettings/settings';
+
 type SplitPaneState = {
   horizontalPercent: string;
   verticalPercent: string;
@@ -67,8 +75,7 @@ export default function Dashboard(): JSX.Element {
 
   const theme = useAppSelector(Theme);
 
-  const editorThemes = ['vs', 'vs-dark', 'hc-black'];
-
+  const editorThemes = ['vs-light', 'vs-dark', 'high-contrast-black'];
   function handleThemeChange(newTheme: string) {
     dispatch(themeChanged(newTheme));
   }
@@ -136,6 +143,7 @@ export default function Dashboard(): JSX.Element {
   );
 
   const [commitName, setCommitName] = useState('');
+  const [trigerCommit, setTrigerCommit] = useState(false);
 
   const handleLanguageChange = (language: string) => {
     switch (language) {
@@ -191,6 +199,20 @@ export default function Dashboard(): JSX.Element {
     setCommitName(e.target.value);
   };
 
+  const isSettingsOpen = useAppSelector(IsSettingsOpen);
+
+  function handleOpenSettings() {
+    if (isSettingsOpen === true) dispatch(isSettingsOpened(false));
+    else dispatch(isSettingsOpened(true));
+  }
+
+  const isInfoOpen = useAppSelector(IsInfoOpen);
+
+  function handleOpenInfo() {
+    if (isInfoOpen === true) dispatch(isInfoOpened(false));
+    else dispatch(isInfoOpened(true));
+  }
+
   const handleCommit = () => {
     let languageType: Language = Language.Cpp;
     if (userLanguage === 'c_cpp') languageType = Language.Cpp;
@@ -206,6 +228,7 @@ export default function Dashboard(): JSX.Element {
       .then(() => {
         Toast.success('Code Committed');
         setCommitName('');
+        setTrigerCommit(false);
       })
       .catch(err => {
         if (err instanceof ApiError) Toast.error(err.message);
@@ -261,7 +284,7 @@ export default function Dashboard(): JSX.Element {
               styles.toolbar +
               (theme == 'vs-dark'
                 ? ' vs-dark'
-                : theme == 'vs'
+                : theme == 'vs-light'
                 ? ' vs'
                 : ' hc-black')
             }
@@ -292,6 +315,8 @@ export default function Dashboard(): JSX.Element {
             </Col>
             <Col className={styles.toolbarColumn} sm="1">
               <OverlayTrigger
+                // defaultShow={true}
+                show={trigerCommit}
                 trigger="click"
                 key={'bottom'}
                 placement={'bottom'}
@@ -308,18 +333,15 @@ export default function Dashboard(): JSX.Element {
                         placeholder="Commit message"
                       />
                       <br />
-                      <button
-                        className={styles.toolbarButton}
-                        onClick={handleCommit}
-                        title="Commit"
-                      >
-                        Commit
-                      </button>
+                      <Button onClick={handleCommit}>Commit</Button>
                     </Popover.Body>
                   </Popover>
                 }
               >
-                <button className={styles.toolbarButton}>
+                <button
+                  className={styles.toolbarButton}
+                  onClick={() => setTrigerCommit(!trigerCommit)}
+                >
                   <FontAwesomeIcon icon={faCodeBranch as IconProp} /> Commit
                 </button>
               </OverlayTrigger>
@@ -329,23 +351,28 @@ export default function Dashboard(): JSX.Element {
                 <FontAwesomeIcon icon={faCloudUploadAlt as IconProp} /> Submit
               </button>
             </Col>
-            <Col className={styles.toolbarColumn} sm="1">
-              <select
-                className={styles.settingDropdown}
-                value={theme}
-                onChange={e => handleThemeChange(e.target.value)}
-              >
-                {editorThemes.map((themeValue: string) => (
-                  <option
-                    value={themeValue}
-                    key={themeValue}
-                    className={styles.optionsDropdown}
-                  >
-                    {themeValue}
-                  </option>
-                ))}
-              </select>
-            </Col>
+            <div>
+              <div className={styles.settingsIcon}>
+                <FontAwesomeIcon
+                  title={'Settings'}
+                  icon={faGear as IconProp}
+                  color={'white'}
+                  onClick={handleOpenSettings}
+                  className={styles.hoverIcon}
+                />
+              </div>
+            </div>
+            <div>
+              <div className={styles.settingsIcon}>
+                <FontAwesomeIcon
+                  title={'Shorcuts'}
+                  icon={faCircleInfo as IconProp}
+                  color={'white'}
+                  onClick={handleOpenInfo}
+                  className={styles.hoverIcon}
+                />
+              </div>
+            </div>
             <Button
               className={styles.closeEditorButton}
               onClick={() => {
@@ -366,7 +393,10 @@ export default function Dashboard(): JSX.Element {
             </Button>
           </ButtonToolbar>
           <div className={styles.editorContainer}>
-            <Editor language={userLanguage} commit={handleCommit}></Editor>
+            <Editor
+              language={userLanguage}
+              setTrigerCommit={setTrigerCommit}
+            ></Editor>
           </div>
         </div>
         <SplitPane
