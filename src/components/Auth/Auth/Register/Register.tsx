@@ -223,7 +223,7 @@ export default function Register(): JSX.Element {
     const passwordFormat =
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/;
     setpassword(e.target.value);
-    if (submitSecond) {
+    if (submitFirst) {
       if (e.target.value.match(passwordFormat)) {
         ispasswordError(false);
       } else {
@@ -236,7 +236,7 @@ export default function Register(): JSX.Element {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setConfirmpassword(e.target.value);
-    if (submitSecond) {
+    if (submitFirst) {
       if (e.target.value != password) {
         isconfirmpasswordError(true);
       } else {
@@ -257,8 +257,12 @@ export default function Register(): JSX.Element {
         toast.error('Name should have atleast 5 characters');
       } else if (emailError) {
         toast.error('Invalid email');
+      } else if (passwordError) {
+        toast(
+          'Password should contain atleast \n\tatleast 8 characters,\n\t1 UpperCase letter, \n\t1 Special Character, \n\t1 number',
+        );
       } else if (confirmpasswordError) {
-        toast.error('Check your Password');
+        toast.error('Check your password');
       } else {
         return true;
       }
@@ -369,6 +373,7 @@ export default function Register(): JSX.Element {
             <div>
               {formNumber > 1 ? (
                 <button
+                  type="button"
                   onClick={handlePrevious}
                   className={styles.previousButton}
                 >
@@ -384,7 +389,11 @@ export default function Register(): JSX.Element {
             </div>
             <div>
               {formNumber < 3 ? (
-                <button onClick={handleNext} className={styles.nextButton}>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className={styles.nextButton}
+                >
                   <div>NEXT </div>
                   <FontAwesomeIcon
                     className={styles.buttonIcon}

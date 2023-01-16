@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Modal } from 'react-bootstrap';
 import styles from './forgetpassword.module.css';
 import { AuthApi } from '@codecharacter-2023/client';
 import { ApiError, authConfig } from '../../../../../api/ApiConfig';
 import Toast, { toast } from 'react-hot-toast';
+import { Modal } from 'react-bootstrap';
 
 interface ForgetPasswordInterface {
   open?: boolean;
@@ -22,7 +22,6 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
       isemailError(true);
     }
   };
-
   const handleSubmit = () => {
     const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (emailError) {
@@ -49,6 +48,7 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
         onHide={props.handleForgetPassword}
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className={styles.modal}
       >
         <Modal.Header closeButton className={styles.modalHeader}>
           <Modal.Title>Forgot Password</Modal.Title>
@@ -57,24 +57,17 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
         <Modal.Body className={styles.modalContainer}>
           <div>
             <input
-              type="text"
+              type="name"
               placeholder="Email"
               value={email}
               className={styles.email}
               onChange={handleEmailSubmit}
             />
-          </div>{' '}
+          </div>
         </Modal.Body>
 
         <Modal.Footer className={styles.modalContainer}>
-          <button
-            className={styles.submitButton}
-            onClick={() => {
-              handleSubmit();
-              if (props.handleForgetPassword != null)
-                props.handleForgetPassword();
-            }}
-          >
+          <button onClick={handleSubmit} className={styles.submitButton}>
             Submit
           </button>
         </Modal.Footer>

@@ -30,7 +30,7 @@
 
 .cardContainer{
   display: grid;
-  grid-template-columns: 3fr 2fr 3fr;
+  grid-template-columns: 3fr 3fr 3fr;
   margin: 70px auto auto auto; 
   width: auto;
 }
@@ -41,7 +41,7 @@
   flex-direction: column;
   gap: 7rem;
   float: left;
-  margin: 5px 0px 70px 5px;
+  margin: 5px 0px 70px 0px;
   justify-content: center;
 }
 
@@ -153,6 +153,7 @@
   padding: 10px 20px 10px 20px;
   border: 3px solid #AAAAAA;
   margin: auto;
+  font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
   font-size: 25px;
@@ -234,7 +235,7 @@ input::placeholder{
   }
   .externalAuthButtons{width: 80%;
     margin: auto;
-    gap: 4rem;
+    gap: 6rem;
     float: none;
   }
   .formContainer{
@@ -305,5 +306,10 @@ input::placeholder{
   .forgotPassword{
     font-size: 18px;
     line-height: 30px;
+  }
+  .signInText,
+  .signUpText{
+    margin-top: 80px;
+    font-size: 30px;
   }
 }

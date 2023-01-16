@@ -24,12 +24,13 @@ function Login(): JSX.Element {
   const loggedInError = useAppSelector(loginError);
   useEffect(() => {
     switch (loggedInError) {
-      case 'Invalid Password':
+      case 'Invalid credentials':
         setPassword('');
         ispasswordError(true);
-        toast.error('Invalid Password');
+        toast.error('Invalid credentials');
         break;
       case 'User not found':
+        console.log('in');
         setEmail('');
         isemailError(true);
         setPassword('');
@@ -53,9 +54,6 @@ function Login(): JSX.Element {
     const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/;
     const passwordFormat =
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/;
-    if (loggedInError != 'NIL' && !typing) {
-      toast.error(loggedInError);
-    }
 
     if (email.match(mailformat)) {
       isemailError(false);
@@ -67,12 +65,12 @@ function Login(): JSX.Element {
     } else {
       ispasswordError(true);
     }
+    if (login && (emailError || passwordError) && !typing) {
+      toast.error('Invalid Username or Password');
+    }
     if (!(emailError && passwordError)) {
       isTyping(false);
       hookDispatch(loginAction({ email: email, password: password }));
-    }
-    if ((emailError && login) || (passwordError && login)) {
-      toast.error('Invalid Username or Password');
     }
   };
 

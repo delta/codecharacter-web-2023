@@ -63,20 +63,8 @@ input::placeholder{
 
 @media only screen and (max-width: 500px){
   .formContainer{
-    width: 100%;
-    padding: auto;
-  }
-  .password,
-  .email,
-  .name,
-  .username,
-  .collegeName,
-  .confirmPassword{
-    font-size: 18px;
-    line-height: 30px;
-  }
-  .avatarContainer{
-    width: 100%;
+    max-width: 270px;
+    margin: auto;
   }
   
 }
