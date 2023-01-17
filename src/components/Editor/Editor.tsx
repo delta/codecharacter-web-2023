@@ -1,6 +1,6 @@
 import * as Editor from './EditorTypes';
 import styles from './style.module.css';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
 import { CodeApi, Language } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
@@ -8,7 +8,6 @@ import Toast from 'react-hot-toast';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
-  EnableSnippets,
   FontSize,
   KeyboardHandler,
   Theme,
@@ -31,7 +30,7 @@ import {
 const codeAPI: CodeApi = new CodeApi(apiConfig);
 
 self.MonacoEnvironment = {
-  getWorkerUrl: function (_moduleId: any, label: string) {
+  getWorkerUrl: function (_moduleId: string, label: string) {
     if ((label = 'cpp')) {
       return './cpp.worker.bundle.js';
     }
@@ -54,7 +53,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const dispatch: React.Dispatch<unknown> = useAppDispatch();
 
   const keyboardHandler = useAppSelector(KeyboardHandler);
-  const enableSnippets = useAppSelector(EnableSnippets);
 
   const language = props.language;
   const setTrigerCommit: React.Dispatch<React.SetStateAction<boolean>> =

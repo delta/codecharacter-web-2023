@@ -21,7 +21,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 10px;
+  padding: 0px 2px;
 }
 
 .midDiv{
@@ -33,6 +33,7 @@
 }
 
 .settingsIconDiv{
+  transform: scale(1.2);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -43,6 +44,7 @@
   width: 20px;
   right: 60px; 
   margin: 5px 0px;
+  color: #cbcbcb;
 }
 
 .toolbarColumn {
@@ -77,6 +79,12 @@
   border-radius: 0;
   outline: none;
   margin: 0 10px;
+  color: #cbcbcb;
+}
+
+.toolbarButton:hover{
+  color: #ffffff;
+  transform: scale(1.1);
 }
 
 .toolbarButton1 {
@@ -95,6 +103,25 @@
 .toolbarButton1:focus {
   outline: none;
   box-shadow: none;
+}
+
+.toolbarButtonSave{
+  font-size: small;
+  /* width: 100%; */
+  height: 100%;
+  max-width: 4rem;
+  min-width: 2rem;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  margin: 0 10px;
+  color: #cbcbcb;
+  margin-left: 1.5rem;
+}
+
+.toolbarButtonSave:hover{
+  color: #ffffff;
+  transform: scale(1.1);
 }
 
 .settingDropdown{
@@ -148,5 +175,6 @@
 
 .hoverIcon:hover{
   cursor: pointer;
-  color: #a5a5a5;
+  color: #ffffff;
+  transform: scale(1.15);
 }

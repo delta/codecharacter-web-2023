@@ -44,13 +44,13 @@ import {
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
 import { loggedIn } from '../../store/User/UserSlice';
-import { Theme, themeChanged } from '../../store/EditorSettings/settings';
 
 import {
   IsSettingsOpen,
   IsInfoOpen,
   isSettingsOpened,
   isInfoOpened,
+  Theme,
 } from '../../store/EditorSettings/settings';
 
 type SplitPaneState = {
@@ -74,11 +74,6 @@ export default function Dashboard(): JSX.Element {
   );
 
   const theme = useAppSelector(Theme);
-
-  const editorThemes = ['vs-light', 'vs-dark', 'high-contrast-black'];
-  function handleThemeChange(newTheme: string) {
-    dispatch(themeChanged(newTheme));
-  }
 
   const updateDividerPosition = (position: number) => {
     setDividerPosition(position);
@@ -306,7 +301,10 @@ export default function Dashboard(): JSX.Element {
               </Col>
               <div className={styles.midDiv}>
                 <Col className={styles.toolbarColumn} sm="1">
-                  <button className={styles.toolbarButton} onClick={handleSave}>
+                  <button
+                    className={styles.toolbarButtonSave}
+                    onClick={handleSave}
+                  >
                     <FontAwesomeIcon icon={faSave as IconProp} /> Save
                   </button>
                 </Col>
@@ -371,7 +369,7 @@ export default function Dashboard(): JSX.Element {
                   <FontAwesomeIcon
                     title={'Settings'}
                     icon={faGear as IconProp}
-                    color={'white'}
+                    color={'#cbcbcb'}
                     onClick={handleOpenSettings}
                     className={styles.hoverIcon}
                   />
@@ -381,7 +379,7 @@ export default function Dashboard(): JSX.Element {
                   <FontAwesomeIcon
                     title={'Shorcuts'}
                     icon={faCircleInfo as IconProp}
-                    color={'white'}
+                    color={'#cbcbcb'}
                     onClick={handleOpenInfo}
                     className={styles.hoverIcon}
                   />

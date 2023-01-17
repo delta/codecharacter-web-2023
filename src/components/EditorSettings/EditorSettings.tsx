@@ -6,14 +6,10 @@ import {
   fontSizeChanged,
   themeChanged,
   keyboardHandlerChanged,
-  enableBasicAutoCompleteChanged,
-  enableSnippetsChanged,
   IsSettingsOpen,
   FontSize,
   Theme,
   KeyboardHandler,
-  EnableBasicAutoComplete,
-  EnableSnippets,
 } from '../../store/EditorSettings/settings';
 
 const EditorSettings = (): JSX.Element => {
@@ -21,8 +17,6 @@ const EditorSettings = (): JSX.Element => {
   const fontSize = useAppSelector(FontSize);
   const theme = useAppSelector(Theme);
   const keyboardHandler = useAppSelector(KeyboardHandler);
-  const enableBasicAutoComplete = useAppSelector(EnableBasicAutoComplete);
-  const enableSnippets = useAppSelector(EnableSnippets);
 
   const dispatch = useAppDispatch();
 
@@ -45,14 +39,6 @@ const EditorSettings = (): JSX.Element => {
 
   function handleKeyboardHandlerChange(newKeyboardHandler: string) {
     dispatch(keyboardHandlerChanged(newKeyboardHandler));
-  }
-
-  function handleAutoCompleteToggle(toggle: boolean) {
-    dispatch(enableBasicAutoCompleteChanged(toggle));
-  }
-
-  function handleSnippetsToggle(toggle: boolean) {
-    dispatch(enableSnippetsChanged(toggle));
   }
 
   return (

@@ -1,7 +1,8 @@
 import { Col, Modal, Row } from 'react-bootstrap';
-import { IsInfoOpen } from '../../store/EditorSettings/settings';
-import { isInfoOpened } from '../../store/EditorSettings/settings';
+
+import { IsInfoOpen, isInfoOpened } from '../../store/EditorSettings/settings';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+
 import styles from './EditorInfo.module.css';
 import { shortcuts } from './data';
 
