@@ -21,7 +21,7 @@ function RatingHistoryChart() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<RatingHistory[]>([]);
   const userApi = new UserApi(apiConfig);
-  const currentUser = useAppSelector(user).username;
+  const currentUser = useAppSelector(user).id;
   const labels: string[] = [];
   const ratings: number[] = [];
   const options = {
