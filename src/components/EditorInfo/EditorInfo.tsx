@@ -3,18 +3,12 @@ import { IsInfoOpen } from '../../store/EditorSettings/settings';
 import { isInfoOpened } from '../../store/EditorSettings/settings';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import styles from './EditorInfo.module.css';
+import { shortcuts } from './data';
 
 const EditorInfo = (): JSX.Element => {
   const isInfoOpen = useAppSelector(IsInfoOpen);
 
   const dispatch = useAppDispatch();
-
-  const shortcuts = [
-    { key: 'Ctrl + S', description: 'Save' },
-    { key: 'Ctrl + ALT + N', description: 'Simulate' },
-    { key: 'Ctrl + K', description: 'Commit' },
-    { key: 'Ctrl + Shift + S', description: 'Submit' },
-  ];
 
   const newLocal = 'fw-bold fs-3';
   return (

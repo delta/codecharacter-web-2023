@@ -290,107 +290,129 @@ export default function Dashboard(): JSX.Element {
             }
             as={Row}
           >
-            <Col className={styles.toolbarColumn1} sm="3">
-              <Form.Select
-                className={styles.toolbarButton1}
-                value={languageChose}
-                onChange={e => handleLanguageChange(e.target.value)}
-              >
-                {languages.map(language => (
-                  <option value={language} key={language}>
-                    {language}
-                  </option>
-                ))}
-              </Form.Select>
-            </Col>
-            <Col className={styles.toolbarColumn} sm="1">
-              <button className={styles.toolbarButton} onClick={handleSave}>
-                <FontAwesomeIcon icon={faSave as IconProp} /> Save
-              </button>
-            </Col>
-            <Col className={styles.toolbarColumn} sm="1">
-              <button className={styles.toolbarButton} onClick={handleSimulate}>
-                <FontAwesomeIcon icon={faPlay as IconProp} /> Simulate
-              </button>
-            </Col>
-            <Col className={styles.toolbarColumn} sm="1">
-              <OverlayTrigger
-                // defaultShow={true}
-                show={trigerCommit}
-                trigger="click"
-                key={'bottom'}
-                placement={'bottom'}
-                rootClose
-                overlay={
-                  <Popover>
-                    <Popover.Header as="h3" className={styles.popOverHeader}>
-                      Enter commit message
-                    </Popover.Header>
-                    <Popover.Body className={styles.popOverBody}>
-                      <Form.Control
-                        onChange={handleCommitNameInput}
-                        type="text"
-                        placeholder="Commit message"
-                      />
-                      <br />
-                      <Button onClick={handleCommit}>Commit</Button>
-                    </Popover.Body>
-                  </Popover>
-                }
-              >
-                <button
-                  className={styles.toolbarButton}
-                  onClick={() => setTrigerCommit(!trigerCommit)}
+            <div className={styles.mainDiv}>
+              <Col className={styles.toolbarColumn1} sm="1">
+                <Form.Select
+                  className={styles.toolbarButton1}
+                  value={languageChose}
+                  onChange={e => handleLanguageChange(e.target.value)}
                 >
-                  <FontAwesomeIcon icon={faCodeBranch as IconProp} /> Commit
-                </button>
-              </OverlayTrigger>
-            </Col>
-            <Col className={styles.toolbarColumn} sm="1">
-              <button className={styles.toolbarButton} onClick={handleSubmit}>
-                <FontAwesomeIcon icon={faCloudUploadAlt as IconProp} /> Submit
-              </button>
-            </Col>
-            <div>
-              <div className={styles.settingsIcon}>
-                <FontAwesomeIcon
-                  title={'Settings'}
-                  icon={faGear as IconProp}
-                  color={'white'}
-                  onClick={handleOpenSettings}
-                  className={styles.hoverIcon}
-                />
+                  {languages.map(language => (
+                    <option value={language} key={language}>
+                      {language}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Col>
+              <div className={styles.midDiv}>
+                <Col className={styles.toolbarColumn} sm="1">
+                  <button className={styles.toolbarButton} onClick={handleSave}>
+                    <FontAwesomeIcon icon={faSave as IconProp} /> Save
+                  </button>
+                </Col>
+                <Col className={styles.toolbarColumn} sm="1">
+                  <button
+                    className={styles.toolbarButton}
+                    onClick={handleSimulate}
+                  >
+                    <FontAwesomeIcon icon={faPlay as IconProp} /> Simulate
+                  </button>
+                </Col>
+                <Col className={styles.toolbarColumn} sm="1">
+                  <OverlayTrigger
+                    // defaultShow={true}
+                    show={trigerCommit}
+                    trigger="click"
+                    key={'bottom'}
+                    placement={'bottom'}
+                    rootClose
+                    overlay={
+                      <Popover>
+                        <Popover.Header
+                          as="h3"
+                          className={styles.popOverHeader}
+                        >
+                          Enter commit message
+                        </Popover.Header>
+                        <Popover.Body className={styles.popOverBody}>
+                          <Form.Control
+                            onChange={handleCommitNameInput}
+                            type="text"
+                            placeholder="Commit message"
+                          />
+                          <br />
+                          <Button onClick={handleCommit}>Commit</Button>
+                        </Popover.Body>
+                      </Popover>
+                    }
+                  >
+                    <button
+                      className={styles.toolbarButton}
+                      onClick={() => setTrigerCommit(!trigerCommit)}
+                    >
+                      <FontAwesomeIcon icon={faCodeBranch as IconProp} /> Commit
+                    </button>
+                  </OverlayTrigger>
+                </Col>
+                <Col className={styles.toolbarColumn} sm="1">
+                  <button
+                    className={styles.toolbarButton}
+                    onClick={handleSubmit}
+                  >
+                    <FontAwesomeIcon icon={faCloudUploadAlt as IconProp} />{' '}
+                    Submit
+                  </button>
+                </Col>
               </div>
             </div>
             <div>
-              <div className={styles.settingsIcon}>
-                <FontAwesomeIcon
-                  title={'Shorcuts'}
-                  icon={faCircleInfo as IconProp}
-                  color={'white'}
-                  onClick={handleOpenInfo}
-                  className={styles.hoverIcon}
-                />
+              <div className={styles.settingsIconDiv}>
+                <div className={styles.settingsIcon}>
+                  <FontAwesomeIcon
+                    title={'Settings'}
+                    icon={faGear as IconProp}
+                    color={'white'}
+                    onClick={handleOpenSettings}
+                    className={styles.hoverIcon}
+                  />
+                </div>
+
+                <div className={styles.settingsIcon}>
+                  <FontAwesomeIcon
+                    title={'Shorcuts'}
+                    icon={faCircleInfo as IconProp}
+                    color={'white'}
+                    onClick={handleOpenInfo}
+                    className={styles.hoverIcon}
+                  />
+                </div>
               </div>
             </div>
-            <Button
-              className={styles.closeEditorButton}
-              onClick={() => {
-                updateDividerPosition(dividerPosition - 1);
-              }}
-              variant="dark"
-            >
-              <FontAwesomeIcon size={'sm'} icon={faChevronLeft as IconProp} />
-            </Button>
-            <Button
-              className={styles.closeRendererButton}
-              onClick={() => {
-                updateDividerPosition(dividerPosition + 1);
-              }}
-              variant="dark"
-            >
-              <FontAwesomeIcon size={'sm'} icon={faChevronRight as IconProp} />
-            </Button>
+            <div>
+              <Button
+                className={styles.closeEditorButton}
+                onClick={() => {
+                  updateDividerPosition(dividerPosition - 1);
+                }}
+                variant="dark"
+              >
+                <FontAwesomeIcon size={'sm'} icon={faChevronLeft as IconProp} />
+              </Button>
+            </div>
+            <div>
+              <Button
+                className={styles.closeRendererButton}
+                onClick={() => {
+                  updateDividerPosition(dividerPosition + 1);
+                }}
+                variant="dark"
+              >
+                <FontAwesomeIcon
+                  size={'sm'}
+                  icon={faChevronRight as IconProp}
+                />
+              </Button>
+            </div>
           </ButtonToolbar>
           <div className={styles.editorContainer}>
             <Editor
