@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Red+Hat+Display:400,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bai+Jamjuree:400,900&display=swap');
 
 body,
 html {
@@ -10,7 +13,7 @@ html {
 
 .header {
   max-width: 1000px;
-  margin: 50px auto;
+  margin: 25px auto;
   border-radius: 12px;
   justify-content: center;
   display: flex;
@@ -27,30 +30,29 @@ html {
 }
 
 .header__title {
+  font-family: 'Roboto Mono', monospace;
   font-size: 48px;
   text-align: center;
-  text-transform: uppercase;
   letter-spacing: 4.5px;
 }
 
 .ranklist {
-  max-width: 900px;
+  max-width: 75vw;
   display: block;
   align-items: center;
   padding-top: 10px;
-  font-family: 'Red Hat Display', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: auto;
 }
 
 .list {
   margin: 0 auto;
   background: transparent;
-  box-shadow: 0 0 4rem 0 rgba(0, 0, 0, 0.1),
-    0 1rem 2rem -1rem rgba(0, 0, 0, 0.3);
   text-align: center;
   vertical-align: middle;
   border: none;
-  border-spacing: 0px 15px;
+  padding: 15px;
+  border-spacing: 0px 20px;
   border-collapse: separate;
 }
 
@@ -59,7 +61,7 @@ html {
   border-style: solid none;
   border-radius: 5px;
   background: rgba(30, 30, 30, 0.87);
-  margin: 5px;
+  margin: 8px;
 }
 
 .tier3 {
@@ -90,7 +92,7 @@ html {
 }
 
 .currentUserItem {
-  background: #20b5a3;
+  background: #204743;
   border-radius: 5px;
   margin: 5px;
   border: none;
@@ -102,8 +104,10 @@ html {
 
 .list .item .pos {
   text-align: center;
-  color: white;
+  color: #aaaaaa;
+  font-size: x-large;
   border: none;
+  padding: 15px 30px;
 }
 
 .list .item .pic {
@@ -111,29 +115,31 @@ html {
   height: 2rem;
   align-items: center;
   border-radius: 50%;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2),
-    0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
   border: none;
 }
 
 .list .item .name {
   flex-basis: 6rem;
-  font-size: 1.1rem;
+  font-size: x-large;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-family: 'Roboto', monospace;
   overflow: hidden;
-  color: white;
+  color: #aaaaaa;
   margin-right: 5px;
   border: none;
+  padding: 15px 30px;
 }
 
 .list .item .score {
-  font-family: monospace;
-  color: white;
+  font-family: 'Bai Jamjuree', monospace;
+  color: #aaaaaa;
   background-color: transparent;
+  font-size: x-large;
   margin-right: 1.5rem;
   opacity: 1;
   border: rgba(0, 0, 0, 0.3);
+  padding: 15px 30px;
 }
 
 .list .item .score:after {
@@ -141,6 +147,7 @@ html {
   opacity: 0.8;
   background-color: transparent;
   border: none;
+  padding: 15px;
 }
 
 .list .item .score:last-child {
@@ -149,20 +156,23 @@ html {
 }
 
 .list .tableHeader {
-  font-family: monospace;
-  color: white;
+  font-family: 'Roboto Condensed', monospace;
+  font-size: x-large;
+  color: #aaaaaa;
+  font-weight: 100;
   background: transparent;
-  letter-spacing: 5px;
   margin-right: 1.5rem;
   opacity: 1;
   border: rgba(0, 0, 0, 0.3);
+  padding: 15px;
 }
 
-.attackButton {
+.item .attackButton {
   background-color: transparent;
   cursor: pointer;
   border: none;
-  color: white;
+  color: #aaaaaa;
+  padding: 15px 30px;
 }
 
 .attackImg:hover {
@@ -172,7 +182,7 @@ html {
 .attackImg {
   width: 2rem;
   height: 2rem;
-  color: white;
+  color: #aaaaaa;
 }
 
 .paginationouter {
@@ -200,7 +210,7 @@ html {
 }
 
 .matchHeader button {
-  background-color: white;
+  background-color: #aaaaaa;
 }
 
 .matchBody {
@@ -219,7 +229,7 @@ html {
 
 .pagination .pageNum {
   border-radius: 8px;
-  color: white;
+  color: #aaaaaa;
   padding: 8px 15px;
   text-decoration: none !important;
   text-transform: uppercase;
@@ -227,7 +237,7 @@ html {
 }
 
 .pagination .pageNum:hover {
-  background-color: white;
+  background-color: #aaaaaa;
   color: rgba(30, 30, 30, 0.87);
   text-decoration: none;
   border: 1px;
@@ -239,7 +249,6 @@ html {
 
 .pagination .active {
   background-color: white;
-
   text-decoration: none;
   color: #0a1c2a;
   border: 1px;
@@ -259,6 +268,6 @@ html {
 }
 
 .menu {
-  background: white;
+  background: #aaaaaa;
   color: black;
 }

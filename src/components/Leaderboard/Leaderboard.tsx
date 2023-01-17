@@ -50,7 +50,6 @@ function PaginatedItems() {
 
   useEffect(() => {
     fetchLeaderboard(0, 10000);
-    console.log('I was called');
     setTierOffset(0);
   }, []);
 
@@ -95,13 +94,11 @@ function PaginatedItems() {
     setIsLoaded(false);
     const leaderboardAPI = new LeaderboardApi(apiConfig);
     leaderboardAPI
-      .getLeaderboard(0, 10000) // The pagination system is so messed up, I can't be bother to fix it, so this hack
+      .getLeaderboard(0, 10000)
       .then(response => {
         setItems(response);
-        console.log(items);
         setIsLoaded(true);
         setUsableItems(items.slice(startIndex, endIndex));
-        console.log(usableItems);
       })
       .catch(error => {
         if (error instanceof ApiError) Toast.error(error.message);
@@ -155,14 +152,12 @@ function PaginatedItems() {
                   <tr className={styles.tableHeader}>
                     <th className={styles.tierheader}></th>
                     <th className={styles.tableHeader}>RANK</th>
-                    <th className={styles.tableHeader} colSpan={2}>
-                      USERNAME
-                    </th>
+                    <th className={styles.tableHeader}>USERNAME</th>
                     <th className={styles.tableHeader}>RATINGS</th>
                     <th className={styles.tableHeader}></th>
                     <th className={styles.tableHeader}>WON</th>
-                    <th className={styles.tableHeader}>TIED</th>
                     <th className={styles.tableHeader}>LOST</th>
+                    <th className={styles.tableHeader}>TIED</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -186,13 +181,15 @@ function PaginatedItems() {
                         <td className={styles.pos}>
                           {usableItems.indexOf(row) + 1 + tierOffest}
                         </td>
-                        <td className={styles.score}>
-                          <img
-                            className={styles.pic}
-                            src={getAvatarByID(row.user.avatarId).url}
-                          ></img>
+                        <td className={styles.name}>
+                          <div>
+                            <img
+                              className={styles.pic}
+                              src={getAvatarByID(row.user.avatarId).url}
+                            ></img>
+                            {' ' + row.user.username}
+                          </div>
                         </td>
-                        <td className={styles.name}>{row.user.username}</td>
                         <td className={styles.score}>
                           {row.stats.rating.toFixed(3)}
                         </td>
@@ -210,8 +207,8 @@ function PaginatedItems() {
                           </td>
                         )}
                         <td className={styles.score}>{row.stats.wins}</td>
-                        <td className={styles.score}>{row.stats.ties}</td>
                         <td className={styles.score}>{row.stats.losses}</td>
+                        <td className={styles.score}>{row.stats.ties}</td>
                       </tr>
                     ))}
                 </tbody>
@@ -222,8 +219,8 @@ function PaginatedItems() {
       </>
       <nav className={styles.paginationouter}>
         <ReactPaginate
-          previousLabel="Previous"
-          nextLabel="Next"
+          previousLabel="<"
+          nextLabel=">"
           pageLinkClassName={styles.pageNum}
           previousLinkClassName={styles.pageNum}
           nextLinkClassName={styles.pageNum}

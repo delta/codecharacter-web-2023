@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Red+Hat+Display:400,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bai+Jamjuree:400,900&display=swap');
 body,
 html {
   height: 100%;
@@ -17,24 +19,17 @@ html {
   flex-wrap: wrap;
   align-items: center;
   padding: 10px 25px;
-  color: #e8ecfd;
-}
-
-.header__icon {
-  max-width: 50px;
-  height: auto;
-  opacity: 0.7;
+  color: #ffffff;
 }
 
 .header__title {
   font-size: 48px;
   text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 4.5px;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .ranklist {
-  max-width: 1000px;
+  max-width: 75vw;
   display: block;
   align-items: center;
   padding-top: 10px;
@@ -45,8 +40,6 @@ html {
 .list {
   margin: 0 auto;
   background: transparent;
-  box-shadow: 0 0 4rem 0 rgba(0, 0, 0, 0.1),
-    0 1rem 2rem -1rem rgba(0, 0, 0, 0.3);
   text-align: center;
   vertical-align: middle;
   border: none;
@@ -55,9 +48,8 @@ html {
 }
 
 .item {
-  border-radius: 10px;
   background: rgba(30, 30, 30, 0.87);
-  max-width: 900px !important;
+  border-radius: 10px;
 }
 
 .list .item .pic {
@@ -65,8 +57,6 @@ html {
   height: 2rem;
   align-items: center;
   border-radius: 50%;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2),
-    0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
   border: none;
 }
 
@@ -80,35 +70,50 @@ html {
 
 .battlecardwin {
   outline: thin solid #00bc62;
-  box-shadow: 0 3px #ffe600;
+}
+
+.battlecardwin:first-child {
+  border-left: thin solid #00bc62;
 }
 
 .battlecardlose {
   outline: thin solid #bc1700;
 }
 
+.battlecardlose:first-child {
+  border-left: thin solid #bc1700;
+}
+
 .battlecardtie {
   outline: thin solid #ffe600;
-  max-width: 900px !important;
+}
+
+.battlecardtie:first-child {
+  border-left: thin solid #ffe600;
 }
 
 .list .item .name {
   flex-basis: 6rem;
-  font-size: 1.1rem;
+  font-size: x-large;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-family: 'Roboto', monospace;
   overflow: hidden;
-  color: white;
+  color: #aaaaaa;
   margin-right: 5px;
   border: none;
+  padding: 15px 30px;
 }
 
 .list .item .score {
-  font-family: monospace;
-  color: white;
+  font-family: 'Bai Jamjuree', monospace;
+  color: #aaaaaa;
   background-color: transparent;
+  font-size: x-large;
   margin-right: 1.5rem;
-  border: none;
+  opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
+  padding: 15px 30px;
 }
 
 .list .item .score:after {
@@ -129,13 +134,15 @@ html {
 }
 
 .list .tableHeader {
-  font-family: monospace;
-  color: white;
+  font-family: 'Roboto Condensed', monospace;
+  font-size: x-large;
+  color: #aaaaaa;
+  font-weight: 100;
   background: transparent;
-  letter-spacing: 5px;
   margin-right: 1.5rem;
   opacity: 1;
   border: rgba(0, 0, 0, 0.3);
+  padding: 15px;
 }
 
 .paginationouter {
@@ -155,7 +162,7 @@ html {
 
 .pagination .pageNum {
   border-radius: 8px;
-  color: white;
+  color: #aaaaaa;
   padding: 8px 15px;
   text-transform: uppercase;
   text-decoration: none !important;
@@ -163,7 +170,7 @@ html {
 }
 
 .pagination .pageNum:hover {
-  background-color: white;
+  background-color: #aaaaaa;
   color: rgba(30, 30, 30, 0.87);
   border: 1px;
 }
@@ -173,13 +180,13 @@ html {
 }
 
 .pagination .active {
-  background-color: white;
+  background-color: #aaaaaa;
   color: #0a1c2a;
   border: 1px;
 }
 
 .button {
-  background-color: white;
+  background-color: #aaaaaa;
   color: #0a1c2a;
   border: 1px;
   padding: 10px;

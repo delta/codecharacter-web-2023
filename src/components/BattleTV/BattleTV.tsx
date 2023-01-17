@@ -152,8 +152,8 @@ function PaginatedItems() {
       </>
       <nav className={styles.paginationouter}>
         <ReactPaginate
-          previousLabel="Previous"
-          nextLabel="Next"
+          previousLabel="<"
+          nextLabel=">"
           pageLinkClassName={styles.pageNum}
           previousLinkClassName={styles.pageNum}
           nextLinkClassName={styles.pageNum}
@@ -175,7 +175,7 @@ export default function BattleTV(): JSX.Element {
     <div className={styles.body}>
       <div className={styles.header}>
         <h1 className={styles.header__title}>
-          <span>Battle Tv</span>
+          <span>Battle TV</span>
         </h1>
       </div>
       <div className={styles.ranklist}>
