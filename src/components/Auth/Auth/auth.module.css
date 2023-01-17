@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed');
+@import "//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css";
+
 
 * {
   margin: 0px;
@@ -160,6 +162,19 @@
   color: #AAAAAA;
 }
 
+.email::-webkit-input-placeholder,
+.password::-webkit-input-placeholder{
+  font-family: FontAwesome,Roboto Mono;
+  font-weight: normal;
+  overflow: visible;
+  vertical-align: top;
+  display: inline-block !important;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+}
+
 .footerContainer{
   margin-top: 30px;
 }
@@ -200,15 +215,7 @@
   font-weight: 400;
   font-size: 20px;
 }
-
-input::placeholder{
-  font-family: "Roboto Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  letter-spacing: 1.5px;
-}
-
+  
 .previousButton{
   border: none;
   background-color: transparent;
@@ -230,28 +237,47 @@ input::placeholder{
     width: 100%;
     display: flex;
     flex-direction: column-reverse;
-    gap: 3rem;
+    gap: 1.2rem;
     justify-content: center;
+    margin-top: 10px;
   }
-  .externalAuthButtons{width: 80%;
+
+  .loginCredentialsContainer{
+    gap: 1.5rem;
+  }
+
+  .email::-webkit-input-placeholder,
+  .password::-webkit-input-placeholder{
+    font-size: 18px;
+    line-height: 25px;
+  }
+  .externalAuthButtons{
+    width: 80%;
     margin: auto;
-    gap: 6rem;
+    gap: 5rem;
     float: none;
   }
   .formContainer{
     width: 80%;
   }
+  .registerContainer{
+    margin-top: 10px;
+  }
   .separator{
     display: none;
   }
   .githubButton,.googleButton{
-    font-size: 18px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 25px;
     width: 80%;
 } 
   .loginText{
     font-size: 18px;
+    line-height: 25px;
 }
+  .loginIcon{
+    size: 1.2em;
+  }
   .email,.password{
     font-size: 18px;
     line-height: 30px;
@@ -261,11 +287,22 @@ input::placeholder{
 }
 
   .nextButton,
-  .previousButton{
-    font-size: 20px;
+  .previousButton,
+  .signUpButton{
+    font-size: 18px;
     line-height: 30px;
 }
-  
+
+  .signUpText,
+  .signInText{
+    font-size: 25px;
+    margin-top: 40px;
+  }
+  .buttonIcon,
+  .loginIcon{
+    font-size: 1.2em;
+  }
+
 }
 
 @media only screen and (max-width: 1050px) and (min-width: 600px){

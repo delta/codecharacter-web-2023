@@ -58,7 +58,7 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
           <div>
             <input
               type="name"
-              placeholder="Email"
+              placeholder="EMAIL  &#xf0e0;"
               value={email}
               className={styles.email}
               onChange={handleEmailSubmit}

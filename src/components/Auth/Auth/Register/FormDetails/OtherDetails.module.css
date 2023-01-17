@@ -47,14 +47,6 @@
   background-color: #AAAAAA;
 }
 
-input::placeholder{
-  font-family: "Roboto Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  letter-spacing: 1.5px;
-}
-
 .avatarImg {
   width: 100%;
   height: 100%;
@@ -64,6 +56,7 @@ input::placeholder{
 @media only screen and (max-width: 500px){
   .formContainer{
     max-width: 270px;
+    height: fit-content;
     margin: auto;
   }
   

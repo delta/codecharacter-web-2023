@@ -262,7 +262,7 @@ export default function Register(): JSX.Element {
           'Password should contain atleast \n\tatleast 8 characters,\n\t1 UpperCase letter, \n\t1 Special Character, \n\t1 number',
         );
       } else if (confirmpasswordError) {
-        toast.error('Check your password');
+        toast.error("Password and confirm password don't match");
       } else {
         return true;
       }
@@ -361,7 +361,11 @@ export default function Register(): JSX.Element {
                 />
                 <div className="form-row d-flex justify-content-center my-1">
                   <div className="d-flex justify-content-center input-group">
-                    <ReCAPTCHA sitekey={SITE_KEY} onChange={handleRecaptcha} />
+                    <ReCAPTCHA
+                      sitekey={SITE_KEY}
+                      onChange={handleRecaptcha}
+                      size="compact"
+                    />
                   </div>
                 </div>
               </div>
