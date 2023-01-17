@@ -250,13 +250,6 @@ export default function Dashboard(): JSX.Element {
       });
   };
 
-  const isSettingsOpen = useAppSelector(IsSettingsOpen);
-
-  function handleOpenSettings() {
-    if (isSettingsOpen === true) dispatch(isSettingsOpened(false));
-    else dispatch(isSettingsOpened(true));
-  }
-
   return (
     <main className={styles.mainContainer} ref={mainContainerRef}>
       <SplitPane
