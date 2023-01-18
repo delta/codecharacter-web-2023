@@ -109,7 +109,7 @@ function Login(): JSX.Element {
               rel="noreferrer"
             >
               <button className={styles.googleButton}>
-                <div>
+                <div className={styles.oauthButtonText}>
                   {' '}
                   LOGIN WITH GOOGLE{' '}
                   <FontAwesomeIcon icon={faGoogle as IconProp} />
@@ -123,7 +123,7 @@ function Login(): JSX.Element {
               rel="noreferrer"
             >
               <button className={styles.githubButton}>
-                <div>
+                <div className={styles.oauthButtonText}>
                   {' '}
                   LOGIN WITH GITHUB{' '}
                   <FontAwesomeIcon icon={faGithub as IconProp} />

@@ -1,15 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed');
-@import "//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css";
-
-
 * {
   margin: 0px;
   padding: 0px;
 }
 
-.mainContainer{
+.mainContainer {
   min-height: 100%;
   background: rgba(30, 30, 30, 0.87);
   display: flex;
@@ -18,26 +12,26 @@
 }
 
 .signUpText,
-.signInText{
+.signInText {
   text-align: center;
   font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
   font-size: 40px;
   line-height: 53px;
-  color: #AAAAAA;
+  color: #aaaaaa;
   padding: 10px;
   margin-top: 150px;
 }
 
-.cardContainer{
+.cardContainer {
   display: grid;
   grid-template-columns: 3fr 3fr 3fr;
-  margin: 70px auto auto auto; 
+  margin: 70px auto auto auto;
   width: auto;
 }
 
-.externalAuthButtons{
+.externalAuthButtons {
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
@@ -47,7 +41,7 @@
   justify-content: center;
 }
 
-.separator{
+.separator {
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
@@ -56,7 +50,7 @@
   gap: 0.5rem;
 }
 
-.formContainer{
+.formContainer {
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
@@ -65,106 +59,109 @@
   margin: auto;
 }
 
-.registerContainer{
+.registerContainer {
   display: flex;
   flex-direction: column;
   align-self: center;
-  margin: 70px auto auto auto; 
+  margin: 70px auto auto auto;
 }
 
-
-.verticalLine{
+.verticalLine {
   align-self: center;
-  border-left: 2px solid #4D4D4D;
+  border-left: 2px solid #4d4d4d;
   height: 90px;
 }
 
 .googleButton,
-.githubButton{
+.githubButton {
   background-color: transparent;
   box-sizing: border-box;
   padding: 2px 60px 2px 60px;
   position: absolute;
-  border: 3px solid #AAAAAA;
+  border: 3px solid #aaaaaa;
   letter-spacing: 2px;
   text-align: center;
-  font-family: "Roboto Mono";
+  font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
   font-size: 22px;
   line-height: 53px;
-  color: #AAAAAA;
+  color: #aaaaaa;
 }
 
-.iconAlign{
+.oauthButtonText {
+  width: 100%;
+}
+
+.iconAlign {
   display: flex;
 }
 
-.line{
+.line {
   flex: 1;
-  border-left: 2px solid #AAAAAA;
-  height: auto;  
+  border-left: 2px solid #aaaaaa;
+  height: auto;
 }
 
-.loginText{
+.loginText {
   flex: 15;
   text-align: start;
-  font-family: "Roboto Mono";
+  font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
   font-size: 23px;
-  color: #AAAAAA;
+  color: #aaaaaa;
   padding: 10px 3px 10px 25px;
 }
 
-.loginIcon{
+.loginIcon {
   flex: 1;
   align-self: center;
   font-size: 1.7em;
   padding: 3px 15px 3px 0px;
-  color: #AAAAAA;
+  color: #aaaaaa;
 }
 
-.buttonIcon{
+.buttonIcon {
   flex: 1;
   align-self: center;
   font-size: 1.4em;
   padding: 3px 10px 3px 10px;
-  color: #AAAAAA;
+  color: #aaaaaa;
 }
 
-.loginButton{
+.loginButton {
   width: 100%;
   background-color: transparent;
   box-sizing: border-box;
-  border: 3px solid #AAAAAA;
+  border: 3px solid #aaaaaa;
   margin-top: 7px;
 }
 
-.loginCredentialsContainer{
+.loginCredentialsContainer {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
 .email,
-.password{
+.password {
   width: 100%;
   background-color: transparent;
   box-sizing: border-box;
   padding: 10px 20px 10px 20px;
-  border: 3px solid #AAAAAA;
+  border: 3px solid #aaaaaa;
   margin: auto;
   font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
   font-size: 25px;
-  color: #AAAAAA;
+  color: #aaaaaa;
 }
 
 .email::-webkit-input-placeholder,
-.password::-webkit-input-placeholder{
-  font-family: FontAwesome,Roboto Mono;
+.password::-webkit-input-placeholder {
+  font-family: FontAwesome, Roboto Mono;
   font-weight: normal;
   overflow: visible;
   vertical-align: top;
@@ -175,28 +172,28 @@
   letter-spacing: 1.5px;
 }
 
-.footerContainer{
+.footerContainer {
   margin-top: 30px;
 }
 
-.subText{
+.subText {
   margin: auto;
   font-family: 'Bai Jamjuree';
   font-style: normal;
   font-weight: 500;
   font-size: 36px;
   line-height: 45px;
-  color: #AAAAAA;
+  color: #aaaaaa;
 }
 
-.forgotPassword{
+.forgotPassword {
   margin: auto;
   text-align: center;
-  margin: 5px 2px 9px 2px ;
+  margin: 5px 2px 9px 2px;
   font-size: 17px;
   background-color: transparent;
   border: none;
-  color: #AAAAAA;
+  color: #aaaaaa;
   font-family: 'Roboto Condensed';
   font-style: normal;
   font-weight: 400;
@@ -204,36 +201,36 @@
 }
 
 .nextButton,
-.signUpButton{
+.signUpButton {
   border: none;
   background-color: transparent;
   float: right;
   display: flex;
-  color: #AAAAAA;
-  font-family: 'Roboto Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-}
-  
-.previousButton{
-  border: none;
-  background-color: transparent;
-  float: left;
-  display: flex;
-  color: #AAAAAA;
+  color: #aaaaaa;
   font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
 }
 
-@media  only screen and (max-width: 600px) {
-  .mainContainer{
+.previousButton {
+  border: none;
+  background-color: transparent;
+  float: left;
+  display: flex;
+  color: #aaaaaa;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .mainContainer {
     width: 100%;
     justify-content: center;
   }
-  .cardContainer{
+  .cardContainer {
     width: 100%;
     display: flex;
     flex-direction: column-reverse;
@@ -242,110 +239,114 @@
     margin-top: 10px;
   }
 
-  .loginCredentialsContainer{
+  .loginCredentialsContainer {
     gap: 1.5rem;
   }
 
   .email::-webkit-input-placeholder,
-  .password::-webkit-input-placeholder{
+  .password::-webkit-input-placeholder {
     font-size: 18px;
     line-height: 25px;
   }
-  .externalAuthButtons{
+  .externalAuthButtons {
     width: 80%;
     margin: auto;
     gap: 5rem;
     float: none;
   }
-  .formContainer{
+  .formContainer {
     width: 80%;
   }
-  .registerContainer{
+  .registerContainer {
     margin-top: 10px;
   }
-  .separator{
+  .separator {
     display: none;
   }
-  .githubButton,.googleButton{
+  .githubButton,
+  .googleButton {
     font-size: 16px;
     line-height: 25px;
     width: 80%;
-} 
-  .loginText{
+    padding: 0.7rem 0rem;
+  }
+  .loginText {
     font-size: 18px;
     line-height: 25px;
-}
-  .loginIcon{
+  }
+  .loginIcon {
     size: 1.2em;
   }
-  .email,.password{
+  .email,
+  .password {
     font-size: 18px;
     line-height: 30px;
-}
-  .forgotPassword{
+  }
+  .forgotPassword {
     font-size: 14px;
-}
+  }
 
   .nextButton,
   .previousButton,
-  .signUpButton{
+  .signUpButton {
     font-size: 18px;
     line-height: 30px;
-}
+  }
 
   .signUpText,
-  .signInText{
+  .signInText {
     font-size: 25px;
     margin-top: 40px;
   }
   .buttonIcon,
-  .loginIcon{
+  .loginIcon {
     font-size: 1.2em;
   }
-
 }
 
-@media only screen and (max-width: 1050px) and (min-width: 600px){
-  .mainContainer{
+@media only screen and (max-width: 1050px) and (min-width: 600px) {
+  .mainContainer {
     width: 100%;
     justify-content: center;
   }
-  .cardContainer{
+  .cardContainer {
     width: 100%;
-    padding:10px;
+    padding: 10px;
     grid-template-columns: 2fr 1fr 2fr;
   }
-  .externalAuthButtons{
+  .externalAuthButtons {
     width: 100%;
     float: none;
     gap: 6rem;
     justify-content: center;
   }
-  .formContainer{
+  .formContainer {
     width: 100%;
     float: none;
   }
-  .googleButton,.githubButton{
+  .googleButton,
+  .githubButton {
     font-size: 20px;
     width: 40%;
     line-height: 35px;
   }
-  .subText{
+  .subText {
     font-size: 20px;
   }
-  .loginText{
+  .loginText {
     font-size: 20px;
   }
-  .email,.password{
+  .email,
+  .password {
     font-size: 20px;
     line-height: 30px;
   }
-  .forgotPassword{
+  .forgotPassword {
     font-size: 18px;
     line-height: 30px;
   }
   .signInText,
-  .signUpText{
+  .signUpText {
     margin-top: 80px;
     font-size: 30px;
   }
