@@ -1,6 +1,6 @@
 import { CodeApi, Language } from '@codecharacter-2023/client';
-import React, { FormEventHandler, useState } from 'react';
-import { Button, Col, Form, FormControl, Modal, Row } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Form, FormControl, Modal, Row } from 'react-bootstrap';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { UserCode, UserLanguage } from '../../store/editor/code';
 
@@ -67,11 +67,12 @@ const CommitModal = (): JSX.Element => {
           <Form>
             <FormControl
               type="text"
-              placeholder="Enter text here"
+              placeholder="Enter Commit Message"
               value={commitName}
+              className={styles.commitModalInput}
               onChange={handleCommitNameInput}
             />
-            <Button type="submit" onClick={handleCommit}>
+            <Button className={styles.commitModalbtn} onClick={handleCommit}>
               Submit
             </Button>
           </Form>

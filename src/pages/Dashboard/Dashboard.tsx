@@ -14,15 +14,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
-import {
-  Button,
-  ButtonToolbar,
-  Col,
-  Form,
-  OverlayTrigger,
-  Popover,
-  Row,
-} from 'react-bootstrap';
+import { Button, ButtonToolbar, Col, Form, Row } from 'react-bootstrap';
 import SplitPane from 'react-split-pane';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Editor from '../../components/Editor/Editor';
@@ -138,9 +130,6 @@ export default function Dashboard(): JSX.Element {
   const [languageChose, setLanguageChose] = useState(
     localStoreLanguageChose === null ? 'C++' : localStoreLanguageChose,
   );
-
-  const [commitName, setCommitName] = useState('');
-  const [trigerCommit, setTrigerCommit] = useState(false);
 
   const handleLanguageChange = (language: string) => {
     switch (language) {
