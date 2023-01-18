@@ -31,7 +31,6 @@
   font-style: normal;
   font-weight: 400;
   font-size: 27px;
-  line-height: 45px;
   color: #AAAAAA;
 }
 
@@ -47,7 +46,7 @@
   vertical-align: top;
   display: inline-block !important;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 200;
   font-size: 20px;
   letter-spacing: 1.5px;
 }

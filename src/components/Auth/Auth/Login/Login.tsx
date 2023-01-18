@@ -142,7 +142,6 @@ function Login(): JSX.Element {
             <div>
               <input
                 type="text"
-                id="iconified"
                 value={email}
                 className={styles.email}
                 onChange={handleEmailSubmit}
@@ -152,7 +151,6 @@ function Login(): JSX.Element {
             <div>
               <input
                 type="password"
-                id="iconified"
                 value={password}
                 placeholder="PASSWORD  &#xf084; "
                 onChange={handlePasswordSubmit}
@@ -177,6 +175,7 @@ function Login(): JSX.Element {
           <div>
             <div>
               <button
+                type="button"
                 className={styles.loginButton}
                 onClick={handleLoginSubmit}
               >

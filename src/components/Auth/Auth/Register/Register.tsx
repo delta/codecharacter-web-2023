@@ -361,11 +361,7 @@ export default function Register(): JSX.Element {
                 />
                 <div className="form-row d-flex justify-content-center my-1">
                   <div className="d-flex justify-content-center input-group">
-                    <ReCAPTCHA
-                      sitekey={SITE_KEY}
-                      onChange={handleRecaptcha}
-                      size="compact"
-                    />
+                    <ReCAPTCHA sitekey={SITE_KEY} onChange={handleRecaptcha} />
                   </div>
                 </div>
               </div>
