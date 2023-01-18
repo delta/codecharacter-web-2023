@@ -219,12 +219,12 @@
 }
 
 .avatar:hover {
-    background-color: #4595cf;
+    background-color: #AAAAAA;
     cursor: pointer;
 }
 
 .avatarSelected {
-    background-color: #4595cf;
+    background-color: #AAAAAA;
 }
 
 .avatarImg {
