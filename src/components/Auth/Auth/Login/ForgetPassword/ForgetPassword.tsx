@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './forgetpassword.module.css';
 import { AuthApi } from '@codecharacter-2023/client';
 import { ApiError, authConfig } from '../../../../../api/ApiConfig';
-import Toast, { toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { Modal } from 'react-bootstrap';
 
 interface ForgetPasswordInterface {
@@ -32,11 +32,11 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
       authApi
         .forgotPassword({ email: email })
         .then(() => {
-          Toast.success('Forget password email sent');
+          toast.success('Forget password email sent');
         })
         .catch(error => {
           if (error instanceof ApiError) {
-            Toast.error(error.message);
+            toast.error(error.message);
           }
         });
     }

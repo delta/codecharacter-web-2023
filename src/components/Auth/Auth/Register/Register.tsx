@@ -19,7 +19,7 @@ import {
   registeredError,
 } from '../../../../store/User/UserSlice';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import Toast, { toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 let increment = 1;
 let passCondition = 0;
 export default function Register(): JSX.Element {
@@ -72,7 +72,7 @@ export default function Register(): JSX.Element {
     if (registeredStatus) {
       setFormnumber(1);
       increment = 1;
-      Toast.success('Registeration Successful');
+      toast.success('Registeration Successful');
       navigate('/login', { replace: true });
     }
   }, [registeredStatus]);
@@ -137,7 +137,7 @@ export default function Register(): JSX.Element {
   };
 
   const handleCollege = () => {
-    isSubmitThird(true);
+    issubmitSecond(true);
     if (college.trim().length == 0 || college.trim() == '') {
       passCondition += 1;
       iscollegeError(true);
@@ -146,9 +146,13 @@ export default function Register(): JSX.Element {
       handleRegistration();
     }
   };
+  const handleSignUp = () => {
+    isSubmitThird(true);
+    handleRegistration();
+  };
   const handleCollegeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCollege(e.target.value);
-    if (submitThird) {
+    if (submitSecond) {
       if (e.target.value.trim().length == 0) {
         iscollegeError(true);
       } else {
@@ -170,6 +174,7 @@ export default function Register(): JSX.Element {
         issubmitSecond(true);
         passCondition = 0;
         handleUsername();
+        handleCollege();
         break;
     }
   };
@@ -198,7 +203,7 @@ export default function Register(): JSX.Element {
 
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
-    if (submitFirst) {
+    if (submitSecond) {
       if (e.target.value.trim().length < 5 || userName.length < 4) {
         isuserNameError(true);
       } else {
@@ -268,10 +273,10 @@ export default function Register(): JSX.Element {
       }
     }
     if (formNumber == 2) {
-      if (collegeError) {
-        toast.error('Please enter your college name');
-      } else if (userNameError) {
+      if (userNameError) {
         toast.error('Username should have atleast 5 characters');
+      } else if (collegeError) {
+        toast.error('Please enter your college name');
       } else {
         return true;
       }
@@ -408,7 +413,7 @@ export default function Register(): JSX.Element {
               {formNumber == 3 ? (
                 <button
                   disabled={!isHuman}
-                  onClick={handleCollege}
+                  onClick={handleSignUp}
                   className={styles.signUpButton}
                 >
                   <div>SIGN UP </div>

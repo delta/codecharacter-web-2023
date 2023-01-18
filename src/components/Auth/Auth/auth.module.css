@@ -12,7 +12,7 @@
 }
 
 .signUpText,
-.signInText {
+.signInText{
   text-align: center;
   font-family: 'Roboto Mono';
   font-style: normal;
@@ -26,11 +26,15 @@
 
 .cardContainer {
   display: grid;
-  grid-template-columns: 3fr 3fr 3fr;
+  grid-template-columns: 3.5fr 3fr 3.1fr;
   margin: 70px auto auto auto;
   width: auto;
 }
-
+.incompleteUserProfileContainer{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
 .externalAuthButtons {
   display: flex;
   box-sizing: border-box;
@@ -184,6 +188,29 @@
   font-size: 36px;
   line-height: 45px;
   color: #aaaaaa;
+}
+
+.resetPasswordContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: auto;
+  margin-top: 60px;
+  justify-content: center;
+}
+
+.resetPasswordButton{
+  width: fit-content;
+    background-color: transparent;
+    box-sizing: border-box;
+    border: 3px solid #aaaaaa;
+    align-self: flex-end;
+    font-family: "Roboto Mono";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: #AAAAAA;
+    padding: 10px 40px 10px 40px;
 }
 
 .forgotPassword {
