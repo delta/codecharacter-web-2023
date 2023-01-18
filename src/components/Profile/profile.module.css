@@ -33,17 +33,17 @@
 
 .userNameContent {
     color: #CACACA;
-    font-size: 33px;
+    font-size: 30px;
 }
 
 .userName {
-    font-size: 45px;
+    font-size: 40px;
     color: #EAEAEA;
     margin-top: -1rem;
 }
 
 .changeCredsHeader {
-    font-size: 45px;
+    font-size: 40px;
     color: #EAEAEA;
     margin-bottom: 2rem;
     text-align: center;
@@ -137,7 +137,7 @@
 .submitContainer {
     font-family: 'Roboto Mono', monospace;
     text-align: center;
-    font-size: 33px;
+    font-size: 30px;
     border-radius: 3px;
     margin-bottom: 25px;
     background-color: rgba(255, 255, 255, 0);
@@ -173,7 +173,7 @@
 .linkButton {
     text-decoration: none;
     color: #AAAAAA;
-    font-size: 33px;
+    font-size: 30px;
 }
 
 .linkButton:hover {
@@ -235,7 +235,7 @@
 .inputField{
     border: 2px #AAAAAA solid !important;
     background-color: rgba(255, 255, 255, 0);
-    font-size: 33px;
+    font-size: 30px;
     border-radius: 1px;
     color: #AAAAAA;
     font-family: 'Roboto Mono', monospace;
@@ -247,7 +247,7 @@
 }
 
 .inputField:focus {
-    box-shadow: 5px 5px 5px black;
+    background-color: white !important;
 }
 
 

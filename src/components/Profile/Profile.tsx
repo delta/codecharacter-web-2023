@@ -37,16 +37,10 @@ const Profile = (): JSX.Element => {
   const [confirmPassword, setConfirmpassword] = useState('');
   const [oldPassword, setOldpassword] = useState('');
   const [submitPassword, issubmitPassword] = useState(false);
-  const [submitconfirmPassword, issubmitconfirmPassword] = useState(false);
   const [submitoldPassword, issubmitoldPassword] = useState(false);
   const [collegeName, setCollegeName] = useState('');
   const [userName, setUsername] = useState('');
-  const [submitCollege, issubmitCollege] = useState(false);
-  const [submitUsername, issubmitUsername] = useState(false);
-  const [userNameError, isuserNameError] = useState(false);
-  const [collegeError, isCollegeError] = useState(false);
   const [passwordError, ispasswordError] = useState(false);
-  const [confirmpasswordError, isconfirmpasswordError] = useState(false);
   const [oldpasswordError, isoldpasswordError] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(0);
   const [passwordType, setPasswordType] = useState<{
@@ -118,10 +112,6 @@ const Profile = (): JSX.Element => {
     if (userSuccesschange) {
       setUsername('');
       setCollegeName('');
-      isuserNameError(false);
-      isCollegeError(false);
-      issubmitUsername(false);
-      issubmitCollege(false);
     }
   }, [userSuccesschange]);
   useEffect(() => {
@@ -131,10 +121,8 @@ const Profile = (): JSX.Element => {
       setConfirmpassword('');
       issubmitPassword(false);
       issubmitoldPassword(false);
-      issubmitconfirmPassword(false);
       ispasswordError(false);
       isoldpasswordError(false);
-      isconfirmpasswordError(false);
       dispatch(logout());
       localStorage.removeItem('token');
       navigate('/login', { replace: true });
@@ -147,53 +135,28 @@ const Profile = (): JSX.Element => {
   useEffect(() => {
     if (localStorage.getItem('token') != null) dispatch(getUserDetailsAction());
   }, [loggedInUser]);
+
   const handleCollegeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCollegeName(e.target.value);
-    issubmitCollege(true);
-    if (e.target.value.trim().length == 0) isCollegeError(true);
-    else isCollegeError(false);
   };
 
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
-    issubmitUsername(true);
-    if (e.target.value.trim().length < 5) {
-      isuserNameError(true);
-    } else {
-      isuserNameError(false);
-    }
   };
 
   const hanldeOldPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOldpassword(e.target.value);
-    if (submitoldPassword) {
-      if (e.target.value.length < 8) isoldpasswordError(true);
-      else isoldpasswordError(false);
-    }
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setpassword(e.target.value);
     issubmitPassword(true);
-    const passwordFormat =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/;
-    if (e.target.value.match(passwordFormat)) {
-      ispasswordError(false);
-    } else {
-      ispasswordError(true);
-    }
   };
 
   const handleConfirmPasswordChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setConfirmpassword(e.target.value);
-    issubmitconfirmPassword(true);
-    if (e.target.value != password) {
-      isconfirmpasswordError(true);
-    } else {
-      isconfirmpasswordError(false);
-    }
   };
   const getCountryName = (code: string) => {
     const countryName = new Intl.DisplayNames(['en'], {
@@ -235,7 +198,7 @@ const Profile = (): JSX.Element => {
     navigate(-1);
   };
 
-  const handleDownButton = () => {
+  const handleGoToCreds = () => {
     const profileScrollBody = document.getElementById('profileScrollBody');
     if (profileScrollBody) {
       profileScrollBody.scrollTo({
@@ -260,7 +223,7 @@ const Profile = (): JSX.Element => {
       <div className={styles.profileBody}>
         <div className={styles.header} id="header">
           <div className={styles.userNameContent}>
-            HEY, <p className={styles.userName}>{loggedInUser.username}</p>{' '}
+            HEY, <p className={styles.userName}>{loggedInUser.name}</p>{' '}
           </div>
           <div className={styles.imageContainer}>
             <img
@@ -281,21 +244,9 @@ const Profile = (): JSX.Element => {
                   type="text"
                   placeholder={loggedInUser.name || 'Full Name'}
                   value={userName}
-                  className={classnames(
-                    submitUsername
-                      ? userNameError
-                        ? styles.error
-                        : styles.correct
-                      : styles.normal,
-                    styles.inputField,
-                  )}
+                  className={styles.inputField}
                   onChange={handleUserNameChange}
                 />
-                {submitUsername && userNameError ? (
-                  <AlertMessage err={userNameError} content={'Invalid name'} />
-                ) : (
-                  <></>
-                )}
               </Form.Group>
               <Form.Group
                 className={classnames('mb-4', styles.formField)}
@@ -305,24 +256,9 @@ const Profile = (): JSX.Element => {
                   type="text"
                   placeholder={loggedInUser.college || 'College'}
                   value={collegeName}
-                  className={classnames(
-                    submitCollege
-                      ? collegeError
-                        ? styles.error
-                        : styles.correct
-                      : styles.normal,
-                    styles.inputField,
-                  )}
+                  className={styles.inputField}
                   onChange={handleCollegeChange}
                 />
-                {collegeError ? (
-                  <AlertMessage
-                    err={collegeError}
-                    content={'Please enter a valid College name'}
-                  />
-                ) : (
-                  <></>
-                )}
               </Form.Group>
               <Form.Group
                 className={classnames('mb-4', styles.formField)}
@@ -376,10 +312,10 @@ const Profile = (): JSX.Element => {
                 <Button
                   onClick={handleSubmit}
                   disabled={
-                    userName.length < 5 &&
+                    userName.length == 0 &&
                     collegeName.length == 0 &&
                     selectedAvatar === loggedInUser.avatarId &&
-                    selectedFlag !== loggedInUser.country
+                    getCountryName(selectedFlag) === loggedInUser.country
                   }
                   size="lg"
                   className={styles.submitContainer}
@@ -405,7 +341,7 @@ const Profile = (): JSX.Element => {
                     <Button
                       variant="link"
                       onClick={() => {
-                        handleDownButton();
+                        handleGoToCreds();
                         dispatch(creditionals());
                       }}
                       className={styles.linkButton}
@@ -474,14 +410,7 @@ const Profile = (): JSX.Element => {
                     placeholder="Password"
                     value={password}
                     onChange={handlePasswordChange}
-                    className={classnames(
-                      submitPassword
-                        ? passwordError
-                          ? styles.error
-                          : styles.correct
-                        : styles.normal,
-                      styles.inputField,
-                    )}
+                    className={styles.inputField}
                   />
                   <div className={styles.eye}>
                     {passwordType.password === 'password' ? (
@@ -513,14 +442,7 @@ const Profile = (): JSX.Element => {
                     type={passwordType.confirmPassword}
                     placeholder="Confirm Password"
                     value={confirmPassword}
-                    className={classnames(
-                      submitconfirmPassword
-                        ? confirmpasswordError
-                          ? styles.error
-                          : styles.correct
-                        : styles.normal,
-                      styles.inputField,
-                    )}
+                    className={styles.inputField}
                     onChange={handleConfirmPasswordChange}
                   />
                   <div className={styles.eye}>
@@ -539,22 +461,11 @@ const Profile = (): JSX.Element => {
                     )}
                   </div>
                 </div>
-                {confirmpasswordError ? (
-                  <AlertMessage
-                    err={confirmpasswordError}
-                    content={'Please check your password'}
-                  />
-                ) : (
-                  <></>
-                )}
               </Form.Group>
               <div className={classnames('d-grid gap-2')}>
                 <Button
                   onClick={handleCreditionals}
                   disabled={
-                    oldpasswordError ||
-                    passwordError ||
-                    confirmpasswordError ||
                     oldPassword.length == 0 ||
                     password.length == 0 ||
                     confirmPassword.length == 0

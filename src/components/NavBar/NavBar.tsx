@@ -17,8 +17,8 @@ import Toast from 'react-hot-toast';
 import DashboardOptions from '../DashboardOptions/DashboardOptions';
 import { cookieDomain } from '../../config/config';
 
-import sign_up_icon from '../../assets/sign_up.png';
-import sign_in_icon from '../../assets/sign_in.png';
+import sign_up_icon from '../../assets/sign_up.svg';
+import sign_in_icon from '../../assets/sign_in.svg';
 import challenge_done from '../../assets/challenge_done.png';
 import challenge_available from '../../assets/challenge_available.png';
 import DcCompleted from '../DcModals/DcCompleted';

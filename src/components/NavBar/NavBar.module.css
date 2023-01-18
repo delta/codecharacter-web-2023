@@ -120,5 +120,18 @@
   opacity: 0.8;
 }
 
+@media screen and (max-width:650px) {
+  .navLogo {
+    font-size: 20px;
+  }
 
+  .navLink {
+    margin: auto 10px;
+    font-size: 20px;
+  }
 
+  .navBarContainer {
+    height: 3rem;
+    padding: 0px;
+  }
+}
