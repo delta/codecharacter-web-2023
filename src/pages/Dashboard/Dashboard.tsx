@@ -51,6 +51,8 @@ import {
   isSettingsOpened,
   isInfoOpened,
   Theme,
+  IsCommitModalOpen,
+  isCommitModalOpened,
 } from '../../store/EditorSettings/settings';
 
 type SplitPaneState = {
@@ -190,9 +192,12 @@ export default function Dashboard(): JSX.Element {
     dispatch(mapCommitIDChanged(null));
   }
 
-  const handleCommitNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCommitName(e.target.value);
-  };
+  const isCommitModalOpen = useAppSelector(IsCommitModalOpen);
+
+  function handleOpenCommitModal() {
+    if (isCommitModalOpen === true) dispatch(isCommitModalOpened(false));
+    else dispatch(isCommitModalOpened(true));
+  }
 
   const isSettingsOpen = useAppSelector(IsSettingsOpen);
 
@@ -207,28 +212,6 @@ export default function Dashboard(): JSX.Element {
     if (isInfoOpen === true) dispatch(isInfoOpened(false));
     else dispatch(isInfoOpened(true));
   }
-
-  const handleCommit = () => {
-    let languageType: Language = Language.Cpp;
-    if (userLanguage === 'c_cpp') languageType = Language.Cpp;
-    else if (userLanguage === 'python') languageType = Language.Python;
-    else if (userLanguage === 'java') languageType = Language.Java;
-
-    codeAPI
-      .createCodeRevision({
-        code: userCode,
-        message: commitName,
-        language: languageType,
-      })
-      .then(() => {
-        Toast.success('Code Committed');
-        setCommitName('');
-        setTrigerCommit(false);
-      })
-      .catch(err => {
-        if (err instanceof ApiError) Toast.error(err.message);
-      });
-  };
 
   const handleSubmit = () => {
     let languageType: Language = Language.Cpp;
@@ -310,40 +293,12 @@ export default function Dashboard(): JSX.Element {
                   </button>
                 </Col>
                 <Col className={styles.toolbarColumn} sm="1">
-                  <OverlayTrigger
-                    // defaultShow={true}
-                    show={trigerCommit}
-                    trigger="click"
-                    key={'bottom'}
-                    placement={'bottom'}
-                    rootClose
-                    overlay={
-                      <Popover>
-                        <Popover.Header
-                          as="h3"
-                          className={styles.popOverHeader}
-                        >
-                          Enter commit message
-                        </Popover.Header>
-                        <Popover.Body className={styles.popOverBody}>
-                          <Form.Control
-                            onChange={handleCommitNameInput}
-                            type="text"
-                            placeholder="Commit message"
-                          />
-                          <br />
-                          <Button onClick={handleCommit}>Commit</Button>
-                        </Popover.Body>
-                      </Popover>
-                    }
+                  <button
+                    className={styles.toolbarButton}
+                    onClick={handleOpenCommitModal}
                   >
-                    <button
-                      className={styles.toolbarButton}
-                      onClick={() => setTrigerCommit(!trigerCommit)}
-                    >
-                      <FontAwesomeIcon icon={faCodeBranch as IconProp} /> Commit
-                    </button>
-                  </OverlayTrigger>
+                    <FontAwesomeIcon icon={faCodeBranch as IconProp} /> Commit
+                  </button>
                 </Col>
                 <Col className={styles.toolbarColumn} sm="1">
                   <button

@@ -21,8 +21,8 @@ const EditorSettings = lazy(
 const SelfMatchModal = lazy(
   () => import('./components/SelfMatchMakingModal/SelfMatchMakeModal'),
 );
-
 const EditorInfo = lazy(() => import('./components/EditorInfo/EditorInfo'));
+const CommitModal = lazy(() => import('./components/CommitModal/CommitModal'));
 
 ReactDOM.render(
   <React.StrictMode>
@@ -32,6 +32,7 @@ ReactDOM.render(
           <Suspense fallback={<Loader />}>
             <EditorSettings />
             <EditorInfo />
+            <CommitModal />
             <SelfMatchModal />
             <NavBar />
             <div className={styles.mainWindow}>
