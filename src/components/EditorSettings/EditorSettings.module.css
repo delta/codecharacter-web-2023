@@ -8,7 +8,8 @@
 }
 
 .editorSettingsHeader{
-  background: #3e918e;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(100px);
   color: white;
   height: 10vh;
   border: 0px;

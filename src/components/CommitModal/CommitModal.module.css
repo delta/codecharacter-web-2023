@@ -1,7 +1,7 @@
-
-
 .editorInfoHeader {
-    background: #3e918e;
+
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(100px);
     color: white;
     height: 10vh;
     border: 0px;
@@ -27,13 +27,14 @@
     text-align: center;
 }
 
-.commitModalInput{
+.commitModalInput {
     width: 80%;
     height: 5vh;
     margin: 1.75rem auto 5px;
+    border-radius: 0px;
 }
 
-.commitModalbtn{
+.commitModalbtn {
     background-color: rgb(24, 188, 95);
     width: 30%;
     margin: 1.5rem auto;

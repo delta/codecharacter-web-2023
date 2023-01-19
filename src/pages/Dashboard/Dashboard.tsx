@@ -350,10 +350,7 @@ export default function Dashboard(): JSX.Element {
             </div>
           </ButtonToolbar>
           <div className={styles.editorContainer}>
-            <Editor
-              language={userLanguage}
-              setTrigerCommit={setTrigerCommit}
-            ></Editor>
+            <Editor language={userLanguage} />
           </div>
         </div>
         <SplitPane

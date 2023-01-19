@@ -88,7 +88,7 @@
 }
 
 .toolbarButton1 {
-  font-size: small;
+  font-size: 0.9rem;
   width: 5.6rem;
   height: 90%;
   border: 0;
@@ -101,6 +101,7 @@
 }
 
 .toolbarButton1:focus {
+  font-size: 0.9rem;
   outline: none;
   box-shadow: none;
 }

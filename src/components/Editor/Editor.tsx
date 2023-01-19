@@ -9,6 +9,7 @@ import Toast from 'react-hot-toast';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   FontSize,
+  isCommitModalOpened,
   KeyboardHandler,
   Theme,
 } from '../../store/EditorSettings/settings';
@@ -55,8 +56,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const keyboardHandler = useAppSelector(KeyboardHandler);
 
   const language = props.language;
-  const setTrigerCommit: React.Dispatch<React.SetStateAction<boolean>> =
-    props.setTrigerCommit;
 
   useEffect(() => {
     if (divCodeEditor.current) {
@@ -133,7 +132,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     //Keybinding for Commit -> CTRL+K
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK, function () {
-      setTrigerCommit(true);
+      dispatch(isCommitModalOpened(true));
     });
 
     //Keybinding for Submit -> CTRL+SHIFT+S
@@ -180,73 +179,3 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     ></div>
   );
 }
-
-// import('monaco-themes/themes/Monokai.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('Monokai', data);
-// 		// monaco.editor.setTheme('Monokai');
-// 	});
-// import('monaco-themes/themes/GitHub.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('GitHub', data);
-// 	});
-
-// import('monaco-themes/themes/Tomorrow.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('Tomorrow', data);
-// 	});
-
-// import('monaco-themes/themes/Kuroir Theme.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('Kuroir Theme', data);
-// 	});
-
-// import('monaco-themes/themes/Twilight.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('Twilight', data);
-// 	});
-
-// import('monaco-themes/themes/Xcode_default.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('Xcode_default', data);
-// 	});
-
-// // import('monaco-themes/themes/Textmate.json')
-// // 	.then(data => {
-// // 		monaco.editor.defineTheme('Textmate', data);
-// // 	});
-
-// import('monaco-themes/themes/Solarized-dark.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('Solarized-dark', data);
-// 	});
-
-// import('monaco-themes/themes/Solarized-light.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('Solarized-light', data);
-// 	});
-
-// import('monaco-themes/themes/Nord.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('Nord', data);
-// 	});
-
-// // import('monaco-themes/themes/Chrome.json')
-// // 	.then(data => {
-// // 		monaco.editor.defineTheme('Chrome', data);
-// // 	});
-
-// import('monaco-themes/themes/IDLE.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('IDLE', data);
-// 	});
-
-// // import('monaco-themes/themes/Eclipse.json')
-// // 	.then(data => {
-// // 		monaco.editor.defineTheme('Eclipse', data);
-// // 	});
-
-// import('monaco-themes/themes/Dracula.json')
-// 	.then(data => {
-// 		monaco.editor.defineTheme('Dracula', data);
-// 	});
