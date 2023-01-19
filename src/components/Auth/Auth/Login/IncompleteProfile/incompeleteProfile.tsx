@@ -180,7 +180,7 @@ function IncompleteProfile(): JSX.Element {
           handleAvatarChange={setAvatarId}
         />
 
-        <div>
+        <div className={styles.loginButtonContainer}>
           <button className={styles.loginButton} onClick={handleSubmit}>
             LOGIN{' '}
           </button>

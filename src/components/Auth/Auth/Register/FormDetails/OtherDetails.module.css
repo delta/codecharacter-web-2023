@@ -1,5 +1,4 @@
-
-.formContainer{
+.formContainer {
   max-width: 500px;
   justify-content: center;
   gap: 1.5rem;
@@ -11,14 +10,14 @@
   gap: 20px;
   overflow-x: scroll;
   background-color: transparent;
-  border: 2px solid #AAAAAA;
+  border: 2px solid #aaaaaa;
   border-radius: 4px;
   margin-bottom: 20px;
 }
 
 .avatarContainer::-webkit-scrollbar {
   height: 5px;
-  background-color: #AAAAAA;
+  background-color: #aaaaaa;
 }
 
 .avatarContainer::-webkit-scrollbar-track {
@@ -39,12 +38,12 @@
 }
 
 .avatar:hover {
-  background-color: #AAAAAA;
+  background-color: #aaaaaa;
   cursor: pointer;
 }
 
 .avatarSelected {
-  background-color: #AAAAAA;
+  background-color: #aaaaaa;
 }
 
 .avatarImg {
@@ -52,14 +51,10 @@
   height: 100%;
 }
 
-
-@media only screen and (max-width: 500px){
-  .formContainer{
+@media only screen and (max-width: 500px) {
+  .formContainer {
     max-width: 270px;
     height: fit-content;
     margin: auto;
   }
-  
 }
-
-

@@ -1,45 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');
-@import "//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css";
+@import '//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css';
 
 .mainContainer {
-    min-height: 100%;
-    background: rgba(30, 30, 30, 0.87);
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
+  min-height: 100%;
+  background: rgba(30, 30, 30, 0.87);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 
 .titleContainer {
-    text-align: center;
-    font-family: 'Roboto Mono';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 53px;
-    color: #aaaaaa;
-    margin-top: 50px;
-  }
-  .subTitle {
-    margin: auto;
-    font-family: 'Bai Jamjuree';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 45px;
-    text-align: center;
-    color: #aaaaaa;
-  }
-  .formContainer{
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    gap: 1.4rem;
-    margin-top: 70px;
-  }
-  .name,
-  .username,
-.collegeName{
-    width: 100%;
+  text-align: center;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 53px;
+  color: #aaaaaa;
+  margin-top: 50px;
+}
+.subTitle {
+  margin: auto;
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 45px;
+  text-align: center;
+  color: #aaaaaa;
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  gap: 1.4rem;
+  margin-top: 70px;
+}
+.name,
+.username,
+.collegeName {
+  width: 100%;
   background-color: transparent;
   box-sizing: border-box;
   padding: 10px 20px 10px 20px;
@@ -51,9 +51,9 @@
   font-size: 25px;
   line-height: 30px;
   color: #aaaaaa;
-  }
+}
 
-  .name::-webkit-input-placeholder,
+.name::-webkit-input-placeholder,
 .username::-webkit-input-placeholder,
 .collegeName::-webkit-input-placeholder {
   font-family: FontAwesome, Roboto Mono;
@@ -67,22 +67,21 @@
   letter-spacing: 1.5px;
 }
 
-
 .flagContainer {
-    color: black;
-    background-color: transparent;
-    border: 3px solid #AAAAAA;
-  }
-  .loginButton {
-    width: fit-content;
-    background-color: transparent;
-    box-sizing: border-box;
-    border: 3px solid #aaaaaa;
-    float: right;
-    font-family: "Roboto Mono";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    color: #AAAAAA;
-    padding: 10px 50px 10px 50px;
-  }
+  color: black;
+  background-color: transparent;
+  border: 3px solid #aaaaaa;
+}
+.loginButton {
+  width: fit-content;
+  background-color: transparent;
+  box-sizing: border-box;
+  border: 3px solid #aaaaaa;
+  float: right;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #aaaaaa;
+  padding: 10px 50px 10px 50px;
+}
