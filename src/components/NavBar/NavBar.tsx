@@ -17,10 +17,10 @@ import Toast from 'react-hot-toast';
 import DashboardOptions from '../DashboardOptions/DashboardOptions';
 import { cookieDomain } from '../../config/config';
 
-import sign_up_icon from '../../assets/sign_up.svg';
-import sign_in_icon from '../../assets/sign_in.svg';
-import challenge_done from '../../assets/challenge_done.png';
-import challenge_available from '../../assets/challenge_available.png';
+import signUpIcon from '../../assets/sign_up.svg';
+import signInIcon from '../../assets/sign_in.svg';
+import challengeDone from '../../assets/challenge_done.png';
+import challengeAvailable from '../../assets/challenge_available.png';
 import DcCompleted from '../DcModals/DcCompleted';
 import DcAvailable from '../DcModals/DcAvailable';
 
@@ -107,7 +107,7 @@ const NavBar: React.FunctionComponent = () => {
           !isLogged && (
             <div className={styles.navContainer}>
               <NavLink to="/login" className={`${styles.navLink}`}>
-                <img src={sign_in_icon} />
+                <img src={signInIcon} />
                 Sign In
               </NavLink>
             </div>
@@ -115,7 +115,7 @@ const NavBar: React.FunctionComponent = () => {
         {location.pathname === '/login' && !isLogged && (
           <div className={styles.navContainer}>
             <NavLink to="/register" className={`${styles.navLink}`}>
-              <img src={sign_up_icon} />
+              <img src={signUpIcon} />
               Sign Up
             </NavLink>
           </div>
@@ -127,7 +127,7 @@ const NavBar: React.FunctionComponent = () => {
         <div className={styles.profileIcons}>
           <div className={styles.notifIconContainer}>
             <img
-              src={dailyChallengeStatus ? challenge_done : challenge_available}
+              src={dailyChallengeStatus ? challengeDone : challengeAvailable}
               className={styles.dcIcon}
               title="Daily Challenge"
               onClick={() => {

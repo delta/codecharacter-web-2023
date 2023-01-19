@@ -3,12 +3,12 @@ import {
   isSettingsOpened,
 } from '../../store/EditorSettings/settings';
 
-import code_icon from '../../assets/code_editor.svg';
-import map_icon from '../../assets/map.svg';
-import leaderboard_icon from '../../assets/leaderboard.svg';
-import commit_icon from '../../assets/commit.svg';
-import battletv_icon from '../../assets/battletv.svg';
-import documentation_icon from '../../assets/documentation.svg';
+import codeIcon from '../../assets/code_editor.svg';
+import mapIcon from '../../assets/map.svg';
+import leaderboardIcon from '../../assets/leaderboard.svg';
+import commitIcon from '../../assets/commit.svg';
+import battletvIcon from '../../assets/battletv.svg';
+import documentationIcon from '../../assets/documentation.svg';
 
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -17,11 +17,11 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import deltaLogo from '../../assets/deltaLogo.png';
 
 const icons = [
-  { icon: code_icon, route: 'dashboard', tooltip: 'Code Editor' },
-  { icon: map_icon, route: 'mapdesigner', tooltip: 'Map Designer' },
-  { icon: leaderboard_icon, route: 'leaderboard', tooltip: 'Leaderboard' },
-  { icon: commit_icon, route: 'history', tooltip: 'Commits' },
-  { icon: battletv_icon, route: 'battletv', tooltip: 'Battle TV' },
+  { icon: codeIcon, route: 'dashboard', tooltip: 'Code Editor' },
+  { icon: mapIcon, route: 'mapdesigner', tooltip: 'Map Designer' },
+  { icon: leaderboardIcon, route: 'leaderboard', tooltip: 'Leaderboard' },
+  { icon: commitIcon, route: 'history', tooltip: 'Commits' },
+  { icon: battletvIcon, route: 'battletv', tooltip: 'Battle TV' },
 ];
 
 const SideBar: React.FunctionComponent = () => {
@@ -45,7 +45,6 @@ const SideBar: React.FunctionComponent = () => {
       pathName != '/login' &&
       pathName != '/activate' &&
       pathName != '/reset-password' &&
-      // pathName != '/profile' &&
       pathName != '/incomplete-profile' ? (
         <div className={styles.sideBar}>
           <div className={styles.up}>
@@ -86,7 +85,7 @@ const SideBar: React.FunctionComponent = () => {
                   rel="noreferrer noopener"
                 >
                   <img
-                    src={documentation_icon}
+                    src={documentationIcon}
                     alt="delta"
                     className={styles.sideBarIconComponent}
                   />

@@ -1,5 +1,5 @@
 import { Form, Button } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import AlertMessage from '../Auth/Auth/Alert/Alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactFlagsSelect from 'react-flags-select';
@@ -53,6 +53,7 @@ const Profile = (): JSX.Element => {
     confirmPassword: 'password',
   });
   const err = useAppSelector(isCreditionalError);
+  const profileScrollRef = useRef<HTMLDivElement>(null);
   const oldpasswordTypeAction = () => {
     if (passwordType.oldpassword === 'password') {
       setPasswordType({
@@ -199,9 +200,8 @@ const Profile = (): JSX.Element => {
   };
 
   const handleGoToCreds = () => {
-    const profileScrollBody = document.getElementById('profileScrollBody');
-    if (profileScrollBody) {
-      profileScrollBody.scrollTo({
+    if (profileScrollRef.current) {
+      profileScrollRef.current.scrollTo({
         top: 1900,
         behavior: 'smooth',
       });
@@ -209,9 +209,8 @@ const Profile = (): JSX.Element => {
   };
 
   const handleGoBacktoProfile = () => {
-    const profileScrollBody = document.getElementById('profileScrollBody');
-    if (profileScrollBody) {
-      profileScrollBody.scrollTo({
+    if (profileScrollRef.current) {
+      profileScrollRef.current.scrollTo({
         top: 0,
         behavior: 'smooth',
       });
@@ -219,7 +218,11 @@ const Profile = (): JSX.Element => {
   };
 
   return (
-    <div className={styles.profileScrollBody} id="profileScrollBody">
+    <div
+      className={styles.profileScrollBody}
+      id="profileScrollBody"
+      ref={profileScrollRef}
+    >
       <div className={styles.profileBody}>
         <div className={styles.header} id="header">
           <div className={styles.userNameContent}>

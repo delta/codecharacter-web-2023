@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Notification } from '@codecharacter-2023/client';
 import styles from './Notifs.module.css';
-import notif_icon from '../../assets/notification.svg';
+import notifIcon from '../../assets/notification.svg';
 
 import {
   getNotifAction,
@@ -77,7 +77,7 @@ const Notifs: React.FunctionComponent = () => {
         onClick={toggleNotifModal}
       >
         <img
-          src={notif_icon}
+          src={notifIcon}
           title="Notifications"
           className={styles.notifIcon}
           alt="BellIcon"
