@@ -315,7 +315,7 @@ const Profile = (): JSX.Element => {
                 <Button
                   onClick={handleSubmit}
                   disabled={
-                    userName.length == 0 &&
+                    userName.length < 5 &&
                     collegeName.length == 0 &&
                     selectedAvatar === loggedInUser.avatarId &&
                     getCountryName(selectedFlag) === loggedInUser.country
