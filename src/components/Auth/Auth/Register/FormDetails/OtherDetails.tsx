@@ -32,13 +32,6 @@ export default function OtherDetails(props: user): JSX.Element {
 }
 
 interface user {
-  selectedCode?: string;
-  handleFlagSelect?: (code: string) => void;
   formNumber?: number;
-  handleCollegeChange?: React.ChangeEventHandler<HTMLInputElement>;
   handleAvatarChange: (id: number) => void;
-  college?: string;
-  collegeError?: boolean;
-  submitThird?: boolean;
-  register?: boolean;
 }

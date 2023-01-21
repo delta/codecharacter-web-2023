@@ -136,6 +136,7 @@
 
 .loginButton {
   width: 100%;
+  display: inline;
   background-color: transparent;
   box-sizing: border-box;
   border: 3px solid #aaaaaa;
@@ -229,6 +230,7 @@
 
 .nextButton,
 .signUpButton {
+  display: inline;
   border: none;
   background-color: transparent;
   float: right;
@@ -241,6 +243,7 @@
 }
 
 .previousButton {
+  display: inline;
   border: none;
   background-color: transparent;
   float: left;

@@ -1,4 +1,7 @@
 import ReactFlagsSelect from 'react-flags-select';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import styles from '../../../Auth/Login/IncompleteProfile/incompleteProfile.module.css';
 import OtherDetails from '../../Register/FormDetails/OtherDetails';
 import { useState } from 'react';
@@ -180,9 +183,17 @@ function IncompleteProfile(): JSX.Element {
           handleAvatarChange={setAvatarId}
         />
 
-        <div className={styles.loginButtonContainer}>
-          <button className={styles.loginButton} onClick={handleSubmit}>
-            LOGIN{' '}
+        <div>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className={styles.loginButton}
+          >
+            <div>LOGIN </div>
+            <FontAwesomeIcon
+              className={styles.buttonIcon}
+              icon={faChevronRight as IconProp}
+            />
           </button>
         </div>
       </div>

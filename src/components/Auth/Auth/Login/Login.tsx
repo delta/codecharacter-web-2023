@@ -30,13 +30,20 @@ function Login(): JSX.Element {
         toast.error('Invalid credentials');
         break;
       case 'User not found':
-        console.log('in');
         setEmail('');
         isemailError(true);
         setPassword('');
         ispasswordError(true);
         islogin(false);
         toast.error('user not found');
+        break;
+      case 'Email not verified':
+        setEmail('');
+        isemailError(true);
+        setPassword('');
+        ispasswordError(true);
+        islogin(false);
+        toast.error('Email not verified');
         break;
     }
   }, [loggedInError]);
@@ -175,7 +182,6 @@ function Login(): JSX.Element {
           <div>
             <div>
               <button
-                type="button"
                 className={styles.loginButton}
                 onClick={handleLoginSubmit}
               >

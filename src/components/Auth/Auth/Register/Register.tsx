@@ -5,12 +5,11 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { default as ReCAPTCHA } from 'react-google-recaptcha';
 import styles from '../auth.module.css';
-import { SITE_KEY } from '../../../../config/config';
 import { useNavigate } from 'react-router-dom';
 import UserDetails from './FormDetails/UserDetails';
 import UserCreditionals from './FormDetails/UserCreditionals';
+import { default as ReCAPTCHA } from 'react-google-recaptcha';
 import OtherDetails from './FormDetails/OtherDetails';
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import {
@@ -20,6 +19,7 @@ import {
 } from '../../../../store/User/UserSlice';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { toast } from 'react-hot-toast';
+import { SITE_KEY } from '../../../../config/config';
 let increment = 1;
 let passCondition = 0;
 export default function Register(): JSX.Element {
@@ -34,7 +34,6 @@ export default function Register(): JSX.Element {
   const [confirmPassword, setConfirmpassword] = useState('');
   const [submitFirst, issubmitFirst] = useState(false);
   const [submitSecond, issubmitSecond] = useState(false);
-  const [submitThird, isSubmitThird] = useState(false);
   const [userNameError, isuserNameError] = useState(false);
   const [fullNameError, isfullNameError] = useState(false);
   const [emailError, isemailError] = useState(false);
@@ -72,8 +71,9 @@ export default function Register(): JSX.Element {
     if (registeredStatus) {
       setFormnumber(1);
       increment = 1;
-      toast.success('Registeration Successful');
+      toast.success('Registration Successful');
       navigate('/login', { replace: true });
+      navigate(0);
     }
   }, [registeredStatus]);
   const handleRecaptcha = (value: string | null) => {
@@ -143,12 +143,14 @@ export default function Register(): JSX.Element {
       iscollegeError(true);
     } else {
       iscollegeError(false);
-      handleRegistration();
     }
   };
   const handleSignUp = () => {
-    isSubmitThird(true);
-    handleRegistration();
+    if (isHuman) {
+      handleRegistration();
+    } else {
+      toast.error('Invalid ReCaptcha');
+    }
   };
   const handleCollegeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCollege(e.target.value);
@@ -357,12 +359,10 @@ export default function Register(): JSX.Element {
             </>
           ) : formNumber === 3 ? (
             <>
-              <div className={styles.formContainer}></div>
               <div>
                 <OtherDetails
+                  formNumber={formNumber}
                   handleAvatarChange={handleAvatarChange}
-                  submitThird={submitThird}
-                  register={true}
                 />
                 <div className="form-row d-flex justify-content-center my-1">
                   <div className="d-flex justify-content-center input-group">
@@ -412,6 +412,7 @@ export default function Register(): JSX.Element {
             <div>
               {formNumber == 3 ? (
                 <button
+                  type="button"
                   disabled={!isHuman}
                   onClick={handleSignUp}
                   className={styles.signUpButton}
