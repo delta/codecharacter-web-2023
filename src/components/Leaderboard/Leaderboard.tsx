@@ -1,12 +1,5 @@
-import { useEffect, useState } from 'react';
-import {
-  Modal,
-  Button,
-  Table,
-  Dropdown,
-  DropdownButton,
-} from 'react-bootstrap';
-import ReactPaginate from 'react-paginate';
+import { useRef, useEffect, useState } from 'react';
+import { Modal, Button, Table, Dropdown } from 'react-bootstrap';
 import { useAppSelector } from '../../store/hooks';
 import styles from './Leaderboard.module.css';
 import { getAvatarByID } from '../Avatar/Avatar';
@@ -23,11 +16,8 @@ import Toast from 'react-hot-toast';
 import { user } from '../../store/User/UserSlice';
 
 function PaginatedItems() {
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
+  const [page, setPage] = useState(0);
   const [items, setItems] = useState<LeaderboardEntry[]>([]);
-  const [usableItems, setUsableItems] = useState<LeaderboardEntry[]>([]);
-  const [currentItems, setCurrentItems] = useState<LeaderboardEntry[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [show, setShow] = useState(false);
   const [currentOpponentUsername, setCurrentOpponentUsername] = useState('');
@@ -37,6 +27,7 @@ function PaginatedItems() {
     setCurrentOpponentUsername(username);
     setShow(true);
   };
+  const getLeaderboardByTier = tierIndex => setTierOffset(tierIndex);
 
   const tier1Index = 1;
   const tier2Index = 3;
@@ -48,31 +39,23 @@ function PaginatedItems() {
   const itemsPerPage = 8;
   const currentUserName = useAppSelector(user).username;
 
+  const didMountRef = useRef(false);
+
   useEffect(() => {
-    fetchLeaderboard(0, 10000);
+    if (didMountRef.current) {
+      fetchLeaderboard(page);
+      setTierOffset(0);
+      checkEmpty();
+    }
+    fetchLeaderboard(page);
     setTierOffset(0);
-  }, []);
+    didMountRef.current = true;
+  }, [page, didMountRef]);
 
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(usableItems.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(usableItems.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, usableItems]);
-
-  const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
-    setItemOffset(newOffset);
-  };
-
-  function getTierOffset(tier: number) {
-    if (tier == 4) {
-      setTierOffset(tier4Index);
-    } else if (tier == 3) {
-      setTierOffset(tier3Index);
-    } else if (tier == 2) {
-      setTierOffset(tier2Index);
-    } else if (tier == 1) {
-      setTierOffset(tier1Index - 1);
+  function checkEmpty() {
+    if (items.length == 0) {
+      Toast('This is the last page');
+      fetchLeaderboard(0);
     }
   }
 
@@ -90,19 +73,19 @@ function PaginatedItems() {
     }
   }
 
-  const fetchLeaderboard = (startIndex: number, endIndex: number) => {
+  const fetchLeaderboard = (pageNum: number) => {
     setIsLoaded(false);
     const leaderboardAPI = new LeaderboardApi(apiConfig);
     leaderboardAPI
-      .getLeaderboard(0, 10000)
+      .getLeaderboard(pageNum, itemsPerPage)
       .then(response => {
         setItems(response);
         setIsLoaded(true);
-        setUsableItems(items.slice(startIndex, endIndex));
       })
       .catch(error => {
         if (error instanceof ApiError) Toast.error(error.message);
       });
+    console.log(pageNum);
   };
 
   async function handleMatchStart() {
@@ -143,7 +126,7 @@ function PaginatedItems() {
                     className={styles.matchButton}
                     onClick={() => handleMatchStart()}
                   >
-                    Start mat border: 1px;ch
+                    Start match
                   </Button>
                 </Modal.Footer>
               </Modal>
@@ -161,8 +144,8 @@ function PaginatedItems() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems &&
-                    currentItems.map((row: LeaderboardEntry) => (
+                  {items &&
+                    items.map((row: LeaderboardEntry) => (
                       <tr
                         className={
                           styles.item +
@@ -175,11 +158,17 @@ function PaginatedItems() {
                       >
                         <td
                           className={getTier(
-                            usableItems.indexOf(row) + 1 + tierOffest,
+                            items.indexOf(row) +
+                              1 +
+                              tierOffest +
+                              page * itemsPerPage,
                           )}
                         ></td>
                         <td className={styles.pos}>
-                          {usableItems.indexOf(row) + 1 + tierOffest}
+                          {items.indexOf(row) +
+                            1 +
+                            tierOffest +
+                            page * itemsPerPage}
                         </td>
                         <td className={styles.name}>
                           <div>
@@ -218,65 +207,51 @@ function PaginatedItems() {
         )}
       </>
       <nav className={styles.paginationouter}>
-        <ReactPaginate
-          previousLabel="<"
-          nextLabel=">"
-          pageLinkClassName={styles.pageNum}
-          previousLinkClassName={styles.pageNum}
-          nextLinkClassName={styles.pageNum}
-          breakLabel="..."
-          breakClassName={styles.break}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={styles.pagination}
-          activeLinkClassName={styles.active}
-        />
         <button
           type="button"
           className={styles.button}
           onClick={() => {
-            fetchLeaderboard(0, 10000);
+            if (page == 0) {
+              Toast('First Page');
+            } else {
+              setPage(prevPage => prevPage - 1);
+            }
+          }}
+        >
+          {'<'}
+        </button>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            setPage(prevPage => prevPage + 1);
+          }}
+        >
+          {'>'}
+        </button>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            fetchLeaderboard(0);
             setTierOffset(0);
+            setPage(0);
           }}
         >
           Refresh
         </button>
-        <DropdownButton key="up" title="Filter By Tier" id="dropdown">
-          <Dropdown.Item
-            onClick={() => {
-              fetchLeaderboard(tier1Index - 1, tier2Index);
-              getTierOffset(1);
-            }}
-          >
-            Tier 1
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              fetchLeaderboard(tier2Index, tier3Index);
-              getTierOffset(2);
-            }}
-          >
-            Tier 2
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              fetchLeaderboard(tier3Index, tier4Index);
-              getTierOffset(3);
-            }}
-          >
-            Tier 3
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              fetchLeaderboard(tier4Index, tierMax);
-              getTierOffset(4);
-            }}
-          >
-            Tier 4
-          </Dropdown.Item>
-        </DropdownButton>
+        <Dropdown>
+          <Dropdown.Toggle className={styles.button}>
+            Filter by Tier
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={getLeaderboardByTier}>Tier 1</Dropdown.Item>
+            <Dropdown.Item onClick={getLeaderboardByTier}>Tier 2</Dropdown.Item>
+            <Dropdown.Item onClick={getLeaderboardByTier}>Tier 3</Dropdown.Item>
+            <Dropdown.Item onClick={getLeaderboardByTier}>Tier 4</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </nav>
     </>
   );

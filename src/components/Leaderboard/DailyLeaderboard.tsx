@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useAppSelector } from '../../store/hooks';
-import styles from './Leaderboard.module.css';
+import styles from './DailyLeaderboard.module.css';
 import {
   DailyChallengesApi,
   DailyChallengeLeaderBoardResponse,
 } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Loader from '../Loader/Loader';
-import trophyImage from '../../assets/trophy.png';
 import Toast from 'react-hot-toast';
 import { user } from '../../store/User/UserSlice';
 import { Table } from 'react-bootstrap';
@@ -22,7 +21,7 @@ function PaginatedItems() {
   >([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
   const currentUserName = useAppSelector(user).username;
 
   useEffect(() => {
@@ -44,7 +43,7 @@ function PaginatedItems() {
     setIsLoaded(false);
     const leaderboardAPI = new DailyChallengesApi(apiConfig);
     leaderboardAPI
-      .getDailyChallengeLeaderBoard() // The pagination system is so messed up, I can't be bother to fix it, so this hack
+      .getDailyChallengeLeaderBoard()
       .then(response => {
         setItems(response);
         setIsLoaded(true);
@@ -65,6 +64,7 @@ function PaginatedItems() {
               <Table hover className={styles.list} responsive>
                 <thead>
                   <tr className={styles.tableHeader}>
+                    <th className={styles.tableheader}>RANK</th>
                     <th className={styles.tableHeader}>USERNAME</th>
                     <th className={styles.tableHeader}>SCORE</th>
                   </tr>
@@ -83,7 +83,10 @@ function PaginatedItems() {
                           }
                           key={row.userName}
                         >
-                          <td className={styles.pos}>{row.userName}</td>
+                          <td className={styles.pos}>
+                            {items.indexOf(row) + 1}
+                          </td>
+                          <td className={styles.name}>{row.userName}</td>
                           <td className={styles.score}>{row.score}</td>
                         </tr>
                       ),
@@ -96,8 +99,8 @@ function PaginatedItems() {
       </>
       <nav className={styles.paginationouter}>
         <ReactPaginate
-          previousLabel="Previous"
-          nextLabel="Next"
+          previousLabel="<"
+          nextLabel=">"
           pageLinkClassName={styles.pageNum}
           previousLinkClassName={styles.pageNum}
           nextLinkClassName={styles.pageNum}
@@ -112,7 +115,7 @@ function PaginatedItems() {
         />
         <button
           type="button"
-          className="btn m-2 btn-outline-light"
+          className={styles.button}
           onClick={fetchLeaderboard}
         >
           Refresh
@@ -126,7 +129,6 @@ export default function Leaderboard(): JSX.Element {
   return (
     <div className={styles.body}>
       <div className={styles.header}>
-        <img className={styles.header__icon} src={trophyImage} />
         <h1 className={styles.header__title}>
           <span>Leaderboard</span>
         </h1>
