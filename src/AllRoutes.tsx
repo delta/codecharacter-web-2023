@@ -14,6 +14,9 @@ const History = lazy(
 const Login = lazy(() => import('./pages/Auth/LoginForm'));
 const Register = lazy(() => import('./pages/Auth/RegisterForm'));
 const Leaderboard = lazy(() => import('./components/Leaderboard/Leaderboard'));
+const RatingHistory = lazy(
+  () => import('./components/RatingChart/RatingChart'),
+);
 const DailyChallengeLeaderBoard = lazy(
   () => import('./components/Leaderboard/DailyLeaderboard'),
 );
@@ -52,6 +55,7 @@ export default function AllRoutes(): JSX.Element {
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/battletv" element={<BattleTV />} />
       <Route path="/dc/leaderboard" element={<DailyChallengeLeaderBoard />} />
+      <Route path="/ratingchart" element={<RatingHistory />} />
       <Route path="/activate" element={<Verify />} />
       <Route path="/incomplete-profile" element={<IncompleteProfile />} />
       <Route path="/profile" element={<Profile />} />

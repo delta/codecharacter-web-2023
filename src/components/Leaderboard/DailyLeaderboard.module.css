@@ -110,6 +110,11 @@ html {
   padding: 15px 30px;
 }
 
+.list .item .pos:first-child {
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
 .list .item .pic {
   width: 2rem;
   height: 2rem;
@@ -167,30 +172,9 @@ html {
   padding: 15px;
 }
 
-.item .attackButton {
-  background-color: transparent;
-  cursor: pointer;
-  border: none;
-  color: #aaaaaa;
-  padding: 15px 30px;
-}
-
-.attackImg:hover {
-  transform: scale(1.5);
-}
-
-.attackImg {
-  width: 2rem;
-  height: 2rem;
-  color: #aaaaaa;
-}
-
 .paginationouter {
-  display: flex;
   text-align: center;
   flex: 1;
-  justify-content: center;
-  margin-bottom: 30px;
 }
 
 .pagination {
@@ -203,31 +187,6 @@ html {
   padding: 10px;
   background-color: rgba(30, 30, 30, 0.87);
   border-radius: 10px;
-}
-
-.matchHeader {
-  background: #2b3760;
-  color: #ffffff;
-  height: 10vh;
-  border: 0px;
-}
-
-.matchHeader button {
-  background-color: #aaaaaa;
-}
-
-.matchBody {
-  background-color: #1c1c1c;
-  color: #ffffff;
-}
-
-.matchFooter {
-  background-color: #1c1c1c;
-  border: none;
-}
-
-.matchButton {
-  background: #2b3760;
 }
 
 .pagination .pageNum {
@@ -257,13 +216,9 @@ html {
   border: 1px;
 }
 
-.btn-primary {
-  color: black;
-}
-
 .button {
-  background-color: rgba(30, 30, 30, 0.87);
-  color: #aaaaaa;
+  background-color: white;
+  color: #0a1c2a;
   margin: 0px 8px;
   border: 1px;
   padding: 8px;
@@ -272,21 +227,4 @@ html {
   font-family: monospace, sans-serif;
   display: inline-block;
   white-space: nowrap;
-  transition: 0.3s;
-  letter-spacing: normal;
-}
-
-.button:hover {
-  background-color: #aaaaaa;
-  color: #0a1c2a;
-}
-
-.menu {
-  background: #aaaaaa;
-  color: black;
-}
-
-.dropdown-toggle {
-  color: #aaaaaa;
-  background-color: #ffffff;
 }
