@@ -27,7 +27,6 @@ function PaginatedItems() {
     setCurrentOpponentUsername(username);
     setShow(true);
   };
-  const getLeaderboardByTier = tierIndex => setTierOffset(tierIndex);
 
   const tier1Index = 1;
   const tier2Index = 3;
@@ -246,10 +245,10 @@ function PaginatedItems() {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item onClick={getLeaderboardByTier}>Tier 1</Dropdown.Item>
-            <Dropdown.Item onClick={getLeaderboardByTier}>Tier 2</Dropdown.Item>
-            <Dropdown.Item onClick={getLeaderboardByTier}>Tier 3</Dropdown.Item>
-            <Dropdown.Item onClick={getLeaderboardByTier}>Tier 4</Dropdown.Item>
+            <Dropdown.Item>Tier 1</Dropdown.Item>
+            <Dropdown.Item>Tier 2</Dropdown.Item>
+            <Dropdown.Item>Tier 3</Dropdown.Item>
+            <Dropdown.Item>Tier 4</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </nav>
