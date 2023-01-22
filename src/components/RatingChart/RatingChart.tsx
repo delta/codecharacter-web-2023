@@ -58,7 +58,7 @@ function RatingHistoryChart() {
 
   useEffect(() => {
     fetchRatingHistory();
-  });
+  }, []);
 
   useEffect(() => {
     items &&
@@ -68,7 +68,7 @@ function RatingHistoryChart() {
         const rating = entry.rating;
         ratings.push(rating);
       });
-  });
+  }, []);
 
   function fetchRatingHistory() {
     setIsLoaded(false);
