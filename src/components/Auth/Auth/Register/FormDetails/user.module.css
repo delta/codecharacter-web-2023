@@ -9,8 +9,8 @@
   color: black;
   background-color: transparent;
   border: 3px solid #aaaaaa;
+  padding: 0px;
 }
-
 .password,
 .email,
 .name,

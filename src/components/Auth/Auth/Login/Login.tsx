@@ -13,40 +13,15 @@ import toast from 'react-hot-toast';
 
 function Login(): JSX.Element {
   const navigate = useNavigate();
-  const [emailError, isemailError] = useState(false);
-  const [passwordError, ispasswordError] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [login, islogin] = useState(false);
-  const [typing, isTyping] = useState<boolean>(false);
   const [open, isOpen] = useState<boolean>(false);
   const hookDispatch = useAppDispatch();
   const loggedInError = useAppSelector(loginError);
   useEffect(() => {
-    switch (loggedInError) {
-      case 'Invalid credentials':
-        setPassword('');
-        ispasswordError(true);
-        toast.error('Invalid credentials');
-        break;
-      case 'User not found':
-        setEmail('');
-        isemailError(true);
-        setPassword('');
-        ispasswordError(true);
-        islogin(false);
-        toast.error('user not found');
-        break;
-      case 'Email not verified':
-        setEmail('');
-        isemailError(true);
-        setPassword('');
-        ispasswordError(true);
-        islogin(false);
-        toast.error('Email not verified');
-        break;
-    }
+    setPassword('');
   }, [loggedInError]);
+
   useEffect(() => {
     if (localStorage.getItem('token') != null) {
       navigate('/dashboard', { replace: true });
@@ -56,53 +31,27 @@ function Login(): JSX.Element {
     if (open == false) isOpen(true);
     else isOpen(false);
   };
-  const handleLoginSubmit = () => {
-    islogin(true);
-    const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/;
-    const passwordFormat =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/;
 
-    if (email.match(mailformat)) {
-      isemailError(false);
+  const handleLoginSubmit = () => {
+    if (!email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/)) {
+      toast.error('Invalid username or password');
+    } else if (
+      !password.match(
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/,
+      )
+    ) {
+      toast.error('Invalid username or password');
     } else {
-      isemailError(true);
-    }
-    if (password.match(passwordFormat)) {
-      ispasswordError(false);
-    } else {
-      ispasswordError(true);
-    }
-    if (login && (emailError || passwordError) && !typing) {
-      toast.error('Invalid Username or Password');
-    }
-    if (!(emailError && passwordError)) {
-      isTyping(false);
       hookDispatch(loginAction({ email: email, password: password }));
     }
   };
 
   const handlePasswordSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value != null) {
-      setPassword(event.target.value);
-      isTyping(true);
-    }
-    const passwordFormat =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/;
-    if (event.target.value.toString().match(passwordFormat)) {
-      ispasswordError(false);
-    } else {
-      ispasswordError(true);
-    }
+    setPassword(event.target.value);
   };
 
   const handleEmailSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-    const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (event.target.value.match(mailformat)) {
-      isemailError(false);
-    } else {
-      isemailError(true);
-    }
   };
 
   return (
@@ -182,6 +131,7 @@ function Login(): JSX.Element {
           <div>
             <div>
               <button
+                type="button"
                 className={styles.loginButton}
                 onClick={handleLoginSubmit}
               >

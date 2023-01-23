@@ -67,7 +67,11 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
         </Modal.Body>
 
         <Modal.Footer className={styles.modalContainer}>
-          <button onClick={handleSubmit} className={styles.submitButton}>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className={styles.submitButton}
+          >
             Submit
           </button>
         </Modal.Footer>

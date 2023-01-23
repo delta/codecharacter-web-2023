@@ -20,8 +20,7 @@ import {
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { toast } from 'react-hot-toast';
 import { SITE_KEY } from '../../../../config/config';
-let increment = 1;
-let passCondition = 0;
+
 export default function Register(): JSX.Element {
   const [selected, setSelected] = useState('IN');
   const [formNumber, setFormnumber] = useState(1);
@@ -32,15 +31,7 @@ export default function Register(): JSX.Element {
   const [userName, setUsername] = useState('');
   const [password, setpassword] = useState('');
   const [confirmPassword, setConfirmpassword] = useState('');
-  const [submitFirst, issubmitFirst] = useState(false);
-  const [submitSecond, issubmitSecond] = useState(false);
-  const [userNameError, isuserNameError] = useState(false);
-  const [fullNameError, isfullNameError] = useState(false);
-  const [emailError, isemailError] = useState(false);
-  const [passwordError, ispasswordError] = useState(false);
-  const [confirmpasswordError, isconfirmpasswordError] = useState(false);
   const [completed, isCompleted] = useState(false);
-  const [collegeError, iscollegeError] = useState(false);
   const [isHuman, setIshuman] = useState(false);
   const [avatarID, setAvatarID] = useState(0);
   const dispatch = useAppDispatch();
@@ -48,87 +39,36 @@ export default function Register(): JSX.Element {
   let registeredStatus = false;
   registeredStatus = useAppSelector(isRegistered);
   const registerError = useAppSelector(registeredError);
+
   useEffect(() => {
     if (localStorage.getItem('token') != null && completed) {
       navigate('/dashboard', { replace: true });
     }
   }, []);
+
   useEffect(() => {
     switch (registerError) {
       case 'Username/Email already exists':
         setFormnumber(1);
-        increment = 1;
         setUsername('');
-        isuserNameError(true);
         setEmail('');
-        isemailError(true);
         isCompleted(false);
-        toast.error('Username/Email already exists');
         break;
     }
   }, [registerError]);
+
   useEffect(() => {
     if (registeredStatus) {
       setFormnumber(1);
-      increment = 1;
-      toast.success('Registration Successful');
       navigate('/login', { replace: true });
       navigate(0);
     }
   }, [registeredStatus]);
+
   const handleRecaptcha = (value: string | null) => {
     if (value) setIshuman(true);
     if (value != null) {
       setRecpatchaCode(value);
-    }
-  };
-  const handleFullname = () => {
-    if (fullName.trim().length < 5) {
-      isfullNameError(true);
-      passCondition += 1;
-    } else {
-      isfullNameError(false);
-    }
-  };
-  const handleUsername = () => {
-    if (userName.trim().length < 5 || userName.length < 5) {
-      passCondition += 1;
-      isuserNameError(true);
-    } else {
-      isuserNameError(false);
-    }
-  };
-  const handleEmail = () => {
-    const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (email.match(mailformat)) {
-      isemailError(false);
-    } else {
-      isemailError(true);
-      passCondition += 1;
-    }
-  };
-
-  const handlepassword = () => {
-    const passwordFormat =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/;
-    if (!password.match(passwordFormat)) {
-      ispasswordError(true);
-      passCondition += 1;
-    } else {
-      ispasswordError(false);
-    }
-  };
-  const handleConfirmpassword = () => {
-    const passwordFormat =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/;
-    if (
-      !(password === confirmPassword) ||
-      !confirmPassword.match(passwordFormat)
-    ) {
-      isconfirmpasswordError(true);
-      passCondition += 1;
-    } else {
-      isconfirmpasswordError(false);
     }
   };
 
@@ -136,15 +76,6 @@ export default function Register(): JSX.Element {
     setAvatarID(id);
   };
 
-  const handleCollege = () => {
-    issubmitSecond(true);
-    if (college.trim().length == 0 || college.trim() == '') {
-      passCondition += 1;
-      iscollegeError(true);
-    } else {
-      iscollegeError(false);
-    }
-  };
   const handleSignUp = () => {
     if (isHuman) {
       handleRegistration();
@@ -154,141 +85,68 @@ export default function Register(): JSX.Element {
   };
   const handleCollegeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCollege(e.target.value);
-    if (submitSecond) {
-      if (e.target.value.trim().length == 0) {
-        iscollegeError(true);
-      } else {
-        iscollegeError(false);
-      }
-    }
-  };
-  const handleStepSubmit = (step: number) => {
-    switch (step) {
-      case 1:
-        issubmitFirst(true);
-        passCondition = 0;
-        handleFullname();
-        handleEmail();
-        handlepassword();
-        handleConfirmpassword();
-        break;
-      case 2:
-        issubmitSecond(true);
-        passCondition = 0;
-        handleUsername();
-        handleCollege();
-        break;
-    }
-  };
-  const handleForm = (level: number) => {
-    if (passCondition == 0) {
-      if (level == 1) {
-        increment += 1;
-      }
-
-      if (level == -1) {
-        increment -= 1;
-      }
-    }
-    setFormnumber(increment);
   };
   const handleFullNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setfullName(e.target.value);
-    if (submitFirst) {
-      if (e.target.value.trim().length < 5 || fullName.length < 4) {
-        isfullNameError(true);
-      } else {
-        isfullNameError(false);
-      }
-    }
   };
 
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
-    if (submitSecond) {
-      if (e.target.value.trim().length < 5 || userName.length < 4) {
-        isuserNameError(true);
-      } else {
-        isuserNameError(false);
-      }
-    }
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    if (submitFirst) {
-      const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-      if (e.target.value.match(mailformat) || email.match(mailformat)) {
-        isemailError(false);
-      } else {
-        isemailError(true);
-      }
-    }
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const passwordFormat =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/;
     setpassword(e.target.value);
-    if (submitFirst) {
-      if (e.target.value.match(passwordFormat)) {
-        ispasswordError(false);
-      } else {
-        ispasswordError(true);
-      }
-    }
   };
 
   const handleConfirmPasswordChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setConfirmpassword(e.target.value);
-    if (submitFirst) {
-      if (e.target.value != password) {
-        isconfirmpasswordError(true);
-      } else {
-        isconfirmpasswordError(false);
-      }
-    }
-  };
-  const handleNext = () => {
-    if (handleError(formNumber)) {
-      handleStepSubmit(formNumber);
-      handleForm(1);
-    }
   };
 
-  const handleError = (formNumber: number) => {
+  const handleNext = () => {
     if (formNumber == 1) {
-      if (fullNameError) {
+      if (fullName.length < 4) {
         toast.error('Name should have atleast 5 characters');
-      } else if (emailError) {
+      } else if (
+        !email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
+      ) {
         toast.error('Invalid email');
-      } else if (passwordError) {
+      } else if (
+        !password.match(
+          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/,
+        )
+      ) {
         toast(
           'Password should contain atleast \n\tatleast 8 characters,\n\t1 UpperCase letter, \n\t1 Special Character, \n\t1 number',
         );
-      } else if (confirmpasswordError) {
+      } else if (
+        !(password === confirmPassword) ||
+        !confirmPassword.match(
+          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/,
+        )
+      ) {
         toast.error("Password and confirm password don't match");
       } else {
-        return true;
+        setFormnumber(2);
       }
-    }
-    if (formNumber == 2) {
-      if (userNameError) {
+    } else if (formNumber == 2) {
+      if (userName.length < 4) {
         toast.error('Username should have atleast 5 characters');
-      } else if (collegeError) {
+      } else if (college.length == 0) {
         toast.error('Please enter your college name');
       } else {
-        return true;
+        setFormnumber(3);
       }
     }
   };
 
   const handlePrevious = () => {
-    handleStepSubmit(formNumber - 1);
-    handleForm(-1);
-    isCompleted(false);
+    setFormnumber(formNumber - 1);
   };
   const getCountryName = (code: string) => {
     const countryName = new Intl.DisplayNames(['en'], {
@@ -326,35 +184,27 @@ export default function Register(): JSX.Element {
           {formNumber === 1 ? (
             <>
               <UserDetails
-                submitFirst={submitFirst}
                 handleFullNameChange={handleFullNameChange}
                 handleEmailChange={handleEmailChange}
                 fullName={fullName}
-                fullNameError={fullNameError}
                 email={email}
-                emailError={emailError}
                 register={true}
                 handlePasswordChange={handlePasswordChange}
                 handleConfirmPasswordChange={handleConfirmPasswordChange}
                 password={password}
-                passwordError={passwordError}
                 confirmPassword={confirmPassword}
-                confirmpasswordError={confirmpasswordError}
               />
             </>
           ) : formNumber === 2 ? (
             <>
               <UserCreditionals
-                submitSecond={submitSecond}
                 selectedCode={selected}
                 userName={userName}
-                userNameError={userNameError}
                 handleUserNameChange={handleUserNameChange}
                 handleFlagSelect={handleFlagSelect}
                 formNumber={formNumber}
                 handleCollegeChange={handleCollegeChange}
                 college={college}
-                collegeError={collegeError}
               />
             </>
           ) : formNumber === 3 ? (

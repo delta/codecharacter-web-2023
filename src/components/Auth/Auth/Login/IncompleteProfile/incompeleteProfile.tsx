@@ -15,52 +15,24 @@ import { getUserDetailsAction } from '../../../../../store/User/UserSlice';
 function IncompleteProfile(): JSX.Element {
   const [college, setCollege] = useState('');
   const [selected, setSelected] = useState('IN');
-  const [collegeError, iscollegeError] = useState(false);
-  const [submitThird, isSubmitThird] = useState(false);
   const [userName, setUsername] = useState('');
-  const [userNameError, isuserNameError] = useState(false);
   const [fullName, setfullName] = useState('');
-  const [fullNameError, isfullNameError] = useState(false);
   const [avatarId, setAvatarId] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleCollege = () => {
-    isSubmitThird(true);
-    if (college.trim().length == 0 || college.trim() == '') {
-      iscollegeError(true);
-    } else {
-      iscollegeError(false);
-    }
-  };
 
   const handleCollegeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCollege(e.target.value);
-    if (submitThird) {
-      if (e.target.value.trim().length == 0) {
-        iscollegeError(true);
-      } else {
-        iscollegeError(false);
-      }
-    }
-  };
-
-  const handleError = () => {
-    if (fullNameError) {
-      toast.error('Name should be atleast 5 characters');
-    } else if (userNameError) {
-      toast.error('Username should be atleast 5 characters');
-    } else if (collegeError) {
-      toast.error('Please enter your college name');
-    } else {
-      return true;
-    }
   };
 
   const handleSubmit = () => {
-    handleFullname();
-    handleUsername();
-    handleCollege();
-    if (handleError()) {
+    if (fullName.trim().length < 5) {
+      toast.error('Name should be atleast 5 characters');
+    } else if (userName.length < 5) {
+      toast.error('Username should be atleast 5 characters');
+    } else if (college.trim().length == 0) {
+      toast.error('Please enter your college name');
+    } else {
       const currentUserapi = new CurrentUserApi(apiConfig);
       currentUserapi
         .completeUserProfile({
@@ -82,6 +54,7 @@ function IncompleteProfile(): JSX.Element {
         });
     }
   };
+
   const handleFlagSelect = (code: string) => {
     setSelected(code);
   };
@@ -93,42 +66,14 @@ function IncompleteProfile(): JSX.Element {
     return countryName ? countryName : 'INDIA';
   };
 
-  const handleUsername = () => {
-    if (userName.trim().length < 5 || userName.length < 5) {
-      isuserNameError(true);
-    } else {
-      isuserNameError(false);
-    }
-  };
-
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
-    if (submitThird) {
-      if (e.target.value.trim().length < 5 || userName.length < 4) {
-        isuserNameError(true);
-      } else {
-        isuserNameError(false);
-      }
-    }
-  };
-  const handleFullname = () => {
-    if (fullName.trim().length < 5) {
-      isfullNameError(true);
-    } else {
-      isfullNameError(false);
-    }
   };
 
   const handleFullNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setfullName(e.target.value);
-    if (submitThird) {
-      if (e.target.value.trim().length < 5 || fullName.length < 4) {
-        isfullNameError(true);
-      } else {
-        isfullNameError(false);
-      }
-    }
   };
+
   return (
     <div className={styles.mainContainer}>
       <div>
@@ -156,6 +101,7 @@ function IncompleteProfile(): JSX.Element {
         />
         <div className={styles.flagContainer}>
           <ReactFlagsSelect
+            className={styles.flagText}
             searchable
             selected={selected != null ? selected : 'IN'}
             onSelect={
@@ -175,13 +121,7 @@ function IncompleteProfile(): JSX.Element {
           className={styles.collegeName}
         />
 
-        <OtherDetails
-          handleFlagSelect={handleFlagSelect}
-          formNumber={3}
-          submitThird={submitThird}
-          register={false}
-          handleAvatarChange={setAvatarId}
-        />
+        <OtherDetails formNumber={3} handleAvatarChange={setAvatarId} />
 
         <div>
           <button

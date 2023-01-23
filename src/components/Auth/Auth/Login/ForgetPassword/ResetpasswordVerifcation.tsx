@@ -109,7 +109,11 @@ function ResetpasswordVerification(): JSX.Element {
           />
         </div>
         <div></div>
-        <button className={styles.resetPasswordButton} onClick={handleSubmit}>
+        <button
+          type="button"
+          className={styles.resetPasswordButton}
+          onClick={handleSubmit}
+        >
           RESET PASSWORD{' '}
         </button>
       </div>
