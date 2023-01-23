@@ -179,7 +179,7 @@ const Profile = (): JSX.Element => {
     if (oldPassword.length < 8) {
       toast.error('Incorrect Old password');
     } else if (!password.match(passwordFormat)) {
-      toast.error(t => (
+      toast.error(() => (
         <ul className={styles.toastPassword}>
           <li>Password needs to be minimum 8 characters long</li>
           <li>
