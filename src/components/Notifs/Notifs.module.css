@@ -61,14 +61,15 @@
 .notifModalTriangle {
   display: none;
   position: absolute;
-  left: 8px;
-  top: 32px;
-  border-color: transparent transparent #2b3146 transparent;
+  left: 9px;
+  top: 34px;
+  border-color: transparent transparent #2A2A2A transparent;
   border-style: solid;
   border-width: 0px 9px 9px 9px;
   height: 0px;
   width: 0px;
 }
+
 .notifTriangleShow {
   display: block;
 }

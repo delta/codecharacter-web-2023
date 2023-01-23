@@ -146,6 +146,7 @@ export const ChangeUserCreditionals = (creditionals: {
       })
       .catch(error => {
         if (error instanceof ApiError) {
+          Toast.error(error.message);
           reject({ error: error.message });
         }
       });

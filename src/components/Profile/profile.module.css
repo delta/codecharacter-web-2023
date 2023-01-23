@@ -156,6 +156,18 @@
     border: 3px solid #AAAAAA;
 }
 
+.submitContainer:active {
+    background-color: #AAAAAA !important;
+    border-color: #AAAAAA !important;
+}
+
+.submitContainer:focus-visible {
+    color: white !important;
+    border-color: white !important;
+    background-color: #AAAAAA !important;
+    box-shadow: none;
+}
+
 .eyeContainer {
     display: flex;
     align-items: center;
@@ -163,7 +175,7 @@
 }
 
 .eye {
-    color: #242a3c;
+    color: #AAAAAA;
     position: relative;
     right: 34px;
 }
@@ -171,7 +183,10 @@
 .linkButton {
     text-decoration: none;
     color: #AAAAAA;
-    font-size: 30px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .linkButton:hover {
@@ -180,6 +195,11 @@
 
 .linkButton:active {
     color: white !important;
+}
+
+.linkButton:focus-visible {
+    color: white !important;
+    box-shadow: none;
 }
 
 .avatarContainer {
@@ -257,4 +277,9 @@
     height: 100%;
     overflow-y: scroll;
     transition: all 0.5s ease;
+}
+
+.toastPassword {
+    position: relative;
+    top: 10px;
 }

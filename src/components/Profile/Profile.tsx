@@ -1,11 +1,11 @@
 import { Form, Button } from 'react-bootstrap';
 import { useState, useEffect, useRef } from 'react';
-import AlertMessage from '../Auth/Auth/Alert/Alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactFlagsSelect from 'react-flags-select';
 import styles from './profile.module.css';
 import classnames from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import {
   faEye,
   faEyeSlash,
@@ -24,9 +24,10 @@ import {
   isSuccessUser,
 } from '../../store/User/UserSlice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import PasswordAlertMessage from '../Auth/Auth/Alert/PassworAlert';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { getAvatarByID, getAllAvatars } from '../Avatar/Avatar';
+import angleBracketRight from '../../assets/angle_bracket_right.svg';
+import angleBracketLeft from '../../assets/angle_bracket_left.svg';
 
 const Profile = (): JSX.Element => {
   const navigate = useNavigate();
@@ -36,12 +37,9 @@ const Profile = (): JSX.Element => {
   const [password, setpassword] = useState('');
   const [confirmPassword, setConfirmpassword] = useState('');
   const [oldPassword, setOldpassword] = useState('');
-  const [submitPassword, issubmitPassword] = useState(false);
   const [submitoldPassword, issubmitoldPassword] = useState(false);
   const [collegeName, setCollegeName] = useState('');
   const [userName, setUsername] = useState('');
-  const [passwordError, ispasswordError] = useState(false);
-  const [oldpasswordError, isoldpasswordError] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(0);
   const [passwordType, setPasswordType] = useState<{
     oldpassword: string;
@@ -104,9 +102,6 @@ const Profile = (): JSX.Element => {
   const loadingStatus = useAppSelector(loading);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (err) isoldpasswordError(true);
-  }, [loadingStatus, err]);
   const success = useAppSelector(isSuccess);
   const userSuccesschange = useAppSelector(isSuccessUser);
   useEffect(() => {
@@ -120,10 +115,7 @@ const Profile = (): JSX.Element => {
       setOldpassword('');
       setpassword('');
       setConfirmpassword('');
-      issubmitPassword(false);
       issubmitoldPassword(false);
-      ispasswordError(false);
-      isoldpasswordError(false);
       dispatch(logout());
       localStorage.removeItem('token');
       navigate('/login', { replace: true });
@@ -151,7 +143,6 @@ const Profile = (): JSX.Element => {
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setpassword(e.target.value);
-    issubmitPassword(true);
   };
 
   const handleConfirmPasswordChange = (
@@ -159,6 +150,7 @@ const Profile = (): JSX.Element => {
   ) => {
     setConfirmpassword(e.target.value);
   };
+
   const getCountryName = (code: string) => {
     const countryName = new Intl.DisplayNames(['en'], {
       type: 'region',
@@ -170,7 +162,7 @@ const Profile = (): JSX.Element => {
     dispatch(
       changeUserDetailsAction({
         userName:
-          userName.toString().trim() === '' ? loggedInUser.name : userName,
+          userName.toString().trim() === '' ? loggedInUser.username : userName,
         college:
           collegeName.toString().trim() === ''
             ? loggedInUser.college
@@ -182,14 +174,31 @@ const Profile = (): JSX.Element => {
   };
 
   const handleCreditionals = () => {
-    issubmitoldPassword(true);
-    dispatch(
-      changeUserCreditionalsAction({
-        oldPassword: oldPassword,
-        newPassword: password,
-        confirmPassword: confirmPassword,
-      }),
-    );
+    const passwordFormat =
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/;
+    if (oldPassword.length < 8) {
+      toast.error('Incorrect Old password');
+    } else if (!password.match(passwordFormat)) {
+      toast.error(t => (
+        <ul className={styles.toastPassword}>
+          <li>Password needs to be minimum 8 characters long</li>
+          <li>
+            Password must contain atleast 1 Number, 1 Upper case and 1 Special
+            Character
+          </li>
+        </ul>
+      ));
+    } else if (confirmPassword !== password) {
+      toast.error("Confirm password and Password don't match");
+    } else {
+      dispatch(
+        changeUserCreditionalsAction({
+          oldPassword: oldPassword,
+          newPassword: password,
+          confirmPassword: confirmPassword,
+        }),
+      );
+    }
   };
   const handleAvatarChange = (id: number) => {
     setSelectedAvatar(id);
@@ -226,7 +235,7 @@ const Profile = (): JSX.Element => {
       <div className={styles.profileBody}>
         <div className={styles.header} id="header">
           <div className={styles.userNameContent}>
-            HEY, <p className={styles.userName}>{loggedInUser.name}</p>{' '}
+            HEY, <p className={styles.userName}>{loggedInUser.username}</p>{' '}
           </div>
           <div className={styles.imageContainer}>
             <img
@@ -339,7 +348,8 @@ const Profile = (): JSX.Element => {
                       onClick={handleGoBacktoDash}
                       className={styles.linkButton}
                     >
-                      {'< Go Back'}
+                      <img src={angleBracketLeft} alt="Angle Bracket Left" />
+                      {' GO BACK'}
                     </Button>
                     <Button
                       variant="link"
@@ -349,7 +359,8 @@ const Profile = (): JSX.Element => {
                       }}
                       className={styles.linkButton}
                     >
-                      {'Change Credentials >'}
+                      {'CHANGE CREDENTIALS '}
+                      <img src={angleBracketRight} alt="Angle Bracket Right" />
                     </Button>
                   </>
                 }
@@ -367,16 +378,7 @@ const Profile = (): JSX.Element => {
                     placeholder="Old Password"
                     value={oldPassword}
                     onChange={hanldeOldPasswordChange}
-                    className={classnames(
-                      submitoldPassword
-                        ? oldpasswordError && err
-                          ? styles.error
-                          : oldpasswordError == false && err == false
-                          ? styles.correct
-                          : styles.normal
-                        : styles.normal,
-                      styles.inputField,
-                    )}
+                    className={styles.inputField}
                   />
                   <div className={styles.eye}>
                     {passwordType.oldpassword === 'password' ? (
@@ -394,14 +396,6 @@ const Profile = (): JSX.Element => {
                     )}
                   </div>
                 </div>
-                {oldpasswordError && err ? (
-                  <AlertMessage
-                    err={oldpasswordError}
-                    content={'Incorrect Old Password'}
-                  />
-                ) : (
-                  <></>
-                )}
               </Form.Group>
               <Form.Group
                 className={classnames('mb-4', styles.formField)}
@@ -431,10 +425,6 @@ const Profile = (): JSX.Element => {
                     )}
                   </div>
                 </div>
-                <PasswordAlertMessage
-                  err={submitPassword && passwordError}
-                  variantColor="danger"
-                />
               </Form.Group>
               <Form.Group
                 className={classnames('mb-4', styles.formField)}
@@ -493,7 +483,8 @@ const Profile = (): JSX.Element => {
               onClick={handleGoBacktoProfile}
               className={styles.linkButton}
             >
-              {'< Edit Profile'}
+              <img src={angleBracketLeft} alt="Angle Bracket Left" />
+              {' EDIT PROFILE'}
             </Button>
           </div>
         </div>
