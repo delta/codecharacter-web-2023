@@ -143,6 +143,7 @@ export const ChangeUserCreditionals = (creditionals: {
       })
       .then(() => {
         resolve(creditionals.confirmPassword);
+        Toast.success('Credentials Changed');
       })
       .catch(error => {
         if (error instanceof ApiError) {
