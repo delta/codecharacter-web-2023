@@ -1,13 +1,8 @@
-.canvas {
-    width: 0rem;
-}
-
 .profileBody {
     display: flex;
     margin-top: 2rem;
     flex-direction: column;
     height: 1900px;
-    /* overflow: hidden; */
 }
 
 .Container {
@@ -47,21 +42,6 @@
     text-align: center;
 }
 
-.close {
-    background-color: white;
-}
-
-.divider {
-    margin: 0px;
-    padding: 0px;
-    background-color: white;
-}
-
-.body {
-    background-color: #1c1c1c;
-    color: white;
-}
-
 .profileContainer {
     display: flex;
     justify-content: center;
@@ -93,7 +73,6 @@
 }
 
 
-
 .flagContainer {
     background-color: white;
     border-radius: 5px;
@@ -118,18 +97,6 @@
     text-align: center;
     display: flex;
     justify-content: space-around; 
-}
-
-.error {
-    background: #ffdddd !important;
-}
-
-.correct {
-    background: #c9ffad !important;
-}
-
-.normal {
-    background: #ffffff00 !important;
 }
 
 .submitContainer {
