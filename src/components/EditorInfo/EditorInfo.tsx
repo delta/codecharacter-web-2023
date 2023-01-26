@@ -28,7 +28,7 @@ const EditorInfo = (): JSX.Element => {
             <Col key={index} xs={12} className={styles.InfoGroup}>
               <div className={styles.infoDiv}>
                 <b>{shortcut.key}</b>
-                <b> - {shortcut.description}</b>
+                <b>{shortcut.description}</b>
               </div>
               <br />
             </Col>

@@ -185,6 +185,7 @@ const selfMatchModal = (): JSX.Element => {
               </FormGroup>
               <Button
                 className={styles.selfMatchModalSimulateBtn}
+                variant="success"
                 onClick={handleSimulate}
               >
                 Simulate

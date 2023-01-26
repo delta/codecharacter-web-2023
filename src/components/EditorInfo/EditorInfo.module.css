@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 .InfoGroup {
   margin: 7px;
   padding-top: 5px;
@@ -26,6 +25,8 @@
 
 
 .editorInfoBody {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
   background: #1c1c1c;
   border: 0px;
   padding: 7px 0px;

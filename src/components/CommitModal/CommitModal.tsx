@@ -72,7 +72,11 @@ const CommitModal = (): JSX.Element => {
               className={styles.commitModalInput}
               onChange={handleCommitNameInput}
             />
-            <Button className={styles.commitModalbtn} onClick={handleCommit}>
+            <Button
+              className={styles.commitModalbtn}
+              variant="success"
+              onClick={handleCommit}
+            >
               Submit
             </Button>
           </Form>

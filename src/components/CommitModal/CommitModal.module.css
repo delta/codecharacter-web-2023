@@ -35,10 +35,8 @@
 }
 
 .commitModalbtn {
-    background-color: rgb(24, 188, 95);
     width: 30%;
     margin: 1.5rem auto;
-    background: #4595CF;
     height: 4.5vh;
     width: 33%;
     display: flex;

@@ -21,7 +21,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 2px;
+  padding: 2px 2px;
 }
 
 .midDiv{
@@ -89,7 +89,7 @@
 
 .toolbarButton1 {
   font-size: 0.9rem;
-  width: 5.6rem;
+  width: 5.83rem;
   height: 90%;
   border: 0;
   margin-left: 5px;
@@ -126,7 +126,7 @@
 }
 
 .settingDropdown{
-  margin-top: 5px;
+  margin-top: 5 px;
 }
 
 .closeEditorButton {
@@ -171,7 +171,8 @@
 }
 
 .settingsIcon{
-  margin-top: 4px;
+  margin-top: 6px;
+  transform: scale(1.05);
 }
 
 .hoverIcon:hover{
