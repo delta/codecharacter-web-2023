@@ -77,11 +77,11 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         lineDecorationsWidth: 10,
         automaticLayout: true,
         theme:
-          theme == 'vs-dark'
-            ? 'vs-dark'
+          theme == 'hc-black'
+            ? 'hc-black'
             : theme == 'vs-light'
             ? 'vs'
-            : 'hc-black',
+            : 'vs-dark',
         cursorBlinking: 'smooth',
       });
     }
