@@ -1,5 +1,6 @@
 .selfMatchModalHeader{
-    background: #2B3760;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(100px);
     color: white;
     height: 10vh;
     border: 0px;
@@ -46,7 +47,6 @@
 }
 
 .selfMatchModalSimulateBtn{
-    background: #4595CF;
     height: 5vh;
     width: 40%;
     display: flex;

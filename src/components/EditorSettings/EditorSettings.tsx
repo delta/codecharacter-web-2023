@@ -6,14 +6,10 @@ import {
   fontSizeChanged,
   themeChanged,
   keyboardHandlerChanged,
-  enableBasicAutoCompleteChanged,
-  enableSnippetsChanged,
   IsSettingsOpen,
   FontSize,
   Theme,
   KeyboardHandler,
-  EnableBasicAutoComplete,
-  EnableSnippets,
 } from '../../store/EditorSettings/settings';
 
 const EditorSettings = (): JSX.Element => {
@@ -21,8 +17,6 @@ const EditorSettings = (): JSX.Element => {
   const fontSize = useAppSelector(FontSize);
   const theme = useAppSelector(Theme);
   const keyboardHandler = useAppSelector(KeyboardHandler);
-  const enableBasicAutoComplete = useAppSelector(EnableBasicAutoComplete);
-  const enableSnippets = useAppSelector(EnableSnippets);
 
   const dispatch = useAppDispatch();
 
@@ -31,22 +25,7 @@ const EditorSettings = (): JSX.Element => {
     fontSizeOptions.push(i);
   }
 
-  const editorThemes = [
-    'monokai',
-    'github',
-    'tomorrow',
-    'kuroir',
-    'twilight',
-    'xcode',
-    'textmate',
-    'solarized_dark',
-    'solarized_light',
-    'terminal',
-    'chaos',
-    'chrome',
-    'eclipse',
-    'dracula',
-  ];
+  const editorThemes = ['vs-light', 'vs-dark', 'high-contrast-black'];
 
   const keyboardHandlers = ['default', 'emacs', 'vim'];
 
@@ -60,14 +39,6 @@ const EditorSettings = (): JSX.Element => {
 
   function handleKeyboardHandlerChange(newKeyboardHandler: string) {
     dispatch(keyboardHandlerChanged(newKeyboardHandler));
-  }
-
-  function handleAutoCompleteToggle(toggle: boolean) {
-    dispatch(enableBasicAutoCompleteChanged(toggle));
-  }
-
-  function handleSnippetsToggle(toggle: boolean) {
-    dispatch(enableSnippetsChanged(toggle));
   }
 
   return (
@@ -142,66 +113,6 @@ const EditorSettings = (): JSX.Element => {
                       {keyboardHandlerValue}
                     </option>
                   ))}
-                </select>
-              </FormGroup>
-            </Col>
-
-            <Col xs={12} className={styles.settingFormGroup}>
-              <FormGroup controlId="basicAutoCompletion">
-                <div className={styles.settingLabel}>Basic Auto Completion</div>
-                <select
-                  className={styles.settingDropdown}
-                  value={enableBasicAutoComplete ? 'enable' : 'disable'}
-                  onChange={e =>
-                    handleAutoCompleteToggle(
-                      e.target.value === 'enable' ? true : false,
-                    )
-                  }
-                >
-                  <option
-                    value={'enable'}
-                    key={'enable'}
-                    className={styles.optionsDropdown}
-                  >
-                    enable
-                  </option>
-                  <option
-                    value={'disable'}
-                    key={'disable'}
-                    className={styles.optionsDropdown}
-                  >
-                    disable
-                  </option>
-                </select>
-              </FormGroup>
-            </Col>
-
-            <Col xs={12} className={styles.settingFormGroup}>
-              <FormGroup controlId="snippets">
-                <div className={styles.settingLabel}>Snippets</div>
-                <select
-                  className={styles.settingDropdown}
-                  value={enableSnippets ? 'enable' : 'disable'}
-                  onChange={e =>
-                    handleSnippetsToggle(
-                      e.target.value === 'enable' ? true : false,
-                    )
-                  }
-                >
-                  <option
-                    value={'enable'}
-                    key={'enable'}
-                    className={styles.optionsDropdown}
-                  >
-                    enable
-                  </option>
-                  <option
-                    value={'disable'}
-                    key={'disable'}
-                    className={styles.optionsDropdown}
-                  >
-                    disable
-                  </option>
                 </select>
               </FormGroup>
             </Col>

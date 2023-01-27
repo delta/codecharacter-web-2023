@@ -10,18 +10,11 @@ import {
   faPlay,
   faSave,
   faGear,
+  faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
-import {
-  Button,
-  ButtonToolbar,
-  Col,
-  Form,
-  OverlayTrigger,
-  Popover,
-  Row,
-} from 'react-bootstrap';
+import { Button, ButtonToolbar, Col, Form, Row } from 'react-bootstrap';
 import SplitPane from 'react-split-pane';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Editor from '../../components/Editor/Editor';
@@ -43,9 +36,15 @@ import {
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
 import { loggedIn } from '../../store/User/UserSlice';
+
 import {
   IsSettingsOpen,
+  IsInfoOpen,
   isSettingsOpened,
+  isInfoOpened,
+  Theme,
+  IsCommitModalOpen,
+  isCommitModalOpened,
 } from '../../store/EditorSettings/settings';
 
 type SplitPaneState = {
@@ -67,6 +66,8 @@ export default function Dashboard(): JSX.Element {
   const [verticalPercent, setVerticalPercent] = useState(
     storedSplitPaneState?.verticalPercent || '50%',
   );
+
+  const theme = useAppSelector(Theme);
 
   const updateDividerPosition = (position: number) => {
     setDividerPosition(position);
@@ -130,8 +131,6 @@ export default function Dashboard(): JSX.Element {
     localStoreLanguageChose === null ? 'C++' : localStoreLanguageChose,
   );
 
-  const [commitName, setCommitName] = useState('');
-
   const handleLanguageChange = (language: string) => {
     switch (language) {
       case 'C++':
@@ -182,30 +181,26 @@ export default function Dashboard(): JSX.Element {
     dispatch(mapCommitIDChanged(null));
   }
 
-  const handleCommitNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCommitName(e.target.value);
-  };
+  const isCommitModalOpen = useAppSelector(IsCommitModalOpen);
 
-  const handleCommit = () => {
-    let languageType: Language = Language.Cpp;
-    if (userLanguage === 'c_cpp') languageType = Language.Cpp;
-    else if (userLanguage === 'python') languageType = Language.Python;
-    else if (userLanguage === 'java') languageType = Language.Java;
+  function handleOpenCommitModal() {
+    if (isCommitModalOpen === true) dispatch(isCommitModalOpened(false));
+    else dispatch(isCommitModalOpened(true));
+  }
 
-    codeAPI
-      .createCodeRevision({
-        code: userCode,
-        message: commitName,
-        language: languageType,
-      })
-      .then(() => {
-        Toast.success('Code Committed');
-        setCommitName('');
-      })
-      .catch(err => {
-        if (err instanceof ApiError) Toast.error(err.message);
-      });
-  };
+  const isSettingsOpen = useAppSelector(IsSettingsOpen);
+
+  function handleOpenSettings() {
+    if (isSettingsOpen === true) dispatch(isSettingsOpened(false));
+    else dispatch(isSettingsOpened(true));
+  }
+
+  const isInfoOpen = useAppSelector(IsInfoOpen);
+
+  function handleOpenInfo() {
+    if (isInfoOpen === true) dispatch(isInfoOpened(false));
+    else dispatch(isInfoOpened(true));
+  }
 
   const handleSubmit = () => {
     let languageType: Language = Language.Cpp;
@@ -227,13 +222,6 @@ export default function Dashboard(): JSX.Element {
       });
   };
 
-  const isSettingsOpen = useAppSelector(IsSettingsOpen);
-
-  function handleOpenSettings() {
-    if (isSettingsOpen === true) dispatch(isSettingsOpened(false));
-    else dispatch(isSettingsOpened(true));
-  }
-
   return (
     <main className={styles.mainContainer} ref={mainContainerRef}>
       <SplitPane
@@ -251,116 +239,118 @@ export default function Dashboard(): JSX.Element {
         allowResize={true}
       >
         <div className={styles.leftPane}>
-          <ButtonToolbar className={styles.toolbar} as={Row}>
-            <Col className={styles.toolbarColumn} xs="2">
-              <Form.Select
-                className={styles.toolbarButton}
-                value={languageChose}
-                onChange={e => handleLanguageChange(e.target.value)}
-              >
-                {languages.map(language => (
-                  <option value={language} key={language}>
-                    {language}
-                  </option>
-                ))}
-              </Form.Select>
-            </Col>
-            <Col className={styles.toolbarColumn} xs="2">
+          <ButtonToolbar
+            className={
+              styles.toolbar +
+              (theme == 'vs-dark'
+                ? ' vs-dark'
+                : theme == 'vs-light'
+                ? ' vs'
+                : ' hc-black')
+            }
+            as={Row}
+          >
+            <div className={styles.mainDiv}>
+              <Col className={styles.toolbarColumn1} sm="1">
+                <Form.Select
+                  className={styles.toolbarButton1}
+                  value={languageChose}
+                  onChange={e => handleLanguageChange(e.target.value)}
+                >
+                  {languages.map(language => (
+                    <option value={language} key={language}>
+                      {language}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Col>
+              <div className={styles.midDiv}>
+                <Col className={styles.toolbarColumn} sm="1">
+                  <button
+                    className={styles.toolbarButtonSave}
+                    onClick={handleSave}
+                  >
+                    <FontAwesomeIcon icon={faSave as IconProp} /> Save
+                  </button>
+                </Col>
+                <Col className={styles.toolbarColumn} sm="1">
+                  <button
+                    className={styles.toolbarButton}
+                    onClick={handleSimulate}
+                  >
+                    <FontAwesomeIcon icon={faPlay as IconProp} /> Simulate
+                  </button>
+                </Col>
+                <Col className={styles.toolbarColumn} sm="1">
+                  <button
+                    className={styles.toolbarButton}
+                    onClick={handleOpenCommitModal}
+                  >
+                    <FontAwesomeIcon icon={faCodeBranch as IconProp} /> Commit
+                  </button>
+                </Col>
+                <Col className={styles.toolbarColumn} sm="1">
+                  <button
+                    className={styles.toolbarButton}
+                    onClick={handleSubmit}
+                  >
+                    <FontAwesomeIcon icon={faCloudUploadAlt as IconProp} />{' '}
+                    Submit
+                  </button>
+                </Col>
+              </div>
+            </div>
+            <div>
+              <div className={styles.settingsIconDiv}>
+                <div className={styles.settingsIcon}>
+                  <FontAwesomeIcon
+                    title={'Settings'}
+                    icon={faGear as IconProp}
+                    color={'#cbcbcb'}
+                    onClick={handleOpenSettings}
+                    className={styles.hoverIcon}
+                  />
+                </div>
+
+                <div className={styles.settingsIcon}>
+                  <FontAwesomeIcon
+                    title={'Shorcuts'}
+                    icon={faCircleInfo as IconProp}
+                    color={'#cbcbcb'}
+                    onClick={handleOpenInfo}
+                    className={styles.hoverIcon}
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
               <Button
-                className={styles.toolbarButton}
-                onClick={handleSave}
-                variant="primary"
-                title="Save"
+                className={styles.closeEditorButton}
+                onClick={() => {
+                  updateDividerPosition(dividerPosition - 1);
+                }}
+                variant="dark"
               >
-                <FontAwesomeIcon icon={faSave as IconProp} /> Save
+                <FontAwesomeIcon size={'sm'} icon={faChevronLeft as IconProp} />
               </Button>
-            </Col>
-            <Col className={styles.toolbarColumn} xs="2">
+            </div>
+            <div>
               <Button
-                className={styles.toolbarButton}
-                onClick={handleSimulate}
-                variant="primary"
-                title="Simulate"
+                className={styles.closeRendererButton}
+                onClick={() => {
+                  updateDividerPosition(dividerPosition + 1);
+                }}
+                variant="dark"
               >
-                <FontAwesomeIcon icon={faPlay as IconProp} /> Simulate
+                <FontAwesomeIcon
+                  size={'sm'}
+                  icon={faChevronRight as IconProp}
+                />
               </Button>
-            </Col>
-            <Col className={styles.toolbarColumn} xs="2">
-              <OverlayTrigger
-                trigger="click"
-                key={'bottom'}
-                placement={'bottom'}
-                rootClose
-                overlay={
-                  <Popover>
-                    <Popover.Header as="h3" className={styles.popOverHeader}>
-                      Enter commit message
-                    </Popover.Header>
-                    <Popover.Body className={styles.popOverBody}>
-                      <Form.Control
-                        onChange={handleCommitNameInput}
-                        type="text"
-                        placeholder="Commit message"
-                      />
-                      <br />
-                      <Button
-                        className={styles.toolbarButton}
-                        variant="primary"
-                        onClick={handleCommit}
-                        title="Commit"
-                      >
-                        Commit
-                      </Button>
-                    </Popover.Body>
-                  </Popover>
-                }
-              >
-                <Button className={styles.toolbarButton} variant="primary">
-                  <FontAwesomeIcon icon={faCodeBranch as IconProp} /> Commit
-                </Button>
-              </OverlayTrigger>
-            </Col>
-            <Col className={styles.toolbarColumn} xs="2">
-              <Button
-                className={styles.toolbarButton}
-                onClick={handleSubmit}
-                variant="primary"
-                title="Submit"
-              >
-                <FontAwesomeIcon icon={faCloudUploadAlt as IconProp} /> Submit
-              </Button>
-            </Col>
-            <Col className={styles.toolbarColumn} xs="auto">
-              <Button
-                className={styles.toolbarButton}
-                onClick={handleOpenSettings}
-                variant="primary"
-                title="Editor Settings"
-              >
-                <FontAwesomeIcon icon={faGear as IconProp} />
-              </Button>
-            </Col>
-            <Button
-              className={styles.closeEditorButton}
-              onClick={() => {
-                updateDividerPosition(dividerPosition - 1);
-              }}
-              variant="dark"
-            >
-              <FontAwesomeIcon size={'sm'} icon={faChevronLeft as IconProp} />
-            </Button>
-            <Button
-              className={styles.closeRendererButton}
-              onClick={() => {
-                updateDividerPosition(dividerPosition + 1);
-              }}
-              variant="dark"
-            >
-              <FontAwesomeIcon size={'sm'} icon={faChevronRight as IconProp} />
-            </Button>
+            </div>
           </ButtonToolbar>
           <div className={styles.editorContainer}>
-            <Editor language={userLanguage}></Editor>
+            <Editor language={userLanguage} />
           </div>
         </div>
         <SplitPane

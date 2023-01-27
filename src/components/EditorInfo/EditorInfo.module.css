@@ -1,0 +1,63 @@
+.InfoGroup {
+  margin: 7px;
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #ffffff;
+}
+
+.editorInfoHeader {
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(100px);
+  color: white;
+  height: 10vh;
+  border: 0px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.editorInfoHeader button {
+  background-color: white;
+}
+
+.editorInfoBody {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  background: #1c1c1c;
+  border: 0px;
+  padding: 7px 0px;
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.settingLabel {
+  font-family: 'Montserrat', sans-serif;
+  color: #ddd;
+  font-size: large;
+  height: 3vh;
+  margin-bottom: 1.5vh;
+}
+
+.bodyInfo {
+  margin-top: -6px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  z-index: 1;
+}
+
+.infoList1 {
+  background-color: transparent;
+}
+
+.infoDiv {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10px;
+  margin-right: 30px;
+  align-items: center;
+}

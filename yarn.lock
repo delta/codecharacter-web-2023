@@ -1556,7 +1556,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.4, @babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.5.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.10.4, @babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.5.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
   version: 7.20.7
   resolution: "@babel/runtime@npm:7.20.7"
   dependencies:
@@ -1706,13 +1706,11 @@ __metadata:
     "@types/react-dom": ^18.0.10
     "@types/react-google-recaptcha": ^2.1.5
     "@types/react-lazylog": ^4.5.1
-    "@types/react-syntax-highlighter": ^15.5.5
     "@types/react-test-renderer": ^18.0.0
     "@types/react-vertical-timeline-component": ^3.3.3
     "@typescript-eslint/eslint-plugin": ^5.47.1
     "@typescript-eslint/parser": ^5.47.1
     "@vitejs/plugin-react": ^3.0.0
-    ace-builds: ^1.14.0
     babel-loader: ^9.1.0
     bootstrap: ^5.2.3
     concurrently: ^7.6.0
@@ -1726,12 +1724,13 @@ __metadata:
     lint-staged: ^13.1.0
     lit: ^2.5.0
     live-server: ^1.2.2
+    monaco-editor: ^0.34.1
+    monaco-themes: ^0.4.3
     phaser: ^3.55.2
     phaser3-rex-plugins: ^1.1.78
     postinstall-postinstall: ^2.1.0
     prettier: ^2.8.1
     react: ^18.2.0
-    react-ace: ^10.1.0
     react-ansi: ^3.0.2
     react-bootstrap: ^2.7.0
     react-code-blocks: ^0.0.9-0
@@ -1744,8 +1743,6 @@ __metadata:
     react-redux: ^8.0.5
     react-router-dom: ^6.6.1
     react-split-pane: ^0.1.92
-    react-step-progress-bar: ^1.0.3
-    react-syntax-highlighter: ^15.5.0
     react-test-renderer: ^18.2.0
     react-vertical-timeline-component: ^3.6.0
     redux: ^4.2.0
@@ -1757,7 +1754,6 @@ __metadata:
     typescript: ^4.9.4
     vite: ^4.0.3
     websocket: ^1.0.34
-    yarn-upgrade-all: ^0.7.1
   languageName: unknown
   linkType: soft
 
@@ -4194,15 +4190,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-syntax-highlighter@npm:^15.5.5":
-  version: 15.5.6
-  resolution: "@types/react-syntax-highlighter@npm:15.5.6"
-  dependencies:
-    "@types/react": "*"
-  checksum: 81a9f26da41606ff595d42a064ec4097cd17c4ef242558aa5b3b76a1063729b2ae73f063350069a4692218cf6843d7ea59d3eaeac4df2a4894d969d911fb80b2
-  languageName: node
-  linkType: hard
-
 "@types/react-test-renderer@npm:^18.0.0":
   version: 18.0.0
   resolution: "@types/react-test-renderer@npm:18.0.0"
@@ -4897,13 +4884,6 @@ __metadata:
     mime-types: ~2.1.34
     negotiator: 0.6.3
   checksum: 50c43d32e7b50285ebe84b613ee4a3aa426715a7d131b65b786e2ead0fd76b6b60091b9916d3478a75f11f162628a2139991b6c03ab3f1d9ab7c86075dc8eab4
-  languageName: node
-  linkType: hard
-
-"ace-builds@npm:^1.14.0, ace-builds@npm:^1.4.14":
-  version: 1.14.0
-  resolution: "ace-builds@npm:1.14.0"
-  checksum: 11d07e0875381ff8061beed336c52f2bc532fbf51fc4a410d97789b27e47d2094fbb779dffe00db00c6d781f3f72bdc83313b2ad6460e5b8e5fa8a343c5f3720
   languageName: node
   linkType: hard
 
@@ -7649,13 +7629,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"diff-match-patch@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "diff-match-patch@npm:1.0.5"
-  checksum: 841522d01b09cccbc4e4402cf61514a81b906349a7d97b67222390f2d35cf5df277cb23959eeed212d5e46afb5629cebab41b87918672c5a05c11c73688630e3
-  languageName: node
-  linkType: hard
-
 "diff-sequences@npm:^29.3.1":
   version: 29.3.1
   resolution: "diff-sequences@npm:29.3.1"
@@ -7716,15 +7689,6 @@ __metadata:
   dependencies:
     utila: ~0.4
   checksum: ea52fe303f5392e48dea563abef0e6fb3a478b8dbe3c599e99bb5d53981c6c38fc4944e56bb92a8ead6bb989d10b7914722ae11febbd2fd0910e33b9fc4aaa77
-  languageName: node
-  linkType: hard
-
-"dom-helpers@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "dom-helpers@npm:3.4.0"
-  dependencies:
-    "@babel/runtime": ^7.1.2
-  checksum: 58d9f1c4a96daf77eddc63ae1236b826e1cddd6db66bbf39b18d7e21896d99365b376593352d52a60969d67fa4a8dbef26adc1439fa2c1b355efa37cacbaf637
   languageName: node
   linkType: hard
 
@@ -9262,6 +9226,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-plist@npm:^0.1.2":
+  version: 0.1.3
+  resolution: "fast-plist@npm:0.1.3"
+  checksum: e879f548db3a1fc89c654c476e9c9846f4335fdcd2283ec99e5f234c897f5616cee2a0a4201bf4b64ab6269e75c09daafc3933bd4a038c85af943fac0f113caa
+  languageName: node
+  linkType: hard
+
 "fastq@npm:^1.6.0":
   version: 1.15.0
   resolution: "fastq@npm:1.15.0"
@@ -9271,7 +9242,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fault@npm:^1.0.0, fault@npm:^1.0.2":
+"fault@npm:^1.0.2":
   version: 1.0.4
   resolution: "fault@npm:1.0.4"
   dependencies:
@@ -10343,13 +10314,6 @@ __metadata:
   bin:
     he: bin/he
   checksum: 3d4d6babccccd79c5c5a3f929a68af33360d6445587d628087f39a965079d84f18ce9c3d3f917ee1e3978916fc833bb8b29377c3b403f919426f91bc6965e7a7
-  languageName: node
-  linkType: hard
-
-"highlight.js@npm:^10.4.1, highlight.js@npm:~10.7.0":
-  version: 10.7.3
-  resolution: "highlight.js@npm:10.7.3"
-  checksum: defeafcd546b535d710d8efb8e650af9e3b369ef53e28c3dc7893eacfe263200bba4c5fcf43524ae66d5c0c296b1af0870523ceae3e3104d24b7abf6374a4fea
   languageName: node
   linkType: hard
 
@@ -12358,20 +12322,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.get@npm:^4.4.2":
-  version: 4.4.2
-  resolution: "lodash.get@npm:4.4.2"
-  checksum: e403047ddb03181c9d0e92df9556570e2b67e0f0a930fcbbbd779370972368f5568e914f913e93f3b08f6d492abc71e14d4e9b7a18916c31fa04bd2306efe545
-  languageName: node
-  linkType: hard
-
-"lodash.isequal@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "lodash.isequal@npm:4.5.0"
-  checksum: da27515dc5230eb1140ba65ff8de3613649620e8656b19a6270afe4866b7bd461d9ba2ac8a48dcc57f7adac4ee80e1de9f965d89d4d81a0ad52bb3eec2609644
-  languageName: node
-  linkType: hard
-
 "lodash.memoize@npm:4.x":
   version: 4.1.2
   resolution: "lodash.memoize@npm:4.1.2"
@@ -12456,16 +12406,6 @@ __metadata:
     fault: ^1.0.2
     highlight.js: ~9.15.0
   checksum: d4c9af0766a030c0ea8bcd267276f5672635f6ed58818896846773b643367cfc3934d6a3b9c1ad4aea318217c7e7df37d31d8e8533a475711e10ce740284fe97
-  languageName: node
-  linkType: hard
-
-"lowlight@npm:^1.17.0":
-  version: 1.20.0
-  resolution: "lowlight@npm:1.20.0"
-  dependencies:
-    fault: ^1.0.0
-    highlight.js: ~10.7.0
-  checksum: 14a1815d6bae202ddee313fc60f06d46e5235c02fa483a77950b401d85b4c1e12290145ccd17a716b07f9328bd5864aa2d402b6a819ff3be7c833d9748ff8ba7
   languageName: node
   linkType: hard
 
@@ -13049,6 +12989,22 @@ __metadata:
   bin:
     mkdirp: bin/cmd.js
   checksum: a96865108c6c3b1b8e1d5e9f11843de1e077e57737602de1b82030815f311be11f96f09cce59bd5b903d0b29834733e5313f9301e3ed6d6f6fba2eae0df4298f
+  languageName: node
+  linkType: hard
+
+"monaco-editor@npm:^0.34.1":
+  version: 0.34.1
+  resolution: "monaco-editor@npm:0.34.1"
+  checksum: 4c6b35d7c566ec414b758cdd45dfb08d6fe46e2e8fdeed88b619a52c47592ce6df476d9490a58e5d450339c4a93f09d500adc9c017a348179277b98aa6009fa4
+  languageName: node
+  linkType: hard
+
+"monaco-themes@npm:^0.4.3":
+  version: 0.4.3
+  resolution: "monaco-themes@npm:0.4.3"
+  dependencies:
+    fast-plist: ^0.1.2
+  checksum: 4cf15a5d7678937ee5a87fff4ecb626ad26f261bbccf952d7a8d4d454c00b5b6ca6ec5cdbb45135aeca7fa56b6b726d0a129bc645c5bd9dddfff7a28c029bb7b
   languageName: node
   linkType: hard
 
@@ -14379,7 +14335,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prismjs@npm:^1.27.0, prismjs@npm:^1.8.4":
+"prismjs@npm:^1.8.4":
   version: 1.29.0
   resolution: "prismjs@npm:1.29.0"
   checksum: 007a8869d4456ff8049dc59404e32d5666a07d99c3b0e30a18bd3b7676dfa07d1daae9d0f407f20983865fd8da56de91d09cb08e6aa61f5bc420a27c0beeaf93
@@ -14395,13 +14351,6 @@ __metadata:
     clipboard:
       optional: true
   checksum: d8eb397abc9439d96c95e5e66fa1eb04f2b03779a0c361ecd1458cfffe8698f596cb694e776538d1ab4c7f64e65dfc7ad3780f760d6deb5cf35998a5232b2f0c
-  languageName: node
-  linkType: hard
-
-"prismjs@npm:~1.27.0":
-  version: 1.27.0
-  resolution: "prismjs@npm:1.27.0"
-  checksum: 85c7f4a3e999073502cc9e1882af01e3709706369ec254b60bff1149eda701f40d02512acab956012dc7e61cfd61743a3a34c1bd0737e8dbacd79141e5698bbc
   languageName: node
   linkType: hard
 
@@ -14677,22 +14626,6 @@ __metadata:
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
   checksum: 51cc1b0d0e8c37c4336b5318f3b2c9c51d6998ad6f56ea09612afcfefc9c1f596341309e934a744ae907177f28efc9f1654eacd62151e82853fcc6d37450e795
-  languageName: node
-  linkType: hard
-
-"react-ace@npm:^10.1.0":
-  version: 10.1.0
-  resolution: "react-ace@npm:10.1.0"
-  dependencies:
-    ace-builds: ^1.4.14
-    diff-match-patch: ^1.0.5
-    lodash.get: ^4.4.2
-    lodash.isequal: ^4.5.0
-    prop-types: ^15.7.2
-  peerDependencies:
-    react: ^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 8fc67e02f911dcc31cf474df97c06f2ba5b5f402d9ed425895e479e2daddf4894a2cd0e81744b37b7f2b07109cfe4470fc5ebeed305d648c596e3442142e4823
   languageName: node
   linkType: hard
 
@@ -15075,19 +15008,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-step-progress-bar@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "react-step-progress-bar@npm:1.0.3"
-  dependencies:
-    classnames: ^2.2.6
-    invariant: ^2.2.4
-    react-transition-group: ^2.4.0
-  peerDependencies:
-    react: ">=15.0.0"
-  checksum: 5e4329d415fdefa96353cfb3bfd93e4f4e98dc138b7ea9cc26857998e98afd0d5ff8202c696f57b1cf42beccf740a942a75d39cf04c7e1b3210d1d994fe81324
-  languageName: node
-  linkType: hard
-
 "react-string-replace@npm:^0.4.1":
   version: 0.4.4
   resolution: "react-string-replace@npm:0.4.4"
@@ -15121,21 +15041,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-syntax-highlighter@npm:^15.5.0":
-  version: 15.5.0
-  resolution: "react-syntax-highlighter@npm:15.5.0"
-  dependencies:
-    "@babel/runtime": ^7.3.1
-    highlight.js: ^10.4.1
-    lowlight: ^1.17.0
-    prismjs: ^1.27.0
-    refractor: ^3.6.0
-  peerDependencies:
-    react: ">= 0.14.0"
-  checksum: c082b48f30f8ba8d0c55ed1d761910630860077c7ff5793c4c912adcb5760df06436ed0ad62be0de28113aac9ad2af55eccd995f8eee98df53382e4ced2072fb
-  languageName: node
-  linkType: hard
-
 "react-test-renderer@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-test-renderer@npm:18.2.0"
@@ -15146,21 +15051,6 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 6b6980ced93fa2b72662d5e4ab3b4896833586940047ce52ca9aca801e5432adf05fcbe28289b0af3ce6a2a7c590974e25dcc8aa43d0de658bfe8bbcd686f958
-  languageName: node
-  linkType: hard
-
-"react-transition-group@npm:^2.4.0":
-  version: 2.9.0
-  resolution: "react-transition-group@npm:2.9.0"
-  dependencies:
-    dom-helpers: ^3.4.0
-    loose-envify: ^1.4.0
-    prop-types: ^15.6.2
-    react-lifecycles-compat: ^3.0.4
-  peerDependencies:
-    react: ">=15.0.0"
-    react-dom: ">=15.0.0"
-  checksum: d8c9e50aabdc2cfc324e5cdb0ad1c6eecb02e1c0cd007b26d5b30ccf49015e900683dd489348c71fba4055858308d9ba7019e0d37d0e8d37bd46ed098788f670
   languageName: node
   linkType: hard
 
@@ -15362,17 +15252,6 @@ __metadata:
     parse-entities: ^1.1.2
     prismjs: ~1.17.0
   checksum: fd8223c3d7fae2b46c4b9424c55f78fd81bb338ccdf592b149b5df567ec21bed4d530f679d234456cbf2c7d4b65928b2ab598d6f3488a9cedb73f86368e07860
-  languageName: node
-  linkType: hard
-
-"refractor@npm:^3.6.0":
-  version: 3.6.0
-  resolution: "refractor@npm:3.6.0"
-  dependencies:
-    hastscript: ^6.0.0
-    parse-entities: ^2.0.0
-    prismjs: ~1.27.0
-  checksum: 39b01c4168c77c5c8486f9bf8907bbb05f257f15026057ba5728535815a2d90eed620468a4bfbb2b8ceefbb3ce3931a1be8b17152dbdbc8b0eef92450ff750a2
   languageName: node
   linkType: hard
 
@@ -18997,15 +18876,6 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: 47da1b0d854fa16d45a3ded57b716b013b2179022352a5f7467409da5a04a1eef5b3b3d97a2dfc13e8bbe5f2ffc0afe3bc6a4a72f8254e60f5a4bd7947138643
-  languageName: node
-  linkType: hard
-
-"yarn-upgrade-all@npm:^0.7.1":
-  version: 0.7.1
-  resolution: "yarn-upgrade-all@npm:0.7.1"
-  bin:
-    yarn-upgrade-all: build/index.js
-  checksum: 87168957082306d51825ccfc84fda9d4022e3b522aa4cee7730abc8675980612a36aba0f9516b32f660dcde7e15e8961bd9de14924e29cd01e2b8e7c2bcf5176
   languageName: node
   linkType: hard
 

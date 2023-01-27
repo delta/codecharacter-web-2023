@@ -8,15 +8,19 @@ export interface settingsStateType {
   keyboardHandler: string;
   enableBasicAutoComplete: boolean;
   enableSnippets: boolean;
+  isInfoOpen: boolean;
+  isCommitModalOpen: boolean;
 }
 
 const initialState: settingsStateType = {
   isSettingsOpen: false,
   fontSize: 16,
-  theme: 'monokai',
+  theme: 'vs-dark',
   keyboardHandler: 'default',
   enableBasicAutoComplete: true,
   enableSnippets: true,
+  isInfoOpen: false,
+  isCommitModalOpen: false,
 };
 
 export interface CodeAndLanguage {
@@ -46,6 +50,12 @@ export const settingsSlice = createSlice({
     enableSnippetsChanged: (state, action: PayloadAction<boolean>) => {
       state.enableSnippets = action.payload;
     },
+    isInfoOpened: (state, action: PayloadAction<boolean>) => {
+      state.isInfoOpen = action.payload;
+    },
+    isCommitModalOpened: (state, action: PayloadAction<boolean>) => {
+      state.isCommitModalOpen = action.payload;
+    },
   },
 });
 
@@ -56,6 +66,8 @@ export const {
   keyboardHandlerChanged,
   enableBasicAutoCompleteChanged,
   enableSnippetsChanged,
+  isInfoOpened,
+  isCommitModalOpened,
 } = settingsSlice.actions;
 
 export const IsSettingsOpen = (state: RootState): boolean =>
@@ -70,5 +82,9 @@ export const EnableBasicAutoComplete = (state: RootState): boolean =>
   state.codeEditorReducer.settingsState.enableBasicAutoComplete;
 export const EnableSnippets = (state: RootState): boolean =>
   state.codeEditorReducer.settingsState.enableSnippets;
+export const IsInfoOpen = (state: RootState): boolean =>
+  state.codeEditorReducer.settingsState.isInfoOpen;
+export const IsCommitModalOpen = (state: RootState): boolean =>
+  state.codeEditorReducer.settingsState.isCommitModalOpen;
 
 export default settingsSlice.reducer;
