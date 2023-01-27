@@ -3,12 +3,12 @@ import {
   isSettingsOpened,
 } from '../../store/EditorSettings/settings';
 
-import code from '../../assets/code.png';
-import map from '../../assets/map.png';
-import leaderboard from '../../assets/leaderboard.png';
-import commit from '../../assets/commit.png';
-import battletv from '../../assets/tv.png';
-import documentation from '../../assets/documentation.png';
+import codeIcon from '../../assets/code_editor.svg';
+import mapIcon from '../../assets/map.svg';
+import leaderboardIcon from '../../assets/leaderboard.svg';
+import commitIcon from '../../assets/commit.svg';
+import battletvIcon from '../../assets/battletv.svg';
+import documentationIcon from '../../assets/documentation.svg';
 
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -17,12 +17,11 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import deltaLogo from '../../assets/deltaLogo.png';
 
 const icons = [
-  { icon: code, route: 'dashboard', tooltip: 'Code Editor' },
-  { icon: map, route: 'mapdesigner', tooltip: 'Map Designer' },
-  { icon: leaderboard, route: 'leaderboard', tooltip: 'Leaderboard' },
-  { icon: commit, route: 'history', tooltip: 'Commits' },
-  { icon: battletv, route: 'battletv', tooltip: 'Battle TV' },
-  { icon: documentation, route: 'settings', tooltip: 'Editor Settings' },
+  { icon: codeIcon, route: 'dashboard', tooltip: 'Code Editor' },
+  { icon: mapIcon, route: 'mapdesigner', tooltip: 'Map Designer' },
+  { icon: leaderboardIcon, route: 'leaderboard', tooltip: 'Leaderboard' },
+  { icon: commitIcon, route: 'history', tooltip: 'Commits' },
+  { icon: battletvIcon, route: 'battletv', tooltip: 'Battle TV' },
 ];
 
 const SideBar: React.FunctionComponent = () => {
@@ -86,7 +85,7 @@ const SideBar: React.FunctionComponent = () => {
                   rel="noreferrer noopener"
                 >
                   <img
-                    src={documentation}
+                    src={documentationIcon}
                     alt="delta"
                     className={styles.sideBarIconComponent}
                   />

@@ -13,6 +13,7 @@
   font-size: 24px;
   height: 2rem;
   width: auto;
+  margin-left: 5px;
 }
 .notifIcon:hover {
   opacity: 0.8;
@@ -43,9 +44,9 @@
   max-height: 400px;
   max-width: 350px;
   width: 70vw;
-  background-color: #242a3c;
-  top: 40px;
-  left: -200px;
+  background-color: #2A2A2A;
+  top: 50px;
+  left: -230px;
   border-radius: 8px;
   box-shadow: 0px 3px 6px 4px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
@@ -60,26 +61,27 @@
 .notifModalTriangle {
   display: none;
   position: absolute;
-  left: 8px;
-  top: 32px;
-  border-color: transparent transparent #2b3146 transparent;
+  left: 9px;
+  top: 34px;
+  border-color: transparent transparent #2A2A2A transparent;
   border-style: solid;
   border-width: 0px 9px 9px 9px;
   height: 0px;
   width: 0px;
 }
+
 .notifTriangleShow {
   display: block;
 }
 .notif {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  padding: 0.3rem;
-  padding-left: 0.7rem;
-  background-color: #303e61;
+  padding: 0.7rem;
+  background-color: #4e504d;
   border-radius: 8px;
   box-sizing: content-box;
   margin: 10px;
-  font-family: 'Montserrat', 'Poppins';
+  overflow-x: auto;
+  font-family: 'Roboto Mono', monospace;
 }
 .notifRead {
   opacity: 0.55;

@@ -11,7 +11,9 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
   padding: 0.8rem;
+  height: 4rem;
 }
 
 .navContainer {
@@ -19,7 +21,7 @@
 }
 
 .navLink {
-  font-family: 'Montserrat';
+  font-family: 'Bai Jamjuree', sans-serif;
   margin: auto 80px;
   text-decoration: none;
   display: flex;
@@ -27,7 +29,7 @@
   align-items: center;
   font-size: 28px;
   gap: 0.9rem;
-  font-weight: 500;
+  font-weight: bolder;
 }
 
 .navLink > img {
@@ -44,9 +46,9 @@
 }
 
 .navLogo {
-  font-family: 'Montserrat';
+  font-family: 'Bai Jamjuree', sans-serif;
   color: #ffffff;
-  font-size: 33px;
+  font-size: 28px;
   margin: 0.5rem 1rem;
 }
 
@@ -90,7 +92,7 @@
 }
 
 .profileName {
-  font-family: 'Montserrat';
+  font-family: 'Bai Jamjuree', sans-serif;
   color: #ffffff;
   margin: 0 0.5rem;
   font-weight: 500;
@@ -102,7 +104,6 @@
   margin: auto;
   position: relative;
   margin-right: 0.6rem;
-
 }
 
 .dcIcon {
@@ -118,5 +119,22 @@
   opacity: 0.8;
 }
 
+@media screen and (max-width:650px) {
+  .navLogo {
+    font-size: 20px;
+  }
 
+  .navLink {
+    margin: auto 10px;
+    font-size: 20px;
+  }
 
+  .navBarContainer {
+    height: 3rem;
+    padding: 0px;
+  }
+
+  .navLink > img {
+    height: 1.2rem;
+  }
+}

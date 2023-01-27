@@ -117,16 +117,19 @@ export const changeUserDetailsAction = createAsyncThunk(
 
 export const changeUserCreditionalsAction = createAsyncThunk(
   'user/changeUserCreditionals',
-  async (creditionals: {
-    oldPassword: string;
-    newPassword: string;
-    confirmPassword: string;
-  }) => {
+  async (
+    creditionals: {
+      oldPassword: string;
+      newPassword: string;
+      confirmPassword: string;
+    },
+    { rejectWithValue },
+  ) => {
     try {
       const response = await ChangeUserCreditionals(creditionals);
       return response;
     } catch (error) {
-      throw error;
+      throw rejectWithValue('error');
     }
   },
 );
