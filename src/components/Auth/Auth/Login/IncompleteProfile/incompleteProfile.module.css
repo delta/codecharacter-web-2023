@@ -1,5 +1,3 @@
-@import '//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css';
-
 .mainContainer {
   min-height: 100%;
   background: rgba(30, 30, 30, 0.87);
@@ -91,40 +89,36 @@
   color: #aaaaaa;
 }
 
-
-@media only screen and (max-width: 500px){
+@media only screen and (max-width: 500px) {
   .name::-webkit-input-placeholder,
-.username::-webkit-input-placeholder,
-.collegeName::-webkit-input-placeholder {
-  font-size: 18px;
-  line-height: 25px;
+  .username::-webkit-input-placeholder,
+  .collegeName::-webkit-input-placeholder {
+    font-size: 18px;
+    line-height: 25px;
+  }
+  .titleContainer {
+    font-size: 30px;
+  }
+  .name,
+  .username,
+  .collegeName {
+    font-size: 18px;
+    line-height: 25px;
+  }
+  .formContainer {
+    padding: 5px 20px 5px 20px;
+    margin-top: 30px;
+  }
+  .subTitle {
+    padding: 15px;
+    font-size: 15px;
+  }
 
+  .loginButton {
+    font-size: 18px;
+    line-height: 30px;
+  }
+  .buttonIcon {
+    font-size: 1.2em;
+  }
 }
-.titleContainer{
-  font-size: 30px;
-}
-.name,
-.username,
-.collegeName {
-  font-size: 18px;
-  line-height: 25px;
-}
-.formContainer{
-  padding: 5px 20px 5px 20px;
-  margin-top: 30px;
-}
-.subTitle{
-  padding: 15px;
-  font-size: 15px;
-}
-
-.loginButton {
-  font-size: 18px;
-  line-height: 30px;
-}
-.buttonIcon{
-  font-size: 1.2em;
-}
-}
-
-
