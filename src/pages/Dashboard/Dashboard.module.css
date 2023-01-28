@@ -135,7 +135,19 @@
 }
 
 .editorContainer {
+    height: 100vh;
     flex-grow: 1;
+    overflow-y: auto;
+}
+
+.editorContainer::-webkit-scrollbar{
+    width: 5px;
+	background: inherit;
+}
+
+.editorContainer::-webkit-scrollbar-thumb{
+    background: rgba(255, 255, 255, 0.644);
+	border-radius: 10px;
 }
 
 .rightPane {

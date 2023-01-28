@@ -1,6 +1,8 @@
 import { CodeApi, Language } from '@codecharacter-2023/client';
 import { RendererComponent } from '@codecharacter-2023/renderer';
 import Toast from 'react-hot-toast';
+import DcIcon from '../../../public/assets/Untitled.webp';
+import { CodeBlock, irBlack } from 'react-code-blocks';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   faChevronLeft,
@@ -11,6 +13,7 @@ import {
   faSave,
   faGear,
   faCircleInfo,
+  faBullseye,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
@@ -47,9 +50,17 @@ import {
   isCommitModalOpened,
 } from '../../store/EditorSettings/settings';
 
+import { DailyChallengeType } from './types';
+import { codestring } from './code';
+
 type SplitPaneState = {
   horizontalPercent: string;
   verticalPercent: string;
+};
+
+const Dc1: DailyChallengeType = {
+  type: 'Code',
+  code: codestring,
 };
 
 export default function Dashboard(): JSX.Element {
@@ -60,6 +71,9 @@ export default function Dashboard(): JSX.Element {
   );
 
   const [dividerPosition, setDividerPosition] = useState(1);
+  const [pageState, setPagestate] = useState<'Dashboard' | 'DailyChallenge'>(
+    'Dashboard',
+  );
   const [horizontalPercent, setHorizontalPercent] = useState(
     storedSplitPaneState?.horizontalPercent || '50%',
   );
@@ -227,6 +241,11 @@ export default function Dashboard(): JSX.Element {
       });
   };
 
+  const handlePageUpdate = () => {
+    setPagestate(pageState == 'Dashboard' ? 'DailyChallenge' : 'Dashboard');
+    console.log(Dc1);
+  };
+
   return (
     <main className={styles.mainContainer} ref={mainContainerRef}>
       <SplitPane
@@ -320,6 +339,15 @@ export default function Dashboard(): JSX.Element {
                 <div className={styles.settingsIcon}>
                   <FontAwesomeIcon
                     title={'Settings'}
+                    icon={faBullseye as IconProp}
+                    color={'#cbcbcb'}
+                    onClick={handlePageUpdate}
+                    className={styles.hoverIcon}
+                  />
+                </div>
+                <div className={styles.settingsIcon}>
+                  <FontAwesomeIcon
+                    title={'Settings'}
                     icon={faGear as IconProp}
                     color={'#cbcbcb'}
                     onClick={handleOpenSettings}
@@ -365,11 +393,16 @@ export default function Dashboard(): JSX.Element {
             </div>
           </ButtonToolbar>
           <div className={styles.editorContainer}>
-            <Editor
-              language={userLanguage}
-              SaveRef={saveButtonRef}
-              SubmitRef={submitButtonRef}
-            />
+            {pageState == 'Dashboard' ? (
+              <Editor language={userLanguage} />
+            ) : (
+              <CodeBlock
+                text={Dc1.code}
+                language="cpp"
+                showLineNumbers={Dc1.code != '' ? true : false}
+                theme={irBlack}
+              />
+            )}
           </div>
         </div>
         <SplitPane
