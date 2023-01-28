@@ -12,7 +12,7 @@
 }
 
 .signUpText,
-.signInText{
+.signInText {
   text-align: center;
   font-family: 'Roboto Mono';
   font-style: normal;
@@ -30,7 +30,7 @@
   margin: 70px auto auto auto;
   width: auto;
 }
-.incompleteUserProfileContainer{
+.incompleteUserProfileContainer {
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -191,7 +191,7 @@
   color: #aaaaaa;
 }
 
-.resetPasswordContainer{
+.resetPasswordContainer {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -200,18 +200,18 @@
   justify-content: center;
 }
 
-.resetPasswordButton{
+.resetPasswordButton {
   width: fit-content;
-    background-color: transparent;
-    box-sizing: border-box;
-    border: 3px solid #aaaaaa;
-    align-self: flex-end;
-    font-family: "Roboto Mono";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    color: #AAAAAA;
-    padding: 10px 40px 10px 40px;
+  background-color: transparent;
+  box-sizing: border-box;
+  border: 3px solid #aaaaaa;
+  align-self: flex-end;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #aaaaaa;
+  padding: 10px 40px 10px 40px;
 }
 
 .forgotPassword {
@@ -226,6 +226,10 @@
   font-style: normal;
   font-weight: 400;
   float: right;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
 }
 
 .nextButton,
