@@ -92,7 +92,24 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     //Keybinding for save -> CTRL+S
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function () {
-      props.SaveRef.current?.click();
+      let languageType: Language = Language.Cpp;
+      if (language === 'c_cpp') languageType = Language.Cpp;
+      else if (language === 'python') languageType = Language.Python;
+      else if (language === 'java') languageType = Language.Java;
+
+      codeAPI
+        .updateLatestCode({
+          codeType: 'NORMAL',
+          code: userCode,
+          lock: false,
+          language: languageType,
+        })
+        .then(() => {
+          Toast.success('Code Saved');
+        })
+        .catch(err => {
+          if (err instanceof ApiError) Toast.error(err.message);
+        });
     });
 
     //Keybinding for Simulate -> CTRL+ALT+N
@@ -119,7 +136,24 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     editor.addCommand(
       monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyS,
       function () {
-        props.SubmitRef.current?.click();
+        let languageType: Language = Language.Cpp;
+        if (language === 'c_cpp') languageType = Language.Cpp;
+        else if (language === 'python') languageType = Language.Python;
+        else if (language === 'java') languageType = Language.Java;
+
+        codeAPI
+          .updateLatestCode({
+            codeType: 'NORMAL',
+            code: userCode,
+            lock: true,
+            language: languageType,
+          })
+          .then(() => {
+            Toast.success('Code Submitted');
+          })
+          .catch(err => {
+            if (err instanceof ApiError) Toast.error(err.message);
+          });
       },
     );
 

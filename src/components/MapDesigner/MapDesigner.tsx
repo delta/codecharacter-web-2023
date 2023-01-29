@@ -28,8 +28,6 @@ const MapDesigner: React.FunctionComponent = () => {
       parentDiv?.firstChild as HTMLCanvasElement;
     let b64 = mapCanvas.toDataURL();
     localStorage.setItem('mapImg', b64);
-    console.log('before returning');
-    console.log(b64);
     return b64;
   };
 
@@ -54,6 +52,8 @@ const MapDesigner: React.FunctionComponent = () => {
         closeModal();
         mapAPI
           .updateLatestMap({
+            mapType: 'NORMAL',
+            mapImage: mapImg,
             map: JSON.stringify(stagedMap),
             lock: false,
           })
@@ -70,6 +70,8 @@ const MapDesigner: React.FunctionComponent = () => {
         closeModal();
         mapAPI
           .updateLatestMap({
+            mapType: 'NORMAL',
+            mapImage: mapImg,
             map: JSON.stringify(stagedMap),
             lock: true,
           })
@@ -91,6 +93,8 @@ const MapDesigner: React.FunctionComponent = () => {
         closeCommitModal();
         mapAPI
           .createMapRevision({
+            mapType: 'NORMAL',
+            mapImage: mapImg,
             map: JSON.stringify(stagedMap),
             message: commitName,
           })

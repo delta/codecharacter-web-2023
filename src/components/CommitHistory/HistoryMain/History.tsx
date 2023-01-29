@@ -9,6 +9,7 @@ import {
   GameMapRevision,
   MapApi,
 } from '@codecharacter-2023/client';
+import { MapObj } from '../../../store/historyEditor/historyEditorSlice';
 import { changeHistoryEditorMap } from '../../../store/historyEditor/historyEditorSlice';
 import { useAppDispatch } from '../../../store/hooks';
 import styles from './History.module.css';
@@ -24,7 +25,7 @@ export default function History(): JSX.Element {
   const [completeMapHistory, setMapHistory] = useState<GameMapRevision[]>([]);
   const [currentCode, setCurrentCode] = useState('');
   const [codeLanguage, setCodeLanguage] = useState('');
-  const [currentMap, setCurrentMap] = useState<Array<Array<number>>>([]);
+  const [currentMap, setCurrentMap] = useState<MapObj>({ map: [], mapImg: '' });
   const [currentCommitMessage, setCurrentCommitMessage] = useState<string>('');
 
   const navigate = useNavigate();
@@ -73,7 +74,10 @@ export default function History(): JSX.Element {
     });
     completeMapHistory.forEach(mapData => {
       if (mapData.id == id) {
-        setCurrentMap(JSON.parse(mapData.map));
+        setCurrentMap({
+          map: mapData.map,
+          mapImg: mapData.mapImage,
+        });
       }
     });
   };
@@ -102,7 +106,11 @@ export default function History(): JSX.Element {
       }
       toast.success(` Loaded commit - ${currentCommitMessage}`);
       navigate('/dashboard', { replace: true });
-    } else if (SelectedButton == 'Map' && currentMap.length != 0) {
+    } else if (
+      SelectedButton == 'Map' &&
+      currentMap.mapImg != '' &&
+      currentMap.map !== []
+    ) {
       dispatch(changeHistoryEditorMap(currentMap));
     }
   };
@@ -166,10 +174,7 @@ export default function History(): JSX.Element {
             {SelectedButton == 'Code' ? (
               <CodeView code={currentCode} codeLang={codeLanguage} />
             ) : (
-              <img
-                className={styles.mapImg}
-                src={localStorage.getItem('mapImg')}
-              />
+              <img className={styles.mapImg} src={currentMap.mapImg} />
             )}
           </div>
           <div className={styles.select}>

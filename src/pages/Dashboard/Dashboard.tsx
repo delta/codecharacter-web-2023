@@ -164,6 +164,7 @@ export default function Dashboard(): JSX.Element {
 
     codeAPI
       .updateLatestCode({
+        codeType: 'NORMAL',
         code: userCode,
         lock: false,
         language: languageType,
@@ -213,6 +214,7 @@ export default function Dashboard(): JSX.Element {
 
     codeAPI
       .updateLatestCode({
+        codeType: 'NORMAL',
         code: userCode,
         lock: true,
         language: languageType,
