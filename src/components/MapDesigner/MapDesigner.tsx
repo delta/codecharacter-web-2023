@@ -26,9 +26,7 @@ const MapDesigner: React.FunctionComponent = () => {
     const parentDiv = ccMapDesigner.shadowRoot?.getElementById('map-designer');
     const mapCanvas: HTMLCanvasElement =
       parentDiv?.firstChild as HTMLCanvasElement;
-    let b64 = mapCanvas.toDataURL();
-    localStorage.setItem('mapImg', b64);
-    return b64;
+    return mapCanvas.toDataURL();
   };
 
   const closeModal = () => setModalShow(false);

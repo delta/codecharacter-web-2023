@@ -9,8 +9,10 @@ import {
   GameMapRevision,
   MapApi,
 } from '@codecharacter-2023/client';
-import { MapObj } from '../../../store/historyEditor/historyEditorSlice';
-import { changeHistoryEditorMap } from '../../../store/historyEditor/historyEditorSlice';
+import {
+  MapObj,
+  changeHistoryEditorMap,
+} from '../../../store/historyEditor/historyEditorSlice';
 import { useAppDispatch } from '../../../store/hooks';
 import styles from './History.module.css';
 import CodeView from '../CodeMapViewbox/CodeView';
