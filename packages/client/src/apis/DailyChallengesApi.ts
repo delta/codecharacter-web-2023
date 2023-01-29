@@ -16,7 +16,18 @@ import * as runtime from '../runtime';
 import type {
   DailyChallengeGetRequest,
   DailyChallengeLeaderBoardResponse,
+  DailyChallengeMatchRequest,
+  GenericError,
 } from '../models';
+
+export interface CreateDailyChallengeMatchRequest {
+  dailyChallengeMatchRequest: DailyChallengeMatchRequest;
+}
+
+export interface GetDailyChallengeLeaderBoardRequest {
+  page?: number;
+  size?: number;
+}
 
 /**
  * DailyChallengesApi - interface
@@ -25,6 +36,28 @@ import type {
  * @interface DailyChallengesApiInterface
  */
 export interface DailyChallengesApiInterface {
+  /**
+   * Match making for Daily Challenges
+   * @summary Match Execution for Daily Challenges
+   * @param {DailyChallengeMatchRequest} dailyChallengeMatchRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DailyChallengesApiInterface
+   */
+  createDailyChallengeMatchRaw(
+    requestParameters: CreateDailyChallengeMatchRequest,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<runtime.ApiResponse<void>>;
+
+  /**
+   * Match making for Daily Challenges
+   * Match Execution for Daily Challenges
+   */
+  createDailyChallengeMatch(
+    dailyChallengeMatchRequest: DailyChallengeMatchRequest,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<void>;
+
   /**
    * Get current user challenge for that day
    * @summary Get Daily Challenge for the day
@@ -47,11 +80,14 @@ export interface DailyChallengesApiInterface {
   /**
    * Get Leaderboard for daily challenges
    * @summary Get Daily Challenges Leaderboard
+   * @param {number} [page] Index of the page
+   * @param {number} [size] Size of the page
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DailyChallengesApiInterface
    */
   getDailyChallengeLeaderBoardRaw(
+    requestParameters: GetDailyChallengeLeaderBoardRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<DailyChallengeLeaderBoardResponse>>>;
 
@@ -60,6 +96,8 @@ export interface DailyChallengesApiInterface {
    * Get Daily Challenges Leaderboard
    */
   getDailyChallengeLeaderBoard(
+    page?: number,
+    size?: number,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<Array<DailyChallengeLeaderBoardResponse>>;
 }
@@ -71,6 +109,66 @@ export class DailyChallengesApi
   extends runtime.BaseAPI
   implements DailyChallengesApiInterface
 {
+  /**
+   * Match making for Daily Challenges
+   * Match Execution for Daily Challenges
+   */
+  async createDailyChallengeMatchRaw(
+    requestParameters: CreateDailyChallengeMatchRequest,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<runtime.ApiResponse<void>> {
+    if (
+      requestParameters.dailyChallengeMatchRequest === null ||
+      requestParameters.dailyChallengeMatchRequest === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'dailyChallengeMatchRequest',
+        'Required parameter requestParameters.dailyChallengeMatchRequest was null or undefined when calling createDailyChallengeMatch.',
+      );
+    }
+
+    const queryParameters: any = {};
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    headerParameters['Content-Type'] = 'application/json';
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken;
+      const tokenString = await token('http-bearer', []);
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`;
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/dc/submit`,
+        method: 'POST',
+        headers: headerParameters,
+        query: queryParameters,
+        body: requestParameters.dailyChallengeMatchRequest,
+      },
+      initOverrides,
+    );
+
+    return new runtime.VoidApiResponse(response);
+  }
+
+  /**
+   * Match making for Daily Challenges
+   * Match Execution for Daily Challenges
+   */
+  async createDailyChallengeMatch(
+    dailyChallengeMatchRequest: DailyChallengeMatchRequest,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<void> {
+    await this.createDailyChallengeMatchRaw(
+      { dailyChallengeMatchRequest: dailyChallengeMatchRequest },
+      initOverrides,
+    );
+  }
+
   /**
    * Get current user challenge for that day
    * Get Daily Challenge for the day
@@ -119,9 +217,18 @@ export class DailyChallengesApi
    * Get Daily Challenges Leaderboard
    */
   async getDailyChallengeLeaderBoardRaw(
+    requestParameters: GetDailyChallengeLeaderBoardRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<DailyChallengeLeaderBoardResponse>>> {
     const queryParameters: any = {};
+
+    if (requestParameters.page !== undefined) {
+      queryParameters['page'] = requestParameters.page;
+    }
+
+    if (requestParameters.size !== undefined) {
+      queryParameters['size'] = requestParameters.size;
+    }
 
     const headerParameters: runtime.HTTPHeaders = {};
 
@@ -151,9 +258,14 @@ export class DailyChallengesApi
    * Get Daily Challenges Leaderboard
    */
   async getDailyChallengeLeaderBoard(
+    page?: number,
+    size?: number,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<Array<DailyChallengeLeaderBoardResponse>> {
-    const response = await this.getDailyChallengeLeaderBoardRaw(initOverrides);
+    const response = await this.getDailyChallengeLeaderBoardRaw(
+      { page: page, size: size },
+      initOverrides,
+    );
     return await response.value();
   }
 }
