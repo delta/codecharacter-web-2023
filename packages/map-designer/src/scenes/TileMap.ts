@@ -128,6 +128,12 @@ export class TileMap extends Phaser.Scene {
       this,
     );
 
+    events.on(MapDesignerEvents.SAVE_MAP, () => {
+      camera.zoom = 0.1;
+      camera.scrollX = -200;
+      camera.scrollY = 2000;
+    });
+
     this.input.on(
       Phaser.Input.Events.POINTER_MOVE,
       (pointer: Phaser.Input.Pointer) => {

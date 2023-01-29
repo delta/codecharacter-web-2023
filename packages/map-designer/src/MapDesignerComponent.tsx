@@ -154,7 +154,10 @@ export default function MapDesignerComponent(
           <Button
             key="save"
             variant="outline-light"
-            onClick={() => props.saveMapCallback(mapData)}
+            onClick={() => {
+              events.emit(MapDesignerEvents.SAVE_MAP);
+              props.saveMapCallback(mapData);
+            }}
           >
             <FontAwesomeIcon size={'2x'} icon={faSave as IconProp} />
             <br />
