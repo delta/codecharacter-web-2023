@@ -62,6 +62,12 @@ export interface Code {
   code: string;
   /**
    *
+   * @type {CodeType}
+   * @memberof Code
+   */
+  codeType: CodeType;
+  /**
+   *
    * @type {string}
    * @memberof Code
    */
@@ -85,6 +91,12 @@ export interface CodeRevision {
    * @memberof CodeRevision
    */
   id: string;
+  /**
+   *
+   * @type {CodeType}
+   * @memberof CodeRevision
+   */
+  codeType: CodeType;
   /**
    *
    * @type {string}
@@ -116,6 +128,17 @@ export interface CodeRevision {
    */
   createdAt: string;
 }
+
+/**
+ *
+ * @export
+ */
+export const CodeType = {
+  Normal: 'NORMAL',
+  DailyChallenge: 'DAILY_CHALLENGE',
+} as const;
+export type CodeType = (typeof CodeType)[keyof typeof CodeType];
+
 /**
  * Model for complete profile request
  * @export
@@ -167,6 +190,12 @@ export interface CreateCodeRevisionRequest {
   code: string;
   /**
    *
+   * @type {CodeType}
+   * @memberof CreateCodeRevisionRequest
+   */
+  codeType?: CodeType;
+  /**
+   *
    * @type {string}
    * @memberof CreateCodeRevisionRequest
    */
@@ -190,6 +219,18 @@ export interface CreateMapRevisionRequest {
    * @memberof CreateMapRevisionRequest
    */
   map: string;
+  /**
+   *
+   * @type {GameMapType}
+   * @memberof CreateMapRevisionRequest
+   */
+  mapType?: GameMapType;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateMapRevisionRequest
+   */
+  mapImage: string;
   /**
    *
    * @type {string}
@@ -281,6 +322,18 @@ export interface CurrentUserProfile {
   avatarId: number;
   /**
    *
+   * @type {number}
+   * @memberof CurrentUserProfile
+   */
+  tutorialLevel: number;
+  /**
+   *
+   * @type {TierType}
+   * @memberof CurrentUserProfile
+   */
+  tier?: TierType;
+  /**
+   *
    * @type {boolean}
    * @memberof CurrentUserProfile
    */
@@ -309,6 +362,12 @@ export interface DailyChallengeGetRequest {
    * @type {string}
    * @memberof DailyChallengeGetRequest
    */
+  description?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DailyChallengeGetRequest
+   */
   chall: string;
   /**
    *
@@ -316,6 +375,12 @@ export interface DailyChallengeGetRequest {
    * @memberof DailyChallengeGetRequest
    */
   challType: ChallengeType;
+  /**
+   *
+   * @type {boolean}
+   * @memberof DailyChallengeGetRequest
+   */
+  completionStatus?: boolean;
 }
 /**
  * Response model for daily challenge leaderboard
@@ -328,13 +393,38 @@ export interface DailyChallengeLeaderBoardResponse {
    * @type {string}
    * @memberof DailyChallengeLeaderBoardResponse
    */
-  userName?: string;
+  userName: string;
+  /**
+   *
+   * @type {number}
+   * @memberof DailyChallengeLeaderBoardResponse
+   */
+  score: number;
+  /**
+   *
+   * @type {number}
+   * @memberof DailyChallengeLeaderBoardResponse
+   */
+  avatarId: number;
+}
+/**
+ * Request Model for the daily challenge
+ * @export
+ * @interface DailyChallengeMatchRequest
+ */
+export interface DailyChallengeMatchRequest {
   /**
    *
    * @type {string}
-   * @memberof DailyChallengeLeaderBoardResponse
+   * @memberof DailyChallengeMatchRequest
    */
-  score?: string;
+  value: string;
+  /**
+   *
+   * @type {Language}
+   * @memberof DailyChallengeMatchRequest
+   */
+  language?: Language;
 }
 /**
  * Forgot password request
@@ -397,6 +487,18 @@ export interface GameMap {
    * @type {string}
    * @memberof GameMap
    */
+  mapImage: string;
+  /**
+   *
+   * @type {GameMapType}
+   * @memberof GameMap
+   */
+  mapType: GameMapType;
+  /**
+   *
+   * @type {string}
+   * @memberof GameMap
+   */
   lastSavedAt: string;
 }
 /**
@@ -419,6 +521,18 @@ export interface GameMapRevision {
   map: string;
   /**
    *
+   * @type {GameMapType}
+   * @memberof GameMapRevision
+   */
+  mapType: GameMapType;
+  /**
+   *
+   * @type {string}
+   * @memberof GameMapRevision
+   */
+  mapImage: string;
+  /**
+   *
    * @type {string}
    * @memberof GameMapRevision
    */
@@ -436,6 +550,16 @@ export interface GameMapRevision {
    */
   message: string;
 }
+
+/**
+ *
+ * @export
+ */
+export const GameMapType = {
+  Normal: 'NORMAL',
+  DailyChallenge: 'DAILY_CHALLENGE',
+} as const;
+export type GameMapType = (typeof GameMapType)[keyof typeof GameMapType];
 
 /**
  *
@@ -650,6 +774,12 @@ export interface PublicUser {
   country: string;
   /**
    *
+   * @type {TierType}
+   * @memberof PublicUser
+   */
+  tier: TierType;
+  /**
+   *
    * @type {string}
    * @memberof PublicUser
    */
@@ -772,19 +902,32 @@ export interface ResetPasswordRequest {
    */
   passwordConfirmation: string;
 }
+
 /**
- * Get the tutorial level of the current user
+ *
  * @export
- * @interface TutorialLevelResponse
  */
-export interface TutorialLevelResponse {
-  /**
-   *
-   * @type {number}
-   * @memberof TutorialLevelResponse
-   */
-  level?: number;
-}
+export const TierType = {
+  TierPractice: 'TIER_PRACTICE',
+  Tier1: 'TIER1',
+  Tier2: 'TIER2',
+  Tier3: 'TIER3',
+  Tier4: 'TIER4',
+} as const;
+export type TierType = (typeof TierType)[keyof typeof TierType];
+
+/**
+ *
+ * @export
+ */
+export const TutorialUpdateType = {
+  Next: 'NEXT',
+  Previous: 'PREVIOUS',
+  Skip: 'SKIP',
+} as const;
+export type TutorialUpdateType =
+  (typeof TutorialUpdateType)[keyof typeof TutorialUpdateType];
+
 /**
  * Update current user profile request
  * @export
@@ -817,10 +960,10 @@ export interface UpdateCurrentUserProfile {
   avatarId?: number | null;
   /**
    *
-   * @type {number}
+   * @type {TutorialUpdateType}
    * @memberof UpdateCurrentUserProfile
    */
-  tutorialLevel?: number | null;
+  updateTutorialLevel?: TutorialUpdateType;
 }
 /**
  * Update latest code request
@@ -834,6 +977,12 @@ export interface UpdateLatestCodeRequest {
    * @memberof UpdateLatestCodeRequest
    */
   code: string;
+  /**
+   *
+   * @type {CodeType}
+   * @memberof UpdateLatestCodeRequest
+   */
+  codeType?: CodeType;
   /**
    *
    * @type {boolean}
@@ -859,6 +1008,18 @@ export interface UpdateLatestMapRequest {
    * @memberof UpdateLatestMapRequest
    */
   map: string;
+  /**
+   *
+   * @type {GameMapType}
+   * @memberof UpdateLatestMapRequest
+   */
+  mapType?: GameMapType;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateLatestMapRequest
+   */
+  mapImage: string;
   /**
    *
    * @type {boolean}

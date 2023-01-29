@@ -17,12 +17,21 @@ import type {
   CreateMapRevisionRequest,
   GameMap,
   GameMapRevision,
+  GameMapType,
   GenericError,
   UpdateLatestMapRequest,
 } from '../models';
 
 export interface CreateMapRevisionOperationRequest {
   createMapRevisionRequest: CreateMapRevisionRequest;
+}
+
+export interface GetLatestMapRequest {
+  type?: GameMapType;
+}
+
+export interface GetMapRevisionsRequest {
+  type?: GameMapType;
 }
 
 export interface UpdateLatestMapOperationRequest {
@@ -61,11 +70,13 @@ export interface MapApiInterface {
   /**
    * Get latest map
    * @summary Get latest map
+   * @param {GameMapType} [type] map type
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof MapApiInterface
    */
   getLatestMapRaw(
+    requestParameters: GetLatestMapRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<GameMap>>;
 
@@ -74,17 +85,20 @@ export interface MapApiInterface {
    * Get latest map
    */
   getLatestMap(
+    type?: GameMapType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<GameMap>;
 
   /**
    * Get list of all map revision IDs
    * @summary Get map revisions
+   * @param {GameMapType} [type] map type
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof MapApiInterface
    */
   getMapRevisionsRaw(
+    requestParameters: GetMapRevisionsRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<GameMapRevision>>>;
 
@@ -93,6 +107,7 @@ export interface MapApiInterface {
    * Get map revisions
    */
   getMapRevisions(
+    type?: GameMapType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<Array<GameMapRevision>>;
 
@@ -188,9 +203,14 @@ export class MapApi extends runtime.BaseAPI implements MapApiInterface {
    * Get latest map
    */
   async getLatestMapRaw(
+    requestParameters: GetLatestMapRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<GameMap>> {
     const queryParameters: any = {};
+
+    if (requestParameters.type !== undefined) {
+      queryParameters['type'] = requestParameters.type;
+    }
 
     const headerParameters: runtime.HTTPHeaders = {};
 
@@ -220,9 +240,10 @@ export class MapApi extends runtime.BaseAPI implements MapApiInterface {
    * Get latest map
    */
   async getLatestMap(
+    type?: GameMapType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<GameMap> {
-    const response = await this.getLatestMapRaw(initOverrides);
+    const response = await this.getLatestMapRaw({ type: type }, initOverrides);
     return await response.value();
   }
 
@@ -231,9 +252,14 @@ export class MapApi extends runtime.BaseAPI implements MapApiInterface {
    * Get map revisions
    */
   async getMapRevisionsRaw(
+    requestParameters: GetMapRevisionsRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<GameMapRevision>>> {
     const queryParameters: any = {};
+
+    if (requestParameters.type !== undefined) {
+      queryParameters['type'] = requestParameters.type;
+    }
 
     const headerParameters: runtime.HTTPHeaders = {};
 
@@ -263,9 +289,13 @@ export class MapApi extends runtime.BaseAPI implements MapApiInterface {
    * Get map revisions
    */
   async getMapRevisions(
+    type?: GameMapType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<Array<GameMapRevision>> {
-    const response = await this.getMapRevisionsRaw(initOverrides);
+    const response = await this.getMapRevisionsRaw(
+      { type: type },
+      initOverrides,
+    );
     return await response.value();
   }
 
