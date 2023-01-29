@@ -17,7 +17,6 @@ import { Col, Container, Row } from 'react-bootstrap';
 import Toast, { toast } from 'react-hot-toast';
 import { updateUserCode, changeLanguage } from '../../../store/editor/code';
 import { useNavigate } from 'react-router-dom';
-import mapImage from '/assets/Map.jpeg';
 
 export default function History(): JSX.Element {
   const [SelectedButton, setSelectedButton] = useState('Code');
@@ -167,7 +166,10 @@ export default function History(): JSX.Element {
             {SelectedButton == 'Code' ? (
               <CodeView code={currentCode} codeLang={codeLanguage} />
             ) : (
-              <img className={styles.mapImg} src={mapImage} />
+              <img
+                className={styles.mapImg}
+                src={localStorage.getItem('mapImg')}
+              />
             )}
           </div>
           <div className={styles.select}>

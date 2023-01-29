@@ -21,6 +21,18 @@ const MapDesigner: React.FunctionComponent = () => {
     });
   }, []);
 
+  const getMapAsImage: () => string = () => {
+    const ccMapDesigner = document.getElementsByTagName('cc-map-designer')[0];
+    const parentDiv = ccMapDesigner.shadowRoot?.getElementById('map-designer');
+    const mapCanvas: HTMLCanvasElement =
+      parentDiv?.firstChild as HTMLCanvasElement;
+    let b64 = mapCanvas.toDataURL();
+    localStorage.setItem('mapImg', b64);
+    console.log('before returning');
+    console.log(b64);
+    return b64;
+  };
+
   const closeModal = () => setModalShow(false);
   const closeCommitModal = () => {
     setCommitModalError('');
@@ -36,6 +48,7 @@ const MapDesigner: React.FunctionComponent = () => {
   };
   const handleButtonClick = (button: ButtonType) => {
     if (!stagedMap) return;
+    const mapImg: string = getMapAsImage();
     switch (button) {
       case 'save':
         closeModal();
@@ -53,7 +66,7 @@ const MapDesigner: React.FunctionComponent = () => {
             }
           });
         break;
-      case 'submit':
+      case 'submit': {
         closeModal();
         mapAPI
           .updateLatestMap({
@@ -69,7 +82,8 @@ const MapDesigner: React.FunctionComponent = () => {
             }
           });
         break;
-      case 'commit':
+      }
+      case 'commit': {
         if (!commitName) {
           setCommitModalError('Commit name cannot be empty!');
           return;
@@ -89,6 +103,7 @@ const MapDesigner: React.FunctionComponent = () => {
             }
           });
         break;
+      }
     }
     setStagedMap(undefined);
     closeModal();

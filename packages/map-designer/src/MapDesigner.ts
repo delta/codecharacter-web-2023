@@ -22,6 +22,7 @@ export class MapDesigner extends LitElement {
         this.shadowRoot?.querySelector<HTMLElement>('#map-designer') ??
         undefined,
       scene: [TileMap],
+      preserveDrawingBuffer: true,
       dom: {
         createContainer: false,
       },
