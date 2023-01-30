@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal, Button, Table, Dropdown } from 'react-bootstrap';
 import { useAppSelector } from '../../store/hooks';
 import styles from './Leaderboard.module.css';
@@ -18,6 +18,7 @@ import { user } from '../../store/User/UserSlice';
 function PaginatedItems() {
   const [page, setPage] = useState(0);
   const [items, setItems] = useState<LeaderboardEntry[]>([]);
+  const [nextItems, setNextItems] = useState<LeaderboardEntry[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [show, setShow] = useState(false);
   const [currentOpponentUsername, setCurrentOpponentUsername] = useState('');
@@ -38,24 +39,21 @@ function PaginatedItems() {
   const itemsPerPage = 8;
   const currentUserName = useAppSelector(user).username;
 
-  const didMountRef = useRef(false);
-
   useEffect(() => {
-    if (didMountRef.current) {
-      fetchLeaderboard(page);
-      setTierOffset(0);
-      checkEmpty();
-    }
     fetchLeaderboard(page);
     setTierOffset(0);
-    didMountRef.current = true;
-  }, [page, didMountRef]);
+  }, [page]);
+
+  useEffect(() => {
+    checkEmpty();
+  }, [nextItems]);
 
   function checkEmpty() {
-    if (items.length == 0) {
-      Toast('This is the last page');
-      fetchLeaderboard(0);
+    let emptylistBool = false;
+    if (nextItems.length == 0) {
+      emptylistBool = true;
     }
+    return emptylistBool;
   }
 
   function getTier(pos: number) {
@@ -84,7 +82,14 @@ function PaginatedItems() {
       .catch(error => {
         if (error instanceof ApiError) Toast.error(error.message);
       });
-    console.log(pageNum);
+    leaderboardAPI
+      .getLeaderboard(pageNum + 1, itemsPerPage)
+      .then(response => {
+        setNextItems(response);
+      })
+      .catch(error => {
+        if (error instanceof ApiError) Toast.error(error.message);
+      });
   };
 
   async function handleMatchStart() {
@@ -223,7 +228,11 @@ function PaginatedItems() {
           type="button"
           className={styles.button}
           onClick={() => {
-            setPage(prevPage => prevPage + 1);
+            if (!checkEmpty()) {
+              setPage(prevPage => prevPage + 1);
+            } else {
+              Toast('This is the last page');
+            }
           }}
         >
           {'>'}

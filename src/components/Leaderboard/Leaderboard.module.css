@@ -173,6 +173,7 @@ html {
   border: none;
   color: #aaaaaa;
   padding: 15px 30px;
+  transition: 0.3s;
 }
 
 .attackImg:hover {
@@ -228,37 +229,6 @@ html {
 
 .matchButton {
   background: #2b3760;
-}
-
-.pagination .pageNum {
-  border-radius: 8px;
-  color: #aaaaaa;
-  padding: 8px 15px;
-  text-decoration: none !important;
-  text-transform: uppercase;
-  margin: 5px;
-}
-
-.pagination .pageNum:hover {
-  background-color: #aaaaaa;
-  color: rgba(30, 30, 30, 0.87);
-  text-decoration: none;
-  border: 1px;
-}
-
-.pagination .break {
-  background-color: black;
-}
-
-.pagination .active {
-  background-color: white;
-  text-decoration: none;
-  color: #0a1c2a;
-  border: 1px;
-}
-
-.btn-primary {
-  color: black;
 }
 
 .button {

@@ -196,6 +196,7 @@ html {
   text-decoration: none !important;
   text-transform: uppercase;
   margin: 5px;
+  transition: 0.3s;
 }
 
 .pagination .pageNum:hover {
@@ -212,13 +213,13 @@ html {
 .pagination .active {
   background-color: white;
   text-decoration: none;
-  color: #0a1c2a;
+  color: black;
   border: 1px;
 }
 
 .button {
-  background-color: white;
-  color: #0a1c2a;
+  background-color: black;
+  color: #aaaaaa;
   margin: 0px 8px;
   border: 1px;
   padding: 8px;
@@ -227,4 +228,10 @@ html {
   font-family: monospace, sans-serif;
   display: inline-block;
   white-space: nowrap;
+  transition: 0.3s;
+}
+
+.button:hover {
+  color: #0a1c2a;
+  background-color: #aaaaaa;
 }
