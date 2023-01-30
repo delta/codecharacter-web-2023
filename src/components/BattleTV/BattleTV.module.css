@@ -62,6 +62,7 @@ html {
 
 .list .item .watchButton {
   transform: scale(0.8);
+  transition: 0.3s;
 }
 
 .list .item .watchButton:hover {
@@ -167,6 +168,7 @@ html {
   text-transform: uppercase;
   text-decoration: none !important;
   margin: 5px;
+  transition: 0.3s;
 }
 
 .pagination .pageNum:hover {

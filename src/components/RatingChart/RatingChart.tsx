@@ -11,19 +11,29 @@ import {
 import { Bar } from 'react-chartjs-2';
 import Loader from '../Loader/Loader';
 import styles from './RatingHistory.module.css';
-import { RatingHistory, UserApi } from '@codecharacter-2023/client';
+import {
+  CurrentUserApi,
+  RatingHistory,
+  UserApi,
+} from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
-import { useAppSelector } from '../../store/hooks';
-import { user } from '../../store/User/UserSlice';
 import Toast from 'react-hot-toast';
 
 function RatingHistoryChart() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<RatingHistory[]>([]);
+  const [labelItems, setLabelItems] = useState<string[]>([]);
+  const [dataItems, setDataItems] = useState<number[]>([]);
   const userApi = new UserApi(apiConfig);
-  const currentUser = useAppSelector(user).id;
+  let currentUser: string;
+  const currentUserApi = new CurrentUserApi(apiConfig);
+  currentUserApi.getCurrentUser().then(response => {
+    currentUser = response.id;
+    console.log(currentUser);
+  });
   const labels: string[] = [];
   const ratings: number[] = [];
+
   const options = {
     responsive: true,
     plugins: {
@@ -46,11 +56,11 @@ function RatingHistoryChart() {
   );
 
   const data = {
-    labels,
+    labelItems,
     datasets: [
       {
         label: 'Rating History',
-        data: ratings,
+        data: dataItems,
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
     ],
@@ -67,6 +77,8 @@ function RatingHistoryChart() {
         labels.push(label);
         const rating = entry.rating;
         ratings.push(rating);
+        setDataItems(ratings);
+        setLabelItems(labels);
       });
   }, []);
 
