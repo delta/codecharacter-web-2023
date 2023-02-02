@@ -7,6 +7,7 @@ export interface selfMatchModalState {
   mapCommitID: string | null;
   codeCommitName: string;
   mapCommitName: string;
+  // dailyChallengeSimulate : boolean;
 }
 
 const initialState: selfMatchModalState = {
@@ -15,6 +16,7 @@ const initialState: selfMatchModalState = {
   mapCommitID: null,
   codeCommitName: 'Current Code',
   mapCommitName: 'Current Map',
+  // dailyChallengeSimulate: false,
 };
 
 export const selfMatchModalSlice = createSlice({
@@ -36,6 +38,9 @@ export const selfMatchModalSlice = createSlice({
     mapCommitNameChanged: (state, action: PayloadAction<string>) => {
       state.mapCommitName = action.payload;
     },
+    // simulateDailyChallenge: (state, action: PayloadAction<boolean>) => {
+    //   state.dailyChallengeSimulate = action.payload;
+    // }
   },
 });
 
@@ -45,6 +50,7 @@ export const {
   mapCommitIDChanged,
   codeCommitNameChanged,
   mapCommitNameChanged,
+  // simulateDailyChallenge,
 } = selfMatchModalSlice.actions;
 
 export const isSelfMatchModalOpen = (state: RootState): boolean =>
@@ -57,5 +63,7 @@ export const codeCommitName = (state: RootState): string =>
   state.selfMatchModal.codeCommitName;
 export const mapCommitName = (state: RootState): string =>
   state.selfMatchModal.mapCommitName;
+// export const dailyChallengeSimulate = (state: RootState): boolean =>
+//   state.selfMatchModal.dailyChallengeSimulate;
 
 export default selfMatchModalSlice.reducer;

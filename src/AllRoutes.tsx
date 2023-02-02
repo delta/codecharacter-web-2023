@@ -44,7 +44,10 @@ export default function AllRoutes(): JSX.Element {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/mapdesigner" element={<MapDesigner />} />
+      <Route
+        path="/mapdesigner"
+        element={<MapDesigner pageType={'MapDesigner'} />}
+      />
       <Route path="/history" element={<History />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/battletv" element={<BattleTV />} />

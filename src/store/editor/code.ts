@@ -5,7 +5,7 @@ import defaultCppCode from '../../assets/codes/cpp/run.cpp?raw';
 import defaultPythonCode from '../../assets/codes/python/run.py?raw';
 import defaultJavaCode from '../../assets/codes/java/Run.java?raw';
 
-const languagesAvailable = ['c_cpp', 'python', 'java'];
+export const languagesAvailable = ['c_cpp', 'python', 'java'];
 
 export interface editorStateType {
   allLanguagesCode: string[];
@@ -42,10 +42,18 @@ export const editorSlice = createSlice({
     },
 
     updateUserCode: (state, action: PayloadAction<CodeAndLanguage>) => {
+      console.log('called');
       const tempCurrentUserLanguage = action.payload.currentUserLanguage;
       const desiredIndex = languagesAvailable.indexOf(tempCurrentUserLanguage);
-      state.allLanguagesCode[desiredIndex] = action.payload.currentUserCode;
-      state.userCode = action.payload.currentUserCode;
+      const newCodeAndLanguage: CodeAndLanguage = {
+        currentUserCode: action.payload.currentUserCode,
+        currentUserLanguage: action.payload.currentUserLanguage,
+      };
+
+      state.allLanguagesCode[desiredIndex] = newCodeAndLanguage.currentUserCode;
+      state.userCode = newCodeAndLanguage.currentUserCode;
+      // console.log(tempCurrentUserLanguage,desiredIndex,action.payload.currentUserCode);
+      // console.log(state.userCode);
     },
 
     changeLanguage: (state, action: PayloadAction<string>) => {

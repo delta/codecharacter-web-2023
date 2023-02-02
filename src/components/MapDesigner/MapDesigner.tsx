@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { MapDesignerComponent } from '@codecharacter-2023/map-designer';
-import { MapApi } from '@codecharacter-2023/client';
+import { MapApi, DailyChallengesApi } from '@codecharacter-2023/client';
 import Toast from 'react-hot-toast';
 import styles from './MapDesigner.module.css';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { Modal, Container, Row } from 'react-bootstrap';
 
-const MapDesigner: React.FunctionComponent = () => {
+interface MapDesignerProps {
+  pageType: 'MapDesigner' | 'DailyChallenge';
+}
+
+export default function MapDesigner(props: MapDesignerProps): JSX.Element {
   const [modalShow, setModalShow] = useState<boolean>(false);
   const [commitModalShow, setCommitModalShow] = useState<boolean>(false);
   const [commitName, setCommitName] = useState<string>('');
@@ -15,10 +19,15 @@ const MapDesigner: React.FunctionComponent = () => {
 
   type ButtonType = 'save' | 'submit' | 'commit';
   const mapAPI = new MapApi(apiConfig);
+  const dcAPI = new DailyChallengesApi(apiConfig);
   useEffect(() => {
-    mapAPI.getLatestMap().then(mp => {
-      setStagedMap(JSON.parse(mp.map));
-    });
+    mapAPI
+      .getLatestMap(
+        props.pageType == 'MapDesigner' ? 'NORMAL' : 'DAILY_CHALLENGE',
+      )
+      .then(mp => {
+        setStagedMap(JSON.parse(mp.map));
+      });
   }, []);
 
   const getMapAsImage: () => string = () => {
@@ -50,7 +59,8 @@ const MapDesigner: React.FunctionComponent = () => {
         closeModal();
         mapAPI
           .updateLatestMap({
-            mapType: 'NORMAL',
+            mapType:
+              props.pageType == 'MapDesigner' ? 'NORMAL' : 'DAILY_CHALLENGE',
             mapImage: mapImg,
             map: JSON.stringify(stagedMap),
             lock: false,
@@ -64,11 +74,12 @@ const MapDesigner: React.FunctionComponent = () => {
             }
           });
         break;
-      case 'submit': {
+      case 'submit':
         closeModal();
         mapAPI
           .updateLatestMap({
-            mapType: 'NORMAL',
+            mapType:
+              props.pageType == 'MapDesigner' ? 'NORMAL' : 'DAILY_CHALLENGE',
             mapImage: mapImg,
             map: JSON.stringify(stagedMap),
             lock: true,
@@ -81,9 +92,22 @@ const MapDesigner: React.FunctionComponent = () => {
               Toast.error(error.message);
             }
           });
+        if (props.pageType == 'DailyChallenge') {
+          dcAPI
+            .createDailyChallengeMatch({
+              value: JSON.stringify(stagedMap),
+            })
+            .then(() => {
+              Toast.success('Daily Challenge submitted succesfully');
+            })
+            .catch(error => {
+              if (error instanceof ApiError) {
+                Toast.error(error.message);
+              }
+            });
+        }
         break;
-      }
-      case 'commit': {
+      case 'commit':
         if (!commitName) {
           setCommitModalError('Commit name cannot be empty!');
           return;
@@ -105,7 +129,6 @@ const MapDesigner: React.FunctionComponent = () => {
             }
           });
         break;
-      }
     }
     setStagedMap(undefined);
     closeModal();
@@ -125,7 +148,7 @@ const MapDesigner: React.FunctionComponent = () => {
       </div>
       <Modal show={modalShow} centered onHide={closeModal}>
         <Modal.Header className={styles.modalHeader} closeButton>
-          <Modal.Title className="fw-bold fs-3">Save Map?</Modal.Title>
+          <Modal.Title className="fw-bold fs-3">Save Map</Modal.Title>
         </Modal.Header>
 
         <Modal.Body className={styles.modalContent}>
@@ -137,15 +160,22 @@ const MapDesigner: React.FunctionComponent = () => {
             </Row>
             <Row>
               <p className={styles.contentP}>
-                <span>SUBMIT</span> : Save map and submit to Leaderboard.
+                <span>SUBMIT</span> :{' '}
+                {props.pageType == 'MapDesigner'
+                  ? 'Save map and submit to Leaderboard.'
+                  : 'Save map and submit against the challenge'}
               </p>
             </Row>
-            <Row>
-              <p className={styles.contentP}>
-                <span>COMMIT</span> : Create a commit revision with the current
-                map.
-              </p>
-            </Row>
+            {props.pageType == 'MapDesigner' ? (
+              <Row>
+                <p className={styles.contentP}>
+                  <span>COMMIT</span> : Create a commit revision with the
+                  current map.
+                </p>
+              </Row>
+            ) : (
+              <></>
+            )}
           </Container>
           <Container fluid className={styles.buttonRow}>
             <button
@@ -164,9 +194,13 @@ const MapDesigner: React.FunctionComponent = () => {
             >
               Submit
             </button>
-            <button className={styles.modalButton} onClick={openCommitModal}>
-              Commit
-            </button>
+            {props.pageType == 'MapDesigner' ? (
+              <button className={styles.modalButton} onClick={openCommitModal}>
+                Commit
+              </button>
+            ) : (
+              <></>
+            )}
           </Container>
         </Modal.Body>
       </Modal>
@@ -196,6 +230,4 @@ const MapDesigner: React.FunctionComponent = () => {
       </Modal>
     </>
   );
-};
-
-export default MapDesigner;
+}

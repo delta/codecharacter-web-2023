@@ -26,7 +26,7 @@ const DcAvailable = (props: DcProps) => {
         <Button
           variant="outline-light"
           className={styles.dcmodalBtn}
-          onClick={props.handleClose}
+          onClick={props.handleTake}
         >
           Take Me There
         </Button>

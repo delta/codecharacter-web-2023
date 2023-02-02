@@ -114,6 +114,55 @@
     margin-top: 5 px;
 }
 
+.dcToolbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    background-color: #363535;
+    padding: 2px 2px;  
+    height: 6vh;
+}
+
+.infoIcon{
+    margin-top: 6px;
+    transform: scale(1.05);
+    width: 5.83rem;
+    padding-left: 4rem;
+}
+
+.challName{
+    margin-left: 10px; 
+    font-size: medium;
+    background-color: transparent;
+    color: #cbcbcb;
+    overflow-x: clip;
+}
+
+.mapChallName{
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 2px;
+    color: #ffffff;
+    overflow: clip;
+}
+.dcMap{
+    height: 94vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dcMap > img{
+    object-fit: contain;
+}
+
+
 .closeEditorButton {
     position: absolute;
     border-radius: 0;

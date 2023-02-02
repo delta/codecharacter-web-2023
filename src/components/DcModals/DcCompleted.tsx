@@ -19,9 +19,9 @@ const DcCompleted = (props: DcProps) => {
         <Button
           variant="outline-danger"
           className={styles.dcmodalBtn}
-          onClick={props.handleClose}
+          onClick={props.handleTake}
         >
-          Ok!
+          View Latest Challenge
         </Button>
         <Button
           variant="outline-info"

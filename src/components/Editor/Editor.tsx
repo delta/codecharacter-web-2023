@@ -2,6 +2,13 @@ import * as Editor from './EditorTypes';
 import styles from './style.module.css';
 import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
+import {
+  CodeApi,
+  DailyChallengesApi,
+  Language,
+} from '@codecharacter-2023/client';
+import { apiConfig, ApiError } from '../../api/ApiConfig';
+import Toast from 'react-hot-toast';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -25,6 +32,15 @@ import {
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
 
+import {
+  dcCode,
+  changeDcLanguage,
+  changeDcCode,
+} from '../../store/DailyChallenge/dailyChallenge';
+
+const codeAPI: CodeApi = new CodeApi(apiConfig);
+const DcApi = new DailyChallengesApi(apiConfig);
+
 self.MonacoEnvironment = {
   getWorkerUrl: function (_moduleId: string, label: string) {
     if ((label = 'cpp')) {
@@ -42,8 +58,13 @@ self.MonacoEnvironment = {
 
 export default function CodeEditor(props: Editor.Props): JSX.Element {
   const divCodeEditor = useRef<HTMLDivElement>(null);
+  // console.log(props.page);
   let editor: monaco.editor.IStandaloneCodeEditor;
-  const userCode: string = useAppSelector(UserCode);
+  const userCode: string =
+    props.page == 'Dashboard'
+      ? useAppSelector(UserCode)
+      : useAppSelector(dcCode);
+  // console.log(userCode)
   const fontSize: number = useAppSelector(FontSize);
   const theme: string = useAppSelector(Theme);
   const dispatch: React.Dispatch<unknown> = useAppDispatch();
@@ -53,6 +74,11 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const language = props.language;
 
   useEffect(() => {
+    console.log('rerendered');
+  }, []);
+
+  useEffect(() => {
+    console.log('ran');
     if (divCodeEditor.current) {
       editor = monaco.editor.create(divCodeEditor.current, {
         value: userCode,
@@ -82,11 +108,17 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     }
 
     editor.onDidChangeModelContent(() => {
+      console.log('its me boys');
       const codeNlanguage: CodeAndLanguage = {
         currentUserCode: editor.getValue(),
         currentUserLanguage: language,
       };
-      dispatch(updateUserCode(codeNlanguage));
+      if (props.page == 'Dashboard') {
+        dispatch(updateUserCode(codeNlanguage));
+      } else {
+        dispatch(changeDcCode(codeNlanguage));
+      }
+      console.log(userCode);
     });
 
     //Keybinding for save -> CTRL+S
@@ -96,10 +128,10 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       if (language === 'c_cpp') languageType = Language.Cpp;
       else if (language === 'python') languageType = Language.Python;
       else if (language === 'java') languageType = Language.Java;
-
+      console.log(userCode);
       codeAPI
         .updateLatestCode({
-          codeType: 'NORMAL',
+          codeType: props.page == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
           code: userCode,
           lock: false,
           language: languageType,
@@ -114,22 +146,27 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
 
     //Keybinding for Simulate -> CTRL+ALT+N
 
-    editor.addCommand(
-      monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
-      function () {
-        dispatch(isSelfMatchModalOpened(true));
-        dispatch(codeCommitNameChanged('Current Code'));
-        dispatch(codeCommitIDChanged(null));
-        dispatch(mapCommitNameChanged('Current Map'));
-        dispatch(mapCommitIDChanged(null));
-      },
-    );
+    if (props.page == 'Dashboard') {
+      editor.addCommand(
+        monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
+        function () {
+          dispatch(isSelfMatchModalOpened(true));
+          dispatch(codeCommitNameChanged('Current Code'));
+          dispatch(codeCommitIDChanged(null));
+          dispatch(mapCommitNameChanged('Current Map'));
+          dispatch(mapCommitIDChanged(null));
+        },
+      );
 
-    //Keybinding for Commit -> CTRL+K
+      //Keybinding for Commit -> CTRL+K
 
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK, function () {
-      dispatch(isCommitModalOpened(true));
-    });
+      editor.addCommand(
+        monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK,
+        function () {
+          dispatch(isCommitModalOpened(true));
+        },
+      );
+    }
 
     //Keybinding for Submit -> CTRL+SHIFT+S
 
@@ -143,7 +180,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
 
         codeAPI
           .updateLatestCode({
-            codeType: 'NORMAL',
+            codeType: props.page == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
             code: userCode,
             lock: true,
             language: languageType,
@@ -154,25 +191,54 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
           .catch(err => {
             if (err instanceof ApiError) Toast.error(err.message);
           });
+
+        if (props.page == 'Dailychallenge') {
+          DcApi.createDailyChallengeMatch({
+            value: editor.getValue(),
+            language: language == 'c_cpp' ? 'CPP' : language.toUpperCase(),
+          })
+            .then(() => {
+              Toast.success('Daily Challenge submitted successfully');
+            })
+            .catch(() => {
+              Toast.error('Couldnt submit challenge');
+            });
+        }
       },
     );
 
     return () => {
       editor.dispose();
     };
-  }, [fontSize, theme, language, keyboardHandler]);
+  }, [fontSize, theme, language, keyboardHandler, props.page]);
+
+  const userCodeChangeHandler = () => {
+    console.log('changed');
+    const codeNlanguage: CodeAndLanguage = {
+      currentUserCode: editor.getValue(),
+      currentUserLanguage: language,
+    };
+    dispatch(updateUserCode(codeNlanguage));
+  };
+
+  const dailyChallengeCodechange = () => {
+    console.log(userCode);
+    const codeNlanguage: CodeAndLanguage = {
+      currentUserCode: editor.getValue(),
+      currentUserLanguage: language,
+    };
+    dispatch(changeDcCode(codeNlanguage));
+  };
 
   return (
     <div
       className={styles.Editor}
       ref={divCodeEditor}
-      onChange={() => {
-        const codeNlanguage: CodeAndLanguage = {
-          currentUserCode: editor.getValue(),
-          currentUserLanguage: language,
-        };
-        dispatch(updateUserCode(codeNlanguage));
-      }}
+      onChange={
+        props.page == 'Dashboard'
+          ? userCodeChangeHandler
+          : dailyChallengeCodechange
+      }
     ></div>
   );
 }

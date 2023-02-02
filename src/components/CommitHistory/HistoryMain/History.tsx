@@ -77,7 +77,7 @@ export default function History(): JSX.Element {
     completeMapHistory.forEach(mapData => {
       if (mapData.id == id) {
         setCurrentMap({
-          map: mapData.map,
+          map: JSON.parse(mapData.map),
           mapImg: mapData.mapImage,
         });
       }
@@ -116,6 +116,8 @@ export default function History(): JSX.Element {
       dispatch(changeHistoryEditorMap(currentMap));
     }
   };
+
+  console.log(currentMap.mapImg);
 
   return (
     <Container fluid className={styles.historyMain}>

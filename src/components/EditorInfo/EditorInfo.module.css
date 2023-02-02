@@ -61,3 +61,13 @@
   margin-right: 30px;
   align-items: center;
 }
+
+.dcDescription {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 15px;
+  font-family: 'Bai Jamjuree';
+  font-size: 2rem;
+  color: #ffffff;
+}

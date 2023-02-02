@@ -5,8 +5,15 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 import styles from './EditorInfo.module.css';
 import { shortcuts } from './data';
+import {
+  dailyChallengePageState,
+  dcDescription,
+} from '../../store/DailyChallenge/dailyChallenge';
 
 const EditorInfo = (): JSX.Element => {
+  const homePageState = useAppSelector(dailyChallengePageState);
+  const dailyChallengeDescription = useAppSelector(dcDescription);
+
   const isInfoOpen = useAppSelector(IsInfoOpen);
 
   const dispatch = useAppDispatch();
@@ -19,21 +26,29 @@ const EditorInfo = (): JSX.Element => {
       onHide={() => dispatch(isInfoOpened(false))}
     >
       <Modal.Header className={styles.editorInfoHeader} closeButton>
-        <Modal.Title className={newLocal}>Editor Shortcuts</Modal.Title>
+        <Modal.Title className={newLocal}>
+          {homePageState == 'Dashboard' ? 'Editor Shortcuts' : 'Description'}
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body className={styles.editorInfoBody}>
-        <Row>
-          {shortcuts.map((shortcut, index) => (
-            <Col key={index} xs={12} className={styles.InfoGroup}>
-              <div className={styles.infoDiv}>
-                <b>{shortcut.key}</b>
-                <b>{shortcut.description}</b>
-              </div>
-              <br />
-            </Col>
-          ))}
-        </Row>
+        {homePageState == 'Dashboard' ? (
+          <Row>
+            {shortcuts.map((shortcut, index) => (
+              <Col key={index} xs={12} className={styles.InfoGroup}>
+                <div className={styles.infoDiv}>
+                  <b>{shortcut.key}</b>
+                  <b>{shortcut.description}</b>
+                </div>
+                <br />
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <div className={styles.dcDescription}>
+            {dailyChallengeDescription}
+          </div>
+        )}
       </Modal.Body>
     </Modal>
   );
