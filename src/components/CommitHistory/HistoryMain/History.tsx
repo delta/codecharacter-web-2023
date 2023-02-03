@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import CommitHistory from '../CommitTree/CommitHistroy';
 import { apiConfig, ApiError } from '../../../api/ApiConfig';
+import { faTruckLoading } from '@fortawesome/free-solid-svg-icons';
 import {
   CodeApi,
   CodeRevision,
@@ -25,20 +26,27 @@ export default function History(): JSX.Element {
   const [SelectedButton, setSelectedButton] = useState('Code');
   const [completeCodeHistroy, setCodeHistory] = useState<CodeRevision[]>([]);
   const [completeMapHistory, setMapHistory] = useState<GameMapRevision[]>([]);
+  const [mapFetched, setMapFetched] = useState<boolean>(false);
+  const [codeFetched, setCodeFetched] = useState<boolean>(false);
   const [currentCode, setCurrentCode] = useState('');
   const [codeLanguage, setCodeLanguage] = useState('');
-  const [currentMap, setCurrentMap] = useState<MapObj>({ map: [], mapImg: '' });
+  const [currentMap, setCurrentMap] = useState<MapObj>({
+    map: [],
+    mapImg: 'l',
+  });
   const [currentCommitMessage, setCurrentCommitMessage] = useState<string>('');
 
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+  const mapApi = new MapApi(apiConfig);
 
   useEffect(() => {
     const codeApi = new CodeApi(apiConfig);
     codeApi
       .getCodeRevisions()
       .then(codeResp => {
+        setCodeFetched(true);
         setCodeHistory(
           codeResp.sort((a, b) => {
             if (a.createdAt < b.createdAt) return -1;
@@ -53,10 +61,10 @@ export default function History(): JSX.Element {
         }
       });
 
-    const mapApi = new MapApi(apiConfig);
     mapApi
       .getMapRevisions()
       .then(mapResp => {
+        setMapFetched(true);
         setMapHistory(mapResp.reverse());
       })
       .catch(mapError => {
@@ -67,6 +75,10 @@ export default function History(): JSX.Element {
   }, []);
 
   const commitID = (id: string) => {
+    setCurrentMap({
+      map: currentMap.map,
+      mapImg: '',
+    });
     completeCodeHistroy.forEach(codeData => {
       if (codeData.id === id) {
         setCurrentCode(codeData.code);
@@ -76,10 +88,19 @@ export default function History(): JSX.Element {
     });
     completeMapHistory.forEach(mapData => {
       if (mapData.id == id) {
-        setCurrentMap({
-          map: JSON.parse(mapData.map),
-          mapImg: mapData.mapImage,
-        });
+        mapApi
+          .getMapByCommitID(mapData.id)
+          .then(resp => {
+            setCurrentMap({
+              map: JSON.parse(mapData.map),
+              mapImg: resp.mapImage,
+            });
+          })
+          .catch(mapError => {
+            if (mapError instanceof ApiError) {
+              Toast.error(mapError.message);
+            }
+          });
       }
     });
   };
@@ -117,8 +138,6 @@ export default function History(): JSX.Element {
     }
   };
 
-  console.log(currentMap.mapImg);
-
   return (
     <Container fluid className={styles.historyMain}>
       <div className={styles.buttonContainer}>
@@ -154,7 +173,8 @@ export default function History(): JSX.Element {
       <Row className={styles.viewContainer}>
         <Col lg="4" style={{ marginLeft: '5%' }}>
           <div className={styles.completeTimeline}>
-            {completeMapHistory && completeCodeHistroy ? (
+            {(codeFetched && SelectedButton == 'Code') ||
+            (mapFetched && SelectedButton == 'Map') ? (
               <CommitHistory
                 commitID={commitID}
                 commitHistoryDetails={
@@ -177,8 +197,10 @@ export default function History(): JSX.Element {
           >
             {SelectedButton == 'Code' ? (
               <CodeView code={currentCode} codeLang={codeLanguage} />
-            ) : (
+            ) : currentMap.mapImg != '' ? (
               <img className={styles.mapImg} src={currentMap.mapImg} />
+            ) : (
+              <div className={styles.mapLoad}>Loading....</div>
             )}
           </div>
           <div className={styles.select}>
