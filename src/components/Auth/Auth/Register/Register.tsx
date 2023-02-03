@@ -32,7 +32,6 @@ export default function Register(): JSX.Element {
   const [password, setpassword] = useState('');
   const [confirmPassword, setConfirmpassword] = useState('');
   const [completed, isCompleted] = useState(false);
-  const [isHuman, setIshuman] = useState(false);
   const [avatarID, setAvatarID] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -66,7 +65,6 @@ export default function Register(): JSX.Element {
   }, [registeredStatus]);
 
   const handleRecaptcha = (value: string | null) => {
-    if (value) setIshuman(true);
     if (value != null) {
       setRecpatchaCode(value);
     }
@@ -77,7 +75,7 @@ export default function Register(): JSX.Element {
   };
 
   const handleSignUp = () => {
-    if (isHuman) {
+    if (recaptchaCode.length > 0) {
       handleRegistration();
     } else {
       toast.error('Invalid ReCaptcha');
@@ -263,7 +261,6 @@ export default function Register(): JSX.Element {
               {formNumber == 3 ? (
                 <button
                   type="button"
-                  disabled={!isHuman}
                   onClick={handleSignUp}
                   className={styles.signUpButton}
                 >

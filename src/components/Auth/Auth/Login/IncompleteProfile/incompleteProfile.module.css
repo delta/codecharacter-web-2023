@@ -1,6 +1,5 @@
 .mainContainer {
   min-height: 100%;
-  background: rgba(30, 30, 30, 0.87);
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -50,9 +49,9 @@
   color: #aaaaaa;
 }
 
-.name::-webkit-input-placeholder,
-.username::-webkit-input-placeholder,
-.collegeName::-webkit-input-placeholder {
+.name::placeholder,
+.username::placeholder,
+.collegeName::placeholder {
   font-family: FontAwesome, Roboto Mono;
   font-weight: normal;
   overflow: visible;
@@ -90,9 +89,9 @@
 }
 
 @media only screen and (max-width: 500px) {
-  .name::-webkit-input-placeholder,
-  .username::-webkit-input-placeholder,
-  .collegeName::-webkit-input-placeholder {
+  .name::placeholder,
+  .username::placeholder,
+  .collegeName::placeholder {
     font-size: 18px;
     line-height: 25px;
   }

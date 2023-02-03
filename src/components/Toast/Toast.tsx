@@ -8,9 +8,9 @@ const Toast: React.FunctionComponent = () => {
         position="bottom-right"
         toastOptions={{
           style: {
-            background: '#242a3b',
-            color: '#ffffff',
-            fontFamily: 'Montserrat',
+            background: '#1a1a1aaa',
+            color: '#eaeaea',
+            fontFamily: 'Roboto Mono',
             borderRadius: '5px',
           },
         }}

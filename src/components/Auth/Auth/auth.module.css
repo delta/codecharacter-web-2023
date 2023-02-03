@@ -5,7 +5,6 @@
 
 .mainContainer {
   min-height: 100%;
-  background: rgba(30, 30, 30, 0.87);
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -19,14 +18,14 @@
   font-weight: 400;
   font-size: 40px;
   line-height: 53px;
-  color: #aaaaaa;
+  color: #eaeaea;
   padding: 10px;
   margin-top: 150px;
 }
 
 .cardContainer {
   display: grid;
-  grid-template-columns: 3.5fr 3fr 3.1fr;
+  grid-template-columns: 3.5fr 3fr 3.5fr;
   margin: 70px auto auto auto;
   width: auto;
 }
@@ -68,6 +67,8 @@
   flex-direction: column;
   align-self: center;
   margin: 70px auto auto auto;
+  width: 100%;
+  max-width: 400px;
 }
 
 .verticalLine {
@@ -149,23 +150,27 @@
   gap: 2rem;
 }
 
+.inputContainer {
+  border: 3px solid #aaaaaa;
+}
+
 .email,
 .password {
   width: 100%;
   background-color: transparent;
   box-sizing: border-box;
-  padding: 10px 20px 10px 20px;
-  border: 3px solid #aaaaaa;
+  padding: 10px 30px 10px 30px;
   margin: auto;
   font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
   font-size: 25px;
   color: #aaaaaa;
+  border: none;
 }
 
-.email::-webkit-input-placeholder,
-.password::-webkit-input-placeholder {
+.email::placeholder,
+.password::placeholder {
   font-family: FontAwesome, Roboto Mono;
   font-weight: normal;
   overflow: visible;
@@ -259,6 +264,12 @@
   font-size: 20px;
 }
 
+@media screen and (max-width: 450px) {
+  .registerContainer {
+    width: 85%;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .mainContainer {
     width: 100%;
@@ -277,8 +288,8 @@
     gap: 1.5rem;
   }
 
-  .email::-webkit-input-placeholder,
-  .password::-webkit-input-placeholder {
+  .email::placeholder,
+  .password::placeholder {
     font-size: 18px;
     line-height: 25px;
   }

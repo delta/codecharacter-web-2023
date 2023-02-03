@@ -7,7 +7,7 @@ import { Modal } from 'react-bootstrap';
 
 interface ForgetPasswordInterface {
   open?: boolean;
-  handleForgetPassword?: () => void;
+  handleForgetPassword: () => void;
 }
 const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
   const [email, setEmail] = useState('');
@@ -32,6 +32,7 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
       authApi
         .forgotPassword({ email: email })
         .then(() => {
+          props.handleForgetPassword();
           toast.success('Forget password email sent');
         })
         .catch(error => {
