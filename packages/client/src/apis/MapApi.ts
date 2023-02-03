@@ -19,6 +19,7 @@ import type {
   GameMapRevision,
   GameMapType,
   GenericError,
+  MapCommitByCommitIdResponse,
   UpdateLatestMapRequest,
 } from '../models';
 
@@ -28,6 +29,10 @@ export interface CreateMapRevisionOperationRequest {
 
 export interface GetLatestMapRequest {
   type?: GameMapType;
+}
+
+export interface GetMapByCommitIDRequest {
+  commitId: string;
 }
 
 export interface GetMapRevisionsRequest {
@@ -88,6 +93,27 @@ export interface MapApiInterface {
     type?: GameMapType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<GameMap>;
+
+  /**
+   *
+   * @summary Get the Map and image of the commit ID
+   * @param {string} commitId
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof MapApiInterface
+   */
+  getMapByCommitIDRaw(
+    requestParameters: GetMapByCommitIDRequest,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<runtime.ApiResponse<MapCommitByCommitIdResponse>>;
+
+  /**
+   * Get the Map and image of the commit ID
+   */
+  getMapByCommitID(
+    commitId: string,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<MapCommitByCommitIdResponse>;
 
   /**
    * Get list of all map revision IDs
@@ -244,6 +270,65 @@ export class MapApi extends runtime.BaseAPI implements MapApiInterface {
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<GameMap> {
     const response = await this.getLatestMapRaw({ type: type }, initOverrides);
+    return await response.value();
+  }
+
+  /**
+   * Get the Map and image of the commit ID
+   */
+  async getMapByCommitIDRaw(
+    requestParameters: GetMapByCommitIDRequest,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<runtime.ApiResponse<MapCommitByCommitIdResponse>> {
+    if (
+      requestParameters.commitId === null ||
+      requestParameters.commitId === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'commitId',
+        'Required parameter requestParameters.commitId was null or undefined when calling getMapByCommitID.',
+      );
+    }
+
+    const queryParameters: any = {};
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken;
+      const tokenString = await token('http-bearer', []);
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`;
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/user/map/revision/{commitId}`.replace(
+          `{${'commitId'}}`,
+          encodeURIComponent(String(requestParameters.commitId)),
+        ),
+        method: 'GET',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides,
+    );
+
+    return new runtime.JSONApiResponse(response);
+  }
+
+  /**
+   * Get the Map and image of the commit ID
+   */
+  async getMapByCommitID(
+    commitId: string,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<MapCommitByCommitIdResponse> {
+    const response = await this.getMapByCommitIDRaw(
+      { commitId: commitId },
+      initOverrides,
+    );
     return await response.value();
   }
 

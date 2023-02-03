@@ -62,12 +62,6 @@ export interface Code {
   code: string;
   /**
    *
-   * @type {CodeType}
-   * @memberof Code
-   */
-  codeType: CodeType;
-  /**
-   *
    * @type {string}
    * @memberof Code
    */
@@ -91,12 +85,6 @@ export interface CodeRevision {
    * @memberof CodeRevision
    */
   id: string;
-  /**
-   *
-   * @type {CodeType}
-   * @memberof CodeRevision
-   */
-  codeType: CodeType;
   /**
    *
    * @type {string}
@@ -490,12 +478,6 @@ export interface GameMap {
   mapImage: string;
   /**
    *
-   * @type {GameMapType}
-   * @memberof GameMap
-   */
-  mapType: GameMapType;
-  /**
-   *
    * @type {string}
    * @memberof GameMap
    */
@@ -519,12 +501,6 @@ export interface GameMapRevision {
    * @memberof GameMapRevision
    */
   map: string;
-  /**
-   *
-   * @type {GameMapType}
-   * @memberof GameMapRevision
-   */
-  mapType: GameMapType;
   /**
    *
    * @type {string}
@@ -617,6 +593,25 @@ export interface LeaderboardEntry {
    * @memberof LeaderboardEntry
    */
   stats: UserStats;
+}
+/**
+ * Get map image and map by commitId
+ * @export
+ * @interface MapCommitByCommitIdResponse
+ */
+export interface MapCommitByCommitIdResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof MapCommitByCommitIdResponse
+   */
+  mapImage: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MapCommitByCommitIdResponse
+   */
+  map: string;
 }
 /**
  * Match model
