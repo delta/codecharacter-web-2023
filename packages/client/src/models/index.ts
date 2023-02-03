@@ -506,12 +506,6 @@ export interface GameMapRevision {
    * @type {string}
    * @memberof GameMapRevision
    */
-  mapImage: string;
-  /**
-   *
-   * @type {string}
-   * @memberof GameMapRevision
-   */
   parentRevision?: string;
   /**
    *
