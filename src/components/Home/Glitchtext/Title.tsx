@@ -1,26 +1,18 @@
 import styles from './Title.module.css';
 import { useState, useEffect, useRef } from 'react';
 export default function Glitchtext(prop: { value: string }): JSX.Element {
-  const [displayedTitle, setDisplayedTitle] = useState<string>('_');
+  const [displayedTitle, setDisplayedTitle] = useState<string>('');
 
   const completeTitle: string = prop.value,
     index = useRef(0);
 
   useEffect(() => {
     function addLetter() {
-      if (index.current == completeTitle.length - 1) {
-        setDisplayedTitle(
-          prev =>
-            prev.substring(0, prev.length - 1) + completeTitle[index.current],
-        );
-      } else {
-        setDisplayedTitle(
-          prev =>
-            prev.substring(0, prev.length - 1) +
-            completeTitle[index.current] +
-            '_',
-        );
-      }
+      setDisplayedTitle(
+        displayedTitle.substring(0, displayedTitle.length - 1) +
+          completeTitle[index.current] +
+          (displayedTitle.length == completeTitle.length ? '' : '_'),
+      );
       index.current++;
     }
     if (index.current < completeTitle.length) {
@@ -30,7 +22,7 @@ export default function Glitchtext(prop: { value: string }): JSX.Element {
       };
     } else {
       const reloop = setTimeout(() => {
-        setDisplayedTitle('_');
+        setDisplayedTitle('');
         index.current = 0;
       }, 3000);
       return () => {

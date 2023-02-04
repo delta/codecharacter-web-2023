@@ -9,7 +9,7 @@ import styles from '../auth.module.css';
 import { useNavigate } from 'react-router-dom';
 import UserDetails from './FormDetails/UserDetails';
 import UserCreditionals from './FormDetails/UserCreditionals';
-import { default as ReCAPTCHA } from 'react-google-recaptcha';
+import { Recaptcha } from '../../../ReCaptcha';
 import OtherDetails from './FormDetails/OtherDetails';
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import {
@@ -19,7 +19,6 @@ import {
 } from '../../../../store/User/UserSlice';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { toast } from 'react-hot-toast';
-import { SITE_KEY } from '../../../../config/config';
 
 export default function Register(): JSX.Element {
   const [selected, setSelected] = useState('IN');
@@ -31,7 +30,6 @@ export default function Register(): JSX.Element {
   const [userName, setUsername] = useState('');
   const [password, setpassword] = useState('');
   const [confirmPassword, setConfirmpassword] = useState('');
-  const [completed, isCompleted] = useState(false);
   const [avatarID, setAvatarID] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -40,24 +38,18 @@ export default function Register(): JSX.Element {
   const registerError = useAppSelector(registeredError);
 
   useEffect(() => {
-    if (localStorage.getItem('token') != null && completed) {
-      navigate('/dashboard', { replace: true });
-    }
-  }, []);
-
-  useEffect(() => {
     switch (registerError) {
       case 'Username/Email already exists':
         setFormnumber(1);
         setUsername('');
         setEmail('');
-        isCompleted(false);
         break;
     }
   }, [registerError]);
 
   useEffect(() => {
     if (registeredStatus) {
+      toast.success('Registered Successfully :)');
       setFormnumber(1);
       navigate('/login', { replace: true });
       navigate(0);
@@ -122,12 +114,7 @@ export default function Register(): JSX.Element {
         toast(
           'Password should contain atleast \n\tatleast 8 characters,\n\t1 UpperCase letter, \n\t1 Special Character, \n\t1 number',
         );
-      } else if (
-        !(password === confirmPassword) ||
-        !confirmPassword.match(
-          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$/,
-        )
-      ) {
+      } else if (password !== confirmPassword) {
         toast.error("Password and confirm password don't match");
       } else {
         setFormnumber(2);
@@ -154,8 +141,6 @@ export default function Register(): JSX.Element {
     return countryName ? countryName : 'INDIA';
   };
   const handleRegistration = async () => {
-    isCompleted(true);
-
     dispatch(
       registerAction({
         id: '',
@@ -214,7 +199,7 @@ export default function Register(): JSX.Element {
                 />
                 <div className="form-row d-flex justify-content-center my-1">
                   <div className="d-flex justify-content-center input-group">
-                    <ReCAPTCHA sitekey={SITE_KEY} onChange={handleRecaptcha} />
+                    <Recaptcha handleRecaptcha={handleRecaptcha} />
                   </div>
                 </div>
               </div>

@@ -23,7 +23,7 @@ export default function Terminal(): JSX.Element {
           // @ts-ignore
           onScroll={onScroll}
           style={{
-            backgroundColor: '#1e1e1e',
+            backgroundColor: '#0a0a0a',
           }}
           stream
         />
