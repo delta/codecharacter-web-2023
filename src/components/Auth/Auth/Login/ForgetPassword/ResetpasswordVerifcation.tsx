@@ -108,14 +108,15 @@ function ResetpasswordVerification(): JSX.Element {
             onChange={handleConfirmSubmit}
           />
         </div>
-        <div></div>
-        <button
-          type="button"
-          className={styles.resetPasswordButton}
-          onClick={handleSubmit}
-        >
-          RESET PASSWORD{' '}
-        </button>
+        <div>
+          <button
+            type="button"
+            className={styles.resetPasswordButton}
+            onClick={handleSubmit}
+          >
+            RESET PASSWORD{' '}
+          </button>
+        </div>
       </div>
     </div>
   );
