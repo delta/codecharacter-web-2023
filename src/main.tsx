@@ -1,7 +1,8 @@
 import React, { Suspense, lazy } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './main.module.css';
+import './global.css';
 import { HashRouter } from 'react-router-dom';
 import Toast from './components/Toast/Toast';
 import { store } from './store/store';
@@ -24,7 +25,9 @@ const SelfMatchModal = lazy(
 const EditorInfo = lazy(() => import('./components/EditorInfo/EditorInfo'));
 const CommitModal = lazy(() => import('./components/CommitModal/CommitModal'));
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root') as Element);
+
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -48,5 +51,4 @@ ReactDOM.render(
       </PersistGate>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root'),
 );

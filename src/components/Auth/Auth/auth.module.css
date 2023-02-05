@@ -5,138 +5,423 @@
 
 .mainContainer {
   min-height: 100%;
-  background-color: #242a3c;
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  color: white;
-  font-family: Montserrat;
-  margin: 0px;
-  font-size: 20px;
+  flex-direction: column;
+}
+
+.signUpText,
+.signInText {
+  text-align: center;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 53px;
+  color: #eaeaea;
+  padding: 10px;
+  margin-top: 150px;
 }
 
 .cardContainer {
-  max-width: 500px;
-  padding: 2%;
-  padding-top: 0%;
+  display: grid;
+  grid-template-columns: 3.5fr 3fr 3.5fr;
+  margin: 70px auto auto auto;
+  width: auto;
+}
+.incompleteUserProfileContainer {
+  display: flex;
+  flex-direction: column;
   margin: auto;
-  background-color: #2d3342;
+}
+.externalAuthButtons {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  gap: 7rem;
+  float: left;
+  margin: 5px 0px 70px 0px;
+  justify-content: center;
 }
 
-.titleContainer {
-  text-align: center;
-  margin-top: 15px;
-}
-
-.titleContainer h1 {
-  font-weight: 510;
-}
-
-.subTitle {
-  margin-top: 1rem;
-  font-weight: lighter;
-}
-
-.subTitle p {
-  font-weight: 200;
-  font-size: 16px;
+.separator {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  gap: 0.5rem;
 }
 
 .formContainer {
-  margin: 1.5rem 1rem 1rem 1rem;
-}
-
-.submitContainer {
-  text-align: center;
-  background: white;
-  border-radius: 5px;
-  margin: 2rem 0rem 0rem 0rem;
-}
-
-.registerButton {
-  width: 100%;
-  background-color: white;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.footerContainer {
-  text-align: center;
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
-.previous,
-.next {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-}
-
-.link {
-  text-decoration: none;
-}
-
-.previous {
-  float: left;
-}
-
-.next {
-  width: 2.5rem;
-  height: 2.5rem;
-  float: right;
-  border-radius: 50%;
-}
-
-.externalAuthButtons {
   display: flex;
-  flex-direction: row;
+  box-sizing: border-box;
+  flex-direction: column;
   justify-content: center;
-  gap: 4rem;
+  float: right;
+  margin: auto;
+}
+
+.registerContainer {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin: 70px auto auto auto;
+  width: 100%;
+  max-width: 400px;
+}
+
+.verticalLine {
+  align-self: center;
+  border-left: 2px solid #4d4d4d;
+  height: 90px;
 }
 
 .googleButton,
 .githubButton {
-  text-align: center;
-}
-
-.linkContainer {
-  text-align: center;
-  margin-top: 5%;
-}
-
-.linkContainer span {
-  color: blue;
-}
-
-.error {
-  background: #ffdddd !important;
-}
-
-.correct {
-  background: #c9ffad !important;
-}
-
-.normal {
-  background: #ffffff !important;
-}
-
-.grecaptcha-badge {
-  visibility: hidden;
-}
-
-.eyeContainer {
-  position: relative;
-}
-
-.eye {
-  color: #242a3c;
+  background-color: transparent;
+  box-sizing: border-box;
+  padding: 2px 60px 2px 60px;
   position: absolute;
-  bottom: 2px;
-  right: 5px;
+  border: 3px solid #aaaaaa;
+  letter-spacing: 2px;
+  text-align: center;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 53px;
+  color: #aaaaaa;
+}
+
+.oauthButtonText {
+  width: 100%;
+}
+
+.iconAlign {
+  display: flex;
+}
+
+.line {
+  flex: 1;
+  border-left: 2px solid #aaaaaa;
+  height: auto;
+}
+
+.loginText {
+  flex: 15;
+  text-align: start;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 23px;
+  color: #aaaaaa;
+  padding: 10px 3px 10px 25px;
+}
+
+.loginIcon {
+  flex: 1;
+  align-self: center;
+  font-size: 1.7em;
+  padding: 3px 15px 3px 0px;
+  color: #aaaaaa;
+}
+
+.buttonIcon {
+  flex: 1;
+  align-self: center;
+  font-size: 1.3rem;
+  padding: 3px 10px 3px 10px;
+  color: #aaaaaa;
+}
+
+.loginButton {
+  width: 100%;
+  display: block;
+  background-color: transparent;
+  box-sizing: border-box;
+  border: 3px solid #aaaaaa;
+  margin-top: 7px;
+}
+
+.loginCredentialsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.inputContainer {
+  border: 3px solid #aaaaaa;
+}
+
+.email,
+.password {
+  width: 100%;
+  background-color: transparent;
+  box-sizing: border-box;
+  padding: 10px 30px 10px 30px;
+  margin: auto;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  color: #aaaaaa;
+  border: none;
+  border: 2px solid #aaaaaa;
+}
+
+.email::placeholder,
+.password::placeholder {
+  font-family: FontAwesome, Roboto Mono;
+  font-weight: normal;
+  overflow: visible;
+  vertical-align: top;
+  display: inline-block !important;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+}
+
+.footerContainer {
+  margin-top: 30px;
+}
+
+.subText {
+  margin: auto;
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 45px;
+  color: #aaaaaa;
+}
+
+.resetPasswordContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: auto;
+  margin-top: 60px;
+  justify-content: center;
+  align-items: center;
+}
+
+.resetPasswordButton {
+  width: fit-content;
+  background-color: transparent;
+  box-sizing: border-box;
+  border: 3px solid #aaaaaa;
+  align-self: flex-end;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #aaaaaa;
+  padding: 10px 40px 10px 40px;
 }
 
 .forgotPassword {
-  margin-top: 0.3rem;
+  margin: auto;
+  text-align: center;
+  margin: 5px 2px 9px 2px;
+  font-size: 17px;
+  background-color: transparent;
+  border: none;
+  color: #aaaaaa;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
   float: right;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+}
+
+.nextButton,
+.signUpButton {
+  display: inline;
+  border: none;
+  background-color: transparent;
+  float: right;
+  display: flex;
+  color: #aaaaaa;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.previousButton {
+  display: inline;
+  border: none;
+  background-color: transparent;
+  float: left;
+  display: flex;
+  color: #aaaaaa;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.buttonText {
+  display: flex;
+  align-items: center;
+}
+
+.nextButton:hover,
+.signUpButton:hover,
+.previousButton:hover {
+  color: #eaeaea;
+  transition: all 0.2s ease-in-out;
+}
+
+.nextButton:hover > .buttonIcon {
+  color: #eaeaea;
+  transition: all 0.2s ease-in-out;
+}
+
+.previousButton:hover > .buttonIcon {
+  color: #eaeaea;
+  transition: all 0.2s ease-in-out;
+}
+
+.signUpButton:hover > .buttonIcon {
+  color: #eaeaea;
+  transition: all 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 450px) {
+  .registerContainer {
+    width: 85%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .mainContainer {
+    width: 100%;
+    justify-content: center;
+  }
+  .cardContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1.2rem;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .loginCredentialsContainer {
+    gap: 1.5rem;
+  }
+
+  .email::placeholder,
+  .password::placeholder {
+    font-size: 18px;
+    line-height: 25px;
+  }
+  .externalAuthButtons {
+    width: 80%;
+    margin: auto;
+    gap: 5rem;
+    float: none;
+  }
+  .formContainer {
+    width: 80%;
+  }
+  .registerContainer {
+    margin-top: 10px;
+  }
+  .separator {
+    display: none;
+  }
+  .githubButton,
+  .googleButton {
+    font-size: 16px;
+    line-height: 25px;
+    width: 80%;
+    padding: 0.7rem 0rem;
+  }
+  .loginText {
+    font-size: 18px;
+    line-height: 25px;
+  }
+  .loginIcon {
+    size: 1.2em;
+  }
+  .email,
+  .password {
+    font-size: 18px;
+    line-height: 30px;
+  }
+  .forgotPassword {
+    font-size: 14px;
+  }
+
+  .nextButton,
+  .previousButton,
+  .signUpButton {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  .signUpText,
+  .signInText {
+    font-size: 25px;
+    margin-top: 40px;
+  }
+  .buttonIcon,
+  .loginIcon {
+    font-size: 1.2em;
+  }
+}
+
+@media only screen and (max-width: 1050px) and (min-width: 600px) {
+  .mainContainer {
+    width: 100%;
+    justify-content: center;
+  }
+  .cardContainer {
+    width: 100%;
+    padding: 10px;
+    grid-template-columns: 2fr 1fr 2fr;
+  }
+  .externalAuthButtons {
+    width: 100%;
+    float: none;
+    gap: 6rem;
+    justify-content: center;
+  }
+  .formContainer {
+    width: 100%;
+    float: none;
+  }
+  .googleButton,
+  .githubButton {
+    font-size: 20px;
+    width: 40%;
+    line-height: 35px;
+  }
+  .subText {
+    font-size: 20px;
+  }
+  .loginText {
+    font-size: 20px;
+  }
+  .email,
+  .password {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  .forgotPassword {
+    font-size: 18px;
+    line-height: 30px;
+  }
+  .signInText,
+  .signUpText {
+    margin-top: 80px;
+    font-size: 30px;
+  }
 }

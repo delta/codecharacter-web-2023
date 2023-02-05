@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import AlertMessage from '../../Alert/Alert';
 import styles from './forgetpassword.module.css';
 import { AuthApi } from '@codecharacter-2023/client';
 import { ApiError, authConfig } from '../../../../../api/ApiConfig';
-import Toast from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
+import { Modal } from 'react-bootstrap';
 
 interface ForgetPasswordInterface {
   open?: boolean;
-  handleForgetPassword?: () => void;
+  handleForgetPassword: () => void;
 }
 const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
   const [email, setEmail] = useState('');
@@ -23,19 +22,22 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
       isemailError(true);
     }
   };
-
   const handleSubmit = () => {
     const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (emailError) {
+      toast.error('Enter valid email');
+    }
     if (email.match(mailformat)) {
       const authApi = new AuthApi(authConfig);
       authApi
         .forgotPassword({ email: email })
         .then(() => {
-          Toast.success('Forget password email sent');
+          props.handleForgetPassword();
+          toast.success('Forget password email sent');
         })
         .catch(error => {
           if (error instanceof ApiError) {
-            Toast.error(error.message);
+            toast.error(error.message);
           }
         });
     }
@@ -47,6 +49,7 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
         onHide={props.handleForgetPassword}
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className={styles.modal}
       >
         <Modal.Header closeButton className={styles.modalHeader}>
           <Modal.Title>Forgot Password</Modal.Title>
@@ -54,38 +57,24 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
 
         <Modal.Body className={styles.modalContainer}>
           <div>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="name"
-                placeholder="Email"
-                value={email}
-                className={emailError ? styles.error : styles.normal}
-                onChange={handleEmailSubmit}
-              />
-              {emailError ? (
-                <AlertMessage
-                  err={emailError}
-                  content={'Please ! Enter a valid Email ID'}
-                />
-              ) : (
-                <></>
-              )}
-            </Form.Group>
-          </div>{' '}
+            <input
+              type="name"
+              placeholder="EMAIL  &#xf0e0;"
+              value={email}
+              className={styles.email}
+              onChange={handleEmailSubmit}
+            />
+          </div>
         </Modal.Body>
 
         <Modal.Footer className={styles.modalContainer}>
-          <Button
-            variant="light"
-            onClick={() => {
-              handleSubmit();
-              if (props.handleForgetPassword != null)
-                props.handleForgetPassword();
-            }}
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className={styles.submitButton}
           >
             Submit
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </div>

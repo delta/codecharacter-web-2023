@@ -1,40 +1,75 @@
-.levelTitle {
-  text-align: center;
-  margin: 0.5rem 0rem 0.5rem 0rem;
-  font-size: 25px;
-  color: whitesmoke;
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
 }
 
-.error {
-  background: #ffdddd !important;
-}
-
-.correct {
-  background: #c9ffad !important;
-}
-
-.normal {
-  background: #ffffff !important;
-}
-
-.alert {
-  min-height: 30px;
-  margin-top: 5px;
+.flagContainer {
+  color: black;
+  background-color: transparent;
+  border: 3px solid #aaaaaa;
   padding: 0px;
-  padding-left: 5px;
 }
 
-.eyeContainer {
-  position: relative;
+.password,
+.email,
+.name,
+.confirmPassword,
+.username,
+.collegeName {
+  width: 100%;
+  background-color: transparent;
+  box-sizing: border-box;
+  padding: 10px 25px 10px 25px;
+  border: 3px solid #aaaaaa;
+  margin: auto;
+  font-family: 'Roboto Mono';
+  text-align: start;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  color: #aaaaaa;
 }
 
-.eye {
-  color: #242a3c;
-  position: absolute;
-  bottom: 2px;
-  right: 5px;
+.email::placeholder,
+.password::placeholder,
+.name::placeholder,
+.confirmPassword::placeholder,
+.username::placeholder,
+.collegeName::placeholder {
+  font-family: FontAwesome, Roboto Mono;
+  font-weight: normal;
+  overflow: visible;
+  vertical-align: top;
+  display: inline-block !important;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 20px;
+  letter-spacing: 1.5px;
 }
 
-.grecaptcha-badge {
-  visibility: hidden;
+@media only screen and (max-width: 500px) {
+  .formContainer {
+    width: 100%;
+  }
+  .password,
+  .email,
+  .name,
+  .username,
+  .collegeName,
+  .confirmPassword {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .email::placeholder,
+  .password::placeholder,
+  .name::placeholder,
+  .confirmPassword::placeholder,
+  .username::placeholder,
+  .collegeName::placeholder {
+    font-size: 17px;
+    line-height: 30px;
+  }
 }

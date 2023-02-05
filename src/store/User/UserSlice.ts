@@ -19,6 +19,7 @@ export interface User {
   country: string;
   college: string;
   avatarId: number;
+  recaptchaCode: string;
 }
 
 interface register {
@@ -46,6 +47,7 @@ const initialState: register = {
     country: '',
     college: '',
     avatarId: 0,
+    recaptchaCode: '',
   },
   loading: false,
   isRegistered: false,

@@ -1,58 +1,94 @@
-.levelTitle {
-  text-align: center;
-  margin: 0.5rem 0rem 0.5rem 0rem;
-  font-size: 25px;
-  color: whitesmoke;
+.formContainer {
+  max-width: 500px;
+  justify-content: center;
+  gap: 1.5rem;
 }
 
-.flagContainer {
-  color: black;
-  background-color: white;
-  height: 44px;
-  border-radius: 5px;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatarHeader {
+  margin: auto;
+  text-align: center;
+  margin: 5px 2px;
+  font-size: 17px;
+  background-color: transparent;
+  border: none;
+  color: #aaaaaa;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  align-self: flex-start;
 }
 
 .avatarContainer {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 25px;
   overflow-x: scroll;
-  background-color: whitesmoke;
-  border: 1px solid white;
-  border-radius: 4px;
+  background-color: transparent;
+  border: 2px solid #aaaaaa;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.avatarContainer::-webkit-scrollbar-track {
+  height: 5px;
+  background-color: transparent;
+}
+
+.termsContainer {
+  background-color: transparent;
+  border: 2px solid #aaaaaa;
+  width: 100%;
+  max-width: 400px;
+  color: #aaaaaa;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  text-transform: uppercase;
+  padding: 0.3rem 0.5rem;
+  text-align: center;
+}
+
+.termsContainer > span:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .avatarContainer::-webkit-scrollbar {
   height: 5px;
-  border-radius: 4px;
 }
 
 .avatarContainer::-webkit-scrollbar-track {
-  background-color: lightblue;
-  border-radius: 4px;
+  background-color: transparent;
 }
 
 .avatarContainer::-webkit-scrollbar-thumb {
-  background-color: blue;
-  border-radius: 4px;
+  background-color: #aaaaaa;
+  border-radius: 10px;
 }
 
 .avatar {
   min-width: 60px;
   height: 60px;
   text-align: center;
-  background-color: #262e4b;
-  border-radius: 5%;
-  margin: 2px;
+  background-color: transparent;
+  margin: 5px;
+  border-radius: 15%;
 }
 
 .avatar:hover {
-  background-color: #4595cf;
+  background-color: #aaaaaa;
   cursor: pointer;
 }
 
 .avatarSelected {
-  background-color: #4595cf;
+  background-color: #aaaaaa;
 }
 
 .avatarImg {
@@ -60,14 +96,9 @@
   height: 100%;
 }
 
-.error {
-  background: #ffdddd !important;
-}
-
-.correct {
-  background: #c9ffad !important;
-}
-
-.normal {
-  background: #ffffff !important;
+@media only screen and (max-width: 500px) {
+  .formContainer {
+    width: auto;
+    height: fit-content;
+  }
 }

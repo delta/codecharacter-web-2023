@@ -1,7 +1,7 @@
 import { UserApi, AuthApi, CurrentUserApi } from '@codecharacter-2023/client';
 import { apiConfig, ApiError, authConfig } from '../../api/ApiConfig';
 import { User } from './UserSlice';
-import Toast from 'react-hot-toast';
+import Toast, { toast } from 'react-hot-toast';
 
 export const startRegister = (user: User): Promise<{ user: User }> => {
   return new Promise<{ user: User }>((resolve, reject) => {
@@ -16,12 +16,15 @@ export const startRegister = (user: User): Promise<{ user: User }> => {
         country: user.country,
         college: user.college,
         avatarId: user.avatarId,
+        recaptchaCode: user.recaptchaCode,
       })
       .then(() => {
         resolve({ user: user });
+        toast.success('Registration Successful');
       })
       .catch(error => {
         if (error instanceof ApiError) {
+          toast.error(error.message);
           reject(error.message);
         }
       });
@@ -46,6 +49,7 @@ export function startLogin(
       })
       .catch(error => {
         if (error instanceof ApiError) {
+          toast.error(error.message);
           reject(error);
         }
       });
