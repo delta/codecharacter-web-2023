@@ -121,7 +121,11 @@ function IncompleteProfile(): JSX.Element {
           className={styles.collegeName}
         />
 
-        <OtherDetails formNumber={3} handleAvatarChange={setAvatarId} />
+        <OtherDetails
+          formNumber={3}
+          handleAvatarChange={setAvatarId}
+          isSignUp={false}
+        />
 
         <div>
           <button

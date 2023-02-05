@@ -196,6 +196,7 @@ export default function Register(): JSX.Element {
                 <OtherDetails
                   formNumber={formNumber}
                   handleAvatarChange={handleAvatarChange}
+                  isSignUp={true}
                 />
                 <div className="form-row d-flex justify-content-center my-1">
                   <div className="d-flex justify-content-center input-group">

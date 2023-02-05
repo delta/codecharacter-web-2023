@@ -9,7 +9,7 @@ export default function OtherDetails(props: user): JSX.Element {
 
   return (
     <div className={styles.formContainer}>
-      <div>
+      <div className={styles.wrapper}>
         <div className={styles.avatarHeader}> CHOOSE AN AVATAR </div>
         <div className={styles.avatarContainer}>
           {avatars.map((avatar, index: number) => (
@@ -27,24 +27,26 @@ export default function OtherDetails(props: user): JSX.Element {
             </div>
           ))}
         </div>
-        <div className={styles.termsContainer}>
-          By Signing up, you agree to Google Recaptcha{' '}
-          <span
-            onClick={() =>
-              window.open('https://www.google.com/intl/en/policies/terms/')
-            }
-          >
-            Terms of Service
-          </span>{' '}
-          &amp;{' '}
-          <span
-            onClick={() =>
-              window.open('https://www.google.com/intl/en/policies/privacy/')
-            }
-          >
-            Privacy Policy
-          </span>
-        </div>
+        {props.isSignUp && (
+          <div className={styles.termsContainer}>
+            By Signing up, you agree to Google Recaptcha{' '}
+            <span
+              onClick={() =>
+                window.open('https://www.google.com/intl/en/policies/terms/')
+              }
+            >
+              Terms of Service
+            </span>{' '}
+            &amp;{' '}
+            <span
+              onClick={() =>
+                window.open('https://www.google.com/intl/en/policies/privacy/')
+              }
+            >
+              Privacy Policy
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -53,4 +55,5 @@ export default function OtherDetails(props: user): JSX.Element {
 interface user {
   formNumber?: number;
   handleAvatarChange: (id: number) => void;
+  isSignUp?: boolean;
 }
