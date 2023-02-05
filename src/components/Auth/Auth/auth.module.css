@@ -130,7 +130,7 @@
 .buttonIcon {
   flex: 1;
   align-self: center;
-  font-size: 1.4em;
+  font-size: 1.3rem;
   padding: 3px 10px 3px 10px;
   color: #aaaaaa;
 }
@@ -248,7 +248,7 @@
   font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .previousButton {
@@ -261,7 +261,34 @@
   font-family: 'Roboto Mono';
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 22px;
+}
+
+.buttonText {
+  display: flex;
+  align-items: center;
+}
+
+.nextButton:hover,
+.signUpButton:hover,
+.previousButton:hover {
+  color: #eaeaea;
+  transition: all 0.2s ease-in-out;
+}
+
+.nextButton:hover > .buttonIcon {
+  color: #eaeaea;
+  transition: all 0.2s ease-in-out;
+}
+
+.previousButton:hover > .buttonIcon {
+  color: #eaeaea;
+  transition: all 0.2s ease-in-out;
+}
+
+.signUpButton:hover > .buttonIcon {
+  color: #eaeaea;
+  transition: all 0.2s ease-in-out;
 }
 
 @media screen and (max-width: 450px) {

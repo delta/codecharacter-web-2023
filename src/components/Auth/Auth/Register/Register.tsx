@@ -5,11 +5,11 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
 import styles from '../auth.module.css';
 import { useNavigate } from 'react-router-dom';
 import UserDetails from './FormDetails/UserDetails';
 import UserCreditionals from './FormDetails/UserCreditionals';
-import { Recaptcha } from '../../../ReCaptcha';
 import OtherDetails from './FormDetails/OtherDetails';
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import {
@@ -56,8 +56,8 @@ export default function Register(): JSX.Element {
     }
   }, [registeredStatus]);
 
-  const handleRecaptcha = (value: string | null) => {
-    if (value != null) {
+  const handleRecaptcha = (value: string) => {
+    if (!recaptchaCode) {
       setRecpatchaCode(value);
     }
   };
@@ -199,7 +199,7 @@ export default function Register(): JSX.Element {
                 />
                 <div className="form-row d-flex justify-content-center my-1">
                   <div className="d-flex justify-content-center input-group">
-                    <Recaptcha handleRecaptcha={handleRecaptcha} />
+                    <GoogleReCaptcha onVerify={handleRecaptcha} />
                   </div>
                 </div>
               </div>
@@ -219,7 +219,7 @@ export default function Register(): JSX.Element {
                     className={styles.buttonIcon}
                     icon={faChevronLeft as IconProp}
                   />
-                  <div> BACK</div>
+                  <div className={styles.buttonText}> BACK</div>
                 </button>
               ) : (
                 <></>
@@ -232,7 +232,7 @@ export default function Register(): JSX.Element {
                   onClick={handleNext}
                   className={styles.nextButton}
                 >
-                  <div>NEXT </div>
+                  <div className={styles.buttonText}>NEXT </div>
                   <FontAwesomeIcon
                     className={styles.buttonIcon}
                     icon={faChevronRight as IconProp}
@@ -249,7 +249,7 @@ export default function Register(): JSX.Element {
                   onClick={handleSignUp}
                   className={styles.signUpButton}
                 >
-                  <div>SIGN UP </div>
+                  <div className={styles.buttonText}>SIGN UP </div>
                   <FontAwesomeIcon
                     className={styles.buttonIcon}
                     icon={faChevronRight as IconProp}

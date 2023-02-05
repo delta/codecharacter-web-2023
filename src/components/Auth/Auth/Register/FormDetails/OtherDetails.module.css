@@ -4,22 +4,58 @@
   gap: 1.5rem;
 }
 
+.avatarHeader {
+  margin: auto;
+  text-align: center;
+  margin: 5px 2px;
+  font-size: 17px;
+  background-color: transparent;
+  border: none;
+  color: #aaaaaa;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  float: left;
+}
+
 .avatarContainer {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 25px;
   overflow-x: scroll;
   background-color: transparent;
   border: 2px solid #aaaaaa;
-  border-radius: 4px;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
   width: 100%;
   max-width: 400px;
 }
 
+.avatarContainer::-webkit-scrollbar-track {
+  height: 5px;
+  background-color: transparent;
+}
+
+.termsContainer {
+  background-color: transparent;
+  border: 2px solid #aaaaaa;
+  width: 100%;
+  max-width: 400px;
+  color: #aaaaaa;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  text-transform: uppercase;
+  padding: 0.3rem 0.5rem;
+  text-align: center;
+}
+
+.termsContainer > span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .avatarContainer::-webkit-scrollbar {
   height: 5px;
-  background-color: #aaaaaa;
 }
 
 .avatarContainer::-webkit-scrollbar-track {
@@ -27,7 +63,8 @@
 }
 
 .avatarContainer::-webkit-scrollbar-thumb {
-  background-color: transparent;
+  background-color: #aaaaaa;
+  border-radius: 10px;
 }
 
 .avatar {
@@ -55,7 +92,6 @@
 
 @media only screen and (max-width: 500px) {
   .formContainer {
-    max-width: 300px;
     width: auto;
     height: fit-content;
   }

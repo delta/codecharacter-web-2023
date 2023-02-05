@@ -10,6 +10,7 @@ export default function OtherDetails(props: user): JSX.Element {
   return (
     <div className={styles.formContainer}>
       <div>
+        <div className={styles.avatarHeader}> CHOOSE AN AVATAR </div>
         <div className={styles.avatarContainer}>
           {avatars.map((avatar, index: number) => (
             <div
@@ -25,6 +26,24 @@ export default function OtherDetails(props: user): JSX.Element {
               <img className={styles.avatarImg} src={avatar.url} alt="avatar" />
             </div>
           ))}
+        </div>
+        <div className={styles.termsContainer}>
+          By Signing up, you agree to Google Recaptcha{' '}
+          <span
+            onClick={() =>
+              window.open('https://www.google.com/intl/en/policies/terms/')
+            }
+          >
+            Terms of Service
+          </span>{' '}
+          &amp;{' '}
+          <span
+            onClick={() =>
+              window.open('https://www.google.com/intl/en/policies/privacy/')
+            }
+          >
+            Privacy Policy
+          </span>
         </div>
       </div>
     </div>

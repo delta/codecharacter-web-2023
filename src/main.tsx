@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './main.module.css';
+import './global.css';
 import { HashRouter } from 'react-router-dom';
 import Toast from './components/Toast/Toast';
 import { store } from './store/store';
