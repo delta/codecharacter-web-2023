@@ -34,7 +34,6 @@ import {
 
 import {
   dcCode,
-  changeDcLanguage,
   changeDcCode,
 } from '../../store/DailyChallenge/dailyChallenge';
 

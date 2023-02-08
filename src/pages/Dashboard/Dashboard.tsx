@@ -56,7 +56,6 @@ import {
   dailyChallengeState,
   initializeDailyChallengeState,
   dailyChallengePageState,
-  changePageState,
   changeDcLanguage,
   dcCodeLanguage,
   dcCode,
@@ -133,7 +132,6 @@ export default function Dashboard(): JSX.Element {
         dispatch(loggedIn());
       }
     });
-    //@ts-ignore
     if (dailyChallenge.challType == '') {
       dailyChallengeAPI
         .getDailyChallenge()
@@ -279,12 +277,6 @@ export default function Dashboard(): JSX.Element {
         });
     }
   };
-
-  const handlePageUpdate = () => {
-    setHorizontalPercent('45%');
-  };
-
-  const showDcDescription = () => {};
 
   return (
     <main className={styles.mainContainer} ref={mainContainerRef}>

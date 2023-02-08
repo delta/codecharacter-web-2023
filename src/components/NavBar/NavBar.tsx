@@ -26,7 +26,6 @@ import DcAvailable from '../DcModals/DcAvailable';
 import {
   changePageState,
   dailyChallengeCompletionState,
-  dailyChallengePageState,
 } from '../../store/DailyChallenge/dailyChallenge';
 
 const NavBar: React.FunctionComponent = () => {
@@ -36,8 +35,6 @@ const NavBar: React.FunctionComponent = () => {
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
   const dcCompletionstatus = useAppSelector(dailyChallengeCompletionState);
-
-  const dailyChallengeStatus = true;
   useEffect(() => {
     const cookieValue = document.cookie;
     const bearerToken = cookieValue.split(';');

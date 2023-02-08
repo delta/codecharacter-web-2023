@@ -9,7 +9,6 @@ import leaderboardIcon from '../../assets/leaderboard.svg';
 import commitIcon from '../../assets/commit.svg';
 import battletvIcon from '../../assets/battletv.svg';
 import documentationIcon from '../../assets/documentation.svg';
-import dailyChallengeIcon from '../../../public/assets/dailyChallengeicon.png';
 
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';

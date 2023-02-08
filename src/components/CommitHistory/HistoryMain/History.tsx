@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import CommitHistory from '../CommitTree/CommitHistroy';
 import { apiConfig, ApiError } from '../../../api/ApiConfig';
-import { faTruckLoading } from '@fortawesome/free-solid-svg-icons';
 import {
   CodeApi,
   CodeRevision,
