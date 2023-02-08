@@ -17,7 +17,7 @@ export interface editorStateType {
 const initialState: editorStateType = {
   allLanguagesCode: [defaultCppCode, defaultPythonCode, defaultJavaCode],
   userCode: '',
-  language: '',
+  language: 'c_cpp',
   lastSavedAt: new Date(),
 };
 
@@ -42,7 +42,6 @@ export const editorSlice = createSlice({
     },
 
     updateUserCode: (state, action: PayloadAction<CodeAndLanguage>) => {
-      console.log('called');
       const tempCurrentUserLanguage = action.payload.currentUserLanguage;
       const desiredIndex = languagesAvailable.indexOf(tempCurrentUserLanguage);
       const newCodeAndLanguage: CodeAndLanguage = {
@@ -52,8 +51,6 @@ export const editorSlice = createSlice({
 
       state.allLanguagesCode[desiredIndex] = newCodeAndLanguage.currentUserCode;
       state.userCode = newCodeAndLanguage.currentUserCode;
-      // console.log(tempCurrentUserLanguage,desiredIndex,action.payload.currentUserCode);
-      // console.log(state.userCode);
     },
 
     changeLanguage: (state, action: PayloadAction<string>) => {

@@ -2,6 +2,9 @@ import { DailyChallengeGetRequest } from '@codecharacter-2023/client';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { CodeAndLanguage, languagesAvailable } from '../editor/code';
+import defaultCppCode from '../../assets/codes/cpp/run.cpp?raw';
+import defaultPythonCode from '../../assets/codes/python/run.py?raw';
+import defaultJavaCode from '../../assets/codes/java/Run.java?raw';
 
 export interface DailyChallengeStateType {
   dailyChallenge: DailyChallengeGetRequest;
@@ -20,9 +23,9 @@ const initialState: DailyChallengeStateType = {
     completionStatus: false,
   },
   pageType: 'Dashboard',
-  dcCode: '',
-  dcAllLanguagesCode: [],
-  codeLanguage: '',
+  dcCode: defaultCppCode,
+  dcAllLanguagesCode: [defaultCppCode, defaultPythonCode, defaultJavaCode],
+  codeLanguage: 'c_cpp',
 };
 
 export const dailyChallengeSlice = createSlice({

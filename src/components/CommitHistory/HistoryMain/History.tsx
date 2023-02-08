@@ -13,8 +13,10 @@ import {
 import {
   MapObj,
   changeHistoryEditorMap,
+  mapImagesByCommits,
+  addMapCommit,
 } from '../../../store/historyEditor/historyEditorSlice';
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import styles from './History.module.css';
 import CodeView from '../CodeMapViewbox/CodeView';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -32,9 +34,10 @@ export default function History(): JSX.Element {
   const [codeLanguage, setCodeLanguage] = useState('');
   const [currentMap, setCurrentMap] = useState<MapObj>({
     map: [],
-    mapImg: 'l',
+    mapImg: 'null',
   });
   const [currentCommitMessage, setCurrentCommitMessage] = useState<string>('');
+  const mapImagesByCommitIds = useAppSelector(mapImagesByCommits);
 
   const navigate = useNavigate();
 
@@ -88,19 +91,33 @@ export default function History(): JSX.Element {
     });
     completeMapHistory.forEach(mapData => {
       if (mapData.id == id) {
-        mapApi
-          .getMapByCommitID(mapData.id)
-          .then(resp => {
-            setCurrentMap({
-              map: JSON.parse(mapData.map),
-              mapImg: resp.mapImage,
-            });
-          })
-          .catch(mapError => {
-            if (mapError instanceof ApiError) {
-              Toast.error(mapError.message);
-            }
+        setCurrentCommitMessage(mapData.message);
+        if (mapImagesByCommitIds.some(obj => obj.CommitId == id)) {
+          setCurrentMap({
+            map: JSON.parse(mapData.map),
+            mapImg: mapImagesByCommitIds.find(obj => obj.CommitId === id).Image,
           });
+        } else {
+          mapApi
+            .getMapByCommitID(mapData.id)
+            .then(resp => {
+              setCurrentMap({
+                map: JSON.parse(mapData.map),
+                mapImg: resp.mapImage,
+              });
+              dispatch(
+                addMapCommit({
+                  CommitId: id,
+                  Image: resp.mapImage,
+                }),
+              );
+            })
+            .catch(mapError => {
+              if (mapError instanceof ApiError) {
+                Toast.error(mapError.message);
+              }
+            });
+        }
       }
     });
   };
@@ -135,6 +152,8 @@ export default function History(): JSX.Element {
       currentMap.map !== []
     ) {
       dispatch(changeHistoryEditorMap(currentMap));
+      toast.success(` Loaded commit - ${currentCommitMessage}`);
+      navigate('/mapdesigner', { replace: true });
     }
   };
 

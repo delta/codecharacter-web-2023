@@ -58,13 +58,11 @@ self.MonacoEnvironment = {
 
 export default function CodeEditor(props: Editor.Props): JSX.Element {
   const divCodeEditor = useRef<HTMLDivElement>(null);
-  // console.log(props.page);
   let editor: monaco.editor.IStandaloneCodeEditor;
   const userCode: string =
     props.page == 'Dashboard'
       ? useAppSelector(UserCode)
       : useAppSelector(dcCode);
-  // console.log(userCode)
   const fontSize: number = useAppSelector(FontSize);
   const theme: string = useAppSelector(Theme);
   const dispatch: React.Dispatch<unknown> = useAppDispatch();
@@ -74,11 +72,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const language = props.language;
 
   useEffect(() => {
-    console.log('rerendered');
-  }, []);
-
-  useEffect(() => {
-    console.log('ran');
     if (divCodeEditor.current) {
       editor = monaco.editor.create(divCodeEditor.current, {
         value: userCode,
@@ -108,7 +101,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     }
 
     editor.onDidChangeModelContent(() => {
-      console.log('its me boys');
       const codeNlanguage: CodeAndLanguage = {
         currentUserCode: editor.getValue(),
         currentUserLanguage: language,
@@ -118,7 +110,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       } else {
         dispatch(changeDcCode(codeNlanguage));
       }
-      console.log(userCode);
     });
 
     //Keybinding for save -> CTRL+S
@@ -128,7 +119,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       if (language === 'c_cpp') languageType = Language.Cpp;
       else if (language === 'python') languageType = Language.Python;
       else if (language === 'java') languageType = Language.Java;
-      console.log(userCode);
       codeAPI
         .updateLatestCode({
           codeType: props.page == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
@@ -213,7 +203,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   }, [fontSize, theme, language, keyboardHandler, props.page]);
 
   const userCodeChangeHandler = () => {
-    console.log('changed');
     const codeNlanguage: CodeAndLanguage = {
       currentUserCode: editor.getValue(),
       currentUserLanguage: language,
@@ -222,7 +211,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   };
 
   const dailyChallengeCodechange = () => {
-    console.log(userCode);
     const codeNlanguage: CodeAndLanguage = {
       currentUserCode: editor.getValue(),
       currentUserLanguage: language,

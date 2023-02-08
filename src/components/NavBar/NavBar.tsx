@@ -94,7 +94,6 @@ const NavBar: React.FunctionComponent = () => {
 
   const handleTake = () => {
     dispatch(changePageState('DailyChallenge'));
-    console.log('here');
     navigate('/dashboard', { replace: true });
     setShowAvailable(false);
     setShowCompleted(false);
