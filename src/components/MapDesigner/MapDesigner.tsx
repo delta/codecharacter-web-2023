@@ -85,7 +85,9 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
             lock: true,
           })
           .then(() => {
-            Toast.success('Map Submitted');
+            if (props.pageType == 'MapDesigner') {
+              Toast.success('Map Submitted');
+            }
           })
           .catch(error => {
             if (error instanceof ApiError) {

@@ -175,7 +175,9 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
             language: languageType,
           })
           .then(() => {
-            Toast.success('Code Submitted');
+            if (props.page == 'Dashboard') {
+              Toast.success('Code Submitted');
+            }
           })
           .catch(err => {
             if (err instanceof ApiError) Toast.error(err.message);

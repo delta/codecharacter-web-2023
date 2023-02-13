@@ -257,7 +257,9 @@ export default function Dashboard(): JSX.Element {
         language: languageType,
       })
       .then(() => {
-        Toast.success('Code Submitted');
+        if (pageState == 'Dashboard') {
+          Toast.success('Code Submitted');
+        }
       })
       .catch(err => {
         if (err instanceof ApiError) Toast.error(err.message);
