@@ -91,6 +91,14 @@ function PaginatedItems() {
       .catch(error => {
         if (error instanceof ApiError) Toast.error(error.message);
       });
+    leaderboardAPI
+      .getLeaderboard(pageNum + 1, itemsPerPage)
+      .then(response => {
+        setNextItems(response);
+      })
+      .catch(error => {
+        if (error instanceof ApiError) Toast.error(error.message);
+      });
   };
 
   async function handleMatchStart() {
