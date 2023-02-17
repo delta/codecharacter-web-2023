@@ -8,6 +8,7 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { getAvatarByID } from '../Avatar/Avatar';
 import { Match, Verdict } from '@codecharacter-2023/client';
 import { User, user } from '../../store/User/UserSlice';
+import { Table } from 'react-bootstrap';
 
 function getIcon(loggedInUser: User, match: Match) {
   if (loggedInUser.username === match.user1.username) {
