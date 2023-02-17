@@ -2,9 +2,8 @@ import * as Editor from './EditorTypes';
 import styles from './style.module.css';
 import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
-import { CodeApi, Language } from '@codecharacter-2023/client';
-import { apiConfig, ApiError } from '../../api/ApiConfig';
-import Toast from 'react-hot-toast';
+import { CodeApi } from '@codecharacter-2023/client';
+import { apiConfig } from '../../api/ApiConfig';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -27,8 +26,6 @@ import {
   mapCommitIDChanged,
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
-
-const codeAPI: CodeApi = new CodeApi(apiConfig);
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (_moduleId: string, label: string) {
