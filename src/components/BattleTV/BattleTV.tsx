@@ -12,7 +12,6 @@ import {
   changePageState,
   changeSimulationState,
 } from '../../store/DailyChallenge/dailyChallenge';
-import { Table } from 'react-bootstrap';
 
 function getIcon(loggedInUser: User, match: Match) {
   if (loggedInUser.username === match.user1.username) {
