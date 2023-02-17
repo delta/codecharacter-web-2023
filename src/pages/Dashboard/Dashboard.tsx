@@ -83,6 +83,9 @@ export default function Dashboard(): JSX.Element {
     }
   };
 
+  const saveButtonRef = useRef<HTMLButtonElement>(null);
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     const splitPaneState: SplitPaneState = {
       horizontalPercent,
@@ -269,6 +272,7 @@ export default function Dashboard(): JSX.Element {
                   <button
                     className={styles.toolbarButtonSave}
                     onClick={handleSave}
+                    ref={saveButtonRef}
                   >
                     <FontAwesomeIcon icon={faSave as IconProp} /> Save
                   </button>
@@ -293,6 +297,7 @@ export default function Dashboard(): JSX.Element {
                   <button
                     className={styles.toolbarButton}
                     onClick={handleSubmit}
+                    ref={submitButtonRef}
                   >
                     <FontAwesomeIcon icon={faCloudUploadAlt as IconProp} />{' '}
                     Submit
@@ -350,7 +355,11 @@ export default function Dashboard(): JSX.Element {
             </div>
           </ButtonToolbar>
           <div className={styles.editorContainer}>
-            <Editor language={userLanguage} />
+            <Editor
+              language={userLanguage}
+              SaveRef={saveButtonRef}
+              SubmitRef={submitButtonRef}
+            />
           </div>
         </div>
         <SplitPane
