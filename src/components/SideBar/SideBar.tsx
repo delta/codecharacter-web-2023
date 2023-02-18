@@ -123,6 +123,7 @@ const SideBar: React.FunctionComponent = () => {
                 <a
                   href="https://codecharacter-docs-2022.vercel.app/"
                   rel="noreferrer noopener"
+                  target="_blank"
                 >
                   <img
                     src={documentationIcon}

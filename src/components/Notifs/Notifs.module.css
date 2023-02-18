@@ -44,7 +44,7 @@
   max-height: 400px;
   max-width: 350px;
   width: 70vw;
-  background-color: #2A2A2A;
+  background-color: #1e1e1e;
   top: 50px;
   left: -230px;
   border-radius: 8px;
@@ -76,7 +76,7 @@
 .notif {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   padding: 0.7rem;
-  background-color: #4e504d;
+  background-color: #2A2A2A;
   border-radius: 8px;
   box-sizing: content-box;
   margin: 10px;

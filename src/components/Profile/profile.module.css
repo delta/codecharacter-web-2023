@@ -6,7 +6,7 @@
 }
 
 .Container {
-    width: 40rem;
+    width: 35rem;
     border-radius: 0.5rem;
     align-self: center;
     display: flex;
@@ -40,6 +40,12 @@
     color: #EAEAEA;
     margin-bottom: 2rem;
     text-align: center;
+}
+
+.label{
+    font-family: 'Roboto Mono';
+    font-size: 18px;
+    color: #eaeaea;
 }
 
 .profileContainer {
@@ -76,7 +82,7 @@
 .flagContainer {
     background-color: white;
     border-radius: 5px;
-    height: 65px;
+    height: 55px;
     color: black;
 }
 .flagContainer > button {
@@ -86,7 +92,7 @@
 
 .flagContainer > ul {
     background-color: #232627;
-    width: 580px;
+    width: 500px;
 }
 
 .flagContainer > ul > div {
@@ -96,16 +102,17 @@
 .footer {
     text-align: center;
     display: flex;
-    justify-content: space-around; 
+    flex-direction: column-reverse;
+    align-items: center;
 }
 
 .submitContainer {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Roboto Mono';
     text-align: center;
-    font-size: 30px;
-    border-radius: 3px;
+    font-size: 25px;
+    border-radius: 1px;
     margin-bottom: 25px;
-    background-color: rgba(255, 255, 255, 0);
+    background-color:transparent;
     color: #aaaaaa;
     border: 3px solid #AAAAAA;
     transition: all 0.4s ease;
@@ -150,14 +157,15 @@
 .linkButton {
     text-decoration: none;
     color: #AAAAAA;
-    font-size: 28px;
+    font-family: 'Roboto Mono';
+    font-size: 23px;
     display: flex;
     align-items: center;
-    gap: 8px;
 }
 
 .linkButton:hover {
     color: white;
+    text-decoration: underline;
 }
 
 .linkButton:active {
@@ -220,7 +228,7 @@
 .inputField{
     border: 2px #AAAAAA solid !important;
     background-color: rgba(255, 255, 255, 0);
-    font-size: 30px;
+    font-size: 25px;
     border-radius: 1px;
     color: #AAAAAA;
     font-family: 'Roboto Mono', monospace;

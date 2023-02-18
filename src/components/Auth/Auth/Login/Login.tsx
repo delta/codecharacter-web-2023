@@ -95,7 +95,7 @@ function Login(): JSX.Element {
         </div>
         <form className={styles.formContainer}>
           <div className={styles.loginCredentialsContainer}>
-            <div className={styles.inputContainer}>
+            <div>
               <input
                 type="text"
                 value={email}
@@ -104,7 +104,7 @@ function Login(): JSX.Element {
                 placeholder="EMAIL  &#xf0e0; "
               />
             </div>
-            <div className={styles.inputContainer}>
+            <div>
               <input
                 type="password"
                 value={password}
@@ -132,6 +132,7 @@ function Login(): JSX.Element {
           <div>
             <div>
               <button
+                type="button"
                 className={styles.loginButton}
                 onClick={handleLoginSubmit}
               >

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './SelfMatchModalStyle.module.css';
-import { FormGroup, Col, Container, Row, Modal, Button } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import { FormGroup, Col, Container, Row, Modal } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   isSelfMatchModalOpen,
@@ -119,7 +120,7 @@ const selfMatchModal = (): JSX.Element => {
       onHide={() => dispatch(isSelfMatchModalOpened(false))}
     >
       <Modal.Header className={styles.selfMatchModalHeader} closeButton>
-        <Modal.Title className="fw-bold fs-3">Self Match</Modal.Title>
+        <Modal.Title className="fw-bold fs-3">SELF MATCH</Modal.Title>
       </Modal.Header>
 
       <Modal.Body className={styles.selfMatchModalBody}>
@@ -183,13 +184,16 @@ const selfMatchModal = (): JSX.Element => {
                   ))}
                 </select>
               </FormGroup>
-              <Button
-                className={styles.selfMatchModalSimulateBtn}
-                variant="success"
-                onClick={handleSimulate}
-              >
-                Simulate
-              </Button>
+              <div>
+                <Button
+                  className={styles.selfMatchModalSimulateBtn}
+                  size="lg"
+                  onClick={handleSimulate}
+                  variant="outline-light"
+                >
+                  SIMULATE
+                </Button>
+              </div>
             </Col>
           </Row>
         </Container>

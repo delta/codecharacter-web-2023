@@ -232,19 +232,23 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
             )}
           </Container>
           <Container fluid className={styles.buttonRow}>
-            <button
+            <Button
               className={styles.modalButton}
+              size="lg"
               onClick={() => {
                 compressImage('save');
               }}
+              variant="outline-light"
             >
-              Save
-            </button>
-            <button
+              SAVE
+            </Button>
+            <Button
               className={styles.modalButton}
+              size="lg"
               onClick={() => {
                 compressImage('submit');
               }}
+              variant="outline-light"
             >
               Submit
             </button>

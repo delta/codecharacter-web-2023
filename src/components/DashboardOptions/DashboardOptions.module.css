@@ -1,3 +1,6 @@
 .dropdown a:active {
-    background-color: #2A2A2A;
+    background-color: #232627;
+}
+.dropdownMenu{
+    background-color: #1e1e1e !important;
 }

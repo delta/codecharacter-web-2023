@@ -20,7 +20,8 @@
 
 .delta {
   display: flex;
-  background-color: #000000;
+  background-color: rgba(30, 30, 30, 0.87);
+
 }
 
 .delta > div {
@@ -34,7 +35,7 @@
 }
 
 .heart {
-  color: red;
+  color: #aaaaaa;
 }
 
 .arrow{

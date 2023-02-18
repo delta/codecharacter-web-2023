@@ -1,6 +1,6 @@
 import { CodeApi, Language } from '@codecharacter-2023/client';
 import React, { useState } from 'react';
-import { Button, Form, FormControl, Modal, Row } from 'react-bootstrap';
+import { Button, Form, Modal, Row } from 'react-bootstrap';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { UserCode, UserLanguage } from '../../store/editor/code';
 
@@ -21,8 +21,6 @@ const CommitModal = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const codeAPI = new CodeApi(apiConfig);
-
-  const newLocal = 'fw-bold fs-3';
 
   const [commitName, setCommitName] = useState('');
 
@@ -59,13 +57,13 @@ const CommitModal = (): JSX.Element => {
       onHide={() => dispatch(isCommitModalOpened(false))}
     >
       <Modal.Header className={styles.editorInfoHeader} closeButton>
-        <Modal.Title className={newLocal}>Commit </Modal.Title>
+        <Modal.Title className={'fw-bold fs-3'}>COMMIT </Modal.Title>
       </Modal.Header>
 
       <Modal.Body className={styles.editorInfoBody}>
         <Row>
           <Form>
-            <FormControl
+            <input
               type="text"
               placeholder="Enter Commit Message"
               value={commitName}
@@ -74,10 +72,11 @@ const CommitModal = (): JSX.Element => {
             />
             <Button
               className={styles.commitModalbtn}
-              variant="success"
+              size="lg"
               onClick={handleCommit}
+              variant="outline-light"
             >
-              Submit
+              COMMIT
             </Button>
           </Form>
         </Row>

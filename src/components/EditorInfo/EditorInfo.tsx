@@ -18,7 +18,6 @@ const EditorInfo = (): JSX.Element => {
 
   const dispatch = useAppDispatch();
 
-  const newLocal = 'fw-bold fs-3';
   return (
     <Modal
       show={isInfoOpen}

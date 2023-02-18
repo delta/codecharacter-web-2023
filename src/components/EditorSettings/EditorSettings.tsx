@@ -39,7 +39,7 @@ const EditorSettings = (): JSX.Element => {
       onHide={() => dispatch(isSettingsOpened(false))}
     >
       <Modal.Header className={styles.editorSettingsHeader} closeButton>
-        <Modal.Title className="fw-bold fs-3">Settings</Modal.Title>
+        <Modal.Title className="fw-bold fs-3">SETTINGS</Modal.Title>
       </Modal.Header>
 
       <Modal.Body className={styles.editorSettingsBody}>

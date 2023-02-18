@@ -1,4 +1,5 @@
 import { Modal, Button } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 import styles from './DcModals.module.css';
 import { DcProps } from './DcModalTypes';
 
@@ -9,7 +10,7 @@ const DcCompleted = (props: DcProps) => {
       onHide={props.handleClose}
       contentClassName={styles.dcmodal}
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton className={styles.dcmodalHeader}>
         <Modal.Title>Daily Challenge</Modal.Title>
       </Modal.Header>
       <Modal.Body>
