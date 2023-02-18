@@ -1,0 +1,8 @@
+.mask {
+    opacity: 0.8 !important;
+}
+
+.highlightedMask{
+    border: solid 1px white !important;
+    box-shadow: 5px;
+}

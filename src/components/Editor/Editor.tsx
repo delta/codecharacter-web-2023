@@ -2,6 +2,7 @@ import * as Editor from './EditorTypes';
 import styles from './style.module.css';
 import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
+import { useTour } from '@reactour/tour';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -52,7 +53,10 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
 
   const language = props.language;
 
+  const { setIsOpen } = useTour();
+
   useEffect(() => {
+    setIsOpen(true);
     if (divCodeEditor.current) {
       editor = monaco.editor.create(divCodeEditor.current, {
         value: userCode,

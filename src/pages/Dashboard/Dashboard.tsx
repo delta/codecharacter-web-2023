@@ -2,6 +2,8 @@ import { CodeApi, Language } from '@codecharacter-2023/client';
 import { RendererComponent } from '@codecharacter-2023/renderer';
 import Toast from 'react-hot-toast';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import Tour from '../../components/TourProvider/TourProvider';
+
 import {
   faChevronLeft,
   faChevronRight,
@@ -12,19 +14,23 @@ import {
   faGear,
   faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { useEffect, useRef, useState } from 'react';
 import { Button, ButtonToolbar, Col, Form, Row } from 'react-bootstrap';
 import SplitPane from 'react-split-pane';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Editor from '../../components/Editor/Editor';
 import Terminal from '../../components/Terminal/Terminal';
+
 import {
   changeLanguage,
   initializeEditorStates,
   UserCode,
   UserLanguage,
 } from '../../store/editor/code';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import styles from './Dashboard.module.css';
 import './Dashboard.css';
@@ -35,6 +41,7 @@ import {
   mapCommitIDChanged,
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
+
 import { loggedIn } from '../../store/User/UserSlice';
 
 import {
@@ -45,6 +52,8 @@ import {
   Theme,
   IsCommitModalOpen,
   isCommitModalOpened,
+  IsTourOpen,
+  isTourOpened,
 } from '../../store/EditorSettings/settings';
 
 type SplitPaneState = {
@@ -225,174 +234,189 @@ export default function Dashboard(): JSX.Element {
       });
   };
 
-  return (
-    <main className={styles.mainContainer} ref={mainContainerRef}>
-      <SplitPane
-        split="vertical"
-        onChange={(size: number) => {
-          if (mainContainerRef.current) {
-            setHorizontalPercent(
-              `${((size / mainContainerRef.current?.clientWidth) * 100).toFixed(
-                0,
-              )}%`,
-            );
-          }
-        }}
-        size={horizontalPercent}
-        allowResize={true}
-      >
-        <div className={styles.leftPane}>
-          <ButtonToolbar
-            className={
-              styles.toolbar +
-              (theme == 'vs-dark'
-                ? ' vs-dark'
-                : theme == 'vs-light'
-                ? ' vs'
-                : ' hc-black')
-            }
-            as={Row}
-          >
-            <div className={styles.mainDiv}>
-              <Col className={styles.toolbarColumn1} sm="1">
-                <Form.Select
-                  className={styles.toolbarButton1}
-                  value={languageChose}
-                  onChange={e => handleLanguageChange(e.target.value)}
-                >
-                  {languages.map(language => (
-                    <option value={language} key={language}>
-                      {language}
-                    </option>
-                  ))}
-                </Form.Select>
-              </Col>
-              <div className={styles.midDiv}>
-                <Col className={styles.toolbarColumn} sm="1">
-                  <button
-                    className={styles.toolbarButton}
-                    onClick={handleSave}
-                    ref={saveButtonRef}
-                  >
-                    <FontAwesomeIcon title={'Save'} icon={faSave as IconProp} />
-                  </button>
-                </Col>
-                <Col className={styles.toolbarColumn} sm="1">
-                  <button
-                    className={styles.toolbarButton}
-                    onClick={handleSimulate}
-                  >
-                    <FontAwesomeIcon
-                      title={'Simulate'}
-                      icon={faPlay as IconProp}
-                    />
-                  </button>
-                </Col>
-                <Col className={styles.toolbarColumn} sm="1">
-                  <button
-                    className={styles.toolbarButton}
-                    onClick={handleOpenCommitModal}
-                  >
-                    <FontAwesomeIcon
-                      title={'Commit'}
-                      icon={faCodeBranch as IconProp}
-                    />
-                  </button>
-                </Col>
-                <Col className={styles.toolbarColumn} sm="1">
-                  <button
-                    className={styles.toolbarButton}
-                    onClick={handleSubmit}
-                    ref={submitButtonRef}
-                  >
-                    <FontAwesomeIcon
-                      title={'Submit'}
-                      icon={faCloudUploadAlt as IconProp}
-                    />
-                  </button>
-                </Col>
-              </div>
-            </div>
-            <div>
-              <div className={styles.settingsIconDiv}>
-                <div className={styles.settingsIcon}>
-                  <FontAwesomeIcon
-                    title={'Settings'}
-                    icon={faGear as IconProp}
-                    color={'#cbcbcb'}
-                    onClick={handleOpenSettings}
-                    className={styles.hoverIcon}
-                  />
-                </div>
+  const isTourOpen = useAppSelector(IsTourOpen);
 
-                <div className={styles.settingsIcon}>
-                  <FontAwesomeIcon
-                    title={'Shorcuts'}
-                    icon={faCircleInfo as IconProp}
-                    color={'#cbcbcb'}
-                    onClick={handleOpenInfo}
-                    className={styles.hoverIcon}
-                  />
+  const [isOpen, setOpened] = useState(true);
+
+  return (
+    <>
+      {/* <Tour
+        steps={tourSteps}
+        isOpen={isTourOpen}
+        onRequestClose={() => {
+          dispatch(isTourOpened(false));
+        }}
+      /> */}
+      <Tour setOpened={setOpened}>
+        <main className={styles.mainContainer} ref={mainContainerRef}>
+          <SplitPane
+            split="vertical"
+            onChange={(size: number) => {
+              if (mainContainerRef.current) {
+                setHorizontalPercent(
+                  `${(
+                    (size / mainContainerRef.current?.clientWidth) *
+                    100
+                  ).toFixed(0)}%`,
+                );
+              }
+            }}
+            size={horizontalPercent}
+            allowResize={true}
+            minSize={520}
+          >
+            <div className={styles.leftPane}>
+              <ButtonToolbar
+                className={
+                  styles.toolbar +
+                  (theme == 'vs-dark'
+                    ? ' vs-dark'
+                    : theme == 'vs-light'
+                    ? ' vs'
+                    : ' hc-black')
+                }
+                as={Row}
+                id="four"
+              >
+                <div className={styles.mainDiv}>
+                  <Col className={styles.toolbarColumn1} sm="1">
+                    <Form.Select
+                      className={styles.toolbarButton1}
+                      value={languageChose}
+                      onChange={e => handleLanguageChange(e.target.value)}
+                    >
+                      {languages.map(language => (
+                        <option value={language} key={language}>
+                          {language}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  </Col>
+                  <div className={styles.midDiv}>
+                    <Col className={styles.toolbarColumn} sm="1">
+                      <button
+                        className={styles.toolbarButton}
+                        onClick={handleSave}
+                        ref={saveButtonRef}
+                        title={'Save'}
+                      >
+                        <FontAwesomeIcon icon={faSave as IconProp} />
+                      </button>
+                    </Col>
+                    <Col className={styles.toolbarColumn} sm="1">
+                      <button
+                        className={styles.toolbarButton}
+                        onClick={handleSimulate}
+                        title={'Simulate'}
+                      >
+                        <FontAwesomeIcon icon={faPlay as IconProp} />
+                      </button>
+                    </Col>
+                    <Col className={styles.toolbarColumn} sm="1">
+                      <button
+                        className={styles.toolbarButton}
+                        onClick={handleOpenCommitModal}
+                        title={'Commit'}
+                      >
+                        <FontAwesomeIcon icon={faCodeBranch as IconProp} />
+                      </button>
+                    </Col>
+                    <Col className={styles.toolbarColumn} sm="1">
+                      <button
+                        className={styles.toolbarButton}
+                        onClick={handleSubmit}
+                        ref={submitButtonRef}
+                        title={'Submit'}
+                      >
+                        <FontAwesomeIcon icon={faCloudUploadAlt as IconProp} />
+                      </button>
+                    </Col>
+                  </div>
                 </div>
+                <div>
+                  <div className={styles.settingsIconDiv}>
+                    <div className={styles.settingsIcon} title={'Settings'}>
+                      <FontAwesomeIcon
+                        icon={faGear as IconProp}
+                        color={'#cbcbcb'}
+                        onClick={handleOpenSettings}
+                        className={styles.hoverIcon}
+                      />
+                    </div>
+
+                    <div className={styles.settingsIcon} title={'Shortcuts'}>
+                      <FontAwesomeIcon
+                        icon={faCircleInfo as IconProp}
+                        color={'#cbcbcb'}
+                        onClick={handleOpenInfo}
+                        className={styles.hoverIcon}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <Button
+                    className={styles.closeEditorButton}
+                    onClick={() => {
+                      updateDividerPosition(dividerPosition - 1);
+                    }}
+                    variant="dark"
+                  >
+                    <FontAwesomeIcon
+                      size={'sm'}
+                      icon={faChevronLeft as IconProp}
+                    />
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    className={styles.closeRendererButton}
+                    onClick={() => {
+                      updateDividerPosition(dividerPosition + 1);
+                    }}
+                    variant="dark"
+                  >
+                    <FontAwesomeIcon
+                      size={'sm'}
+                      icon={faChevronRight as IconProp}
+                    />
+                  </Button>
+                </div>
+              </ButtonToolbar>
+              <div className={styles.editorContainer} id="first">
+                <Editor
+                  language={userLanguage}
+                  SaveRef={saveButtonRef}
+                  SubmitRef={submitButtonRef}
+                />
               </div>
             </div>
-            <div>
-              <Button
-                className={styles.closeEditorButton}
-                onClick={() => {
-                  updateDividerPosition(dividerPosition - 1);
-                }}
-                variant="dark"
-              >
-                <FontAwesomeIcon size={'sm'} icon={faChevronLeft as IconProp} />
-              </Button>
-            </div>
-            <div>
-              <Button
-                className={styles.closeRendererButton}
-                onClick={() => {
-                  updateDividerPosition(dividerPosition + 1);
-                }}
-                variant="dark"
-              >
-                <FontAwesomeIcon
-                  size={'sm'}
-                  icon={faChevronRight as IconProp}
-                />
-              </Button>
-            </div>
-          </ButtonToolbar>
-          <div className={styles.editorContainer}>
-            <Editor
-              language={userLanguage}
-              SaveRef={saveButtonRef}
-              SubmitRef={submitButtonRef}
-            />
-          </div>
-        </div>
-        <SplitPane
-          split="horizontal"
-          size={verticalPercent}
-          allowResize={true}
-          onChange={(size: number) => {
-            if (mainContainerRef.current) {
-              setVerticalPercent(
-                `${(
-                  (size / mainContainerRef.current?.clientHeight) *
-                  100
-                ).toFixed(0)}%`,
-              );
-            }
-          }}
-        >
-          <div className={styles.rightPane}>
-            <RendererComponent />
-          </div>
-          <div className={styles.rightPane}>
-            <Terminal />
-          </div>
-        </SplitPane>
-      </SplitPane>
-    </main>
+            <SplitPane
+              split="horizontal"
+              size={verticalPercent}
+              allowResize={true}
+              onChange={(size: number) => {
+                if (mainContainerRef.current) {
+                  setVerticalPercent(
+                    `${(
+                      (size / mainContainerRef.current?.clientHeight) *
+                      100
+                    ).toFixed(0)}%`,
+                  );
+                }
+              }}
+              className="second"
+            >
+              <div className={styles.rightPane}>
+                <RendererComponent />
+              </div>
+              <div className={styles.rightPane} id="third">
+                <Terminal />
+              </div>
+            </SplitPane>
+          </SplitPane>
+        </main>
+      </Tour>
+    </>
   );
 }
