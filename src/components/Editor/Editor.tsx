@@ -2,9 +2,6 @@ import * as Editor from './EditorTypes';
 import styles from './style.module.css';
 import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
-import { CodeApi, Language } from '@codecharacter-2023/client';
-import { apiConfig, ApiError } from '../../api/ApiConfig';
-import Toast from 'react-hot-toast';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -27,8 +24,6 @@ import {
   mapCommitIDChanged,
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
-
-const codeAPI: CodeApi = new CodeApi(apiConfig);
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (_moduleId: string, label: string) {
@@ -77,7 +72,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         lineDecorationsWidth: 10,
         automaticLayout: true,
         theme:
-          theme == 'hc-black'
+          theme == 'high-contrast-black'
             ? 'hc-black'
             : theme == 'vs-light'
             ? 'vs'
@@ -97,23 +92,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     //Keybinding for save -> CTRL+S
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function () {
-      let languageType: Language = Language.Cpp;
-      if (language === 'c_cpp') languageType = Language.Cpp;
-      else if (language === 'python') languageType = Language.Python;
-      else if (language === 'java') languageType = Language.Java;
-
-      codeAPI
-        .updateLatestCode({
-          code: userCode,
-          lock: false,
-          language: languageType,
-        })
-        .then(() => {
-          Toast.success('Code Saved');
-        })
-        .catch(err => {
-          if (err instanceof ApiError) Toast.error(err.message);
-        });
+      props.SaveRef.current?.click();
     });
 
     //Keybinding for Simulate -> CTRL+ALT+N
@@ -140,23 +119,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     editor.addCommand(
       monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyS,
       function () {
-        let languageType: Language = Language.Cpp;
-        if (language === 'c_cpp') languageType = Language.Cpp;
-        else if (language === 'python') languageType = Language.Python;
-        else if (language === 'java') languageType = Language.Java;
-
-        codeAPI
-          .updateLatestCode({
-            code: userCode,
-            lock: true,
-            language: languageType,
-          })
-          .then(() => {
-            Toast.success('Code Submitted');
-          })
-          .catch(err => {
-            if (err instanceof ApiError) Toast.error(err.message);
-          });
+        props.SubmitRef.current?.click();
       },
     );
 
