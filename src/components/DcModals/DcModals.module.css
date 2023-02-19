@@ -4,6 +4,7 @@
     color: #aaaaaa;
     font-family: 'Poppins';
     font-weight: 400;
+    font-size: 18px;
   }
 
 .dcmodal > *{
@@ -13,9 +14,6 @@
 .dcmodalHeader{
     background-color: #232627;
     backdrop-filter: blur(100px);
-    color: #aaaaaa;
-    font-family: 'Poppins';
-    font-size: 18px;
     height: 9vh;
     border: 0px;
 }

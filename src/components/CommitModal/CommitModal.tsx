@@ -56,8 +56,14 @@ const CommitModal = (): JSX.Element => {
       centered
       onHide={() => dispatch(isCommitModalOpened(false))}
     >
-      <Modal.Header className={styles.editorInfoHeader} closeButton>
+      <Modal.Header className={styles.editorInfoHeader}>
         <Modal.Title className={'fw-bold fs-3'}>COMMIT </Modal.Title>
+        <button
+          type="button"
+          className="btn-close btn-close-white"
+          aria-label="Close"
+          onClick={() => dispatch(isCommitModalOpened(false))}
+        ></button>
       </Modal.Header>
 
       <Modal.Body className={styles.editorInfoBody}>

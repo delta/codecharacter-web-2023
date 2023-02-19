@@ -119,8 +119,14 @@ const selfMatchModal = (): JSX.Element => {
       centered
       onHide={() => dispatch(isSelfMatchModalOpened(false))}
     >
-      <Modal.Header className={styles.selfMatchModalHeader} closeButton>
+      <Modal.Header className={styles.selfMatchModalHeader}>
         <Modal.Title className="fw-bold fs-3">SELF MATCH</Modal.Title>
+        <button
+          type="button"
+          className="btn-close btn-close-white"
+          aria-label="Close"
+          onClick={() => dispatch(isSelfMatchModalOpened(false))}
+        ></button>
       </Modal.Header>
 
       <Modal.Body className={styles.selfMatchModalBody}>

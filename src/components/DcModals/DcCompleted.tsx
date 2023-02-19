@@ -10,8 +10,14 @@ const DcCompleted = (props: DcProps) => {
       onHide={props.handleClose}
       contentClassName={styles.dcmodal}
     >
-      <Modal.Header closeButton className={styles.dcmodalHeader}>
+      <Modal.Header className={styles.dcmodalHeader}>
         <Modal.Title>Daily Challenge</Modal.Title>
+        <button
+          type="button"
+          className="btn-close btn-close-white"
+          aria-label="Close"
+          onClick={props.handleClose}
+        ></button>
       </Modal.Header>
       <Modal.Body>
         Woohoo, you&apos;ve completed today&apos;s Challenge!

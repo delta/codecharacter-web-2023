@@ -43,14 +43,14 @@
   flex-direction: row;
 }
 .modalButton {
-  color: #ffffff;
+  color: #aaaaaa;
     height: 5vh;
     font-weight: 400;
     font-size: 18px;
     text-align: center;
     background-color: inherit;
     padding: 2px 20px 2px 20px;
-    border: 1px solid white;
+    border: 1px solid #aaaaaa;
     border-radius: 5px;
     font-family: 'Poppins';
     margin-top: 10px;
