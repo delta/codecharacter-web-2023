@@ -12,7 +12,7 @@ import Toast from 'react-hot-toast';
 import { getLogAction } from '../../store/rendererLogs/logSlice';
 import { useAppDispatch } from '../../store/hooks';
 import { BASE_PATH } from '../../config/config';
-import { changePageState } from '../../store/DailyChallenge/dailyChallenge';
+import { changeSimulationState } from '../../store/DailyChallenge/dailyChallenge';
 
 export const Websocket: React.FunctionComponent = () => {
   const currentUserapi = new CurrentUserApi(apiConfig);
@@ -35,7 +35,7 @@ export const Websocket: React.FunctionComponent = () => {
           case GameStatus.Executed:
             Toast.success('Executed successfully!');
             // TODO: find non-hacky way to do this
-            dispatch(changePageState('Dashboard'));
+            dispatch(changeSimulationState(true));
             dispatch(
               getLogAction({
                 id: game.id,
@@ -45,6 +45,7 @@ export const Websocket: React.FunctionComponent = () => {
             break;
           case GameStatus.ExecuteError:
             Toast.error('Execution error!');
+            dispatch(changeSimulationState(true));
             dispatch(
               getLogAction({
                 id: game.id,

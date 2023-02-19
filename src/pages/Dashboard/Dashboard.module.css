@@ -13,7 +13,6 @@
 .toolbar {
     justify-content: space-between;
     position: relative;
-    /* flex-wrap: wrap; */
 }
 
 .mainDiv {
@@ -187,6 +186,10 @@
     height: 100vh;
     flex-grow: 1;
     overflow-y: auto;
+}
+
+.editorContainer > * {
+    height: 100%;
 }
 
 .editorContainer::-webkit-scrollbar{

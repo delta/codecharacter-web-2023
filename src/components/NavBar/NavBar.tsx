@@ -25,6 +25,7 @@ import DcCompleted from '../DcModals/DcCompleted';
 import DcAvailable from '../DcModals/DcAvailable';
 import {
   changePageState,
+  changeSimulationState,
   dailyChallengeCompletionState,
 } from '../../store/DailyChallenge/dailyChallenge';
 
@@ -91,6 +92,7 @@ const NavBar: React.FunctionComponent = () => {
 
   const handleTake = () => {
     dispatch(changePageState('DailyChallenge'));
+    dispatch(changeSimulationState(false));
     navigate('/dashboard', { replace: true });
     setShowAvailable(false);
     setShowCompleted(false);

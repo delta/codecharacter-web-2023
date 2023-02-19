@@ -49,13 +49,7 @@ export default function History(): JSX.Element {
       .getCodeRevisions()
       .then(codeResp => {
         setCodeFetched(true);
-        setCodeHistory(
-          codeResp.sort((a, b) => {
-            if (a.createdAt < b.createdAt) return -1;
-            else if (a.createdAt > b.createdAt) return 1;
-            else return 0;
-          }),
-        );
+        setCodeHistory(codeResp);
       })
       .catch(codeError => {
         if (codeError instanceof ApiError) {
@@ -67,7 +61,7 @@ export default function History(): JSX.Element {
       .getMapRevisions()
       .then(mapResp => {
         setMapFetched(true);
-        setMapHistory(mapResp.reverse());
+        setMapHistory(mapResp);
       })
       .catch(mapError => {
         if (mapError instanceof ApiError) {

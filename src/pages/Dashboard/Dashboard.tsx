@@ -59,6 +59,7 @@ import {
   changeDcLanguage,
   dcCodeLanguage,
   dcCode,
+  dcSimulation,
 } from '../../store/DailyChallenge/dailyChallenge';
 
 type SplitPaneState = {
@@ -113,6 +114,8 @@ export default function Dashboard(): JSX.Element {
   const dispatch = useAppDispatch();
   const dailyChallenge = useAppSelector(dailyChallengeState);
   const pageState = useAppSelector(dailyChallengePageState);
+  const dailyChallengeSimulationState = useAppSelector(dcSimulation);
+  // const [dcQuestionLanguage,setDcQuestionLanguage] = useState("cpp")
   const userLanguage =
     pageState == 'Dashboard'
       ? useAppSelector(UserLanguage)
@@ -136,9 +139,13 @@ export default function Dashboard(): JSX.Element {
       dailyChallengeAPI
         .getDailyChallenge()
         .then(response => {
+          console.log(response.chall);
+          console.log(JSON.parse(response.chall));
           dispatch(initializeDailyChallengeState(response));
         })
         .catch(err => {
+          console.log(err);
+          console.log('dshbfhksdf');
           if (err instanceof ApiError) Toast.error(err.message);
         });
     }
@@ -462,8 +469,16 @@ export default function Dashboard(): JSX.Element {
               <Editor language={userLanguage} page={pageState} />
             ) : (
               <CodeBlock
-                text={dailyChallenge.chall}
-                language="cpp"
+                text={
+                  languageChose == 'C++'
+                    ? JSON.parse(dailyChallenge.chall).cpp
+                    : languageChose == 'Python'
+                    ? JSON.parse(dailyChallenge.chall).python
+                    : JSON.parse(dailyChallenge.chall).java
+                }
+                language={
+                  languageChose == 'C++' ? 'cpp' : languageChose.toLowerCase()
+                }
                 showLineNumbers={dailyChallenge.chall != '' ? true : false}
                 theme={irBlack}
               />
@@ -472,8 +487,16 @@ export default function Dashboard(): JSX.Element {
         </div>
         <SplitPane
           split="horizontal"
-          size={pageState == 'Dashboard' ? verticalPercent : '100%'}
-          allowResize={pageState == 'Dashboard' ? true : false}
+          size={
+            pageState == 'Dashboard' || dailyChallengeSimulationState
+              ? verticalPercent
+              : '100%'
+          }
+          allowResize={
+            pageState == 'Dashboard' || dailyChallengeSimulationState
+              ? true
+              : false
+          }
           onChange={(size: number) => {
             if (mainContainerRef.current) {
               setVerticalPercent(
@@ -486,7 +509,7 @@ export default function Dashboard(): JSX.Element {
           }}
         >
           <div className={styles.rightPane}>
-            {pageState == 'Dashboard' ? (
+            {pageState == 'Dashboard' || dailyChallengeSimulationState ? (
               <RendererComponent />
             ) : dailyChallenge.challType == 'MAP' ? (
               <>
@@ -502,7 +525,11 @@ export default function Dashboard(): JSX.Element {
             )}
           </div>
           <div className={styles.rightPane}>
-            {pageState == 'Dashboard' ? <Terminal /> : <></>}
+            {pageState == 'Dashboard' || dailyChallengeSimulationState ? (
+              <Terminal />
+            ) : (
+              <></>
+            )}
           </div>
         </SplitPane>
       </SplitPane>

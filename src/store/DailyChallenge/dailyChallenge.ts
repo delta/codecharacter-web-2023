@@ -12,6 +12,8 @@ export interface DailyChallengeStateType {
   dcCode: string;
   dcAllLanguagesCode: string[];
   codeLanguage: string;
+  dcMap: Array<Array<number>>;
+  isSimulating: boolean;
 }
 
 const initialState: DailyChallengeStateType = {
@@ -26,6 +28,8 @@ const initialState: DailyChallengeStateType = {
   dcCode: defaultCppCode,
   dcAllLanguagesCode: [defaultCppCode, defaultPythonCode, defaultJavaCode],
   codeLanguage: 'c_cpp',
+  dcMap: [],
+  isSimulating: false,
 };
 
 export const dailyChallengeSlice = createSlice({
@@ -64,6 +68,12 @@ export const dailyChallengeSlice = createSlice({
       state.dcCode = state.dcAllLanguagesCode[desiredIndex];
       state.codeLanguage = action.payload;
     },
+    changeDcMap: (state, action: PayloadAction<Array<Array<number>>>) => {
+      state.dcMap = action.payload;
+    },
+    changeSimulationState: (state, action: PayloadAction<boolean>) => {
+      state.isSimulating = action.payload;
+    },
   },
 });
 
@@ -72,6 +82,8 @@ export const {
   changePageState,
   changeDcCode,
   changeDcLanguage,
+  changeDcMap,
+  changeSimulationState,
 } = dailyChallengeSlice.actions;
 export const dailyChallengeState = (
   state: RootState,
@@ -87,4 +99,8 @@ export const dcCodeLanguage = (state: RootState): string =>
   state.dailyChallenge.codeLanguage;
 export const dcDescription = (state: RootState): string | undefined =>
   state.dailyChallenge.dailyChallenge.description;
+export const dcMap = (state: RootState): Array<Array<number>> =>
+  state.dailyChallenge.dcMap;
+export const dcSimulation = (state: RootState): boolean =>
+  state.dailyChallenge.isSimulating;
 export default dailyChallengeSlice.reducer;

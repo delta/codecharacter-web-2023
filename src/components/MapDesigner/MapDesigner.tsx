@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { MapDesignerComponent } from '@codecharacter-2023/map-designer';
+import {
+  MapDesignerComponent,
+  MapDesignerUtils,
+} from '@codecharacter-2023/map-designer';
 import { MapApi, DailyChallengesApi } from '@codecharacter-2023/client';
 import Toast from 'react-hot-toast';
 import styles from './MapDesigner.module.css';
@@ -17,6 +20,8 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
   const [commitModalError, setCommitModalError] = useState<string>('');
   const [stagedMap, setStagedMap] = useState<Array<Array<number>>>();
 
+  let mapImg: string;
+
   type ButtonType = 'save' | 'submit' | 'commit';
   const mapAPI = new MapApi(apiConfig);
   const dcAPI = new DailyChallengesApi(apiConfig);
@@ -30,12 +35,30 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
       });
   }, []);
 
-  const getMapAsImage: () => string = () => {
+  const compressImage = (button: ButtonType) => {
     const ccMapDesigner = document.getElementsByTagName('cc-map-designer')[0];
     const parentDiv = ccMapDesigner.shadowRoot?.getElementById('map-designer');
     const mapCanvas: HTMLCanvasElement =
       parentDiv?.firstChild as HTMLCanvasElement;
-    return mapCanvas.toDataURL();
+    const imgUrl = mapCanvas.toDataURL();
+    const newCanvas = document.createElement('canvas');
+    const newCanvasContext = newCanvas.getContext('2d');
+    const base_image = new Image();
+    newCanvas.width = 935;
+    newCanvas.height = 615;
+    base_image.onload = () => {
+      newCanvasContext?.drawImage(
+        base_image,
+        0,
+        0,
+        newCanvas.width,
+        newCanvas.height,
+      );
+      console.log('called');
+      mapImg = newCanvas.toDataURL();
+      handleButtonClick(button);
+    };
+    base_image.src = imgUrl;
   };
 
   const closeModal = () => setModalShow(false);
@@ -53,7 +76,6 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
   };
   const handleButtonClick = (button: ButtonType) => {
     if (!stagedMap) return;
-    const mapImg: string = getMapAsImage();
     switch (button) {
       case 'save':
         closeModal();
@@ -145,6 +167,11 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
       <div className={styles.mapDesignerContainer}>
         <MapDesignerComponent
           saveMapCallback={saveMapCallback}
+          {...MapDesignerUtils.setLocalStorageKey(
+            props.pageType == 'MapDesigner'
+              ? 'cc-map-designer-map'
+              : 'dc-map-designer-map',
+          )}
           readonly={false}
         />
       </div>
@@ -183,7 +210,7 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
             <button
               className={styles.modalButton}
               onClick={() => {
-                handleButtonClick('save');
+                compressImage('save');
               }}
             >
               Save
@@ -191,7 +218,7 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
             <button
               className={styles.modalButton}
               onClick={() => {
-                handleButtonClick('submit');
+                compressImage('submit');
               }}
             >
               Submit
@@ -222,7 +249,7 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
             <button
               className={styles.modalButton}
               onClick={() => {
-                handleButtonClick('commit');
+                compressImage('commit');
               }}
             >
               Create Map Commit
