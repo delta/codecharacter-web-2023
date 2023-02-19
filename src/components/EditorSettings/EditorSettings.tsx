@@ -81,7 +81,9 @@ const EditorSettings = (): JSX.Element => {
                 <select
                   className={styles.settingDropdown}
                   value={theme}
-                  onChange={e => handleThemeChange(e.target.value)}
+                  onChange={e => {
+                    handleThemeChange(e.target.value);
+                  }}
                 >
                   {editorThemes.map((themeValue: string) => (
                     <option

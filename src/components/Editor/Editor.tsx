@@ -72,7 +72,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         lineDecorationsWidth: 10,
         automaticLayout: true,
         theme:
-          theme == 'hc-black'
+          theme == 'high-contrast-black'
             ? 'hc-black'
             : theme == 'vs-light'
             ? 'vs'
