@@ -82,7 +82,7 @@ const CommitModal = (): JSX.Element => {
               onClick={handleCommit}
               variant="outline-light"
             >
-              COMMIT
+              SUBMIT
             </Button>
           </Form>
         </Row>
