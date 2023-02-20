@@ -20,7 +20,12 @@ const initialState: DailyChallengeStateType = {
   dailyChallenge: {
     challName: '',
     description: '',
-    chall: '',
+    chall: {
+      cpp: ' ',
+      java: ' ',
+      python: ' ',
+      image: ' ',
+    },
     challType: '',
     completionStatus: false,
   },

@@ -54,7 +54,6 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
         newCanvas.width,
         newCanvas.height,
       );
-      console.log('called');
       mapImg = newCanvas.toDataURL();
       handleButtonClick(button);
     };

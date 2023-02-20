@@ -202,7 +202,6 @@ export class TileMap extends Phaser.Scene {
     events.emit(MapDesignerEvents.COINS_CHANGED, Parameters.totalCoins);
 
     const storedMapData = localStorage.getItem(Parameters.mapLocalStorageKey);
-    console.log(storedMapData);
     if (storedMapData) {
       try {
         this._loadMap(JSON.parse(storedMapData));

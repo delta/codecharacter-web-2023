@@ -139,13 +139,9 @@ export default function Dashboard(): JSX.Element {
       dailyChallengeAPI
         .getDailyChallenge()
         .then(response => {
-          console.log(response.chall);
-          console.log(JSON.parse(response.chall));
           dispatch(initializeDailyChallengeState(response));
         })
         .catch(err => {
-          console.log(err);
-          console.log('dshbfhksdf');
           if (err instanceof ApiError) Toast.error(err.message);
         });
     }
@@ -471,15 +467,15 @@ export default function Dashboard(): JSX.Element {
               <CodeBlock
                 text={
                   languageChose == 'C++'
-                    ? JSON.parse(dailyChallenge.chall).cpp
+                    ? dailyChallenge.chall.cpp
                     : languageChose == 'Python'
-                    ? JSON.parse(dailyChallenge.chall).python
-                    : JSON.parse(dailyChallenge.chall).java
+                    ? dailyChallenge.chall.python
+                    : dailyChallenge.chall.java
                 }
                 language={
                   languageChose == 'C++' ? 'cpp' : languageChose.toLowerCase()
                 }
-                showLineNumbers={dailyChallenge.chall != '' ? true : false}
+                showLineNumbers={true}
                 theme={irBlack}
               />
             )}
@@ -517,7 +513,7 @@ export default function Dashboard(): JSX.Element {
                   {dailyChallenge.challName}
                 </div>
                 <div className={styles.dcMap}>
-                  <img draggable={false} src={dailyChallenge.chall}></img>
+                  <img draggable={false} src={dailyChallenge.chall.image}></img>
                 </div>
               </>
             ) : (

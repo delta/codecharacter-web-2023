@@ -141,14 +141,20 @@
 
 .mapChallName{
     width: 100%;
-    height: 6vh;
+    height: 4.3vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2px 2px;
     color: #ffffff;
-    overflow: clip;
+    overflow-x: auto;
+    overflow-y: auto;
 }
+
+.mapChallName::-webkit-scrollbar{
+    display: none;
+}
+
 .dcMap{
     height: 94vh;
     width: 100%;

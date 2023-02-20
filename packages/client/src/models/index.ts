@@ -353,10 +353,10 @@ export interface DailyChallengeGetRequest {
   description?: string;
   /**
    *
-   * @type {string}
+   * @type {DailyChallengeObject}
    * @memberof DailyChallengeGetRequest
    */
-  chall: string;
+  chall: DailyChallengeObject;
   /**
    *
    * @type {ChallengeType}
@@ -413,6 +413,37 @@ export interface DailyChallengeMatchRequest {
    * @memberof DailyChallengeMatchRequest
    */
   language?: Language;
+}
+/**
+ * The object describing the challenge for the day
+ * @export
+ * @interface DailyChallengeObject
+ */
+export interface DailyChallengeObject {
+  /**
+   *
+   * @type {string}
+   * @memberof DailyChallengeObject
+   */
+  cpp?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DailyChallengeObject
+   */
+  java?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DailyChallengeObject
+   */
+  python?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DailyChallengeObject
+   */
+  image?: string;
 }
 /**
  * Forgot password request
@@ -654,7 +685,7 @@ export interface Match {
    * @type {PublicUser}
    * @memberof Match
    */
-  user2: PublicUser;
+  user2?: PublicUser;
 }
 
 /**
@@ -665,6 +696,7 @@ export const MatchMode = {
   Self: 'SELF',
   Manual: 'MANUAL',
   Auto: 'AUTO',
+  Dailychallenge: 'DAILYCHALLENGE',
 } as const;
 export type MatchMode = (typeof MatchMode)[keyof typeof MatchMode];
 
@@ -1081,5 +1113,7 @@ export const Verdict = {
   Player1: 'PLAYER1',
   Player2: 'PLAYER2',
   Tie: 'TIE',
+  Success: 'SUCCESS',
+  Failiure: 'FAILIURE',
 } as const;
 export type Verdict = (typeof Verdict)[keyof typeof Verdict];

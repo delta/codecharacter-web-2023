@@ -1866,7 +1866,6 @@ components:
         - matchVerdict
         - createdAt
         - user1
-        - user2
     CreateMatchRequest:
       title: CreateMatchRequest
       type: object
@@ -1946,8 +1945,7 @@ components:
           type: string
           example: Daily Challenge description
         chall:
-          type: string
-          example: 'print("hello world");'
+          $ref: '#/components/schemas/DailyChallengeObject'
         challType:
           $ref: '#/components/schemas/ChallengeType'
         completionStatus:
@@ -1957,6 +1955,19 @@ components:
         - challName
         - chall
         - challType
+    DailyChallengeObject:
+      title: Daily Challenge Object
+      description: The object describing the challenge for the day
+      type: object
+      properties:
+        cpp:
+          type: string
+        java:
+          type: string
+        python:
+          type: string
+        image:
+          type: string
     DailyChallengeLeaderBoardResponse:
       title: DailyChallengeLeaderboardResponse
       description: Response model for daily challenge leaderboard
@@ -2013,6 +2024,7 @@ components:
         - SELF
         - MANUAL
         - AUTO
+        - DAILYCHALLENGE
       description: Match Mode
     Verdict:
       type: string
@@ -2021,6 +2033,8 @@ components:
         - PLAYER1
         - PLAYER2
         - TIE
+        - SUCCESS
+        - FAILIURE
       description: Match/Game verdict
     GameStatus:
       title: GameStatus
