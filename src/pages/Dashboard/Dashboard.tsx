@@ -55,6 +55,7 @@ import {
   IsTourOpen,
   isTourOpened,
 } from '../../store/EditorSettings/settings';
+import { EditorSteps } from '../../components/TourProvider/EditorSteps';
 
 type SplitPaneState = {
   horizontalPercent: string;
@@ -234,9 +235,11 @@ export default function Dashboard(): JSX.Element {
       });
   };
 
-  const isTourOpen = useAppSelector(IsTourOpen);
+  // const isTourOpen = useAppSelector(IsTourOpen);
 
-  const [isOpen, setOpened] = useState(true);
+  const setOpened = (opened: boolean) => {
+    dispatch(isTourOpened(opened));
+  };
 
   return (
     <>
@@ -247,7 +250,7 @@ export default function Dashboard(): JSX.Element {
           dispatch(isTourOpened(false));
         }}
       /> */}
-      <Tour setOpened={setOpened}>
+      <Tour setOpened={setOpened} steps={EditorSteps}>
         <main className={styles.mainContainer} ref={mainContainerRef}>
           <SplitPane
             split="vertical"

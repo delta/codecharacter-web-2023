@@ -2,9 +2,11 @@ import { TourProvider } from '@reactour/tour';
 import React from 'react';
 import styles from './TourProvider.module.css';
 
-import { steps } from './steps';
+import { EditorSteps } from './EditorSteps';
 import { TourProviderType } from './types';
-const Tour: React.FC<TourProviderType> = ({ setOpened, children }) => {
+import { current } from '@reduxjs/toolkit';
+import { Position } from 'monaco-editor';
+const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
   return (
     <TourProvider
       disableInteraction={true}
@@ -16,7 +18,7 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children }) => {
       styles={{
         popover: base => ({
           ...base,
-          padding: '3% 3% 1% 2%',
+          padding: '2% 2% 1% 2%',
           fontSize: '1.25em',
           fontFamily: 'Noto Sans KR',
           '--reactour-accent': 'blue',
@@ -57,7 +59,7 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children }) => {
       prevButton={({
         Button,
         currentStep,
-        stepsLength,
+        // stepsLength,
         setIsOpen,
         setCurrentStep,
         steps,
@@ -68,7 +70,7 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children }) => {
               onClick={() => {
                 if (currentStep == 0) return;
                 if (currentStep === steps?.length) {
-                  setOpened(false);
+                  setIsOpen(false);
                 }
                 setCurrentStep(currentStep - 1);
               }}
@@ -80,8 +82,8 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children }) => {
       nextButton={({
         Button,
         currentStep,
-        stepsLength,
-        setIsOpen,
+        // stepsLength,
+        // setIsOpen,
         setCurrentStep,
         steps,
       }) => {
@@ -110,11 +112,11 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children }) => {
           }
         }
       }}
-      onClickClose={({ setCurrentStep, currentStep, steps, setIsOpen }) => {
-        if (steps) {
-          setIsOpen(false);
-          setCurrentStep(s => 0);
-        }
+      onClickClose={({ currentStep, steps, setIsOpen }) => {
+        // if (steps?.length === currentStep + 1 ) {
+        setIsOpen(false);
+        setOpened(false);
+        // }
       }}
     >
       {children}

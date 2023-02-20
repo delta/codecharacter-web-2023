@@ -5,6 +5,7 @@ import Toast from 'react-hot-toast';
 import styles from './MapDesigner.module.css';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { Modal, Container, Row } from 'react-bootstrap';
+import { useTour } from '@reactour/tour';
 
 const MapDesigner: React.FunctionComponent = () => {
   const [modalShow, setModalShow] = useState<boolean>(false);
@@ -13,12 +14,15 @@ const MapDesigner: React.FunctionComponent = () => {
   const [commitModalError, setCommitModalError] = useState<string>('');
   const [stagedMap, setStagedMap] = useState<Array<Array<number>>>();
 
+  const { setIsOpen } = useTour();
+
   type ButtonType = 'save' | 'submit' | 'commit';
   const mapAPI = new MapApi(apiConfig);
   useEffect(() => {
     mapAPI.getLatestMap().then(mp => {
       setStagedMap(JSON.parse(mp.map));
     });
+    setIsOpen(true);
   }, []);
 
   const closeModal = () => setModalShow(false);
@@ -106,6 +110,7 @@ const MapDesigner: React.FunctionComponent = () => {
           readonly={false}
         />
       </div>
+      <div className={styles.PsuedoMap} id="Psuedo"></div>
       <Modal show={modalShow} centered onHide={closeModal}>
         <Modal.Header className={styles.modalHeader} closeButton>
           <Modal.Title className="fw-bold fs-3">Save Map?</Modal.Title>

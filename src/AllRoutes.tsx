@@ -2,6 +2,10 @@ import { lazy, useEffect } from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 import Redirect from './components/Redirect/Redirect';
+import { HistorySteps } from './components/TourProvider/HistorySteps';
+import { MapDesignerSteps } from './components/TourProvider/MapDesignerSteps';
+import Tour from './components/TourProvider/TourProvider';
+import { isTourOpened } from './store/EditorSettings/settings';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { isloggedIn, loggedIn } from './store/User/UserSlice';
 
@@ -40,12 +44,34 @@ export default function AllRoutes(): JSX.Element {
     }
   }, []);
 
+  const setOpenedMap = (opened: boolean) => {
+    dispatch(isTourOpened(opened));
+  };
+
+  const setOpenedHistory = (opened: boolean) => {
+    dispatch(isTourOpened(opened));
+  };
+
   return logIn ? (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/mapdesigner" element={<MapDesigner />} />
-      <Route path="/history" element={<History />} />
+      <Route
+        path="/mapdesigner"
+        element={
+          <Tour setOpened={setOpenedMap} steps={MapDesignerSteps}>
+            <MapDesigner />
+          </Tour>
+        }
+      />
+      <Route
+        path="/history"
+        element={
+          <Tour setOpened={setOpenedHistory} steps={HistorySteps}>
+            <History />
+          </Tour>
+        }
+      />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/battletv" element={<BattleTV />} />
       <Route path="/activate" element={<Verify />} />

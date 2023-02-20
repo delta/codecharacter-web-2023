@@ -96,7 +96,7 @@ const EditorSettings = (): JSX.Element => {
               </FormGroup>
             </Col>
 
-            <Col xs={12} className={styles.settingFormGroup}>
+            {/* <Col xs={12} className={styles.settingFormGroup}>
               <FormGroup controlId="editorKeybinding">
                 <div className={styles.settingLabel}>Editor Keybinding</div>
                 <select
@@ -115,7 +115,7 @@ const EditorSettings = (): JSX.Element => {
                   ))}
                 </select>
               </FormGroup>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </Modal.Body>
