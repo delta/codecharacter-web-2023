@@ -4,6 +4,7 @@ import { AuthApi } from '@codecharacter-2023/client';
 import { ApiError, authConfig } from '../../../../../api/ApiConfig';
 import { toast } from 'react-hot-toast';
 import { Modal } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 interface ForgetPasswordInterface {
   open?: boolean;
@@ -51,8 +52,16 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
         centered
         className={styles.modal}
       >
-        <Modal.Header closeButton className={styles.modalHeader}>
-          <Modal.Title>Forgot Password</Modal.Title>
+        <Modal.Header className={styles.modalHeader}>
+          <Modal.Title className={styles.headerText}>
+            Forgot Password
+          </Modal.Title>
+          <button
+            type="button"
+            className="btn-close btn-close-white"
+            aria-label="Close"
+            onClick={props.handleForgetPassword}
+          ></button>
         </Modal.Header>
 
         <Modal.Body className={styles.modalContainer}>
@@ -68,13 +77,14 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
         </Modal.Body>
 
         <Modal.Footer className={styles.modalContainer}>
-          <button
-            type="button"
+          <Button
+            className={styles.selfMatchModalSimulateBtn}
+            size="lg"
             onClick={handleSubmit}
-            className={styles.submitButton}
+            variant="outline-light"
           >
             SUBMIT
-          </button>
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

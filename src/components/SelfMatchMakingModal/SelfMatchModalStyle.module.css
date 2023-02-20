@@ -1,11 +1,16 @@
 .selfMatchModalHeader{
     background-color: #232627;
     backdrop-filter: blur(100px);    
-    color: #aaaaaa;
-    font-family: 'Poppins';
     height: 9vh;
     border: 0px;
 }
+
+.headerText{
+    font-family: 'Poppins';
+    font-size: 28px;
+    color:#aaaaaa;
+    font-weight: bold;
+  }
 
 .selfMatchModalBody{
     background-color: #1e1e1e;

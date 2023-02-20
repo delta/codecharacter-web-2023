@@ -31,13 +31,13 @@
 
 .userName {
     font-size: 40px;
-    color: #EAEAEA;
+    color: #aaaaaa;
     margin-top: -1rem;
 }
 
 .changeCredsHeader {
     font-size: 40px;
-    color: #EAEAEA;
+    color: #aaaaaa;
     margin-bottom: 2rem;
     text-align: center;
 }
@@ -45,7 +45,7 @@
 .label{
     font-family: 'Roboto Mono';
     font-size: 18px;
-    color: #eaeaea;
+    color: #aaaaaa;
 }
 
 .profileContainer {
@@ -106,36 +106,38 @@
     align-items: center;
 }
 
-.submitContainer {
+
+.submitButton {
     font-family: 'Roboto Mono';
     text-align: center;
     font-size: 25px;
     border-radius: 1px;
     margin-bottom: 25px;
+    width: auto;
     background-color:transparent;
     color: #aaaaaa;
     border: 3px solid #AAAAAA;
     transition: all 0.4s ease;
 }
 
-.submitContainer:disabled {
+.submitButton:disabled {
     background-color: rgba(255, 255, 255, 0);
     color: #aaaaaa57;
     border: 3px solid #AAAAAA;
 
 }
 
-.submitContainer:hover {
+.submitButton:hover {
     background-color: rgba(255, 255, 255, 0);
     border: 3px solid #AAAAAA;
 }
 
-.submitContainer:active {
+.submitButton:active {
     background-color: #AAAAAA !important;
     border-color: #AAAAAA !important;
 }
 
-.submitContainer:focus-visible {
+.submitButton:focus-visible {
     color: white !important;
     border-color: white !important;
     background-color: #AAAAAA !important;
@@ -223,6 +225,11 @@
 .avatarImg {
     width: 100%;
     height: 100%;
+}
+
+.changeCredsContainer{
+    display: flex;
+    flex-direction: column;
 }
 
 .inputField{

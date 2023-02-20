@@ -96,19 +96,34 @@ function PaginatedItems() {
           <>
             <div className={styles.list}>
               <Modal show={show} onHide={handleClose}>
-                <Modal.Header className={styles.matchHeader} closeButton>
-                  <Modal.Title>Start a new match</Modal.Title>
+                <Modal.Header className={styles.matchHeader}>
+                  <Modal.Title className={styles.headerText}>
+                    Start a new match
+                  </Modal.Title>
+                  <button
+                    type="button"
+                    className="btn-close btn-close-white"
+                    aria-label="Close"
+                    onClick={handleClose}
+                  ></button>
                 </Modal.Header>
                 <Modal.Body className={styles.matchBody}>
                   Do you want to start a match against {currentOpponentUsername}
                   ?
                 </Modal.Body>
                 <Modal.Footer className={styles.matchFooter}>
-                  <Button variant="secondary" onClick={handleClose}>
+                  <Button
+                    className={styles.matchModalBtn}
+                    variant="outline-light"
+                    size="lg"
+                    onClick={handleClose}
+                  >
                     Close
                   </Button>
                   <Button
-                    className={styles.matchButton}
+                    className={styles.matchModalBtn}
+                    variant="outline-light"
+                    size="lg"
                     onClick={() => handleMatchStart()}
                   >
                     Start match

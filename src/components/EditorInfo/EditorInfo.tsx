@@ -24,10 +24,16 @@ const EditorInfo = (): JSX.Element => {
       centered
       onHide={() => dispatch(isInfoOpened(false))}
     >
-      <Modal.Header className={styles.editorInfoHeader} closeButton>
-        <Modal.Title className={newLocal}>
-          {homePageState == 'Dashboard' ? 'Editor Shortcuts' : 'Description'}
+      <Modal.Header className={styles.editorInfoHeader}>
+        <Modal.Title className={styles.headerText}>
+          Editor Shortcuts
         </Modal.Title>
+        <button
+          type="button"
+          className="btn-close btn-close-white"
+          aria-label="Close"
+          onClick={() => dispatch(isInfoOpened(false))}
+        ></button>
       </Modal.Header>
 
       <Modal.Body className={styles.editorInfoBody}>

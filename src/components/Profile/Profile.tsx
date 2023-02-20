@@ -355,6 +355,8 @@ const Profile = (): JSX.Element => {
                 className={classnames('mb-4', styles.formField)}
                 controlId="formBasicoldPassword"
               >
+                <Form.Label className={styles.label}>OLD PASSWORD</Form.Label>
+
                 <div className={styles.eyeContainer}>
                   <Form.Control
                     type={passwordType.oldpassword}
@@ -384,6 +386,8 @@ const Profile = (): JSX.Element => {
                 className={classnames('mb-4', styles.formField)}
                 controlId="formBasicPassword"
               >
+                <Form.Label className={styles.label}>NEW PASSWORD</Form.Label>
+
                 <div className={styles.eyeContainer}>
                   <Form.Control
                     type={passwordType.password}
@@ -413,6 +417,10 @@ const Profile = (): JSX.Element => {
                 className={classnames('mb-4', styles.formField)}
                 controlId="formBasicConfirmPassword"
               >
+                <Form.Label className={styles.label}>
+                  CONFIRM PASSWORD
+                </Form.Label>
+
                 <div className={styles.eyeContainer}>
                   <Form.Control
                     type={passwordType.confirmPassword}
@@ -448,7 +456,7 @@ const Profile = (): JSX.Element => {
                   }
                   size="lg"
                   id="submit"
-                  className={styles.submitContainer}
+                  className={styles.submitButton}
                 >
                   SUBMIT{' '}
                 </Button>

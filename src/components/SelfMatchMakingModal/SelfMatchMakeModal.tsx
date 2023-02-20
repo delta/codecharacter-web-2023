@@ -120,7 +120,7 @@ const selfMatchModal = (): JSX.Element => {
       onHide={() => dispatch(isSelfMatchModalOpened(false))}
     >
       <Modal.Header className={styles.selfMatchModalHeader}>
-        <Modal.Title className="fw-bold fs-3">SELF MATCH</Modal.Title>
+        <Modal.Title className={styles.headerText}>Self Match</Modal.Title>
         <button
           type="button"
           className="btn-close btn-close-white"

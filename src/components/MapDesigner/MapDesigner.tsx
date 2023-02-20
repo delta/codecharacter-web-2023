@@ -201,8 +201,14 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
       </div>
       <div className={styles.PsuedoMap} id="Psuedo"></div>
       <Modal show={modalShow} centered onHide={closeModal}>
-        <Modal.Header className={styles.modalHeader} closeButton>
-          <Modal.Title className="fw-bold fs-3">Save Map</Modal.Title>
+        <Modal.Header className={styles.modalHeader}>
+          <Modal.Title className={styles.headerText}>Save Map</Modal.Title>
+          <button
+            type="button"
+            className="btn-close btn-close-white"
+            aria-label="Close"
+            onClick={closeModal}
+          ></button>
         </Modal.Header>
 
         <Modal.Body className={styles.modalContent}>
@@ -251,7 +257,7 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
               variant="outline-light"
             >
               Submit
-            </button>
+            </ Button>
             {props.pageType == 'MapDesigner' ? (
               <button className={styles.modalButton} onClick={openCommitModal}>
                 Commit

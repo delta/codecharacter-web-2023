@@ -88,31 +88,35 @@ const Notifs: React.FunctionComponent = () => {
       </div>
       <div className={styles.notifModalTriangle} ref={notifTriangleRef}></div>
       <div className={styles.notifModal} ref={notifModalRef}>
-        {notifs.map((notif: Notification) => {
-          return (
-            <div
-              className={`${styles.notif} ${
-                !notif.read ? '' : styles.notifRead
-              }`}
-              key={notif.id}
-            >
-              <div className={styles.notifLine}>
-                <h5 className={styles.notifHeader}>{notif.title}</h5>
-                <div className={styles.notifTimeSection}>
-                  <p className={styles.notifTime}>
-                    {parseTime(notif.createdAt)}
-                  </p>
-                  <p className={styles.notifTime}>
-                    {parseDate(notif.createdAt)}
-                  </p>
+        {notifs.length > 0 ? (
+          notifs.map((notif: Notification) => {
+            return (
+              <div
+                className={`${styles.notif} ${
+                  !notif.read ? '' : styles.notifRead
+                }`}
+                key={notif.id}
+              >
+                <div className={styles.notifLine}>
+                  <h5 className={styles.notifHeader}>{notif.title}</h5>
+                  <div className={styles.notifTimeSection}>
+                    <p className={styles.notifTime}>
+                      {parseTime(notif.createdAt)}
+                    </p>
+                    <p className={styles.notifTime}>
+                      {parseDate(notif.createdAt)}
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.notifLine}>
+                  <p className={styles.notifContent}>{notif.content}</p>
                 </div>
               </div>
-              <div className={styles.notifLine}>
-                <p className={styles.notifContent}>{notif.content}</p>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <p className={styles.notifText}>No notifications to show</p>
+        )}
       </div>
     </>
   );

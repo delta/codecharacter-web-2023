@@ -10,7 +10,7 @@ const DcAvailable = (props: DcProps) => {
       contentClassName={styles.dcmodal}
     >
       <Modal.Header className={styles.dcmodalHeader}>
-        <Modal.Title>Daily Challenge</Modal.Title>
+        <Modal.Title className={styles.headerText}>Daily Challenge</Modal.Title>
         <button
           type="button"
           className="btn-close btn-close-white"

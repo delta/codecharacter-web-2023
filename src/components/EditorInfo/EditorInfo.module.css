@@ -9,14 +9,19 @@
 .editorInfoHeader {
   background-color: #232627;
   backdrop-filter: blur(100px);
-  color: #aaaaaa;
-  font-family: 'Poppins';
   border: 0px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   height: 9vh;
+}
+
+.headerText{
+  font-family: 'Poppins';
+  font-size: 28px;
+  color:#aaaaaa;
+  font-weight: bold;
 }
 
 .editorInfoBody {

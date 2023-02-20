@@ -21,16 +21,14 @@ export default function Footer(): JSX.Element {
           </div>
         </div>
       </div>
-      <div>
+      <div className={styles.textContainer}>
         <div className={styles.container}>
           <div className={styles.heading}> Contact</div>
-          <div>Subramanian: 9499926470</div>
-          <div>Rinish: 9442129406</div>
-          <div>Dipesh: 9654220462</div>
-          <div>Vikash: 7050352720</div>
+          <div>Ram Ganesh: 9025517379</div>
+          <div>Vignesh: 6381196740</div>
+          <div>Ashwani: 9316645286</div>
+          <div>Dhanush: 8248810939</div>
         </div>
-      </div>
-      <div>
         <div className={styles.container}>
           <div className={styles.heading}>Quick Links</div>
           <div>
@@ -54,7 +52,7 @@ export default function Footer(): JSX.Element {
               rel="noopener noreferrer"
               className={styles.links}
             >
-              Forum
+              Discord
             </a>
           </div>
         </div>
