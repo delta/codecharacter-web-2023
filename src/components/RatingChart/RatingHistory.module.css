@@ -2,7 +2,6 @@ body,
 html {
   height: 100%;
   width: 100%;
-  background: rgba(30, 30, 30, 0.87);
   color: #333;
 }
 
@@ -25,7 +24,7 @@ html {
 }
 
 .ranklist {
-  max-width: 50vw;
+  max-width: 80vw;
   display: block;
   align-items: center;
   padding-top: 10px;

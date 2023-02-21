@@ -75,7 +75,7 @@ function RatingHistoryChart() {
       items.map((entry: RatingHistory) => {
         const label = entry.validFrom;
         labels.push(label);
-        const rating = entry.rating;
+        const rating = entry.rating + entry.ratingDeviation;
         ratings.push(rating);
         setDataItems(ratings);
         setLabelItems(labels);
