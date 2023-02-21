@@ -77,7 +77,6 @@ function PaginatedItems() {
       .getLeaderboard(pageNum, itemsPerPage)
       .then(response => {
         setItems(response);
-        console.log(items);
         setIsLoaded(true);
       })
       .catch(error => {
