@@ -2,13 +2,6 @@ import * as Editor from './EditorTypes';
 import styles from './style.module.css';
 import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
-import {
-  CodeApi,
-  DailyChallengesApi,
-  Language,
-} from '@codecharacter-2023/client';
-import { apiConfig, ApiError } from '../../api/ApiConfig';
-import Toast from 'react-hot-toast';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -36,9 +29,6 @@ import {
   dcCode,
   changeDcCode,
 } from '../../store/DailyChallenge/dailyChallenge';
-
-const codeAPI: CodeApi = new CodeApi(apiConfig);
-const DcApi = new DailyChallengesApi(apiConfig);
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (_moduleId: string, label: string) {
@@ -114,23 +104,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     //Keybinding for save -> CTRL+S
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function () {
-      let languageType: Language = Language.Cpp;
-      if (language === 'c_cpp') languageType = Language.Cpp;
-      else if (language === 'python') languageType = Language.Python;
-      else if (language === 'java') languageType = Language.Java;
-      codeAPI
-        .updateLatestCode({
-          codeType: props.page == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
-          code: userCode,
-          lock: false,
-          language: languageType,
-        })
-        .then(() => {
-          Toast.success('Code Saved');
-        })
-        .catch(err => {
-          if (err instanceof ApiError) Toast.error(err.message);
-        });
+      props.SaveRef.current?.click();
     });
 
     //Keybinding for Simulate -> CTRL+ALT+N
@@ -162,39 +136,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     editor.addCommand(
       monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyS,
       function () {
-        let languageType: Language = Language.Cpp;
-        if (language === 'c_cpp') languageType = Language.Cpp;
-        else if (language === 'python') languageType = Language.Python;
-        else if (language === 'java') languageType = Language.Java;
-
-        codeAPI
-          .updateLatestCode({
-            codeType: props.page == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
-            code: userCode,
-            lock: true,
-            language: languageType,
-          })
-          .then(() => {
-            if (props.page == 'Dashboard') {
-              Toast.success('Code Submitted');
-            }
-          })
-          .catch(err => {
-            if (err instanceof ApiError) Toast.error(err.message);
-          });
-
-        if (props.page == 'Dailychallenge') {
-          DcApi.createDailyChallengeMatch({
-            value: editor.getValue(),
-            language: language == 'c_cpp' ? 'CPP' : language.toUpperCase(),
-          })
-            .then(() => {
-              Toast.success('Daily Challenge submitted successfully');
-            })
-            .catch(() => {
-              Toast.error('Couldnt submit challenge');
-            });
-        }
+        props.SubmitRef.current?.click();
       },
     );
 

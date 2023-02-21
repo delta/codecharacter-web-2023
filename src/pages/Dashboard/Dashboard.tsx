@@ -340,10 +340,11 @@ export default function Dashboard(): JSX.Element {
                     }}
                   >
                     <button
-                      className={styles.toolbarButtonSave}
+                      className={styles.toolbarButton}
                       onClick={handleSave}
+                      ref={saveButtonRef}
                     >
-                      <FontAwesomeIcon icon={faSave as IconProp} /> Save
+                      <FontAwesomeIcon title="Save" icon={faSave as IconProp} />
                     </button>
                   </Col>
                   {pageState == 'Dashboard' ? (
@@ -353,7 +354,10 @@ export default function Dashboard(): JSX.Element {
                           className={styles.toolbarButton}
                           onClick={handleSimulate}
                         >
-                          <FontAwesomeIcon icon={faPlay as IconProp} /> Simulate
+                          <FontAwesomeIcon
+                            title="Simulate"
+                            icon={faPlay as IconProp}
+                          />
                         </button>
                       </Col>
                       <Col className={styles.toolbarColumn} sm="1">
@@ -361,8 +365,10 @@ export default function Dashboard(): JSX.Element {
                           className={styles.toolbarButton}
                           onClick={handleOpenCommitModal}
                         >
-                          <FontAwesomeIcon icon={faCodeBranch as IconProp} />{' '}
-                          Commit
+                          <FontAwesomeIcon
+                            title="Commit"
+                            icon={faCodeBranch as IconProp}
+                          />{' '}
                         </button>
                       </Col>
                     </>
@@ -373,9 +379,12 @@ export default function Dashboard(): JSX.Element {
                     <button
                       className={styles.toolbarButton}
                       onClick={handleSubmit}
+                      ref={submitButtonRef}
                     >
-                      <FontAwesomeIcon icon={faCloudUploadAlt as IconProp} />{' '}
-                      Submit
+                      <FontAwesomeIcon
+                        title="Submit"
+                        icon={faCloudUploadAlt as IconProp}
+                      />{' '}
                     </button>
                   </Col>
                 </div>
@@ -462,7 +471,12 @@ export default function Dashboard(): JSX.Element {
           )}
           <div className={styles.editorContainer}>
             {pageState == 'Dashboard' || dailyChallenge.challType == 'MAP' ? (
-              <Editor language={userLanguage} page={pageState} />
+              <Editor
+                language={userLanguage}
+                page={pageState}
+                SaveRef={saveButtonRef}
+                SubmitRef={submitButtonRef}
+              />
             ) : (
               <CodeBlock
                 text={
