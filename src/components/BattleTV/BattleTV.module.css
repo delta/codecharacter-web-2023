@@ -6,7 +6,6 @@ body,
 html {
   height: 100%;
   width: 100%;
-  background: rgba(30, 30, 30, 0.87);
   color: #333;
 }
 
@@ -29,8 +28,27 @@ html {
 }
 
 .item {
-  background: rgba(30, 30, 30, 0.87);
   border-radius: 10px;
+}
+
+.ranklist {
+  max-width: 75vw;
+  display: block;
+  align-items: center;
+  padding-top: 10px;
+  font-family: 'Roboto', sans-serif;
+  margin: auto;
+}
+
+.list {
+  margin: 0 auto;
+  background: transparent;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  padding: 15px;
+  border-spacing: 0px 20px;
+  border-collapse: separate;
 }
 
 .list .item .pic {
@@ -137,7 +155,6 @@ html {
   position: relative;
   margin-top: 10px;
   padding: 10px;
-  background-color: rgba(30, 30, 30, 0.87);
   border-radius: 10px;
   text-decoration: solid;
 }

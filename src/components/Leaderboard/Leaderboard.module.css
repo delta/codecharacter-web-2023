@@ -7,7 +7,6 @@ body,
 html {
   height: 100%;
   width: 100%;
-  background: rgba(30, 30, 30, 0.87);
   color: #333;
 }
 
@@ -60,7 +59,6 @@ html {
   border: 1px;
   border-style: solid none;
   border-radius: 5px;
-  background: rgba(30, 30, 30, 0.87);
   margin: 8px;
 }
 
@@ -202,7 +200,6 @@ html {
   position: relative;
   margin-top: 20px;
   padding: 10px;
-  background-color: rgba(30, 30, 30, 0.87);
   border-radius: 10px;
 }
 
@@ -232,7 +229,6 @@ html {
 }
 
 .button {
-  background-color: rgba(30, 30, 30, 0.87);
   color: #aaaaaa;
   margin: 0px 8px;
   border: 1px;
