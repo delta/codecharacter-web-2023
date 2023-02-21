@@ -29,8 +29,27 @@ html {
 }
 
 .item {
-  background: rgba(30, 30, 30, 0.87);
   border-radius: 10px;
+}
+
+.ranklist {
+  max-width: 75vw;
+  display: block;
+  align-items: center;
+  padding-top: 10px;
+  font-family: 'Roboto', sans-serif;
+  margin: auto;
+}
+
+.list {
+  margin: 0 auto;
+  background: transparent;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  padding: 15px;
+  border-spacing: 0px 20px;
+  border-collapse: separate;
 }
 
 .list .item .pic {
@@ -154,7 +173,6 @@ html {
 
 .pagination .pageNum:hover {
   background-color: #aaaaaa;
-  color: rgba(30, 30, 30, 0.87);
   border: 1px;
 }
 

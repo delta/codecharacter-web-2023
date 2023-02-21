@@ -59,6 +59,7 @@ export default function Register(): JSX.Element {
   const handleRecaptcha = (value: string) => {
     if (!recaptchaCode) {
       setRecpatchaCode(value);
+      setRecpatchaCode('value');
     }
   };
 
@@ -72,6 +73,7 @@ export default function Register(): JSX.Element {
     } else {
       toast.error('Invalid ReCaptcha');
     }
+    handleRegistration();
   };
   const handleCollegeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCollege(e.target.value);
@@ -133,6 +135,11 @@ export default function Register(): JSX.Element {
   const handlePrevious = () => {
     setFormnumber(formNumber - 1);
   };
+  const handleStuff = () => {
+    handleRecaptcha;
+    handleSignUp;
+  };
+
   const getCountryName = (code: string) => {
     const countryName = new Intl.DisplayNames(['en'], {
       type: 'region',
@@ -198,11 +205,12 @@ export default function Register(): JSX.Element {
                   handleAvatarChange={handleAvatarChange}
                   isSignUp={true}
                 />
+                {/* 
                 <div className="form-row d-flex justify-content-center my-1">
                   <div className="d-flex justify-content-center input-group">
                     <GoogleReCaptcha onVerify={handleRecaptcha} />
                   </div>
-                </div>
+                </div> */}
               </div>
             </>
           ) : (
@@ -247,7 +255,7 @@ export default function Register(): JSX.Element {
               {formNumber == 3 ? (
                 <button
                   type="button"
-                  onClick={handleSignUp}
+                  onClick={handleStuff}
                   className={styles.signUpButton}
                 >
                   <div className={styles.buttonText}>SIGN UP </div>
