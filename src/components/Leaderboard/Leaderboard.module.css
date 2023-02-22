@@ -94,6 +94,11 @@ html {
   border-radius: 5px;
   margin: 5px;
   border: none;
+  transition: 0.3s;
+}
+
+.currentUserItem:hover {
+  background: #1d3634;
 }
 
 .tierheader {
@@ -230,6 +235,7 @@ html {
 
 .button {
   color: #aaaaaa;
+  background-color: #0a1c2a;
   margin: 0px 8px;
   border: 1px;
   padding: 8px;
@@ -250,9 +256,4 @@ html {
 .menu {
   background: #aaaaaa;
   color: black;
-}
-
-.dropdown-toggle {
-  color: #aaaaaa;
-  background-color: #ffffff;
 }
