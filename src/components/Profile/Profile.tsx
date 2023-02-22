@@ -327,7 +327,7 @@ const Profile = (): JSX.Element => {
                     getCountryName(selectedFlag) === loggedInUser.country
                   }
                   size="lg"
-                  className={styles.submitContainer}
+                  className={styles.submitButton}
                 >
                   SAVE CHANGES{' '}
                 </Button>

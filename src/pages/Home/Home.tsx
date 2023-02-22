@@ -22,7 +22,9 @@ export default function Home(): JSX.Element {
           src={downArrow}
         ></img>
       </div>
-      <AboutGame />
+      <div ref={Contentdiv}>
+        <AboutGame />
+      </div>
       <Footer />
       <div className={styles.delta}>
         <div>

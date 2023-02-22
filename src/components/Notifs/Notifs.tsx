@@ -115,7 +115,9 @@ const Notifs: React.FunctionComponent = () => {
             );
           })
         ) : (
-          <p className={styles.notifText}>No notifications to show</p>
+          <div className={styles.notifTextContainer}>
+            <p className={styles.notifText}>No notifications</p>
+          </div>
         )}
       </div>
     </>
