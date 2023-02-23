@@ -115,7 +115,6 @@ export default function Dashboard(): JSX.Element {
   const dailyChallenge = useAppSelector(dailyChallengeState);
   const pageState = useAppSelector(dailyChallengePageState);
   const dailyChallengeSimulationState = useAppSelector(dcSimulation);
-  // const [dcQuestionLanguage,setDcQuestionLanguage] = useState("cpp")
   const userLanguage =
     pageState == 'Dashboard'
       ? useAppSelector(UserLanguage)
