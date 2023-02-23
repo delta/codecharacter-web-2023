@@ -1114,6 +1114,6 @@ export const Verdict = {
   Player2: 'PLAYER2',
   Tie: 'TIE',
   Success: 'SUCCESS',
-  Failiure: 'FAILIURE',
+  Failure: 'FAILURE',
 } as const;
 export type Verdict = (typeof Verdict)[keyof typeof Verdict];

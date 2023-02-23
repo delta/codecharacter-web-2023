@@ -23,6 +23,9 @@
   background: rgba(30, 30, 30, 0.87);
 }
 
+
 body {
   background-color: rgba(30, 30, 30, 0.87);
+  overflow-y: hidden;
 }
+
