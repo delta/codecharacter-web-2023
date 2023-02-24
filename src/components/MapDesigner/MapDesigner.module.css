@@ -4,6 +4,13 @@
   height: 100%;
 }
 
+.headerText{
+  font-family: 'Poppins';
+  font-size: 28px;
+  color:#aaaaaa;
+  font-weight: bold;
+}
+
 .modalHeader {
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(100px);
@@ -30,6 +37,7 @@
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
 }
+
 .contentP {
   color: #aaaaaa;
   padding: 1rem;
@@ -37,10 +45,12 @@
   font-size: 17px;
   font-family: 'Poppins';
 }
+
 .contentP > span {
   font-weight: bold;
   letter-spacing: 1px;
 }
+
 .buttonRow {
   display: flex;
   justify-content: space-evenly;
@@ -48,30 +58,41 @@
   margin-bottom: 0.5rem;
   flex-direction: row;
 }
+
 .modalButton {
   color: #aaaaaa;
-    height: 5vh;
-    font-weight: 400;
-    font-size: 18px;
-    text-align: center;
-    background-color: inherit;
-    padding: 2px 20px 2px 20px;
-    border: 1px solid #aaaaaa;
-    border-radius: 5px;
-    font-family: 'Poppins';
-    margin-top: 10px;
+  height: 5vh;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+  background-color: inherit;
+  padding: 2px 20px 2px 20px;
+  border: 1px solid #aaaaaa;
+  border-radius: 5px;
+  font-family: 'Poppins';
+  margin-top: 10px;
 }
+
 .modalButton:hover{
   transform: scale(1.1);
   transition-duration: 0.5s;
   cursor: pointer;
 }
+
 .commitNameInput {
-  width: 80%;
-  margin-left: 2rem;
+  width: 85%;
+  margin-left: 2.5rem;
+  margin-top: 1rem;
   border: none;
   outline: none;
+  font-family: 'Poppins';
+  font-size: 20px;
+  color: #aaaaaa;
+  border: 2px solid #aaaaaa;
+  background-color: transparent;
+  padding: 10px ;   
 }
+
 .commitModalError {
   width: 100%;
   text-align: center;

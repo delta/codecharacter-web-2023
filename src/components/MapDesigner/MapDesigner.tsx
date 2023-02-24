@@ -268,16 +268,25 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
           </Container>
         </Modal.Body>
       </Modal>
-      <Modal show={commitModalShow} centered onHide={closeCommitModal}>
-        <Modal.Header className={styles.modalHeader} closeButton>
-          <Modal.Title className="fw-bold fs-2">Commit Name</Modal.Title>
+      <Modal show={commitModalShow} centered>
+        <Modal.Header className={styles.modalHeader}>
+          <Modal.Title className={styles.headerText}>Commit Name</Modal.Title>
+          <button
+            type="button"
+            className="btn-close btn-close-white"
+            aria-label="Close"
+            onClick={closeCommitModal}
+          ></button>
         </Modal.Header>
         <Modal.Body className={styles.modalContent}>
           <Row>
             <input
+              type="text"
+              placeholder="Enter Commit Message"
+              value={commitName}
               className={styles.commitNameInput}
               onChange={handleCommitName}
-            ></input>
+            />
           </Row>
           <p className={styles.commitModalError}>{commitModalError}</p>
           <div className={styles.buttonRow}>
