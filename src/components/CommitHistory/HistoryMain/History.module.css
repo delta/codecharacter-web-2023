@@ -152,8 +152,15 @@
 
 .mapImg{
   object-fit:contain;
-  height:100%;
-  width:100%;
+  height:100vh;
+  width:100vw; 
+  color: #ffffff;
+  padding-left: 5rem;
+}
+
+.mapLoad{
+  color: #ffffff;
+  font-size: 40px;
 }
 
 

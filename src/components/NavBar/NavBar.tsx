@@ -23,6 +23,11 @@ import challengeDone from '../../assets/challenge_done.png';
 import challengeAvailable from '../../assets/challenge_available.png';
 import DcCompleted from '../DcModals/DcCompleted';
 import DcAvailable from '../DcModals/DcAvailable';
+import {
+  changePageState,
+  changeSimulationState,
+  dailyChallengeCompletionState,
+} from '../../store/DailyChallenge/dailyChallenge';
 
 const NavBar: React.FunctionComponent = () => {
   const dispatch = useAppDispatch();
@@ -30,8 +35,7 @@ const NavBar: React.FunctionComponent = () => {
   const location = useLocation();
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
-  //add Dcstates here with backend
-  const dailyChallengeStatus = true;
+  const dcCompletionstatus = useAppSelector(dailyChallengeCompletionState);
   useEffect(() => {
     const cookieValue = document.cookie;
     const bearerToken = cookieValue.split(';');
@@ -86,6 +90,14 @@ const NavBar: React.FunctionComponent = () => {
   const [showAvailable, setShowAvailable] = useState(false);
   const handleCloseAvailable = () => setShowAvailable(false);
 
+  const handleTake = () => {
+    dispatch(changePageState('DailyChallenge'));
+    dispatch(changeSimulationState(false));
+    navigate('/dashboard', { replace: true });
+    setShowAvailable(false);
+    setShowCompleted(false);
+  };
+
   const [showCompleted, setShowCompleted] = useState(false);
   const handleCloseCompleted = () => {
     //Add logic for redirection to view dc leaderboard once done
@@ -94,8 +106,16 @@ const NavBar: React.FunctionComponent = () => {
 
   return (
     <div className={styles.navBar}>
-      <DcCompleted show={showCompleted} handleClose={handleCloseCompleted} />
-      <DcAvailable show={showAvailable} handleClose={handleCloseAvailable} />
+      <DcCompleted
+        show={showCompleted}
+        handleClose={handleCloseCompleted}
+        handleTake={handleTake}
+      />
+      <DcAvailable
+        show={showAvailable}
+        handleClose={handleCloseAvailable}
+        handleTake={handleTake}
+      />
       <div className={styles.navBarContainer}>
         <div className={styles.branding}>
           <Link to="/" className={styles.logoLink}>
@@ -127,11 +147,11 @@ const NavBar: React.FunctionComponent = () => {
         <div className={styles.profileIcons}>
           <div className={styles.notifIconContainer}>
             <img
-              src={dailyChallengeStatus ? challengeDone : challengeAvailable}
+              src={dcCompletionstatus ? challengeDone : challengeAvailable}
               className={styles.dcIcon}
               title="Daily Challenge"
               onClick={() => {
-                dailyChallengeStatus
+                dcCompletionstatus
                   ? setShowCompleted(true)
                   : setShowAvailable(true);
               }}

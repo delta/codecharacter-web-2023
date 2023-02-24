@@ -1,6 +1,11 @@
-import { CodeApi, Language } from '@codecharacter-2023/client';
+import {
+  CodeApi,
+  Language,
+  DailyChallengesApi,
+} from '@codecharacter-2023/client';
 import { RendererComponent } from '@codecharacter-2023/renderer';
 import Toast from 'react-hot-toast';
+import { CodeBlock, irBlack } from 'react-code-blocks';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   faChevronLeft,
@@ -46,6 +51,16 @@ import {
   IsCommitModalOpen,
   isCommitModalOpened,
 } from '../../store/EditorSettings/settings';
+import MapDesigner from '../../components/MapDesigner/MapDesigner';
+import {
+  dailyChallengeState,
+  initializeDailyChallengeState,
+  dailyChallengePageState,
+  changeDcLanguage,
+  dcCodeLanguage,
+  dcCode,
+  dcSimulation,
+} from '../../store/DailyChallenge/dailyChallenge';
 
 type SplitPaneState = {
   horizontalPercent: string;
@@ -94,11 +109,19 @@ export default function Dashboard(): JSX.Element {
     localStorage.setItem('splitPaneState', JSON.stringify(splitPaneState));
   }, [horizontalPercent, verticalPercent, mainContainerRef.current]);
 
-  const userLanguage = useAppSelector(UserLanguage);
   const userCode = useAppSelector(UserCode);
+  const dailyChallengeCode = useAppSelector(dcCode);
   const dispatch = useAppDispatch();
+  const dailyChallenge = useAppSelector(dailyChallengeState);
+  const pageState = useAppSelector(dailyChallengePageState);
+  const dailyChallengeSimulationState = useAppSelector(dcSimulation);
+  const userLanguage =
+    pageState == 'Dashboard'
+      ? useAppSelector(UserLanguage)
+      : useAppSelector(dcCodeLanguage);
 
   const codeAPI = new CodeApi(apiConfig);
+  const dailyChallengeAPI = new DailyChallengesApi(apiConfig);
   useEffect(() => {
     const cookieValue = document.cookie;
     const bearerToken = cookieValue.split(';');
@@ -111,6 +134,14 @@ export default function Dashboard(): JSX.Element {
         dispatch(loggedIn());
       }
     });
+    dailyChallengeAPI
+      .getDailyChallenge()
+      .then(response => {
+        dispatch(initializeDailyChallengeState(response));
+      })
+      .catch(err => {
+        if (err instanceof ApiError) Toast.error(err.message);
+      });
   }, []);
 
   useEffect(() => {
@@ -137,17 +168,23 @@ export default function Dashboard(): JSX.Element {
   const handleLanguageChange = (language: string) => {
     switch (language) {
       case 'C++':
-        dispatch(changeLanguage('c_cpp'));
+        pageState == 'Dashboard'
+          ? dispatch(changeLanguage('c_cpp'))
+          : dispatch(changeDcLanguage('c_cpp'));
         setLanguageChose('C++');
         localStorage.setItem('languageChose', 'C++');
         break;
       case 'Python':
-        dispatch(changeLanguage('python'));
+        pageState == 'Dashboard'
+          ? dispatch(changeLanguage('python'))
+          : dispatch(changeDcLanguage('python'));
         setLanguageChose('Python');
         localStorage.setItem('languageChose', 'Python');
         break;
       case 'Java':
-        dispatch(changeLanguage('java'));
+        pageState == 'Dashboard'
+          ? dispatch(changeLanguage('java'))
+          : dispatch(changeDcLanguage('java'));
         setLanguageChose('Java');
         localStorage.setItem('languageChose', 'Java');
         break;
@@ -164,7 +201,8 @@ export default function Dashboard(): JSX.Element {
 
     codeAPI
       .updateLatestCode({
-        code: userCode,
+        codeType: pageState == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
+        code: pageState == 'Dashboard' ? userCode : dailyChallengeCode,
         lock: false,
         language: languageType,
       })
@@ -213,16 +251,33 @@ export default function Dashboard(): JSX.Element {
 
     codeAPI
       .updateLatestCode({
-        code: userCode,
+        codeType: pageState == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
+        code: pageState == 'Dashboard' ? userCode : dailyChallengeCode,
         lock: true,
         language: languageType,
       })
       .then(() => {
-        Toast.success('Code Submitted');
+        if (pageState == 'Dashboard') {
+          Toast.success('Code Submitted');
+        }
       })
       .catch(err => {
         if (err instanceof ApiError) Toast.error(err.message);
       });
+
+    if (pageState == 'DailyChallenge') {
+      dailyChallengeAPI
+        .createDailyChallengeMatch({
+          value: dailyChallengeCode,
+          language: languageType,
+        })
+        .then(() => {
+          Toast.success('Daily Challenge Submitted');
+        })
+        .catch(err => {
+          if (err instanceof ApiError) Toast.error(err.message);
+        });
+    }
   };
 
   return (
@@ -242,19 +297,149 @@ export default function Dashboard(): JSX.Element {
         allowResize={true}
       >
         <div className={styles.leftPane}>
-          <ButtonToolbar
-            className={
-              styles.toolbar +
-              (theme == 'vs-dark'
-                ? ' vs-dark'
-                : theme == 'vs-light'
-                ? ' vs'
-                : ' hc-black')
-            }
-            as={Row}
-          >
-            <div className={styles.mainDiv}>
-              <Col className={styles.toolbarColumn1} sm="1">
+          {pageState == 'Dashboard' || dailyChallenge.challType == 'MAP' ? (
+            <ButtonToolbar
+              className={
+                styles.toolbar +
+                (theme == 'vs-dark'
+                  ? ' vs-dark'
+                  : theme == 'vs-light'
+                  ? ' vs'
+                  : ' hc-black')
+              }
+              as={Row}
+            >
+              <div className={styles.mainDiv}>
+                <Col className={styles.toolbarColumn1} sm="1">
+                  <Form.Select
+                    className={styles.toolbarButton1}
+                    value={
+                      userLanguage == 'c_cpp'
+                        ? 'C++'
+                        : userLanguage.charAt(0).toUpperCase() +
+                          userLanguage.slice(1)
+                    }
+                    onChange={e => handleLanguageChange(e.target.value)}
+                  >
+                    {languages.map(language => (
+                      <option value={language} key={language}>
+                        {language}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Col>
+                <div className={styles.midDiv}>
+                  <Col
+                    className={styles.toolbarColumn}
+                    sm="1"
+                    style={{
+                      marginLeft: pageState == 'Dashboard' ? 0 : '20%',
+                    }}
+                  >
+                    <button
+                      className={styles.toolbarButton}
+                      onClick={handleSave}
+                      ref={saveButtonRef}
+                    >
+                      <FontAwesomeIcon title="Save" icon={faSave as IconProp} />
+                    </button>
+                  </Col>
+                  {pageState == 'Dashboard' ? (
+                    <>
+                      <Col className={styles.toolbarColumn} sm="1">
+                        <button
+                          className={styles.toolbarButton}
+                          onClick={handleSimulate}
+                        >
+                          <FontAwesomeIcon
+                            title="Simulate"
+                            icon={faPlay as IconProp}
+                          />
+                        </button>
+                      </Col>
+                      <Col className={styles.toolbarColumn} sm="1">
+                        <button
+                          className={styles.toolbarButton}
+                          onClick={handleOpenCommitModal}
+                        >
+                          <FontAwesomeIcon
+                            title="Commit"
+                            icon={faCodeBranch as IconProp}
+                          />{' '}
+                        </button>
+                      </Col>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  <Col className={styles.toolbarColumn} sm="1">
+                    <button
+                      className={styles.toolbarButton}
+                      onClick={handleSubmit}
+                      ref={submitButtonRef}
+                    >
+                      <FontAwesomeIcon
+                        title="Submit"
+                        icon={faCloudUploadAlt as IconProp}
+                      />{' '}
+                    </button>
+                  </Col>
+                </div>
+              </div>
+              <div>
+                <div className={styles.settingsIconDiv}>
+                  <div className={styles.settingsIcon}>
+                    <FontAwesomeIcon
+                      title={'Settings'}
+                      icon={faGear as IconProp}
+                      color={'#cbcbcb'}
+                      onClick={handleOpenSettings}
+                      className={styles.hoverIcon}
+                    />
+                  </div>
+                  <div className={styles.settingsIcon}>
+                    <FontAwesomeIcon
+                      title={'Shorcuts'}
+                      icon={faCircleInfo as IconProp}
+                      color={'#cbcbcb'}
+                      onClick={handleOpenInfo}
+                      className={styles.hoverIcon}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <Button
+                  className={styles.closeEditorButton}
+                  onClick={() => {
+                    updateDividerPosition(dividerPosition - 1);
+                  }}
+                  variant="dark"
+                >
+                  <FontAwesomeIcon
+                    size={'sm'}
+                    icon={faChevronLeft as IconProp}
+                  />
+                </Button>
+              </div>
+              <div>
+                <Button
+                  className={styles.closeRendererButton}
+                  onClick={() => {
+                    updateDividerPosition(dividerPosition + 1);
+                  }}
+                  variant="dark"
+                >
+                  <FontAwesomeIcon
+                    size={'sm'}
+                    icon={faChevronRight as IconProp}
+                  />
+                </Button>
+              </div>
+            </ButtonToolbar>
+          ) : (
+            <>
+              <div className={styles.dcToolbar}>
                 <Form.Select
                   className={styles.toolbarButton1}
                   value={languageChose}
@@ -266,66 +451,10 @@ export default function Dashboard(): JSX.Element {
                     </option>
                   ))}
                 </Form.Select>
-              </Col>
-              <div className={styles.midDiv}>
-                <Col className={styles.toolbarColumn} sm="1">
-                  <button
-                    className={styles.toolbarButton}
-                    onClick={handleSave}
-                    ref={saveButtonRef}
-                  >
-                    <FontAwesomeIcon title={'Save'} icon={faSave as IconProp} />
-                  </button>
-                </Col>
-                <Col className={styles.toolbarColumn} sm="1">
-                  <button
-                    className={styles.toolbarButton}
-                    onClick={handleSimulate}
-                  >
-                    <FontAwesomeIcon
-                      title={'Simulate'}
-                      icon={faPlay as IconProp}
-                    />
-                  </button>
-                </Col>
-                <Col className={styles.toolbarColumn} sm="1">
-                  <button
-                    className={styles.toolbarButton}
-                    onClick={handleOpenCommitModal}
-                  >
-                    <FontAwesomeIcon
-                      title={'Commit'}
-                      icon={faCodeBranch as IconProp}
-                    />
-                  </button>
-                </Col>
-                <Col className={styles.toolbarColumn} sm="1">
-                  <button
-                    className={styles.toolbarButton}
-                    onClick={handleSubmit}
-                    ref={submitButtonRef}
-                  >
-                    <FontAwesomeIcon
-                      title={'Submit'}
-                      icon={faCloudUploadAlt as IconProp}
-                    />
-                  </button>
-                </Col>
-              </div>
-            </div>
-            <div>
-              <div className={styles.settingsIconDiv}>
-                <div className={styles.settingsIcon}>
-                  <FontAwesomeIcon
-                    title={'Settings'}
-                    icon={faGear as IconProp}
-                    color={'#cbcbcb'}
-                    onClick={handleOpenSettings}
-                    className={styles.hoverIcon}
-                  />
+                <div className={styles.challName}>
+                  {dailyChallenge.challName}
                 </div>
-
-                <div className={styles.settingsIcon}>
+                <div className={styles.infoIcon}>
                   <FontAwesomeIcon
                     title={'Shorcuts'}
                     icon={faCircleInfo as IconProp}
@@ -335,45 +464,46 @@ export default function Dashboard(): JSX.Element {
                   />
                 </div>
               </div>
-            </div>
-            <div>
-              <Button
-                className={styles.closeEditorButton}
-                onClick={() => {
-                  updateDividerPosition(dividerPosition - 1);
-                }}
-                variant="dark"
-              >
-                <FontAwesomeIcon size={'sm'} icon={faChevronLeft as IconProp} />
-              </Button>
-            </div>
-            <div>
-              <Button
-                className={styles.closeRendererButton}
-                onClick={() => {
-                  updateDividerPosition(dividerPosition + 1);
-                }}
-                variant="dark"
-              >
-                <FontAwesomeIcon
-                  size={'sm'}
-                  icon={faChevronRight as IconProp}
-                />
-              </Button>
-            </div>
-          </ButtonToolbar>
+            </>
+          )}
           <div className={styles.editorContainer}>
-            <Editor
-              language={userLanguage}
-              SaveRef={saveButtonRef}
-              SubmitRef={submitButtonRef}
-            />
+            {pageState == 'Dashboard' || dailyChallenge.challType == 'MAP' ? (
+              <Editor
+                language={userLanguage}
+                page={pageState}
+                SaveRef={saveButtonRef}
+                SubmitRef={submitButtonRef}
+              />
+            ) : (
+              <CodeBlock
+                text={
+                  languageChose == 'C++'
+                    ? dailyChallenge.chall.cpp
+                    : languageChose == 'Python'
+                    ? dailyChallenge.chall.python
+                    : dailyChallenge.chall.java
+                }
+                language={
+                  languageChose == 'C++' ? 'cpp' : languageChose.toLowerCase()
+                }
+                showLineNumbers={true}
+                theme={irBlack}
+              />
+            )}
           </div>
         </div>
         <SplitPane
           split="horizontal"
-          size={verticalPercent}
-          allowResize={true}
+          size={
+            pageState == 'Dashboard' || dailyChallengeSimulationState
+              ? verticalPercent
+              : '100%'
+          }
+          allowResize={
+            pageState == 'Dashboard' || dailyChallengeSimulationState
+              ? true
+              : false
+          }
           onChange={(size: number) => {
             if (mainContainerRef.current) {
               setVerticalPercent(
@@ -386,10 +516,27 @@ export default function Dashboard(): JSX.Element {
           }}
         >
           <div className={styles.rightPane}>
-            <RendererComponent />
+            {pageState == 'Dashboard' || dailyChallengeSimulationState ? (
+              <RendererComponent />
+            ) : dailyChallenge.challType == 'MAP' ? (
+              <>
+                <div className={styles.mapChallName}>
+                  {dailyChallenge.challName}
+                </div>
+                <div className={styles.dcMap}>
+                  <img draggable={false} src={dailyChallenge.chall.image}></img>
+                </div>
+              </>
+            ) : (
+              <MapDesigner pageType={'DailyChallenge'} />
+            )}
           </div>
           <div className={styles.rightPane}>
-            <Terminal />
+            {pageState == 'Dashboard' || dailyChallengeSimulationState ? (
+              <Terminal />
+            ) : (
+              <></>
+            )}
           </div>
         </SplitPane>
       </SplitPane>

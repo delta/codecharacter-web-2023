@@ -25,6 +25,11 @@ import {
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
 
+import {
+  dcCode,
+  changeDcCode,
+} from '../../store/DailyChallenge/dailyChallenge';
+
 self.MonacoEnvironment = {
   getWorkerUrl: function (_moduleId: string, label: string) {
     if ((label = 'cpp')) {
@@ -43,7 +48,10 @@ self.MonacoEnvironment = {
 export default function CodeEditor(props: Editor.Props): JSX.Element {
   const divCodeEditor = useRef<HTMLDivElement>(null);
   let editor: monaco.editor.IStandaloneCodeEditor;
-  const userCode: string = useAppSelector(UserCode);
+  const userCode: string =
+    props.page == 'Dashboard'
+      ? useAppSelector(UserCode)
+      : useAppSelector(dcCode);
   const fontSize: number = useAppSelector(FontSize);
   const theme: string = useAppSelector(Theme);
   const dispatch: React.Dispatch<unknown> = useAppDispatch();
@@ -86,7 +94,11 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         currentUserCode: editor.getValue(),
         currentUserLanguage: language,
       };
-      dispatch(updateUserCode(codeNlanguage));
+      if (props.page == 'Dashboard') {
+        dispatch(updateUserCode(codeNlanguage));
+      } else {
+        dispatch(changeDcCode(codeNlanguage));
+      }
     });
 
     //Keybinding for save -> CTRL+S
@@ -97,22 +109,27 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
 
     //Keybinding for Simulate -> CTRL+ALT+N
 
-    editor.addCommand(
-      monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
-      function () {
-        dispatch(isSelfMatchModalOpened(true));
-        dispatch(codeCommitNameChanged('Current Code'));
-        dispatch(codeCommitIDChanged(null));
-        dispatch(mapCommitNameChanged('Current Map'));
-        dispatch(mapCommitIDChanged(null));
-      },
-    );
+    if (props.page == 'Dashboard') {
+      editor.addCommand(
+        monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
+        function () {
+          dispatch(isSelfMatchModalOpened(true));
+          dispatch(codeCommitNameChanged('Current Code'));
+          dispatch(codeCommitIDChanged(null));
+          dispatch(mapCommitNameChanged('Current Map'));
+          dispatch(mapCommitIDChanged(null));
+        },
+      );
 
-    //Keybinding for Commit -> CTRL+K
+      //Keybinding for Commit -> CTRL+K
 
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK, function () {
-      dispatch(isCommitModalOpened(true));
-    });
+      editor.addCommand(
+        monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK,
+        function () {
+          dispatch(isCommitModalOpened(true));
+        },
+      );
+    }
 
     //Keybinding for Submit -> CTRL+SHIFT+S
 
@@ -126,19 +143,33 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     return () => {
       editor.dispose();
     };
-  }, [fontSize, theme, language, keyboardHandler]);
+  }, [fontSize, theme, language, keyboardHandler, props.page]);
+
+  const userCodeChangeHandler = () => {
+    const codeNlanguage: CodeAndLanguage = {
+      currentUserCode: editor.getValue(),
+      currentUserLanguage: language,
+    };
+    dispatch(updateUserCode(codeNlanguage));
+  };
+
+  const dailyChallengeCodechange = () => {
+    const codeNlanguage: CodeAndLanguage = {
+      currentUserCode: editor.getValue(),
+      currentUserLanguage: language,
+    };
+    dispatch(changeDcCode(codeNlanguage));
+  };
 
   return (
     <div
       className={styles.Editor}
       ref={divCodeEditor}
-      onChange={() => {
-        const codeNlanguage: CodeAndLanguage = {
-          currentUserCode: editor.getValue(),
-          currentUserLanguage: language,
-        };
-        dispatch(updateUserCode(codeNlanguage));
-      }}
+      onChange={
+        props.page == 'Dashboard'
+          ? userCodeChangeHandler
+          : dailyChallengeCodechange
+      }
     ></div>
   );
 }

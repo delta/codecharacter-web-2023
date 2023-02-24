@@ -13,7 +13,7 @@ export default function Home(): JSX.Element {
   };
 
   return (
-    <main className={styles.mainContainer}>
+    <div className={styles.mainContainer}>
       <div className={styles.jumbotron}>
         <Glitchtext value="Code Character" />
         <img
@@ -34,6 +34,6 @@ export default function Home(): JSX.Element {
           </a>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

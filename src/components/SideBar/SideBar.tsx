@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import styles from './SideBar.module.css';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import deltaLogo from '../../assets/deltaLogo.png';
+import { changePageState } from '../../store/DailyChallenge/dailyChallenge';
 
 const icons = [
   { icon: codeIcon, route: 'dashboard', tooltip: 'Code Editor' },
@@ -59,6 +60,22 @@ const SideBar: React.FunctionComponent = () => {
                       onClick={handleOpenSettings}
                       className={styles.sideBarIconComponent}
                     />
+                  </div>
+                );
+              } else if (icon.icon == codeIcon) {
+                return (
+                  <div key={icons.indexOf(icon)} className={styles.sideBarIcon}>
+                    <Link to={icon.route} key={icon.route}>
+                      <img
+                        src={icon.icon as string}
+                        alt={icon.tooltip}
+                        title={icon.tooltip}
+                        className={styles.sideBarIconComponent}
+                        onClick={() => {
+                          dispatch(changePageState('Dashboard'));
+                        }}
+                      />
+                    </Link>
                   </div>
                 );
               } else {

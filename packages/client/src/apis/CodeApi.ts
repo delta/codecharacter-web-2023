@@ -16,6 +16,7 @@ import * as runtime from '../runtime';
 import type {
   Code,
   CodeRevision,
+  CodeType,
   CreateCodeRevisionRequest,
   GenericError,
   UpdateLatestCodeRequest,
@@ -23,6 +24,14 @@ import type {
 
 export interface CreateCodeRevisionOperationRequest {
   createCodeRevisionRequest: CreateCodeRevisionRequest;
+}
+
+export interface GetCodeRevisionsRequest {
+  type?: CodeType;
+}
+
+export interface GetLatestCodeRequest {
+  type?: CodeType;
 }
 
 export interface UpdateLatestCodeOperationRequest {
@@ -61,11 +70,13 @@ export interface CodeApiInterface {
   /**
    * Get list of all code revision IDs
    * @summary Get code revisions
+   * @param {CodeType} [type] code type
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CodeApiInterface
    */
   getCodeRevisionsRaw(
+    requestParameters: GetCodeRevisionsRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<CodeRevision>>>;
 
@@ -74,17 +85,20 @@ export interface CodeApiInterface {
    * Get code revisions
    */
   getCodeRevisions(
+    type?: CodeType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<Array<CodeRevision>>;
 
   /**
    * Get latest code
    * @summary Get latest code
+   * @param {CodeType} [type] code type
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CodeApiInterface
    */
   getLatestCodeRaw(
+    requestParameters: GetLatestCodeRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Code>>;
 
@@ -93,6 +107,7 @@ export interface CodeApiInterface {
    * Get latest code
    */
   getLatestCode(
+    type?: CodeType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<Code>;
 
@@ -188,9 +203,14 @@ export class CodeApi extends runtime.BaseAPI implements CodeApiInterface {
    * Get code revisions
    */
   async getCodeRevisionsRaw(
+    requestParameters: GetCodeRevisionsRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Array<CodeRevision>>> {
     const queryParameters: any = {};
+
+    if (requestParameters.type !== undefined) {
+      queryParameters['type'] = requestParameters.type;
+    }
 
     const headerParameters: runtime.HTTPHeaders = {};
 
@@ -220,9 +240,13 @@ export class CodeApi extends runtime.BaseAPI implements CodeApiInterface {
    * Get code revisions
    */
   async getCodeRevisions(
+    type?: CodeType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<Array<CodeRevision>> {
-    const response = await this.getCodeRevisionsRaw(initOverrides);
+    const response = await this.getCodeRevisionsRaw(
+      { type: type },
+      initOverrides,
+    );
     return await response.value();
   }
 
@@ -231,9 +255,14 @@ export class CodeApi extends runtime.BaseAPI implements CodeApiInterface {
    * Get latest code
    */
   async getLatestCodeRaw(
+    requestParameters: GetLatestCodeRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<Code>> {
     const queryParameters: any = {};
+
+    if (requestParameters.type !== undefined) {
+      queryParameters['type'] = requestParameters.type;
+    }
 
     const headerParameters: runtime.HTTPHeaders = {};
 
@@ -263,9 +292,10 @@ export class CodeApi extends runtime.BaseAPI implements CodeApiInterface {
    * Get latest code
    */
   async getLatestCode(
+    type?: CodeType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<Code> {
-    const response = await this.getLatestCodeRaw(initOverrides);
+    const response = await this.getLatestCodeRaw({ type: type }, initOverrides);
     return await response.value();
   }
 

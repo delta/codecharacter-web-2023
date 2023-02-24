@@ -9,41 +9,47 @@ import {
   GameMapRevision,
   MapApi,
 } from '@codecharacter-2023/client';
-import { changeHistoryEditorMap } from '../../../store/historyEditor/historyEditorSlice';
-import { useAppDispatch } from '../../../store/hooks';
+import {
+  MapObj,
+  changeHistoryEditorMap,
+  mapImagesByCommits,
+  addMapCommit,
+} from '../../../store/historyEditor/historyEditorSlice';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import styles from './History.module.css';
 import CodeView from '../CodeMapViewbox/CodeView';
 import { Col, Container, Row } from 'react-bootstrap';
 import Toast, { toast } from 'react-hot-toast';
 import { updateUserCode, changeLanguage } from '../../../store/editor/code';
 import { useNavigate } from 'react-router-dom';
-import mapImage from '/assets/Map.jpeg';
 
 export default function History(): JSX.Element {
   const [SelectedButton, setSelectedButton] = useState('Code');
   const [completeCodeHistroy, setCodeHistory] = useState<CodeRevision[]>([]);
   const [completeMapHistory, setMapHistory] = useState<GameMapRevision[]>([]);
+  const [mapFetched, setMapFetched] = useState<boolean>(false);
+  const [codeFetched, setCodeFetched] = useState<boolean>(false);
   const [currentCode, setCurrentCode] = useState('');
   const [codeLanguage, setCodeLanguage] = useState('');
-  const [currentMap, setCurrentMap] = useState<Array<Array<number>>>([]);
+  const [currentMap, setCurrentMap] = useState<MapObj>({
+    map: [],
+    mapImg: 'null',
+  });
   const [currentCommitMessage, setCurrentCommitMessage] = useState<string>('');
+  const mapImagesByCommitIds = useAppSelector(mapImagesByCommits);
 
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+  const mapApi = new MapApi(apiConfig);
 
   useEffect(() => {
     const codeApi = new CodeApi(apiConfig);
     codeApi
       .getCodeRevisions()
       .then(codeResp => {
-        setCodeHistory(
-          codeResp.sort((a, b) => {
-            if (a.createdAt < b.createdAt) return -1;
-            else if (a.createdAt > b.createdAt) return 1;
-            else return 0;
-          }),
-        );
+        setCodeFetched(true);
+        setCodeHistory(codeResp);
       })
       .catch(codeError => {
         if (codeError instanceof ApiError) {
@@ -51,11 +57,11 @@ export default function History(): JSX.Element {
         }
       });
 
-    const mapApi = new MapApi(apiConfig);
     mapApi
       .getMapRevisions()
       .then(mapResp => {
-        setMapHistory(mapResp.reverse());
+        setMapFetched(true);
+        setMapHistory(mapResp);
       })
       .catch(mapError => {
         if (mapError instanceof ApiError) {
@@ -65,6 +71,10 @@ export default function History(): JSX.Element {
   }, []);
 
   const commitID = (id: string) => {
+    setCurrentMap({
+      map: currentMap.map,
+      mapImg: '',
+    });
     completeCodeHistroy.forEach(codeData => {
       if (codeData.id === id) {
         setCurrentCode(codeData.code);
@@ -74,7 +84,34 @@ export default function History(): JSX.Element {
     });
     completeMapHistory.forEach(mapData => {
       if (mapData.id == id) {
-        setCurrentMap(JSON.parse(mapData.map));
+        setCurrentCommitMessage(mapData.message);
+        if (mapImagesByCommitIds.some(obj => obj.CommitId == id)) {
+          setCurrentMap({
+            map: JSON.parse(mapData.map),
+            mapImg: mapImagesByCommitIds.find(obj => obj.CommitId === id)
+              ?.Image as string,
+          });
+        } else {
+          mapApi
+            .getMapByCommitID(mapData.id)
+            .then(resp => {
+              setCurrentMap({
+                map: JSON.parse(mapData.map),
+                mapImg: resp.mapImage,
+              });
+              dispatch(
+                addMapCommit({
+                  CommitId: id,
+                  Image: resp.mapImage,
+                }),
+              );
+            })
+            .catch(mapError => {
+              if (mapError instanceof ApiError) {
+                Toast.error(mapError.message);
+              }
+            });
+        }
       }
     });
   };
@@ -103,8 +140,14 @@ export default function History(): JSX.Element {
       }
       toast.success(` Loaded commit - ${currentCommitMessage}`);
       navigate('/dashboard', { replace: true });
-    } else if (SelectedButton == 'Map' && currentMap.length != 0) {
+    } else if (
+      SelectedButton == 'Map' &&
+      currentMap.mapImg != '' &&
+      currentMap.map.length !== 0
+    ) {
       dispatch(changeHistoryEditorMap(currentMap));
+      toast.success(` Loaded commit - ${currentCommitMessage}`);
+      navigate('/mapdesigner', { replace: true });
     }
   };
 
@@ -143,7 +186,8 @@ export default function History(): JSX.Element {
       <Row className={styles.viewContainer}>
         <Col lg="4" style={{ marginLeft: '5%' }}>
           <div className={styles.completeTimeline}>
-            {completeMapHistory && completeCodeHistroy ? (
+            {(codeFetched && SelectedButton == 'Code') ||
+            (mapFetched && SelectedButton == 'Map') ? (
               <CommitHistory
                 commitID={commitID}
                 commitHistoryDetails={
@@ -166,8 +210,10 @@ export default function History(): JSX.Element {
           >
             {SelectedButton == 'Code' ? (
               <CodeView code={currentCode} codeLang={codeLanguage} />
+            ) : currentMap.mapImg != '' ? (
+              <img className={styles.mapImg} src={currentMap.mapImg} />
             ) : (
-              <img className={styles.mapImg} src={mapImage} />
+              <div className={styles.mapLoad}>Map image not found</div>
             )}
           </div>
           <div className={styles.select}>

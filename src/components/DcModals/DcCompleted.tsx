@@ -13,15 +13,15 @@ const DcCompleted = (props: DcProps) => {
         <Modal.Title>Daily Challenge</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Woohoo, youv&apos;e completed today&apos;s Challenges!
+        Woohoo, you&apos;ve completed today&apos;s Challenge!
       </Modal.Body>
       <Modal.Footer>
         <Button
           variant="outline-danger"
           className={styles.dcmodalBtn}
-          onClick={props.handleClose}
+          onClick={props.handleTake}
         >
-          Ok!
+          View Latest Challenge
         </Button>
         <Button
           variant="outline-info"

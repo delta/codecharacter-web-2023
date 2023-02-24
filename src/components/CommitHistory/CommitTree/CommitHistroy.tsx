@@ -15,7 +15,7 @@ type PropsType = {
 
 export default function CommitHistory(props: PropsType): JSX.Element {
   const CircleIcon = {
-    background: '#DFFF00',
+    background: '#1E3821',
     color: '#fff',
   };
 
