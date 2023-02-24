@@ -136,7 +136,7 @@ function PaginatedItems() {
                     </div>
                     <div className={[styles.username, styles.right].join(' ')}>
                       {match.user2 !== null
-                        ? match.user2.username
+                        ? match.user2?.username
                         : 'Daily Challenge'}
                     </div>
                     <div className={styles.pic}>

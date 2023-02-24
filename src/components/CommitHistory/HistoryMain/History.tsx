@@ -88,7 +88,8 @@ export default function History(): JSX.Element {
         if (mapImagesByCommitIds.some(obj => obj.CommitId == id)) {
           setCurrentMap({
             map: JSON.parse(mapData.map),
-            mapImg: mapImagesByCommitIds.find(obj => obj.CommitId === id).Image,
+            mapImg: mapImagesByCommitIds.find(obj => obj.CommitId === id)
+              ?.Image as string,
           });
         } else {
           mapApi
@@ -142,7 +143,7 @@ export default function History(): JSX.Element {
     } else if (
       SelectedButton == 'Map' &&
       currentMap.mapImg != '' &&
-      currentMap.map !== []
+      currentMap.map.length !== 0
     ) {
       dispatch(changeHistoryEditorMap(currentMap));
       toast.success(` Loaded commit - ${currentCommitMessage}`);
@@ -212,7 +213,7 @@ export default function History(): JSX.Element {
             ) : currentMap.mapImg != '' ? (
               <img className={styles.mapImg} src={currentMap.mapImg} />
             ) : (
-              <div className={styles.mapLoad}>Loading....</div>
+              <div className={styles.mapLoad}>Map image not found</div>
             )}
           </div>
           <div className={styles.select}>

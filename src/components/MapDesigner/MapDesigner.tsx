@@ -157,20 +157,24 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
     closeModal();
   };
 
+  useEffect(() => {
+    MapDesignerUtils.setLocalStorageKey(
+      props.pageType == 'MapDesigner'
+        ? 'cc-map-designer-map'
+        : 'dc-map-designer-map',
+    );
+  }, [props.pageType]);
+
   const saveMapCallback = (map: Array<Array<number>>) => {
     setModalShow(true);
     setStagedMap(map);
   };
+
   return (
     <>
       <div className={styles.mapDesignerContainer}>
         <MapDesignerComponent
           saveMapCallback={saveMapCallback}
-          {...MapDesignerUtils.setLocalStorageKey(
-            props.pageType == 'MapDesigner'
-              ? 'cc-map-designer-map'
-              : 'dc-map-designer-map',
-          )}
           readonly={false}
         />
       </div>

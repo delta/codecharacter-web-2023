@@ -1,4 +1,7 @@
-import { DailyChallengeGetRequest } from '@codecharacter-2023/client';
+import {
+  ChallengeType,
+  DailyChallengeGetRequest,
+} from '@codecharacter-2023/client';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { CodeAndLanguage, languagesAvailable } from '../editor/code';
@@ -26,7 +29,7 @@ const initialState: DailyChallengeStateType = {
       python: ' ',
       image: ' ',
     },
-    challType: '',
+    challType: '' as ChallengeType,
     completionStatus: false,
   },
   pageType: 'Dashboard',

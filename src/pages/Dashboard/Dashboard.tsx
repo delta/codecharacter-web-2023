@@ -134,16 +134,14 @@ export default function Dashboard(): JSX.Element {
         dispatch(loggedIn());
       }
     });
-    if (dailyChallenge.challType == '') {
-      dailyChallengeAPI
-        .getDailyChallenge()
-        .then(response => {
-          dispatch(initializeDailyChallengeState(response));
-        })
-        .catch(err => {
-          if (err instanceof ApiError) Toast.error(err.message);
-        });
-    }
+    dailyChallengeAPI
+      .getDailyChallenge()
+      .then(response => {
+        dispatch(initializeDailyChallengeState(response));
+      })
+      .catch(err => {
+        if (err instanceof ApiError) Toast.error(err.message);
+      });
   }, []);
 
   useEffect(() => {
