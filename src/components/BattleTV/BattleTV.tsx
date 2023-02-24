@@ -8,6 +8,10 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { getAvatarByID } from '../Avatar/Avatar';
 import { Match, Verdict } from '@codecharacter-2023/client';
 import { User, user } from '../../store/User/UserSlice';
+import {
+  changePageState,
+  changeSimulationState,
+} from '../../store/DailyChallenge/dailyChallenge';
 
 function getIcon(loggedInUser: User, match: Match) {
   if (loggedInUser.username === match.user1.username) {
@@ -106,6 +110,10 @@ function PaginatedItems() {
                           getLogAction({
                             id: getUsersGame(loggedInUser, match).id,
                             callback: () => {
+                              if (match.user2 === null) {
+                                dispatch(changePageState('DailyChallenge'));
+                                dispatch(changeSimulationState(true));
+                              }
                               navigate('/dashboard');
                             },
                           }),
@@ -127,10 +135,12 @@ function PaginatedItems() {
                       }
                     </div>
                     <div className={[styles.username, styles.right].join(' ')}>
-                      {match.user2.username}
+                      {match.user2 !== null
+                        ? match.user2?.username
+                        : 'Daily Challenge'}
                     </div>
                     <div className={styles.pic}>
-                      <img src={getAvatarByID(match.user2.avatarId).url}></img>
+                      <img src={getAvatarByID(match.user1.avatarId).url}></img>
                     </div>
                   </div>
                 </div>

@@ -17,7 +17,6 @@ import type {
   CompleteProfileRequest,
   CurrentUserProfile,
   GenericError,
-  TutorialLevelResponse,
   UpdateCurrentUserProfile,
   UpdatePasswordRequest,
 } from '../models';
@@ -81,25 +80,6 @@ export interface CurrentUserApiInterface {
   getCurrentUser(
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<CurrentUserProfile>;
-
-  /**
-   * Get the tutorial level of the user
-   * @summary Get Tutorial level of the user
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof CurrentUserApiInterface
-   */
-  getTutorialLevelRaw(
-    initOverrides?: RequestInit | runtime.InitOverrideFunction,
-  ): Promise<runtime.ApiResponse<TutorialLevelResponse>>;
-
-  /**
-   * Get the tutorial level of the user
-   * Get Tutorial level of the user
-   */
-  getTutorialLevel(
-    initOverrides?: RequestInit | runtime.InitOverrideFunction,
-  ): Promise<TutorialLevelResponse>;
 
   /**
    * Update current user
@@ -253,49 +233,6 @@ export class CurrentUserApi
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<CurrentUserProfile> {
     const response = await this.getCurrentUserRaw(initOverrides);
-    return await response.value();
-  }
-
-  /**
-   * Get the tutorial level of the user
-   * Get Tutorial level of the user
-   */
-  async getTutorialLevelRaw(
-    initOverrides?: RequestInit | runtime.InitOverrideFunction,
-  ): Promise<runtime.ApiResponse<TutorialLevelResponse>> {
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    if (this.configuration && this.configuration.accessToken) {
-      const token = this.configuration.accessToken;
-      const tokenString = await token('http-bearer', []);
-
-      if (tokenString) {
-        headerParameters['Authorization'] = `Bearer ${tokenString}`;
-      }
-    }
-    const response = await this.request(
-      {
-        path: `/user/tutorial/level`,
-        method: 'GET',
-        headers: headerParameters,
-        query: queryParameters,
-      },
-      initOverrides,
-    );
-
-    return new runtime.JSONApiResponse(response);
-  }
-
-  /**
-   * Get the tutorial level of the user
-   * Get Tutorial level of the user
-   */
-  async getTutorialLevel(
-    initOverrides?: RequestInit | runtime.InitOverrideFunction,
-  ): Promise<TutorialLevelResponse> {
-    const response = await this.getTutorialLevelRaw(initOverrides);
     return await response.value();
   }
 

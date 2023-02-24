@@ -128,6 +128,12 @@ export class TileMap extends Phaser.Scene {
       this,
     );
 
+    events.on(MapDesignerEvents.SAVE_MAP, () => {
+      camera.zoom = 0.1;
+      camera.scrollX = -200;
+      camera.scrollY = 2000;
+    });
+
     this.input.on(
       Phaser.Input.Events.POINTER_MOVE,
       (pointer: Phaser.Input.Pointer) => {
@@ -197,7 +203,11 @@ export class TileMap extends Phaser.Scene {
 
     const storedMapData = localStorage.getItem(Parameters.mapLocalStorageKey);
     if (storedMapData) {
-      this._loadMap(JSON.parse(storedMapData));
+      try {
+        this._loadMap(JSON.parse(storedMapData));
+      } catch (e) {
+        this._loadMap(this._getEmptyMap());
+      }
     } else {
       this._loadMap(this._getEmptyMap());
     }

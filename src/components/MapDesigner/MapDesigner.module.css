@@ -5,7 +5,8 @@
 }
 
 .modalHeader {
-  background: #2b3760;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(100px);
   color: white;
   height: 10vh;
   border-top-right-radius: 4px;
@@ -34,7 +35,7 @@
 }
 .buttonRow {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   flex-direction: row;
