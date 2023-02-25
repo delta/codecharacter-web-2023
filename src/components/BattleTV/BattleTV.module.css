@@ -12,7 +12,7 @@ html {
 
 .header {
   max-width: 1000px;
-  margin: 25px auto;
+  margin: 10px auto;
   border-radius: 12px;
   justify-content: center;
   display: flex;
@@ -58,7 +58,7 @@ html {
   border-radius: 5px;
   text-align: justify;
   justify-content: space-between;
-  padding: 15px;
+  padding: 10px 15px;
   overflow: auto;
   white-space: nowrap;
 }
@@ -143,10 +143,27 @@ html {
   color: #aaaaaa;
   font-weight: 100;
   background: transparent;
-  margin-right: 1.5rem;
   opacity: 1;
   border: rgba(0, 0, 0, 0.3);
-  padding: 1vw;
+  padding: 1.5vw;
+}
+
+.tableheaderattacker {
+  font-family: 'Roboto Condensed', monospace;
+  font-size: x-large;
+  color: #aaaaaa;
+  font-weight: 100;
+  background: transparent;
+  opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
+  padding: 1.5vw 5vw;
+}
+
+.tableheaderdiv {
+  display: inline-block;
+  text-align: justify;
+  margin: 10px;
+  white-space: nowrap;
 }
 
 .paginationouter {

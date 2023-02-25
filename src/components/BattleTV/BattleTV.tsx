@@ -181,14 +181,14 @@ export default function BattleTV(): JSX.Element {
         </h1>
       </div>
       <div className={styles.ranklist}>
-        <div>
-          <span className={styles.tableheader}>ATTACKER</span>
+        <div className={styles.tableheaderdiv}>
+          <span className={styles.tableheaderattacker}>ATTACKER</span>
           <span className={styles.tableheader}>COINS USED</span>
           <span className={styles.tableheader}>DESTRUCTION(%)</span>
           <span className={styles.tableheader}></span>
           <span className={styles.tableheader}>DESTRUCTION(%)</span>
           <span className={styles.tableheader}>COINS USED</span>
-          <span className={styles.tableheader}>ATTACKER</span>
+          <span className={styles.tableheaderattacker}>DEFENDER</span>
         </div>
         <PaginatedItems />
       </div>
