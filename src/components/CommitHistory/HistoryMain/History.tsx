@@ -18,6 +18,7 @@ import Toast, { toast } from 'react-hot-toast';
 import { updateUserCode, changeLanguage } from '../../../store/editor/code';
 import { useNavigate } from 'react-router-dom';
 import mapImage from '/assets/Map.jpeg';
+import { useTour } from '@reactour/tour';
 
 export default function History(): JSX.Element {
   const [SelectedButton, setSelectedButton] = useState('Code');
@@ -108,11 +109,17 @@ export default function History(): JSX.Element {
     }
   };
 
+  const { setIsOpen } = useTour();
+
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
+
   return (
     <Container fluid className={styles.historyMain}>
       <div className={styles.buttonContainer}>
         <div className={styles.codeMapButton}>
-          <ButtonGroup>
+          <ButtonGroup id="CommitSelector">
             <Button
               className={
                 SelectedButton == 'Map' ? styles.whiteButton : styles.darkButton
@@ -158,7 +165,7 @@ export default function History(): JSX.Element {
             )}
           </div>
         </Col>
-        <Col lg="9" className={styles.codeView}>
+        <Col lg="9" className={styles.codeView} id="viewBox">
           <div
             className={
               SelectedButton == 'Code' ? styles.codeBox : styles.mapBox
@@ -176,6 +183,7 @@ export default function History(): JSX.Element {
               size="lg"
               onClick={changesEditorDetails}
               variant="outline-light"
+              id="CommitButton"
             >
               LOAD COMMIT
             </Button>

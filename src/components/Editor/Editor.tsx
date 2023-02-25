@@ -1,6 +1,6 @@
 import * as Editor from './EditorTypes';
 import styles from './style.module.css';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
 import { useTour } from '@reactour/tour';
 
@@ -57,8 +57,13 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const { setIsOpen } = useTour();
 
   useEffect(() => {
+    // CurrentUserApi.getTutorialLevel()
+    // .then((res:any) => {
+    //   if (res == "0") {
     setIsOpen(true);
     dispatch(isTourOpened(true));
+    // }
+    // });
   }, []);
 
   useEffect(() => {

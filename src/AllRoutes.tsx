@@ -5,7 +5,6 @@ import Redirect from './components/Redirect/Redirect';
 import { HistorySteps } from './components/TourProvider/HistorySteps';
 import { MapDesignerSteps } from './components/TourProvider/MapDesignerSteps';
 import Tour from './components/TourProvider/TourProvider';
-import { isTourOpened } from './store/EditorSettings/settings';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { isloggedIn, loggedIn } from './store/User/UserSlice';
 
@@ -45,11 +44,11 @@ export default function AllRoutes(): JSX.Element {
   }, []);
 
   const setOpenedMap = (opened: boolean) => {
-    dispatch(isTourOpened(opened));
+    // dispatch(isTourOpened(opened));
   };
 
   const setOpenedHistory = (opened: boolean) => {
-    dispatch(isTourOpened(opened));
+    //
   };
 
   return logIn ? (

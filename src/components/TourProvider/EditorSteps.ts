@@ -19,10 +19,5 @@ export const EditorSteps = [
     content:
       'This is the Top Bar where you access Editor settings and other features.',
   },
-  {
-    selector: '#five',
-    content:
-      'This is the Navigation Bar, you can navigate to different pages from here.',
-  },
   // ...
 ];

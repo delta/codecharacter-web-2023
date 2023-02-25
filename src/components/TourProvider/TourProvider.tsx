@@ -20,16 +20,16 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
           ...base,
           padding: '2% 2% 1% 2%',
           fontSize: '1.25em',
-          fontFamily: 'Noto Sans KR',
+          fontFamily: 'Roboto',
           '--reactour-accent': 'blue',
           borderRadius: 10,
           background: '#363535',
-          borderImage: 'linear-gradient(to left, #743ad5, #d53a9d)',
+          borderImage: 'linear-gradient(to right, #92fe9d 0%, #00c9ff 100%)',
           color: 'white',
         }),
         close: base => ({
           ...base,
-          color: 'red',
+          color: 'gray',
           marginTop: '',
           transform: 'scale(1.5)',
           background: '#303030',
@@ -41,18 +41,24 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
         arrow: base => ({
           ...base,
           color: 'white',
+          transform: 'scale(1.3)',
         }),
         dot: base => ({
           ...base,
           cursor: 'auto',
+          border: '1px solid gray',
+          background:
+            'radial-gradient(759px at 14% 22.3%, rgb(10, 94, 68) 0%, rgb(15, 164, 102) 90%)',
+          //change the color of the dots when active
         }),
         badge: base => ({
           ...base,
-          background: 'green',
+          background:
+            'radial-gradient(759px at 14% 22.3%, rgb(10, 94, 68) 0%, rgb(15, 164, 102) 90%)',
           color: 'white',
           fontSize: '1.25em',
           fontFamily: 'Noto Sans KR',
-          borderRadius: 5,
+          borderRadius: 100,
         }),
       }}
       startAt={0}
@@ -83,7 +89,7 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
         Button,
         currentStep,
         // stepsLength,
-        // setIsOpen,
+        setIsOpen,
         setCurrentStep,
         steps,
       }) => {
@@ -92,8 +98,9 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
             kind="next"
             onClick={() => {
               if (steps) {
-                if (currentStep === steps.length - 1) return;
-                else {
+                if (currentStep + 1 === steps?.length) {
+                  setIsOpen(false);
+                } else {
                   setCurrentStep(currentStep + 1);
                 }
               }
@@ -113,11 +120,11 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
         }
       }}
       onClickClose={({ currentStep, steps, setIsOpen }) => {
-        // if (steps?.length === currentStep + 1 ) {
-        setIsOpen(false);
+        // if (steps?.length === currentStep + 1 )
         setOpened(false);
-        // }
+        setIsOpen(false);
       }}
+      position={'right'}
     >
       {children}
     </TourProvider>

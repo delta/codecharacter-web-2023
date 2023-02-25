@@ -1,6 +1,7 @@
 import {
   IsSettingsOpen,
   isSettingsOpened,
+  IsTourOpen,
 } from '../../store/EditorSettings/settings';
 
 import codeIcon from '../../assets/code_editor.svg';
@@ -15,6 +16,7 @@ import { useEffect, useState } from 'react';
 import styles from './SideBar.module.css';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import deltaLogo from '../../assets/deltaLogo.png';
+import { useTour } from '@reactour/tour';
 
 const icons = [
   { icon: codeIcon, route: 'dashboard', tooltip: 'Code Editor' },
@@ -38,6 +40,14 @@ const SideBar: React.FunctionComponent = () => {
   }, [location]);
   const dispatch = useAppDispatch();
 
+  const { setIsOpen } = useTour();
+
+  const isTourOpen = useAppSelector(IsTourOpen);
+
+  useEffect(() => {
+    if (isTourOpen === false) setIsOpen(true);
+  }, [isTourOpen]);
+
   return (
     <div>
       {pathName != '/' &&
@@ -48,7 +58,7 @@ const SideBar: React.FunctionComponent = () => {
       pathName != '/incomplete-profile' ? (
         <div className={styles.sideBar}>
           <div className={styles.up}>
-            {icons.map(icon => {
+            {icons.map((icon, index) => {
               if (icon.tooltip === 'Editor Settings') {
                 return (
                   <div key={icons.indexOf(icon)} className={styles.sideBarIcon}>
@@ -63,7 +73,11 @@ const SideBar: React.FunctionComponent = () => {
                 );
               } else {
                 return (
-                  <div key={icons.indexOf(icon)} className={styles.sideBarIcon}>
+                  <div
+                    key={icons.indexOf(icon)}
+                    className={styles.sideBarIcon}
+                    id={icon.route}
+                  >
                     <Link to={icon.route} key={icon.route}>
                       <img
                         src={icon.icon as string}
