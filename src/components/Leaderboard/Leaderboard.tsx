@@ -8,6 +8,7 @@ import {
   MatchApi,
   LeaderboardEntry,
   MatchMode,
+  TierType,
 } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Loader from '../Loader/Loader';
@@ -29,19 +30,11 @@ function PaginatedItems() {
     setShow(true);
   };
 
-  const tier1Index = 1;
-  const tier2Index = 3;
-  const tier3Index = 6;
-  const tier4Index = 9;
-  const tierMax = 15;
-  const [tierOffest, setTierOffset] = useState(0);
-
   const itemsPerPage = 8;
   const currentUserName = useAppSelector(user).username;
 
   useEffect(() => {
     fetchLeaderboard(page);
-    setTierOffset(0);
   }, [page]);
 
   useEffect(() => {
@@ -54,20 +47,6 @@ function PaginatedItems() {
       emptylistBool = true;
     }
     return emptylistBool;
-  }
-
-  function getTier(pos: number) {
-    if (pos > tier4Index && pos < tierMax) {
-      return styles.tier3;
-    } else if (pos < tier4Index + 1 && pos > tier3Index) {
-      return styles.tier2;
-    } else if (pos < tier3Index + 1 && pos > tier2Index) {
-      return styles.tier1;
-    } else if (pos < tier2Index + 1 && pos > tier1Index - 1) {
-      return styles.tier0;
-    } else {
-      return '';
-    }
   }
 
   const fetchLeaderboard = (pageNum: number) => {
@@ -95,6 +74,21 @@ function PaginatedItems() {
       .getLeaderboard(pageNum + 1, itemsPerPage)
       .then(response => {
         setNextItems(response);
+      })
+      .catch(error => {
+        if (error instanceof ApiError) Toast.error(error.message);
+      });
+  };
+
+  const fetchLeaderboardByTier = (pageNum: number, tier: TierType) => {
+    setIsLoaded(false);
+    const leaderboardAPI = new LeaderboardApi(apiConfig);
+    leaderboardAPI
+      .getLeaderboard(pageNum, itemsPerPage, tier)
+      .then(response => {
+        setItems(response);
+        console.log(items);
+        setIsLoaded(true);
       })
       .catch(error => {
         if (error instanceof ApiError) Toast.error(error.message);
@@ -139,7 +133,7 @@ function PaginatedItems() {
                     className={styles.matchButton}
                     onClick={() => handleMatchStart()}
                   >
-                    Start mat border: 1px;ch
+                    Start match
                   </Button>
                 </Modal.Footer>
               </Modal>
@@ -169,19 +163,9 @@ function PaginatedItems() {
                         }
                         key={row.user.username}
                       >
-                        <td
-                          className={getTier(
-                            items.indexOf(row) +
-                              1 +
-                              tierOffest +
-                              page * itemsPerPage,
-                          )}
-                        ></td>
+                        <td></td>
                         <td className={styles.pos}>
-                          {items.indexOf(row) +
-                            1 +
-                            tierOffest +
-                            page * itemsPerPage}
+                          {items.indexOf(row) + 1 + page * itemsPerPage}
                         </td>
                         <td className={styles.name}>
                           <div>
@@ -251,7 +235,6 @@ function PaginatedItems() {
           className={styles.button}
           onClick={() => {
             fetchLeaderboard(0);
-            setTierOffset(0);
             setPage(0);
           }}
         >
@@ -263,10 +246,34 @@ function PaginatedItems() {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item>Tier 1</Dropdown.Item>
-            <Dropdown.Item>Tier 2</Dropdown.Item>
-            <Dropdown.Item>Tier 3</Dropdown.Item>
-            <Dropdown.Item>Tier 4</Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                fetchLeaderboardByTier(0, TierType.Tier1);
+              }}
+            >
+              Tier 1
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                fetchLeaderboardByTier(0, TierType.Tier2);
+              }}
+            >
+              Tier 2
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                fetchLeaderboardByTier(0, TierType.Tier3);
+              }}
+            >
+              Tier 3
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                fetchLeaderboardByTier(0, TierType.Tier4);
+              }}
+            >
+              Tier 4
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </nav>

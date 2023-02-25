@@ -87,22 +87,23 @@ function PaginatedItems() {
               currentItems.map((match: Match) => (
                 <div className={styles.item} key={match.id}>
                   <div
-                    className={
-                      styles.battlecard + ' ' + getIcon(loggedInUser, match)
-                    }
+                    className={styles.item + ' ' + getIcon(loggedInUser, match)}
                   >
-                    <div className={styles.pic}>
-                      <img src={getAvatarByID(match.user1.avatarId).url}></img>
+                    <div className={styles.picholder}>
+                      <img
+                        src={getAvatarByID(match.user1.avatarId).url}
+                        className={styles.pic}
+                      ></img>
                     </div>
-                    <div className={[styles.username, styles.left].join(' ')}>
+                    <span className={[styles.name].join(' ')}>
                       {match.user1.username}
-                    </div>
-                    <div className={styles.coinused}>
+                    </span>
+                    <span className={styles.score}>
                       {[...match.games.values()][0].coinsUsed}
-                    </div>
-                    <div className={styles.destruction}>
+                    </span>
+                    <span className={styles.score}>
                       {[...match.games.values()][0].destruction.toFixed(2)}
-                    </div>
+                    </span>
                     <div
                       className={styles.watchButton}
                       onClick={() => {
@@ -120,27 +121,30 @@ function PaginatedItems() {
                         );
                       }}
                     >
-                      Watch
+                      <img src="src/assets/watch.png"></img>
                     </div>
-                    <div className={styles.destruction}>
+                    <span className={styles.score}>
                       {[...match.games.values()][
                         [...match.games.values()].length === 1 ? 0 : 1
                       ].destruction.toFixed(2)}
-                    </div>
-                    <div className={styles.coinused}>
+                    </span>
+                    <span className={styles.score}>
                       {
                         [...match.games.values()][
                           [...match.games.values()].length === 1 ? 0 : 1
                         ].coinsUsed
                       }
-                    </div>
-                    <div className={[styles.username, styles.right].join(' ')}>
+                    </span>
+                    <span className={[styles.name, styles.right].join(' ')}>
                       {match.user2 !== null
                         ? match.user2?.username
                         : 'Daily Challenge'}
-                    </div>
-                    <div className={styles.pic}>
-                      <img src={getAvatarByID(match.user1.avatarId).url}></img>
+                    </span>
+                    <div className={styles.picholder}>
+                      <img
+                        src={getAvatarByID(match.user1.avatarId).url}
+                        className={styles.pic}
+                      ></img>
                     </div>
                   </div>
                 </div>
@@ -177,6 +181,15 @@ export default function BattleTV(): JSX.Element {
         </h1>
       </div>
       <div className={styles.ranklist}>
+        <div>
+          <span className={styles.tableheader}>ATTACKER</span>
+          <span className={styles.tableheader}>COINS USED</span>
+          <span className={styles.tableheader}>DESTRUCTION(%)</span>
+          <span className={styles.tableheader}></span>
+          <span className={styles.tableheader}>DESTRUCTION(%)</span>
+          <span className={styles.tableheader}>COINS USED</span>
+          <span className={styles.tableheader}>ATTACKER</span>
+        </div>
         <PaginatedItems />
       </div>
     </div>

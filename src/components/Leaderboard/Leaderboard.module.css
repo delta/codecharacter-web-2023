@@ -166,23 +166,20 @@ html {
   padding: 15px;
 }
 
-.item .attackButton {
+.attackButton {
   background-color: transparent;
-  cursor: pointer;
-  border: none;
-  color: #aaaaaa;
   padding: 15px 30px;
   transition: 0.3s;
 }
 
-.attackImg:hover {
+.attackButton:hover {
   transform: scale(1.5);
 }
 
 .attackImg {
-  width: 2rem;
-  height: 2rem;
-  color: #aaaaaa;
+  max-height: 100%;
+  max-width: 100%;
+
 }
 
 .paginationouter {
