@@ -24,13 +24,9 @@ function RatingHistoryChart() {
   const [items, setItems] = useState<RatingHistory[]>([]);
   const [labelItems, setLabelItems] = useState<string[]>([]);
   const [dataItems, setDataItems] = useState<number[]>([]);
+  const [currentUser, setCurrentUser] = useState<string>('');
   const userApi = new UserApi(apiConfig);
-  let currentUser: string;
-  const currentUserApi = new CurrentUserApi(apiConfig);
-  currentUserApi.getCurrentUser().then(response => {
-    currentUser = response.id;
-    console.log(currentUser);
-  });
+
   const labels: string[] = [];
   const ratings: number[] = [];
 
@@ -46,6 +42,18 @@ function RatingHistoryChart() {
       },
     },
   };
+
+  const [data, setData] = useState({
+    labels: ['a'],
+    datasets: [
+      {
+        label: '',
+        data: [1],
+        backgroundColor: '',
+      },
+    ],
+  });
+
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -55,20 +63,30 @@ function RatingHistoryChart() {
     Legend,
   );
 
-  const data = {
-    labelItems,
-    datasets: [
-      {
-        label: 'Rating History',
-        data: dataItems,
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-    ],
-  };
+  useEffect(() => {
+    setData({
+      labels: labelItems,
+      datasets: [
+        {
+          label: 'Rating History',
+          data: dataItems,
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+      ],
+    });
+    console.log(dataItems);
+  }, [labelItems]);
+
+  useEffect(() => {
+    const currentUserApi = new CurrentUserApi(apiConfig);
+    currentUserApi.getCurrentUser().then(response => {
+      setCurrentUser(response.id);
+    });
+  }, []);
 
   useEffect(() => {
     fetchRatingHistory();
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     items &&
@@ -80,7 +98,7 @@ function RatingHistoryChart() {
         setDataItems(ratings);
         setLabelItems(labels);
       });
-  }, []);
+  }, [isLoaded]);
 
   function fetchRatingHistory() {
     setIsLoaded(false);
