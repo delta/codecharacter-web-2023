@@ -91,7 +91,8 @@ function RatingHistoryChart() {
   useEffect(() => {
     items &&
       items.map((entry: RatingHistory) => {
-        const label = entry.validFrom;
+        const labelfull = entry.validFrom;
+        const label = labelfull.slice(11, 19);
         labels.push(label);
         const rating = entry.rating;
         ratings.push(rating);
