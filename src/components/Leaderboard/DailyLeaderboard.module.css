@@ -7,7 +7,6 @@ body,
 html {
   height: 100%;
   width: 100%;
-  background: rgba(30, 30, 30, 0.87);
   color: #333;
 }
 
@@ -60,35 +59,7 @@ html {
   border: 1px;
   border-style: solid none;
   border-radius: 5px;
-  background: rgba(30, 30, 30, 0.87);
   margin: 8px;
-}
-
-.tier3 {
-  background: brown !important;
-  border-left-style: solid rgba(30, 30, 30, 0.87);
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.tier2 {
-  background: silver !important;
-  border-left-style: solid rgba(30, 30, 30, 0.87);
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.tier1 {
-  background: gold !important;
-  border-left-style: solid rgba(30, 30, 30, 0.87);
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.tier0 {
-  background: white !important;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
 }
 
 .currentUserItem {
@@ -185,7 +156,6 @@ html {
   position: relative;
   margin-top: 20px;
   padding: 10px;
-  background-color: rgba(30, 30, 30, 0.87);
   border-radius: 10px;
 }
 
@@ -201,7 +171,6 @@ html {
 
 .pagination .pageNum:hover {
   background-color: #aaaaaa;
-  color: rgba(30, 30, 30, 0.87);
   text-decoration: none;
   border: 1px;
 }

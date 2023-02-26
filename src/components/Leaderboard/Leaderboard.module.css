@@ -7,7 +7,6 @@ body,
 html {
   height: 100%;
   width: 100%;
-  background: rgba(30, 30, 30, 0.87);
   color: #333;
 }
 
@@ -65,21 +64,18 @@ html {
 
 .tier3 {
   background: brown !important;
-  border-left-style: solid rgba(30, 30, 30, 0.87);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
 
 .tier2 {
   background: silver !important;
-  border-left-style: solid rgba(30, 30, 30, 0.87);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
 
 .tier1 {
   background: gold !important;
-  border-left-style: solid rgba(30, 30, 30, 0.87);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
