@@ -140,7 +140,6 @@ function PaginatedItems() {
               <Table hover className={styles.list} responsive>
                 <thead>
                   <tr className={styles.tableHeader}>
-                    <th className={styles.tierheader}></th>
                     <th className={styles.tableHeader}>RANK</th>
                     <th className={styles.tableHeader}>USERNAME</th>
                     <th className={styles.tableHeader}>RATINGS</th>
@@ -163,7 +162,6 @@ function PaginatedItems() {
                         }
                         key={row.user.username}
                       >
-                        <td></td>
                         <td className={styles.pos}>
                           {items.indexOf(row) + 1 + page * itemsPerPage}
                         </td>

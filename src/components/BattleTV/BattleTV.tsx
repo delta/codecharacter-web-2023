@@ -89,14 +89,16 @@ function PaginatedItems() {
                   <div
                     className={styles.item + ' ' + getIcon(loggedInUser, match)}
                   >
-                    <div className={styles.picholder}>
-                      <img
-                        src={getAvatarByID(match.user1.avatarId).url}
-                        className={styles.pic}
-                      ></img>
-                    </div>
-                    <span className={[styles.name].join(' ')}>
-                      {match.user1.username}
+                    <span>
+                      <div className={styles.picholder}>
+                        <img
+                          src={getAvatarByID(match.user1.avatarId).url}
+                          className={styles.pic}
+                        ></img>
+                      </div>
+                      <span className={[styles.name].join(' ')}>
+                        {match.user1.username}
+                      </span>
                     </span>
                     <span className={styles.score}>
                       {[...match.games.values()][0].coinsUsed}
@@ -135,17 +137,19 @@ function PaginatedItems() {
                         ].coinsUsed
                       }
                     </span>
-                    <span className={[styles.name, styles.right].join(' ')}>
-                      {match.user2 !== null
-                        ? match.user2?.username
-                        : 'Daily Challenge'}
+                    <span>
+                      <span className={[styles.name, styles.right].join(' ')}>
+                        {match.user2 !== null
+                          ? match.user2?.username
+                          : 'Daily Challenge'}
+                      </span>
+                      <div className={styles.picholder}>
+                        <img
+                          src={getAvatarByID(match.user1.avatarId).url}
+                          className={styles.pic}
+                        ></img>
+                      </div>
                     </span>
-                    <div className={styles.picholder}>
-                      <img
-                        src={getAvatarByID(match.user1.avatarId).url}
-                        className={styles.pic}
-                      ></img>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -182,13 +186,13 @@ export default function BattleTV(): JSX.Element {
       </div>
       <div className={styles.ranklist}>
         <div className={styles.tableheaderdiv}>
-          <span className={styles.tableheaderattacker}>ATTACKER</span>
+          <span className={styles.tableheader}>ATTACKER</span>
           <span className={styles.tableheader}>COINS USED</span>
           <span className={styles.tableheader}>DESTRUCTION(%)</span>
           <span className={styles.tableheader}></span>
           <span className={styles.tableheader}>DESTRUCTION(%)</span>
           <span className={styles.tableheader}>COINS USED</span>
-          <span className={styles.tableheaderattacker}>DEFENDER</span>
+          <span className={styles.tableheader}>DEFENDER</span>
         </div>
         <PaginatedItems />
       </div>
