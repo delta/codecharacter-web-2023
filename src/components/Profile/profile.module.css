@@ -250,3 +250,7 @@
     position: relative;
     top: 10px;
 }
+
+.emptyspace {
+    height: 13vw;
+}

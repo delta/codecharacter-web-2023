@@ -6,7 +6,7 @@ import styles from './BattleTV.module.css';
 import { battleTvSelector, fetchBattleTv } from './BattleTvSlice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { getAvatarByID } from '../Avatar/Avatar';
-import { Match, Verdict } from '@codecharacter-2023/client';
+import { Match, MatchMode, Verdict } from '@codecharacter-2023/client';
 import { User, user } from '../../store/User/UserSlice';
 import {
   changePageState,
@@ -30,6 +30,16 @@ function getIcon(loggedInUser: User, match: Match) {
     }
   }
   return styles.battlecardtie;
+}
+
+function getMatchMode(match: Match) {
+  let style = '';
+  console.log(match.matchMode);
+  if (match.matchMode == MatchMode.Auto) {
+    style = styles.automatch;
+    console.log('auto match true');
+  }
+  return style;
 }
 
 function getUsersGame(loggedInUser: User, match: Match) {
@@ -85,11 +95,14 @@ function PaginatedItems() {
           <>
             {currentItems &&
               currentItems.map((match: Match) => (
-                <div className={styles.item} key={match.id}>
+                <div
+                  className={styles.item + getMatchMode(match)}
+                  key={match.id}
+                >
                   <div
                     className={styles.item + ' ' + getIcon(loggedInUser, match)}
                   >
-                    <span>
+                    <span className={styles.username}>
                       <div className={styles.picholder}>
                         <img
                           src={getAvatarByID(match.user1.avatarId).url}
@@ -100,7 +113,7 @@ function PaginatedItems() {
                         {match.user1.username}
                       </span>
                     </span>
-                    <span className={styles.score}>
+                    <span className={styles.coinsusedleft}>
                       {[...match.games.values()][0].coinsUsed}
                     </span>
                     <span className={styles.score}>
@@ -130,14 +143,14 @@ function PaginatedItems() {
                         [...match.games.values()].length === 1 ? 0 : 1
                       ].destruction.toFixed(2)}
                     </span>
-                    <span className={styles.score}>
+                    <span className={styles.coinsusedright}>
                       {
                         [...match.games.values()][
                           [...match.games.values()].length === 1 ? 0 : 1
                         ].coinsUsed
                       }
                     </span>
-                    <span>
+                    <span className={styles.username}>
                       <span className={[styles.name, styles.right].join(' ')}>
                         {match.user2 !== null
                           ? match.user2?.username

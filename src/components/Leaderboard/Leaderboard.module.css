@@ -35,8 +35,14 @@ html {
   letter-spacing: 4.5px;
 }
 
+.mainleaderboard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .ranklist {
-  max-width: 75vw;
+  width: 75vw;
   display: block;
   align-items: center;
   padding-top: 10px;
@@ -228,6 +234,7 @@ html {
 }
 
 .button {
+  background-color:#204743;
   color: #aaaaaa;
   margin: 0px 8px;
   border: 1px;

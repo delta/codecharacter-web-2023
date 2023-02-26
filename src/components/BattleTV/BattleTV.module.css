@@ -54,19 +54,25 @@ html {
 }
 
 .item {
-  display: inline-block;
-  border-radius: 5px;
-  text-align: justify;
-  justify-content: space-between;
+  width: 90%;
+  display: inline-flex;
+  flex-direction: row;
+  border-radius: 10px;
+  text-align: center;
   padding: 10px 15px;
-  overflow: auto;
-  white-space: nowrap;
+  align-items: center;
+  overflow-x: auto;
+  justify-content: space-around;
+}
+
+.automatch {
+  background-color: antiquewhite;
 }
 
 .item .picholder {
   display: inline-block;
   height: 50px;
-  width: auto;
+  width: 50px;
 }
 
 .item .pic {
@@ -97,15 +103,22 @@ html {
 }
 
 .item .name {
-  flex-basis: 6rem;
   font-size: x-large;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-family: 'Roboto', monospace;
-  overflow: hidden;
   color: #aaaaaa;
+  width: 100px;
   border: none;
   padding: 10px 1vw 10px 1vw;
+}
+
+.item .username {
+  display: inline-flex;
+  vertical-align: middle;
+  justify-content: center;
+  overflow-x: auto;
+  white-space: nowrap;
+  height: 60px;
+  width: 15%;
 }
 
 .item .score {
@@ -115,15 +128,32 @@ html {
   font-size: x-large;
   opacity: 1;
   border: rgba(0, 0, 0, 0.3);
+}
 
-  padding: 10px 5vw;
+.item .coinsusedright {
+  font-family: 'Bai Jamjuree', monospace;
+  color: #aaaaaa;
+  background-color: transparent;
+  font-size: x-large;
+  opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
+  margin-left: 100px;
+}
+
+.item .coinsusedleft {
+  font-family: 'Bai Jamjuree', monospace;
+  color: #aaaaaa;
+  background-color: transparent;
+  font-size: x-large;
+  opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
+  margin-right: 100px;
 }
 
 .item .score:after {
   opacity: 0.8;
   background-color: transparent;
   border: none;
-
   padding: 10px 30px;
 }
 
@@ -145,14 +175,13 @@ html {
   background: transparent;
   opacity: 1;
   border: rgba(0, 0, 0, 0.3);
-  padding: 1.5vw;
 }
 
 .tableheaderdiv {
-  display: inline-block;
-  text-align: justify;
+  width: 75%;
+  display: inline-flex;
+  justify-content: space-evenly;
   margin: 10px;
-  white-space: nowrap;
 }
 
 .paginationouter {
@@ -203,4 +232,10 @@ html {
   text-transform: uppercase;
   border-radius: 8px;
   font-family: monospace, sans-serif;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  height: 0;
+  width: 0;
 }

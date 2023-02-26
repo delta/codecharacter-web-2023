@@ -36,7 +36,7 @@ html {
 }
 
 .ranklist {
-  max-width: 75vw;
+  width: 60vw;
   display: block;
   align-items: center;
   padding-top: 10px;
@@ -170,6 +170,7 @@ html {
 }
 
 .pagination .pageNum:hover {
+  color: #0a1c2a;
   background-color: #aaaaaa;
   text-decoration: none;
   border: 1px;
@@ -187,7 +188,7 @@ html {
 }
 
 .button {
-  background-color: black;
+  background-color:rgb(32, 71, 67);
   color: #aaaaaa;
   margin: 0px 8px;
   border: 1px;

@@ -38,7 +38,7 @@ function RatingHistoryChart() {
       },
       title: {
         display: true,
-        text: 'Chart.js Bar Chart',
+        text: 'CHART DISPLAYING YOUR RATING HISTORY',
       },
     },
   };
@@ -70,7 +70,7 @@ function RatingHistoryChart() {
         {
           label: 'Rating History',
           data: dataItems,
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          backgroundColor: 'rgb(59, 128, 121)',
         },
       ],
     });

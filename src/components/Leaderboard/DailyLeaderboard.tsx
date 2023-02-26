@@ -125,12 +125,12 @@ function PaginatedItems() {
   );
 }
 
-export default function Leaderboard(): JSX.Element {
+export default function DailyChallengeLeaderboard(): JSX.Element {
   return (
     <div className={styles.body}>
       <div className={styles.header}>
         <h1 className={styles.header__title}>
-          <span>Leaderboard</span>
+          <span>Daily Challenge Leaderboard</span>
         </h1>
       </div>
       <div className={styles.center}>
