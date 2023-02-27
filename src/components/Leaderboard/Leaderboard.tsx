@@ -23,6 +23,7 @@ function PaginatedItems() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [show, setShow] = useState(false);
   const [currentOpponentUsername, setCurrentOpponentUsername] = useState('');
+  const [activeTier, setActiveTier] = useState<TierType | undefined>(undefined);
 
   const handleClose = () => setShow(false);
   const handleShow = (username: string) => {
@@ -34,7 +35,7 @@ function PaginatedItems() {
   const currentUserName = useAppSelector(user).username;
 
   useEffect(() => {
-    fetchLeaderboard(page);
+    fetchLeaderboardByTier(page, activeTier);
   }, [page]);
 
   useEffect(() => {
@@ -71,7 +72,7 @@ function PaginatedItems() {
       });
   };
 
-  const fetchLeaderboardByTier = (pageNum: number, tier: TierType) => {
+  const fetchLeaderboardByTier = (pageNum: number, tier?: TierType) => {
     setIsLoaded(false);
     const leaderboardAPI = new LeaderboardApi(apiConfig);
     leaderboardAPI
@@ -228,12 +229,21 @@ function PaginatedItems() {
         </button>
         <Dropdown>
           <Dropdown.Toggle className={styles.button}>
-            Filter by Tier
+            {activeTier?.toString() || 'All Tiers'}
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
             <Dropdown.Item
               onClick={() => {
+                setActiveTier(undefined);
+                fetchLeaderboardByTier(0);
+              }}
+            >
+              All Tiers
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                setActiveTier(TierType.Tier1);
                 fetchLeaderboardByTier(0, TierType.Tier1);
               }}
             >
@@ -241,24 +251,11 @@ function PaginatedItems() {
             </Dropdown.Item>
             <Dropdown.Item
               onClick={() => {
+                setActiveTier(TierType.Tier2);
                 fetchLeaderboardByTier(0, TierType.Tier2);
               }}
             >
               Tier 2
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => {
-                fetchLeaderboardByTier(0, TierType.Tier3);
-              }}
-            >
-              Tier 3
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => {
-                fetchLeaderboardByTier(0, TierType.Tier4);
-              }}
-            >
-              Tier 4
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
