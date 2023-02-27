@@ -206,6 +206,7 @@ html {
   margin-top: 20px;
   padding: 10px;
   border-radius: 10px;
+  list-style: none;
 }
 
 .matchHeader {
@@ -234,10 +235,10 @@ html {
 }
 
 .button {
-  background-color:#204743;
-  color: #aaaaaa;
-  margin: 0px 8px;
-  border: 1px;
+  border: #eaeaea thin solid;
+  color: #eaeaea ;
+  margin: 0px 8px 20px 8px;
+  background-color: transparent;
   padding: 8px;
   text-transform: uppercase;
   border-radius: 8px;

@@ -10,6 +10,12 @@ html {
   color: #333;
 }
 
+.body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .header {
   max-width: 1000px;
   margin: 10px auto;
@@ -33,6 +39,15 @@ html {
   font-size: 48px;
   text-align: center;
   letter-spacing: 4.5px;
+}
+
+.message {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 3px;
+  color: #aaaaaa;
+  margin-top: 30px;
 }
 
 .ranklist {
@@ -70,9 +85,11 @@ html {
 }
 
 .item .picholder {
-  display: inline-block;
+  display: flex;
+  padding: 0px 8px;
   height: 50px;
   width: 50px;
+  align-items: center;
 }
 
 .item .pic {
@@ -105,6 +122,8 @@ html {
 .item .name {
   font-size: x-large;
   font-family: 'Roboto', monospace;
+  overflow-x: auto;
+  white-space: nowrap;
   color: #aaaaaa;
   width: 100px;
   border: none;
@@ -115,18 +134,27 @@ html {
   display: inline-flex;
   vertical-align: middle;
   justify-content: center;
-  overflow-x: auto;
-  white-space: nowrap;
   height: 60px;
   width: 15%;
 }
 
-.item .score {
+.item .scoreleft {
   font-family: 'Bai Jamjuree', monospace;
   color: #aaaaaa;
   background-color: transparent;
   font-size: x-large;
   opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
+  margin: 0px 50px 0px 0px;
+}
+
+.item .scoreright {
+  font-family: 'Bai Jamjuree', monospace;
+  color: #aaaaaa;
+  background-color: transparent;
+  font-size: x-large;
+  opacity: 1;
+  margin: 0px 0px 0px 50px;
   border: rgba(0, 0, 0, 0.3);
 }
 
@@ -196,22 +224,28 @@ html {
   padding: 10px;
   border-radius: 10px;
   text-decoration: solid;
+  list-style: none;
 }
 
 .pagination .pageNum {
-  border-radius: 8px;
-  color: #aaaaaa;
-  padding: 8px 15px;
+  border: #eaeaea thin solid;
+  color: #eaeaea;
+  margin: 0px 8px;
+  background-color: transparent;
+  padding: 8px;
   text-transform: uppercase;
-  text-decoration: none !important;
-  margin: 5px;
+  border-radius: 8px;
+  font-family: monospace, sans-serif;
+  display: inline-block;
+  white-space: nowrap;
   transition: 0.3s;
+  letter-spacing: normal;
+  text-decoration: none;
 }
 
 .pagination .pageNum:hover {
   background-color: #aaaaaa;
   color: black;
-  border: 1px;
 }
 
 .pagination .break {
@@ -222,16 +256,6 @@ html {
   background-color: #aaaaaa;
   color: #0a1c2a;
   border: 1px;
-}
-
-.button {
-  background-color: #aaaaaa;
-  color: #0a1c2a;
-  border: 1px;
-  padding: 10px;
-  text-transform: uppercase;
-  border-radius: 8px;
-  font-family: monospace, sans-serif;
 }
 
 ::-webkit-scrollbar {

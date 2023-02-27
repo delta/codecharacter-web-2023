@@ -1,52 +1,60 @@
 import { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
+import { Table } from 'react-bootstrap';
 import { useAppSelector } from '../../store/hooks';
-import styles from './DailyLeaderboard.module.css';
+import styles from './Leaderboard.module.css';
+import { getAvatarByID } from '../Avatar/Avatar';
 import {
-  DailyChallengesApi,
   DailyChallengeLeaderBoardResponse,
+  DailyChallengesApi,
 } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Loader from '../Loader/Loader';
 import Toast from 'react-hot-toast';
 import { user } from '../../store/User/UserSlice';
-import { Table } from 'react-bootstrap';
 
 function PaginatedItems() {
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
+  const [page, setPage] = useState(0);
   const [items, setItems] = useState<DailyChallengeLeaderBoardResponse[]>([]);
-  const [currentItems, setCurrentItems] = useState<
+  const [nextItems, setNextItems] = useState<
     DailyChallengeLeaderBoardResponse[]
   >([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const itemsPerPage = 5;
+  const itemsPerPage = 8;
   const currentUserName = useAppSelector(user).username;
 
   useEffect(() => {
-    fetchLeaderboard();
-  }, []);
+    fetchLeaderboard(page);
+  }, [page]);
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(items.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(items.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, items]);
+    checkEmpty();
+  }, [nextItems]);
 
-  const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
-    setItemOffset(newOffset);
-  };
+  function checkEmpty() {
+    let emptylistBool = false;
+    if (nextItems.length == 0) {
+      emptylistBool = true;
+    }
+    return emptylistBool;
+  }
 
-  const fetchLeaderboard = () => {
+  const fetchLeaderboard = (pageNum: number) => {
     setIsLoaded(false);
     const leaderboardAPI = new DailyChallengesApi(apiConfig);
     leaderboardAPI
-      .getDailyChallengeLeaderBoard()
+      .getDailyChallengeLeaderBoard(pageNum, itemsPerPage)
       .then(response => {
         setItems(response);
         setIsLoaded(true);
+      })
+      .catch(error => {
+        if (error instanceof ApiError) Toast.error(error.message);
+      });
+    leaderboardAPI
+      .getDailyChallengeLeaderBoard(pageNum + 1, itemsPerPage)
+      .then(response => {
+        setNextItems(response);
       })
       .catch(error => {
         if (error instanceof ApiError) Toast.error(error.message);
@@ -64,33 +72,39 @@ function PaginatedItems() {
               <Table hover className={styles.list} responsive>
                 <thead>
                   <tr className={styles.tableHeader}>
-                    <th className={styles.tableheader}>RANK</th>
+                    <th className={styles.tableHeader}>RANK</th>
                     <th className={styles.tableHeader}>USERNAME</th>
                     <th className={styles.tableHeader}>SCORE</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems &&
-                    currentItems.map(
-                      (row: DailyChallengeLeaderBoardResponse) => (
-                        <tr
-                          className={
-                            styles.item +
-                            ' ' +
-                            (currentUserName === row.userName
-                              ? styles.currentUserItem
-                              : '')
-                          }
-                          key={row.userName}
-                        >
-                          <td className={styles.pos}>
-                            {items.indexOf(row) + 1}
-                          </td>
-                          <td className={styles.name}>{row.userName}</td>
-                          <td className={styles.score}>{row.score}</td>
-                        </tr>
-                      ),
-                    )}
+                  {items &&
+                    items.map((row: DailyChallengeLeaderBoardResponse) => (
+                      <tr
+                        className={
+                          styles.item +
+                          ' ' +
+                          (currentUserName === row.userName
+                            ? styles.currentUserItem
+                            : '')
+                        }
+                        key={row.userName}
+                      >
+                        <td className={styles.pos}>
+                          {items.indexOf(row) + 1 + page * itemsPerPage}
+                        </td>
+                        <td className={styles.name}>
+                          <div>
+                            <img
+                              className={styles.pic}
+                              src={getAvatarByID(row.avatarId).url}
+                            ></img>
+                            {' ' + row.userName}
+                          </div>
+                        </td>
+                        <td className={styles.score}>{row.score}</td>
+                      </tr>
+                    ))}
                 </tbody>
               </Table>
             </div>
@@ -98,25 +112,39 @@ function PaginatedItems() {
         )}
       </>
       <nav className={styles.paginationouter}>
-        <ReactPaginate
-          previousLabel="<"
-          nextLabel=">"
-          pageLinkClassName={styles.pageNum}
-          previousLinkClassName={styles.pageNum}
-          nextLinkClassName={styles.pageNum}
-          breakLabel="..."
-          breakClassName={styles.break}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={styles.pagination}
-          activeLinkClassName={styles.active}
-        />
         <button
           type="button"
           className={styles.button}
-          onClick={fetchLeaderboard}
+          onClick={() => {
+            if (page == 0) {
+              Toast('First Page');
+            } else {
+              setPage(prevPage => prevPage - 1);
+            }
+          }}
+        >
+          {'<'}
+        </button>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            if (!checkEmpty()) {
+              setPage(prevPage => prevPage + 1);
+            } else {
+              Toast('This is the last page');
+            }
+          }}
+        >
+          {'>'}
+        </button>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            fetchLeaderboard(0);
+            setPage(0);
+          }}
         >
           Refresh
         </button>
@@ -133,10 +161,8 @@ export default function DailyChallengeLeaderboard(): JSX.Element {
           <span>Daily Challenge Leaderboard</span>
         </h1>
       </div>
-      <div className={styles.center}>
-        <div className={styles.ranklist}>
-          <PaginatedItems />
-        </div>
+      <div className={styles.ranklist}>
+        <PaginatedItems />
       </div>
     </div>
   );

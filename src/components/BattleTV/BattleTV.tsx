@@ -93,7 +93,12 @@ function PaginatedItems() {
           </div>
         ) : (
           <>
-            {currentItems &&
+            {currentItems.length == 0 ? (
+              <div className={styles.message}>
+                You have not played any matches yet
+              </div>
+            ) : (
+              currentItems &&
               currentItems.map((match: Match) => (
                 <div
                   className={styles.item + getMatchMode(match)}
@@ -116,7 +121,7 @@ function PaginatedItems() {
                     <span className={styles.coinsusedleft}>
                       {[...match.games.values()][0].coinsUsed}
                     </span>
-                    <span className={styles.score}>
+                    <span className={styles.scoreleft}>
                       {[...match.games.values()][0].destruction.toFixed(2)}
                     </span>
                     <div
@@ -138,7 +143,7 @@ function PaginatedItems() {
                     >
                       <img src="src/assets/watch.png"></img>
                     </div>
-                    <span className={styles.score}>
+                    <span className={styles.scoreright}>
                       {[...match.games.values()][
                         [...match.games.values()].length === 1 ? 0 : 1
                       ].destruction.toFixed(2)}
@@ -165,7 +170,8 @@ function PaginatedItems() {
                     </span>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </>
         )}
       </>

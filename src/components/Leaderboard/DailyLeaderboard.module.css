@@ -157,6 +157,7 @@ html {
   margin-top: 20px;
   padding: 10px;
   border-radius: 10px;
+  list-style: none;
 }
 
 .pagination .pageNum {
@@ -181,15 +182,15 @@ html {
 }
 
 .pagination .active {
-  background-color: white;
+  background-color: #2a2a2a;
   text-decoration: none;
-  color: black;
+  color: #eaeaea;
   border: 1px;
 }
 
 .button {
-  background-color:rgb(32, 71, 67);
-  color: #aaaaaa;
+  background-color: #2a2a2a;
+  color: #eaeaea ;
   margin: 0px 8px;
   border: 1px;
   padding: 8px;
