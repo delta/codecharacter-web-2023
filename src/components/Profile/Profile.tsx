@@ -28,6 +28,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { getAvatarByID, getAllAvatars } from '../Avatar/Avatar';
 import angleBracketRight from '../../assets/angle_bracket_right.svg';
 import angleBracketLeft from '../../assets/angle_bracket_left.svg';
+import RatingChart from '../RatingChart/RatingChart';
 
 const Profile = (): JSX.Element => {
   const navigate = useNavigate();
@@ -488,6 +489,10 @@ const Profile = (): JSX.Element => {
             </Button>
           </div>
         </div>
+      </div>
+      <div>
+        <RatingChart />
+        <div className={styles.emptyspace}></div>
       </div>
     </div>
   );

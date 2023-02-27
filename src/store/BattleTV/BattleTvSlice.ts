@@ -1,7 +1,7 @@
 import { Match, MatchApi } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { Action, createSlice, ThunkAction } from '@reduxjs/toolkit';
-import { RootState } from '../../store/store';
+import { RootState } from '../store';
 import Toast from 'react-hot-toast';
 export interface BattleTvInterFace {
   loading: boolean;

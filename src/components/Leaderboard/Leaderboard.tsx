@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Modal, Button, Table } from 'react-bootstrap';
-import ReactPaginate from 'react-paginate';
+import { Modal, Button, Table, Dropdown } from 'react-bootstrap';
 import { useAppSelector } from '../../store/hooks';
 import styles from './Leaderboard.module.css';
 import { getAvatarByID } from '../Avatar/Avatar';
@@ -9,22 +8,22 @@ import {
   MatchApi,
   LeaderboardEntry,
   MatchMode,
+  TierType,
 } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Loader from '../Loader/Loader';
 import swordImage from '../../assets/sword.png';
-import trophyImage from '../../assets/trophy.png';
 import Toast from 'react-hot-toast';
 import { user } from '../../store/User/UserSlice';
 
 function PaginatedItems() {
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
+  const [page, setPage] = useState(0);
   const [items, setItems] = useState<LeaderboardEntry[]>([]);
-  const [currentItems, setCurrentItems] = useState<LeaderboardEntry[]>([]);
+  const [nextItems, setNextItems] = useState<LeaderboardEntry[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [show, setShow] = useState(false);
   const [currentOpponentUsername, setCurrentOpponentUsername] = useState('');
+  const [activeTier, setActiveTier] = useState<TierType | undefined>(undefined);
 
   const handleClose = () => setShow(false);
   const handleShow = (username: string) => {
@@ -36,27 +35,37 @@ function PaginatedItems() {
   const currentUserName = useAppSelector(user).username;
 
   useEffect(() => {
-    fetchLeaderboard();
-  }, []);
+    fetchLeaderboardByTier(page, activeTier);
+  }, [page]);
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(items.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(items.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, items]);
+    checkEmpty();
+  }, [nextItems]);
 
-  const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
-    setItemOffset(newOffset);
-  };
+  function checkEmpty() {
+    let emptylistBool = false;
+    if (nextItems.length == 0) {
+      emptylistBool = true;
+    }
+    return emptylistBool;
+  }
 
-  const fetchLeaderboard = () => {
+  const fetchLeaderboardByTier = (pageNum: number, tier?: TierType) => {
     setIsLoaded(false);
     const leaderboardAPI = new LeaderboardApi(apiConfig);
     leaderboardAPI
-      .getLeaderboard(0, 10000) // The pagination system is so messed up, I can't be bother to fix it, so this hack
+      .getLeaderboard(pageNum, itemsPerPage, tier)
       .then(response => {
         setItems(response);
+        setIsLoaded(true);
+      })
+      .catch(error => {
+        if (error instanceof ApiError) Toast.error(error.message);
+      });
+    leaderboardAPI
+      .getLeaderboard(pageNum + 1, itemsPerPage, tier)
+      .then(response => {
+        setNextItems(response);
         setIsLoaded(true);
       })
       .catch(error => {
@@ -108,20 +117,19 @@ function PaginatedItems() {
               </Modal>
               <Table hover className={styles.list} responsive>
                 <thead>
-                  <tr className={styles.item}>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th className={styles.score}>Ratings</th>
-                    <th className={styles.score}>Won</th>
-                    <th className={styles.score}>Tied</th>
-                    <th className={styles.score}>Lost</th>
+                  <tr className={styles.tableHeader}>
+                    <th className={styles.tableHeader}>RANK</th>
+                    <th className={styles.tableHeader}>USERNAME</th>
+                    <th className={styles.tableHeader}>RATINGS</th>
+                    <th className={styles.tableHeader}></th>
+                    <th className={styles.tableHeader}>WON</th>
+                    <th className={styles.tableHeader}>LOST</th>
+                    <th className={styles.tableHeader}>TIED</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems &&
-                    currentItems.map((row: LeaderboardEntry) => (
+                  {items &&
+                    items.map((row: LeaderboardEntry) => (
                       <tr
                         className={
                           styles.item +
@@ -133,17 +141,22 @@ function PaginatedItems() {
                         key={row.user.username}
                       >
                         <td className={styles.pos}>
-                          {itemOffset + 1 + currentItems.indexOf(row)}
+                          {items.indexOf(row) + 1 + page * itemsPerPage}
                         </td>
-                        <td>
-                          <img
-                            className={styles.pic}
-                            src={getAvatarByID(row.user.avatarId).url}
-                          ></img>
+                        <td className={styles.name}>
+                          <div>
+                            <img
+                              className={styles.pic}
+                              src={getAvatarByID(row.user.avatarId).url}
+                            ></img>
+                            {' ' + row.user.username}
+                          </div>
                         </td>
-                        <td className={styles.name}>{row.user.username}</td>
+                        <td className={styles.score}>
+                          {row.stats.rating.toFixed(3)}
+                        </td>
                         {currentUserName === row.user.username ? (
-                          <td>---</td>
+                          <td className={styles.score}>---</td>
                         ) : (
                           <td
                             className={styles.attackButton}
@@ -155,12 +168,9 @@ function PaginatedItems() {
                             ></img>
                           </td>
                         )}
-                        <td className={styles.score}>
-                          {row.stats.rating.toFixed(3)}
-                        </td>
                         <td className={styles.score}>{row.stats.wins}</td>
-                        <td className={styles.score}>{row.stats.ties}</td>
                         <td className={styles.score}>{row.stats.losses}</td>
+                        <td className={styles.score}>{row.stats.ties}</td>
                       </tr>
                     ))}
                 </tbody>
@@ -170,32 +180,72 @@ function PaginatedItems() {
         )}
       </>
       <nav className={styles.paginationouter}>
-        <ReactPaginate
-          previousLabel="Previous"
-          nextLabel="Next"
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
-          breakLabel="..."
-          breakClassName="page-item"
-          breakLinkClassName="page-link"
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={styles.pagination}
-          activeClassName="active"
-        />
         <button
           type="button"
-          className="btn m-2 btn-outline-light"
-          onClick={fetchLeaderboard}
+          className={styles.button}
+          onClick={() => {
+            if (page !== 0) {
+              setPage(prevPage => prevPage - 1);
+            }
+          }}
+        >
+          {'<'}
+        </button>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            if (!checkEmpty()) {
+              setPage(prevPage => prevPage + 1);
+            } else {
+              Toast("You're at the last page");
+            }
+          }}
+        >
+          {'>'}
+        </button>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            fetchLeaderboardByTier(0, activeTier);
+            setPage(0);
+          }}
         >
           Refresh
         </button>
+        <Dropdown>
+          <Dropdown.Toggle className={styles.button}>
+            {activeTier?.toString() || 'All Tiers'}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item
+              onClick={() => {
+                setActiveTier(undefined);
+                fetchLeaderboardByTier(0);
+              }}
+            >
+              All Tiers
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                setActiveTier(TierType.Tier1);
+                fetchLeaderboardByTier(0, TierType.Tier1);
+              }}
+            >
+              Tier 1
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                setActiveTier(TierType.Tier2);
+                fetchLeaderboardByTier(0, TierType.Tier2);
+              }}
+            >
+              Tier 2
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </nav>
     </>
   );
@@ -205,15 +255,12 @@ export default function Leaderboard(): JSX.Element {
   return (
     <div className={styles.body}>
       <div className={styles.header}>
-        <img className={styles.header__icon} src={trophyImage} />
         <h1 className={styles.header__title}>
-          <span>Leaderboard</span>
+          <span>Match Leaderboard</span>
         </h1>
       </div>
-      <div className={styles.center}>
-        <div className={styles.ranklist}>
-          <PaginatedItems />
-        </div>
+      <div className={styles.ranklist}>
+        <PaginatedItems />
       </div>
     </div>
   );

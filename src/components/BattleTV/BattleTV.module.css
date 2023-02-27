@@ -1,192 +1,263 @@
-body,
-html {
-  height: 100%;
-  width: 100%;
-  background: #242a3c;
-  color: #333;
-  overflow-x: auto;
+.body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.title {
-  margin-top: 3vh;
-  font-family: Montserrat;
-  font-weight: bold;
-  font-size: 3vw;
-  text-align: center;
-  left: 50%;
-  /* letter-spacing: 4.5px; */
+.header {
+  max-width: 1000px;
+  margin: 25px auto;
+  border-radius: 12px;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px 25px;
   color: #e8ecfd;
 }
 
-.battlecardHeader {
-  width: 80%;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 600;
-  color: #ffffff;
-  margin: 20px auto 0 auto;
-  padding: 0 2%;
+.header__icon {
+  max-width: 50px;
+  height: auto;
+  opacity: 0.7;
 }
 
-.battlecardHeader .coinused,
-.battlecardHeader .destruction {
-  font-size: 0.8vw;
+.header__title {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 48px;
+  text-align: center;
+  letter-spacing: 4.5px;
 }
 
-.battlecard {
-  display: flex;
-  flex-wrap: wrap;
-  /* min-width: 720px; */
-  margin: 1rem auto;
-  width: 80%;
-  border-radius: 0.5rem;
-  justify-content: space-between;
+.message {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 3px;
+  color: #aaaaaa;
+  margin-top: 30px;
+}
+
+.ranklist {
+  display: inline-block;
+  text-align: center;
+  padding-top: 10px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.list {
+  margin: 0 auto;
+  background: transparent;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  padding: 15px;
+  border-spacing: 0px 20px;
+  border-collapse: separate;
+}
+
+.item {
+  width: 90%;
+  display: inline-flex;
+  flex-direction: row;
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px 10px;
   align-items: center;
-  border: 2px solid #242a3c;
-  padding: 10px 2%;
-
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 600;
-  color: #ffffff;
+  overflow-x: auto;
+  justify-content: space-around;
+  margin-bottom: 0.4rem;
 }
 
-.battlecardwin {
-  background-color: #00bc6244;
-}
-.battlecardlose {
-  background-color: #bc170044;
-}
-.battlecardtie {
-  background-color: #808080;
+.automatch {
+  background-color: antiquewhite;
 }
 
-.battlecard img {
-  width: 80%;
-  /* height: 4rem; */
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2),
-    0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
+.item .picholder {
+  display: flex;
+  height: auto;
+  align-items: center;
+  justify-content: center;
 }
 
-.pic {
-  width: 5%;
-  text-align: center;
+.item .pic {
+  max-width: 40px;
+  height: auto;
 }
 
-.username {
-  width: 17%;
-  font-size: 1.3vw;
-  line-height: 24px;
+.item .watchButton {
+  display: inline-block;
+  transform: scale(0.8);
+  transition: 0.3s;
+  width: 100%;
 }
 
-.left {
-  text-align: left;
-}
-
-.right {
-  text-align: right;
-}
-
-.coinused {
-  width: 7%;
-  text-align: center;
-  font-size: 1vw;
-  line-height: 22px;
-}
-.destruction {
-  width: 12%;
-  text-align: center;
-  font-size: 2vw;
-  line-height: 25px;
-}
-.vs {
-  text-align: center;
-  font-size: 1vw;
-  line-height: 22px;
-}
-.watchButton {
-  font-size: 1vw;
-  background-color: #4595cf;
-  padding: 5px;
-  border-radius: 4px;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+.item .watchButton:hover {
+  transform: scale(1);
   cursor: pointer;
-  transition: all 0.05s ease-in-out;
-  user-select: none;
 }
-.watchButton:hover {
-  background-color: #529dd3;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2),
-    0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
+
+.item .battlecardwin {
+  outline: thin solid #026837;
+  background-color: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(5px);
 }
-.watchButton:active {
-  background-color: #4595cfaa;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2),
-    0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
+
+.item .battlecardlose {
+  outline: thin solid #bc1700;
+  background-color: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(5px);
 }
+
+.item .battlecardtie {
+  outline: thin solid #ffe600;
+  background-color: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+.item .name {
+  font-size: x-large;
+  font-family: 'Roboto', monospace;
+  overflow-x: auto;
+  white-space: nowrap;
+  color: #aaaaaa;
+  width: 150px;
+  border: none;
+  padding: 10px 1vw 10px 1vw;
+}
+
+.item .username {
+  display: inline-flex;
+  vertical-align: middle;
+  justify-content: space-between;
+  height: 60px;
+  width: 100%;
+}
+
+.item .scoreleft {
+  font-family: 'Bai Jamjuree', monospace;
+  color: #aaaaaa;
+  background-color: transparent;
+  font-size: x-large;
+  opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+.item .scoreright {
+  font-family: 'Bai Jamjuree', monospace;
+  color: #aaaaaa;
+  background-color: transparent;
+  font-size: x-large;
+  opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+.item .coinsusedright {
+  font-family: 'Bai Jamjuree', monospace;
+  color: #aaaaaa;
+  background-color: transparent;
+  font-size: x-large;
+  opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+.item .coinsusedleft {
+  font-family: 'Bai Jamjuree', monospace;
+  color: #aaaaaa;
+  background-color: transparent;
+  font-size: x-large;
+  opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+.item .score:after {
+  opacity: 0.8;
+  background-color: transparent;
+  border: none;
+  padding: 10px 30px;
+}
+
+.item .score:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.item .score:last-child {
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.tableheader {
+  font-family: 'Roboto Condensed', monospace;
+  font-size: x-large;
+  color: #aaaaaa;
+  font-weight: 100;
+  background: transparent;
+  opacity: 1;
+  border: rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+.tableheaderdiv {
+  width: 80%;
+  display: inline-flex;
+  justify-content: space-evenly;
+  margin: 10px;
+  margin-bottom: 1.8rem;
+}
+
 .paginationouter {
   text-align: center;
 }
+
 .pagination {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 1.5vh;
+  font-family: monospace, sans-serif;
   display: inline-flex;
-  margin-top: 20px;
   position: relative;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: solid;
+  list-style: none;
 }
 
-@media screen and (max-width: 720px) {
-  .battlecardHeader {
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-  }
-  .battlecard {
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-  }
-  .battlecardHeader .destruction {
-    font-size: 1vh;
-  }
-  .username {
-    width: 25%;
-    font-size: 1.3vh;
-  }
-  .coinused {
-    font-size: 1.1vh;
-  }
-  .destruction {
-    width: 15%;
-    font-size: 2vh;
-  }
-  .vs {
-    font-size: 1.3vh;
-  }
-  .battlecard .headingcoinused,
-  .coinused {
-    display: none;
-  }
-  .pic {
-    display: none;
-  }
-  .title {
-    font-size: 3vh;
-  }
+.pagination .pageNum {
+  border: #eaeaea thin solid;
+  color: #eaeaea;
+  margin: 0px 8px;
+  background-color: transparent;
+  padding: 8px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-family: monospace, sans-serif;
+  display: inline-block;
+  white-space: nowrap;
+  transition: 0.3s;
+  letter-spacing: normal;
+  text-decoration: none;
 }
 
-@media screen and (max-width: 720px) {
-  .battlecardHeader {
-    width: 95%;
-  }
-  .battlecard {
-    width: 95%;
-  }
+.pagination .pageNum:hover {
+  background-color: #aaaaaa;
+  color: black;
+}
+
+.pagination .break {
+  background-color: black;
+}
+
+.pagination .active {
+  background-color: #aaaaaa;
+  color: #0a1c2a;
+  border: 1px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  height: 0;
+  width: 0;
 }

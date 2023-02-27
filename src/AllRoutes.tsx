@@ -13,7 +13,9 @@ const History = lazy(
 );
 const Login = lazy(() => import('./pages/Auth/LoginForm'));
 const Register = lazy(() => import('./pages/Auth/RegisterForm'));
-const Leaderboard = lazy(() => import('./components/Leaderboard/Leaderboard'));
+const Leaderboard = lazy(
+  () => import('./components/Leaderboard/MainLeaderboard'),
+);
 const BattleTV = lazy(() => import('./components/BattleTV/BattleTV'));
 const Verify = lazy(
   () => import('./components/Auth/Auth/Register/ActivateUser/ActivateUser'),

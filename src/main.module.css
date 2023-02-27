@@ -18,7 +18,9 @@
 }
 
 .gameArea {
-  width: 0;
+  /* this is needed or the background will be offset by a few pixels at the top */
+  overflow: auto;
+  position: relative;
   flex-grow: 1;
   background: rgba(30, 30, 30, 0.87);
 }

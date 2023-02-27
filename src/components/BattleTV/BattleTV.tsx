@@ -3,15 +3,19 @@ import ReactPaginate from 'react-paginate';
 import { getLogAction } from '../../store/rendererLogs/logSlice';
 import { useNavigate } from 'react-router-dom';
 import styles from './BattleTV.module.css';
-import { battleTvSelector, fetchBattleTv } from './BattleTvSlice';
+import {
+  battleTvSelector,
+  fetchBattleTv,
+} from '../../store/BattleTV/BattleTvSlice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { getAvatarByID } from '../Avatar/Avatar';
-import { Match, Verdict } from '@codecharacter-2023/client';
+import { Match, MatchMode, Verdict } from '@codecharacter-2023/client';
 import { User, user } from '../../store/User/UserSlice';
 import {
   changePageState,
   changeSimulationState,
 } from '../../store/DailyChallenge/dailyChallenge';
+import watchIcon from '../../assets/watch.png';
 
 function getIcon(loggedInUser: User, match: Match) {
   if (loggedInUser.username === match.user1.username) {
@@ -32,6 +36,14 @@ function getIcon(loggedInUser: User, match: Match) {
   return styles.battlecardtie;
 }
 
+function getMatchMode(match: Match) {
+  let style = '';
+  if (match.matchMode == MatchMode.Auto) {
+    style = styles.automatch;
+  }
+  return style;
+}
+
 function getUsersGame(loggedInUser: User, match: Match) {
   const games = [...match.games.values()];
   if (loggedInUser.username == match.user1.username) {
@@ -47,7 +59,7 @@ function PaginatedItems() {
   const [currentItems, setCurrentItems] = useState<Match[]>([]);
   const navigate = useNavigate();
 
-  const itemsPerPage = 4;
+  const itemsPerPage = 8;
 
   const { battletv, loading, hasbeenFetched, hasErrors } =
     useAppSelector(battleTvSelector);
@@ -83,26 +95,37 @@ function PaginatedItems() {
           </div>
         ) : (
           <>
-            {currentItems &&
+            {currentItems.length == 0 ? (
+              <div className={styles.message}>
+                You have not played any matches yet
+              </div>
+            ) : (
+              currentItems &&
               currentItems.map((match: Match) => (
-                <div className={styles.item} key={match.id}>
+                <div
+                  className={styles.item + getMatchMode(match)}
+                  key={match.id}
+                >
                   <div
-                    className={
-                      styles.battlecard + ' ' + getIcon(loggedInUser, match)
-                    }
+                    className={styles.item + ' ' + getIcon(loggedInUser, match)}
                   >
-                    <div className={styles.pic}>
-                      <img src={getAvatarByID(match.user1.avatarId).url}></img>
-                    </div>
-                    <div className={[styles.username, styles.left].join(' ')}>
-                      {match.user1.username}
-                    </div>
-                    <div className={styles.coinused}>
+                    <span className={styles.username}>
+                      <div className={styles.picholder}>
+                        <img
+                          src={getAvatarByID(match.user1.avatarId).url}
+                          className={styles.pic}
+                        ></img>
+                      </div>
+                      <span className={[styles.name].join(' ')}>
+                        {match.user1.username}
+                      </span>
+                    </span>
+                    <span className={styles.coinsusedleft}>
                       {[...match.games.values()][0].coinsUsed}
-                    </div>
-                    <div className={styles.destruction}>
+                    </span>
+                    <span className={styles.scoreleft}>
                       {[...match.games.values()][0].destruction.toFixed(2)}
-                    </div>
+                    </span>
                     <div
                       className={styles.watchButton}
                       onClick={() => {
@@ -120,47 +143,49 @@ function PaginatedItems() {
                         );
                       }}
                     >
-                      Watch
+                      <img src={watchIcon}></img>
                     </div>
-                    <div className={styles.destruction}>
+                    <span className={styles.scoreright}>
                       {[...match.games.values()][
                         [...match.games.values()].length === 1 ? 0 : 1
                       ].destruction.toFixed(2)}
-                    </div>
-                    <div className={styles.coinused}>
+                    </span>
+                    <span className={styles.coinsusedright}>
                       {
                         [...match.games.values()][
                           [...match.games.values()].length === 1 ? 0 : 1
                         ].coinsUsed
                       }
-                    </div>
-                    <div className={[styles.username, styles.right].join(' ')}>
-                      {match.user2 !== null
-                        ? match.user2?.username
-                        : 'Daily Challenge'}
-                    </div>
-                    <div className={styles.pic}>
-                      <img src={getAvatarByID(match.user1.avatarId).url}></img>
-                    </div>
+                    </span>
+                    <span className={styles.username}>
+                      <span className={[styles.name, styles.right].join(' ')}>
+                        {match.user2 !== null
+                          ? match.user2?.username
+                          : 'Daily Challenge'}
+                      </span>
+                      <div className={styles.picholder}>
+                        <img
+                          src={getAvatarByID(match.user1.avatarId).url}
+                          className={styles.pic}
+                        ></img>
+                      </div>
+                    </span>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </>
         )}
       </>
       <nav className={styles.paginationouter}>
         <ReactPaginate
-          previousLabel="Previous"
-          nextLabel="Next"
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
+          previousLabel="<"
+          nextLabel=">"
+          pageLinkClassName={styles.pageNum}
+          previousLinkClassName={styles.pageNum}
+          nextLinkClassName={styles.pageNum}
           breakLabel="..."
-          breakClassName="page-item"
-          breakLinkClassName="page-link"
+          breakLinkClassName={styles.pageNum}
           pageCount={pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
@@ -175,26 +200,23 @@ function PaginatedItems() {
 export default function BattleTV(): JSX.Element {
   return (
     <div className={styles.body}>
-      <div className={styles.title}>Battle TV</div>
-      <div className={styles.item}>
-        <div
-          className={styles.battlecardHeader}
-          style={{
-            backgroundColor: '#',
-          }}
-        >
-          <div className={styles.pic}></div>
-          <div className={styles.username}></div>
-          <div className={styles.coinused}>Coins Used</div>
-          <div className={styles.destruction}>Destruction %</div>
-          <div className={styles.vs}>VS</div>
-          <div className={styles.destruction}>Destruction %</div>
-          <div className={styles.coinused}>Coins Used</div>
-          <div className={styles.username}></div>
-          <div className={styles.pic}></div>
-        </div>
+      <div className={styles.header}>
+        <h1 className={styles.header__title}>
+          <span>Battle TV</span>
+        </h1>
       </div>
-      <PaginatedItems />
+      <div className={styles.ranklist}>
+        <div className={styles.tableheaderdiv}>
+          <span className={styles.tableheader}>ATTACKER</span>
+          <span className={styles.tableheader}>COINS USED</span>
+          <span className={styles.tableheader}>DESTRUCTION(%)</span>
+          <span className={styles.tableheader}></span>
+          <span className={styles.tableheader}>DESTRUCTION(%)</span>
+          <span className={styles.tableheader}>COINS USED</span>
+          <span className={styles.tableheader}>DEFENDER</span>
+        </div>
+        <PaginatedItems />
+      </div>
     </div>
   );
 }
