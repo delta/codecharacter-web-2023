@@ -196,9 +196,7 @@ function PaginatedItems() {
           type="button"
           className={styles.button}
           onClick={() => {
-            if (page == 0) {
-              Toast('First Page');
-            } else {
+            if (page !== 0) {
               setPage(prevPage => prevPage - 1);
             }
           }}
@@ -212,7 +210,7 @@ function PaginatedItems() {
             if (!checkEmpty()) {
               setPage(prevPage => prevPage + 1);
             } else {
-              Toast('This is the last page');
+              Toast("You're at the last page");
             }
           }}
         >
