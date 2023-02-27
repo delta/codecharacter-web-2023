@@ -88,7 +88,7 @@
   display: inline-block;
   transform: scale(0.8);
   transition: 0.3s;
-  flex-grow: 1;
+  width: 100%;
 }
 
 .item .watchButton:hover {
@@ -130,6 +130,7 @@
   vertical-align: middle;
   justify-content: space-between;
   height: 60px;
+  width: 100%;
 }
 
 .item .scoreleft {
@@ -139,7 +140,7 @@
   font-size: x-large;
   opacity: 1;
   border: rgba(0, 0, 0, 0.3);
-  flex-grow: 1;
+  width: 100%;
 }
 
 .item .scoreright {
@@ -149,7 +150,7 @@
   font-size: x-large;
   opacity: 1;
   border: rgba(0, 0, 0, 0.3);
-  flex-grow: 1;
+  width: 100%;
 }
 
 .item .coinsusedright {
@@ -159,7 +160,7 @@
   font-size: x-large;
   opacity: 1;
   border: rgba(0, 0, 0, 0.3);
-  flex-grow: 1;
+  width: 100%;
 }
 
 .item .coinsusedleft {
@@ -169,7 +170,7 @@
   font-size: x-large;
   opacity: 1;
   border: rgba(0, 0, 0, 0.3);
-  flex-grow: 1;
+  width: 100%;
 }
 
 .item .score:after {
