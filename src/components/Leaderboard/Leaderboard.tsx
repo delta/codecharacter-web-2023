@@ -50,11 +50,11 @@ function PaginatedItems() {
     return emptylistBool;
   }
 
-  const fetchLeaderboard = (pageNum: number) => {
+  const fetchLeaderboardByTier = (pageNum: number, tier?: TierType) => {
     setIsLoaded(false);
     const leaderboardAPI = new LeaderboardApi(apiConfig);
     leaderboardAPI
-      .getLeaderboard(pageNum, itemsPerPage)
+      .getLeaderboard(pageNum, itemsPerPage, tier)
       .then(response => {
         setItems(response);
         setIsLoaded(true);
@@ -63,22 +63,9 @@ function PaginatedItems() {
         if (error instanceof ApiError) Toast.error(error.message);
       });
     leaderboardAPI
-      .getLeaderboard(pageNum + 1, itemsPerPage)
+      .getLeaderboard(pageNum + 1, itemsPerPage, tier)
       .then(response => {
         setNextItems(response);
-      })
-      .catch(error => {
-        if (error instanceof ApiError) Toast.error(error.message);
-      });
-  };
-
-  const fetchLeaderboardByTier = (pageNum: number, tier?: TierType) => {
-    setIsLoaded(false);
-    const leaderboardAPI = new LeaderboardApi(apiConfig);
-    leaderboardAPI
-      .getLeaderboard(pageNum, itemsPerPage, tier)
-      .then(response => {
-        setItems(response);
         setIsLoaded(true);
       })
       .catch(error => {
@@ -221,7 +208,7 @@ function PaginatedItems() {
           type="button"
           className={styles.button}
           onClick={() => {
-            fetchLeaderboard(0);
+            fetchLeaderboardByTier(0, activeTier);
             setPage(0);
           }}
         >
