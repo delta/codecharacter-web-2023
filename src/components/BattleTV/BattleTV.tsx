@@ -15,6 +15,7 @@ import {
   changePageState,
   changeSimulationState,
 } from '../../store/DailyChallenge/dailyChallenge';
+import watchIcon from '../../assets/watch.png';
 
 function getIcon(loggedInUser: User, match: Match) {
   if (loggedInUser.username === match.user1.username) {
@@ -142,7 +143,7 @@ function PaginatedItems() {
                         );
                       }}
                     >
-                      <img src="src/assets/watch.png"></img>
+                      <img src={watchIcon}></img>
                     </div>
                     <span className={styles.scoreright}>
                       {[...match.games.values()][
