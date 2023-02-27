@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
 
 import UserReducer from './User/UserSlice';
-import battleTvReducer from '../components/BattleTV/BattleTvSlice';
+import battleTvReducer from './BattleTV/BattleTvSlice';
 import notifReducer from './Notifs/notifSlice';
 import historyReducer from './historyEditor/historyEditorSlice';
 import editorReducer from './editor/code';

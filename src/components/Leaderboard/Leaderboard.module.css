@@ -1,18 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Bai+Jamjuree:400,900&display=swap');
-
-body,
-html {
-  height: 100%;
-  width: 100%;
-  color: #333;
-}
-
 .header {
   max-width: 1000px;
   margin: 25px auto;
+  margin-bottom: 0;
   border-radius: 12px;
   justify-content: center;
   display: flex;
@@ -66,6 +55,8 @@ html {
   border-style: solid none;
   border-radius: 5px;
   margin: 8px;
+  background-color: #00000022;
+  backdrop-filter: blur(5px);
 }
 
 .tier3 {
@@ -176,17 +167,20 @@ html {
 .attackButton {
   background-color: transparent;
   padding: 15px 30px;
-  transition: 0.3s;
 }
 
-.attackButton:hover {
-  transform: scale(1.5);
+.attackButton > img {
+  transition: all 0.3s ease-in-out;
+}
+
+.attackButton > img:hover {
+  transform: scale(1.15);
+  cursor: pointer;
 }
 
 .attackImg {
   max-height: 100%;
   max-width: 100%;
-
 }
 
 .paginationouter {
@@ -236,7 +230,7 @@ html {
 
 .button {
   border: #eaeaea thin solid;
-  color: #eaeaea ;
+  color: #eaeaea;
   margin: 0px 8px 20px 8px;
   background-color: transparent;
   padding: 8px;

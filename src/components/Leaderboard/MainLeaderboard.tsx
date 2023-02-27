@@ -23,7 +23,7 @@ export default function BattleTV(): JSX.Element {
         onClick={() => {
           if (!isDailyChallengeLeaderboard) {
             setIsDailyChallengeLeaderboard(true);
-            setLeaderboardType('Main Leaderboard');
+            setLeaderboardType('Match Leaderboard');
           } else {
             setIsDailyChallengeLeaderboard(false);
             setLeaderboardType('Daily Challenge Leaderboard');

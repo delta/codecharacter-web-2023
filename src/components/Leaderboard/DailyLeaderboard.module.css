@@ -1,15 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Bai+Jamjuree:400,900&display=swap');
-
-body,
-html {
-  height: 100%;
-  width: 100%;
-  color: #333;
-}
-
 .header {
   max-width: 1000px;
   margin: 25px auto;
@@ -190,7 +178,7 @@ html {
 
 .button {
   background-color: #2a2a2a;
-  color: #eaeaea ;
+  color: #eaeaea;
   margin: 0px 8px;
   border: 1px;
   padding: 8px;

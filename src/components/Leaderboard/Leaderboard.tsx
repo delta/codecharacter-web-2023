@@ -56,7 +56,6 @@ function PaginatedItems() {
       .getLeaderboard(pageNum, itemsPerPage)
       .then(response => {
         setItems(response);
-        console.log(items);
         setIsLoaded(true);
       })
       .catch(error => {
@@ -79,7 +78,6 @@ function PaginatedItems() {
       .getLeaderboard(pageNum, itemsPerPage, tier)
       .then(response => {
         setItems(response);
-        console.log(items);
         setIsLoaded(true);
       })
       .catch(error => {
@@ -276,7 +274,7 @@ export default function Leaderboard(): JSX.Element {
     <div className={styles.body}>
       <div className={styles.header}>
         <h1 className={styles.header__title}>
-          <span>Leaderboard</span>
+          <span>Match Leaderboard</span>
         </h1>
       </div>
       <div className={styles.ranklist}>

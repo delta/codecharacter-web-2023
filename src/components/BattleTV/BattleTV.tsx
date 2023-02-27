@@ -3,7 +3,10 @@ import ReactPaginate from 'react-paginate';
 import { getLogAction } from '../../store/rendererLogs/logSlice';
 import { useNavigate } from 'react-router-dom';
 import styles from './BattleTV.module.css';
-import { battleTvSelector, fetchBattleTv } from './BattleTvSlice';
+import {
+  battleTvSelector,
+  fetchBattleTv,
+} from '../../store/BattleTV/BattleTvSlice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { getAvatarByID } from '../Avatar/Avatar';
 import { Match, MatchMode, Verdict } from '@codecharacter-2023/client';
@@ -34,10 +37,8 @@ function getIcon(loggedInUser: User, match: Match) {
 
 function getMatchMode(match: Match) {
   let style = '';
-  console.log(match.matchMode);
   if (match.matchMode == MatchMode.Auto) {
     style = styles.automatch;
-    console.log('auto match true');
   }
   return style;
 }

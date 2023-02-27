@@ -38,7 +38,7 @@ function RatingHistoryChart() {
       },
       title: {
         display: true,
-        text: 'CHART DISPLAYING YOUR RATING HISTORY',
+        text: 'YOUR RATING HISTORY',
       },
     },
   };
@@ -74,7 +74,6 @@ function RatingHistoryChart() {
         },
       ],
     });
-    console.log(dataItems);
   }, [labelItems]);
 
   useEffect(() => {
