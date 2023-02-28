@@ -174,6 +174,7 @@ export class Troop extends Phaser.GameObjects.Image {
       this.f = this.animation.startFrame;
     } else {
       this.frame = this.texture.get(this.direction.offset + this.f);
+      // this.frame = this.texture.get(this.f);
     }
     this.frameTimer = this.scene.time.delayedCall(
       this.speed * 1000,
