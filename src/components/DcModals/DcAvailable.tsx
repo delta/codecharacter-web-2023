@@ -23,7 +23,7 @@ const DcAvailable = (props: DcProps) => {
       </Modal.Body>
       <Modal.Footer>
         <Button
-          variant="outline-danger"
+          variant="outline-light"
           className={styles.dcmodalBtn}
           onClick={props.handleClose}
         >

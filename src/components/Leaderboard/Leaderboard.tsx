@@ -116,14 +116,6 @@ function PaginatedItems() {
                     className={styles.matchModalBtn}
                     variant="outline-light"
                     size="lg"
-                    onClick={handleClose}
-                  >
-                    Close
-                  </Button>
-                  <Button
-                    className={styles.matchModalBtn}
-                    variant="outline-light"
-                    size="lg"
                     onClick={() => handleMatchStart()}
                   >
                     Start match
@@ -230,13 +222,14 @@ function PaginatedItems() {
         >
           Refresh
         </button>
-        <Dropdown id="tiers">
-          <Dropdown.Toggle className={styles.button}>
+        <Dropdown id='tiers'>
+          <Dropdown.Toggle variant="dark" className={styles.button}>
             {activeTier?.toString() || 'All Tiers'}
           </Dropdown.Toggle>
 
-          <Dropdown.Menu>
+          <Dropdown.Menu className={styles.menuBackground}>
             <Dropdown.Item
+              className={styles.menuText}
               onClick={() => {
                 setActiveTier(undefined);
                 fetchLeaderboardByTier(0);
@@ -245,6 +238,7 @@ function PaginatedItems() {
               All Tiers
             </Dropdown.Item>
             <Dropdown.Item
+              className={styles.menuText}
               onClick={() => {
                 setActiveTier(TierType.Tier1);
                 fetchLeaderboardByTier(0, TierType.Tier1);
@@ -253,6 +247,7 @@ function PaginatedItems() {
               Tier 1
             </Dropdown.Item>
             <Dropdown.Item
+              className={styles.menuText}
               onClick={() => {
                 setActiveTier(TierType.Tier2);
                 fetchLeaderboardByTier(0, TierType.Tier2);

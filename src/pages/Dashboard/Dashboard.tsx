@@ -464,6 +464,7 @@ export default function Dashboard(): JSX.Element {
                       />
                     </Button>
                   </div>
+<<<<<<< HEAD
                   <div>
                     <Button
                       className={styles.closeRendererButton}
@@ -477,6 +478,16 @@ export default function Dashboard(): JSX.Element {
                         icon={faChevronRight as IconProp}
                       />
                     </Button>
+=======
+                  <div className={styles.settingsIcon}>
+                    <FontAwesomeIcon
+                      title={'Shortcuts'}
+                      icon={faCircleInfo as IconProp}
+                      color={'#cbcbcb'}
+                      onClick={handleOpenInfo}
+                      className={styles.hoverIcon}
+                    />
+>>>>>>> 4046db7 (UI changes)
                   </div>
                 </ButtonToolbar>
               ) : (

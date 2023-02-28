@@ -23,14 +23,14 @@ const DcCompleted = (props: DcProps) => {
       </Modal.Body>
       <Modal.Footer>
         <Button
-          variant="outline-danger"
+          variant="outline-light"
           className={styles.dcmodalBtn}
           onClick={props.handleTake}
         >
           View Latest Challenge
         </Button>
         <Button
-          variant="outline-info"
+          variant="outline-light"
           className={styles.dcmodalBtn}
           onClick={props.handleClose}
         >

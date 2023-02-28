@@ -203,6 +203,15 @@
   list-style: none;
 }
 
+.menuText{
+  color: #aaaaaa;
+  font-family: 'Poppins';
+}
+
+.menuBackground{
+  background-color:#1e1e1e !important;
+} 
+
 .matchHeader {
   background-color: #232627;
   backdrop-filter: blur(100px);    
