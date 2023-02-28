@@ -22,14 +22,14 @@ type Directions = {
 };
 
 const directions: Directions = {
-  east: { offset: 128, x: 2, y: 0 },
-  northEast: { offset: 96, x: 2, y: -1 },
-  north: { offset: 64, x: 0, y: -2 },
-  northWest: { offset: 32, x: -2, y: -1 },
-  west: { offset: 0, x: -2, y: 0 },
-  southWest: { offset: 224, x: -2, y: 1 },
-  south: { offset: 192, x: 0, y: 2 },
-  southEast: { offset: 160, x: 2, y: 1 },
+  east: { offset: 0, x: 2, y: 0 },
+  northEast: { offset: 0, x: 2, y: -1 },
+  north: { offset: 0, x: 0, y: -2 },
+  northWest: { offset: 8, x: -2, y: -1 },
+  west: { offset: 8, x: -2, y: 0 },
+  southWest: { offset: 8, x: -2, y: 1 },
+  south: { offset: 0, x: 0, y: 2 },
+  southEast: { offset: 0, x: 2, y: 1 },
 };
 
 type Animation = {
@@ -43,23 +43,23 @@ type Animations = {
 const anims: Animations = {
   idle: {
     startFrame: 0,
-    endFrame: 4,
+    endFrame: 7,
   },
   walk: {
-    startFrame: 4,
-    endFrame: 12,
+    startFrame: 16,
+    endFrame: 23,
   },
   attack: {
-    startFrame: 12,
-    endFrame: 20,
+    startFrame: 32,
+    endFrame: 39,
   },
   die: {
-    startFrame: 20,
-    endFrame: 28,
+    startFrame: 48,
+    endFrame: 55,
   },
   shoot: {
-    startFrame: 28,
-    endFrame: 32,
+    startFrame: 32,
+    endFrame: 39,
   },
 };
 
@@ -100,7 +100,7 @@ export class Troop extends Phaser.GameObjects.Image {
     motion: string,
     direction?: Direction | undefined,
   ) {
-    super(scene, x, y, 'skeleton');
+    super(scene, x, y, troopType.spritesheet);
 
     this.troopType = troopType;
 
@@ -138,6 +138,7 @@ export class Troop extends Phaser.GameObjects.Image {
       this.f = this.animation.startFrame;
     } else {
       this.frame = this.texture.get(this.direction.offset + this.f);
+      // this.frame = this.texture.get(this.f);
     }
     this.frameTimer = this.scene.time.delayedCall(
       this.speed * 1000,

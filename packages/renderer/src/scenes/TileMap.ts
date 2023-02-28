@@ -39,7 +39,11 @@ export class TileMap extends Phaser.Scene {
       this.load.image(`${tower.name}-sprite`, `./assets/${tower.asset}`);
     });
     this.load.tilemapTiledJSON('map', './assets/map-2.json');
-    this.load.spritesheet('skeleton', './assets/skeleton8.png', {
+    this.load.spritesheet('knight', './assets/knight.png', {
+      frameWidth: 128,
+      frameHeight: 128,
+    });
+    this.load.spritesheet('knight2', './assets/knight-2.png', {
       frameWidth: 128,
       frameHeight: 128,
     });

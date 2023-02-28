@@ -19,6 +19,15 @@ export default class TowerConfig {
       'tower_square_thumbnail.png',
       100,
       6,
+      200,
+    ),
+    new TowerType(
+      1,
+      'tower2',
+      'tower_square.png',
+      'tower_square_thumbnail.png',
+      100,
+      4,
       100,
     ),
   ];
