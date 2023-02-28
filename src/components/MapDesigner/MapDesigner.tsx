@@ -257,11 +257,16 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
               variant="outline-light"
             >
               Submit
-            </ Button>
+            </Button>
             {props.pageType == 'MapDesigner' ? (
-              <button className={styles.modalButton} onClick={openCommitModal}>
+              <Button
+                className={styles.modalButton}
+                onClick={openCommitModal}
+                variant="outline-light"
+                size="lg"
+              >
                 Commit
-              </button>
+              </Button>
             ) : (
               <></>
             )}
@@ -290,14 +295,16 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
           </Row>
           <p className={styles.commitModalError}>{commitModalError}</p>
           <div className={styles.buttonRow}>
-            <button
+            <Button
+              size="lg"
+              variant="outline-light"
               className={styles.modalButton}
               onClick={() => {
                 compressImage('commit');
               }}
             >
               Create Map Commit
-            </button>
+            </Button>
           </div>
         </Modal.Body>
       </Modal>

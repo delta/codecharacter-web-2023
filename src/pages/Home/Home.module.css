@@ -8,6 +8,7 @@
   width: 100%;
   height: calc(100vh - 64px);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -36,10 +37,12 @@
 .heart {
   color: #aaaaaa;
 }
-
+.arrowContainer{
+  position: relative;
+  top: 30%;
+}
 .arrow{
-  position: absolute;
-  bottom: 8%;
+  justify-content: end;
   transition-duration: 0.5s;
 }
 
@@ -50,5 +53,8 @@
 @media screen and (max-width: 1000px) {
   .jumbotron > div {
     font-size: 2px;
+  }
+  .arrowContainer{
+    top: 20%;
   }
 }

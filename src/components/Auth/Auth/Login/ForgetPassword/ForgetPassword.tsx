@@ -12,23 +12,15 @@ interface ForgetPasswordInterface {
 }
 const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
   const [email, setEmail] = useState('');
-  const [emailError, isemailError] = useState(false);
 
   const handleEmailSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-    const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (event.target.value.match(mailformat)) {
-      isemailError(false);
-    } else {
-      isemailError(true);
-    }
   };
   const handleSubmit = () => {
     const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (emailError) {
+    if (!email.match(mailformat)) {
       toast.error('Enter valid email');
-    }
-    if (email.match(mailformat)) {
+    } else {
       const authApi = new AuthApi(authConfig);
       authApi
         .forgotPassword({ email: email })
@@ -78,7 +70,7 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
 
         <Modal.Footer className={styles.modalContainer}>
           <Button
-            className={styles.selfMatchModalSimulateBtn}
+            className={styles.submitBtn}
             size="lg"
             onClick={handleSubmit}
             variant="outline-light"

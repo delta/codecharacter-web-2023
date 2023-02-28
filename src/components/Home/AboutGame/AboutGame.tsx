@@ -4,7 +4,7 @@ import mapimg from './../../../../src/assets/renderer.png';
 
 export default function AboutGame(): JSX.Element {
   return (
-    <div className={styles.background}>
+    <div>
       <div className={styles.about}>
         <Container fluid className={styles.aboutcontainer}>
           <Row>

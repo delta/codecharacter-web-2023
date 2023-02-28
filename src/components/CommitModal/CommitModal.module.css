@@ -59,14 +59,16 @@
     height: 5vh;
     margin-bottom: 20px;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 20px;
     text-align: center;
     background-color: inherit;
     border: 2px solid #aaaaaa;
     border-radius: 5px;
     font-family: 'Poppins';
     margin-top: 10px;
+    padding: 5px 20px 5px 20px ;
   }
+
   .commitModalbtn:hover{
     transform: scale(1.1);
     transition-duration: 0.5s;

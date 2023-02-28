@@ -21,8 +21,6 @@ import {
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { getAvatarByID, getAllAvatars } from '../Avatar/Avatar';
-import angleBracketRight from '../../assets/angle_bracket_right.svg';
-import angleBracketLeft from '../../assets/angle_bracket_left.svg';
 import RatingChart from '../RatingChart/RatingChart';
 
 const Profile = (): JSX.Element => {
