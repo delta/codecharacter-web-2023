@@ -97,27 +97,6 @@ const EditorSettings = (): JSX.Element => {
                 </select>
               </FormGroup>
             </Col>
-
-            <Col xs={12} className={styles.settingFormGroup}>
-              <FormGroup controlId="editorKeybinding">
-                <div className={styles.settingLabel}>Editor Keybinding</div>
-                <select
-                  className={styles.settingDropdown}
-                  value={keyboardHandler}
-                  onChange={e => handleKeyboardHandlerChange(e.target.value)}
-                >
-                  {keyboardHandlers.map((keyboardHandlerValue: string) => (
-                    <option
-                      value={keyboardHandlerValue}
-                      key={keyboardHandlerValue}
-                      className={styles.optionsDropdown}
-                    >
-                      {keyboardHandlerValue}
-                    </option>
-                  ))}
-                </select>
-              </FormGroup>
-            </Col>
           </Row>
         </Container>
       </Modal.Body>

@@ -29,6 +29,7 @@ import {
   dcCode,
   changeDcCode,
 } from '../../store/DailyChallenge/dailyChallenge';
+import { useTour } from '@reactour/tour';
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (_moduleId: string, label: string) {
@@ -59,6 +60,12 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const keyboardHandler = useAppSelector(KeyboardHandler);
 
   const language = props.language;
+
+  const { setIsOpen } = useTour();
+
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
 
   useEffect(() => {
     if (divCodeEditor.current) {

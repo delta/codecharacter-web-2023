@@ -16,6 +16,7 @@ import {
   changeSimulationState,
 } from '../../store/DailyChallenge/dailyChallenge';
 import watchIcon from '../../assets/watch.png';
+import { useTour } from '@reactour/tour';
 
 function getIcon(loggedInUser: User, match: Match) {
   if (loggedInUser.username === match.user1.username) {
@@ -198,6 +199,12 @@ function PaginatedItems() {
   );
 }
 export default function BattleTV(): JSX.Element {
+  const { setIsOpen } = useTour();
+
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
+
   return (
     <div className={styles.body}>
       <div className={styles.header}>

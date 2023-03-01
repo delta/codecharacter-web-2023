@@ -8,6 +8,7 @@ import Toast from 'react-hot-toast';
 import styles from './MapDesigner.module.css';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { Modal, Container, Row } from 'react-bootstrap';
+import { useTour } from '@reactour/tour';
 
 interface MapDesignerProps {
   pageType: 'MapDesigner' | 'DailyChallenge';
@@ -157,12 +158,15 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
     closeModal();
   };
 
+  const { setIsOpen } = useTour();
+
   useEffect(() => {
     MapDesignerUtils.setLocalStorageKey(
       props.pageType == 'MapDesigner'
         ? 'cc-map-designer-map'
         : 'dc-map-designer-map',
     );
+    setIsOpen(true);
   }, [props.pageType]);
 
   const saveMapCallback = (map: Array<Array<number>>) => {
@@ -178,6 +182,7 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
           readonly={false}
         />
       </div>
+      <div className={styles.PsuedoMap} id="Psuedo"></div>
       <Modal show={modalShow} centered onHide={closeModal}>
         <Modal.Header className={styles.modalHeader} closeButton>
           <Modal.Title className="fw-bold fs-3">Save Map</Modal.Title>

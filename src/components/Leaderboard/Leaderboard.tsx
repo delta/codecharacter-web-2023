@@ -15,6 +15,7 @@ import Loader from '../Loader/Loader';
 import swordImage from '../../assets/sword.png';
 import Toast from 'react-hot-toast';
 import { user } from '../../store/User/UserSlice';
+import { useTour } from '@reactour/tour';
 
 function PaginatedItems() {
   const [page, setPage] = useState(0);
@@ -252,6 +253,12 @@ function PaginatedItems() {
 }
 
 export default function Leaderboard(): JSX.Element {
+  const { setIsOpen } = useTour();
+
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
+
   return (
     <div className={styles.body}>
       <div className={styles.header}>
