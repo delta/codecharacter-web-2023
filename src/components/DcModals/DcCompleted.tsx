@@ -1,8 +1,10 @@
 import { Modal, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import styles from './DcModals.module.css';
 import { DcProps } from './DcModalTypes';
 
 const DcCompleted = (props: DcProps) => {
+  const navigate = useNavigate();
   return (
     <Modal
       show={props.show}
@@ -19,7 +21,7 @@ const DcCompleted = (props: DcProps) => {
         ></button>
       </Modal.Header>
       <Modal.Body>
-        Woohoo, you&apos;ve completed today&apos;s Challenge!
+        Woohoo, you&apos;ve completed today&apos;s challenge!
       </Modal.Body>
       <Modal.Footer>
         <Button
@@ -32,7 +34,10 @@ const DcCompleted = (props: DcProps) => {
         <Button
           variant="outline-light"
           className={styles.dcmodalBtn}
-          onClick={props.handleClose}
+          onClick={() => {
+            props.handleClose();
+            navigate('/leaderboard', { replace: true });
+          }}
         >
           View Leaderboard
         </Button>

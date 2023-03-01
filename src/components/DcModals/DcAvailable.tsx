@@ -19,7 +19,7 @@ const DcAvailable = (props: DcProps) => {
         ></button>
       </Modal.Header>
       <Modal.Body>
-        Commander we hope you are ready for today&apos;s Daily Challenge
+        Commander, we hope you are ready for today&apos;s daily challenge.
       </Modal.Body>
       <Modal.Footer>
         <Button
