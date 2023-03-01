@@ -58,3 +58,21 @@
     top: 20%;
   }
 }
+@media screen and (max-width: 900px){
+  .arrowContainer{
+    top: 35%;
+  }
+}
+@media screen and (max-width: 800px){
+  .arrowContainer{
+    top: 40%;
+  }
+}
+@media screen and (max-width: 450px){
+  .arrowContainer{
+    top: 33%;
+  }
+}
+
+
+

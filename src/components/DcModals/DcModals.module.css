@@ -50,8 +50,4 @@
     gap: 7rem;
 }
 
-.dcmodalBtn:hover{
-    transform: scale(1.1);
-    transition-duration: 0.5s;
-    cursor: pointer;
-  }
+

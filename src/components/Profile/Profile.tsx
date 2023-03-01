@@ -200,7 +200,7 @@ const Profile = (): JSX.Element => {
   const handleGoToCreds = () => {
     if (profileScrollRef.current) {
       profileScrollRef.current.scrollTo({
-        top: 1900,
+        top: 1000,
         behavior: 'smooth',
       });
     }
