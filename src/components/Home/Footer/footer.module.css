@@ -1,8 +1,9 @@
 .footerContainer {
-  background-color:#1e1e1e;
+  background-color: #151515bb;
+  backdrop-filter: blur(10px);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 50px 100px 50px 100px;
+  padding: 3rem 5rem 3rem 5rem;
 }
 
 .footerContainer > div {
@@ -17,12 +18,12 @@
   font-family: 'Poppins';
 }
 
-.textContainer{
+.textContainer {
   display: grid;
   grid-template-columns: 4fr 3fr;
 }
 
-.container .links{
+.container .links {
   text-decoration: none;
   color: #aaaaaa;
 }
@@ -32,12 +33,12 @@
   cursor: pointer;
 }
 
-.credit{
+.credit {
   display: flex;
   flex-direction: column;
 }
 
-.title{
+.title {
   font-family: 'Roboto Mono';
   font-size: 800;
   font-size: 35px;
@@ -46,11 +47,11 @@
   color: #ffffff;
 }
 
-.title:hover{
+.title:hover {
   cursor: pointer;
-  color:rgb(20, 94, 42);
+  color: rgb(20, 94, 42);
 }
-.creditText{
+.creditText {
   font-family: sans-serif;
   color: #aaaaaa;
   font-size: 16px;
@@ -58,7 +59,7 @@
   vertical-align: baseline;
 }
 
-.container > div{
+.container > div {
   font-family: sans-serif;
   margin: 10px;
   color: #aaaaaa;
@@ -66,41 +67,37 @@
 }
 
 @media screen and (max-width: 900px) {
-
-  .footerContainer{
+  .footerContainer {
     padding: 10px 40px 10px 40px;
   }
- 
 }
 
 @media screen and (max-width: 700px) {
-
-  .footerContainer{
+  .footerContainer {
     display: flex;
     flex-direction: column;
     padding: 20px 30px;
     gap: 1rem;
   }
 
- .credit{
+  .credit {
     padding: 10px;
   }
 
-  .textContainer{
-    display: flex;      
+  .textContainer {
+    display: flex;
     flex-direction: column-reverse;
   }
 
-  .title{
+  .title {
     font-size: 30px;
   }
 
-  .title:hover{
+  .title:hover {
     color: #ffffff;
   }
 
-  .heading{
+  .heading {
     font-size: 20px;
   }
-
 }

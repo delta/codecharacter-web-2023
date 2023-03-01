@@ -111,6 +111,7 @@ const selfMatchModal = (): JSX.Element => {
       .catch(error => {
         if (error instanceof ApiError) Toast.error(error.message);
       });
+    dispatch(isSelfMatchModalOpened(false));
   }
 
   return (
