@@ -41,7 +41,7 @@ import {
   mapCommitIDChanged,
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
-import { loggedIn } from '../../store/User/UserSlice';
+import { loggedIn, user } from '../../store/User/UserSlice';
 
 import {
   IsSettingsOpen,
@@ -65,6 +65,7 @@ import {
 
 import Tour from '../../components/TourProvider/TourProvider';
 import { EditorSteps } from '../../components/TourProvider/EditorSteps';
+import { useNavigate } from 'react-router-dom';
 
 type SplitPaneState = {
   horizontalPercent: string;
@@ -284,16 +285,25 @@ export default function Dashboard(): JSX.Element {
     }
   };
 
-  const currentUserapi = new CurrentUserApi();
+  const currentUserapi = new CurrentUserApi(apiConfig);
+
+  const User = useAppSelector(user);
+  const Navigate = useNavigate();
 
   const setOpened = (opened: boolean) => {
     if (opened === false) {
       currentUserapi
         .updateCurrentUser({
+          name: User.name,
+          country: User.country,
+          college: User.college,
           updateTutorialLevel: 'NEXT',
         })
         .then(() => {
-          console.log('Tutorial level updated');
+          Navigate('/mapdesigner');
+        })
+        .catch(err => {
+          if (err instanceof ApiError) Toast.error(err.message);
         });
     }
   };

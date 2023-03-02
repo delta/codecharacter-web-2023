@@ -9,6 +9,7 @@ import {
   LeaderboardEntry,
   MatchMode,
   TierType,
+  CurrentUserApi,
 } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Loader from '../Loader/Loader';
@@ -212,10 +213,11 @@ function PaginatedItems() {
             fetchLeaderboardByTier(0, activeTier);
             setPage(0);
           }}
+          id="refresh"
         >
           Refresh
         </button>
-        <Dropdown>
+        <Dropdown id="tiers">
           <Dropdown.Toggle className={styles.button}>
             {activeTier?.toString() || 'All Tiers'}
           </Dropdown.Toggle>
@@ -255,12 +257,20 @@ function PaginatedItems() {
 export default function Leaderboard(): JSX.Element {
   const { setIsOpen } = useTour();
 
+  const currentUserapi = new CurrentUserApi(apiConfig);
+
   useEffect(() => {
-    setIsOpen(true);
+    setTimeout(() => {
+      currentUserapi.getCurrentUser().then(response => {
+        if (response.isTutorialComplete === false) {
+          if (response.tutorialLevel == 3) setIsOpen(true);
+        }
+      });
+    }, 200);
   }, []);
 
   return (
-    <div className={styles.body}>
+    <div className={styles.body} id="LeaderBoard">
       <div className={styles.header}>
         <h1 className={styles.header__title}>
           <span>Match Leaderboard</span>

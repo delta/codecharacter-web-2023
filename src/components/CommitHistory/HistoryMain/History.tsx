@@ -6,6 +6,7 @@ import { apiConfig, ApiError } from '../../../api/ApiConfig';
 import {
   CodeApi,
   CodeRevision,
+  CurrentUserApi,
   GameMapRevision,
   MapApi,
 } from '@codecharacter-2023/client';
@@ -43,13 +44,19 @@ export default function History(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const mapApi = new MapApi(apiConfig);
+  const currentUserapi = new CurrentUserApi(apiConfig);
 
   const { setIsOpen } = useTour();
 
   useEffect(() => {
     setTimeout(() => {
-      setIsOpen(true);
-    }, 500);
+      currentUserapi.getCurrentUser().then(response => {
+        if (response.isTutorialComplete === false) {
+          if (response.tutorialLevel == 4) setIsOpen(true);
+        }
+      });
+    }, 200);
+
     const codeApi = new CodeApi(apiConfig);
     codeApi
       .getCodeRevisions()

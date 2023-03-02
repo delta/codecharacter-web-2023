@@ -68,11 +68,11 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
 
   useEffect(() => {
     currentUserapi.getCurrentUser().then(response => {
-      if (response.isTutorialComplete == true) {
-        setIsOpen(false);
-      } else {
-        setIsOpen(false);
-      }
+      setTimeout(() => {
+        if (response.isTutorialComplete === false) {
+          if (response.tutorialLevel == 1) setIsOpen(true);
+        }
+      }, 200);
     });
   }, []);
 

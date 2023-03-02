@@ -1,14 +1,39 @@
+import { CurrentUserApi } from '@codecharacter-2023/client';
+import Toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { apiConfig, ApiError } from '../../api/ApiConfig';
 import MapDesigner from '../../components/MapDesigner/MapDesigner';
 import { MapDesignerSteps } from '../../components/TourProvider/MapDesignerSteps';
 import Tour from '../../components/TourProvider/TourProvider';
+import { useAppSelector } from '../../store/hooks';
+import { user } from '../../store/User/UserSlice';
 
 const MapDesignerPage = () => {
-  const setOpenedMap = (opened: boolean) => {
-    !opened ? console.log('opened') : console.log('closed');
+  const currentUserapi = new CurrentUserApi(apiConfig);
+
+  const User = useAppSelector(user);
+  const Navigate = useNavigate();
+
+  const setOpened = (opened: boolean) => {
+    if (opened === false) {
+      currentUserapi
+        .updateCurrentUser({
+          name: User.name,
+          country: User.country,
+          college: User.college,
+          updateTutorialLevel: 'NEXT',
+        })
+        .then(() => {
+          Navigate('/Leaderboard');
+        })
+        .catch(err => {
+          if (err instanceof ApiError) Toast.error(err.message);
+        });
+    }
   };
 
   return (
-    <Tour setOpened={setOpenedMap} steps={MapDesignerSteps}>
+    <Tour setOpened={setOpened} steps={MapDesignerSteps}>
       <MapDesigner pageType={'MapDesigner'} />
     </Tour>
   );
