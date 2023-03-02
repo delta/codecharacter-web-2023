@@ -5,18 +5,15 @@ import {
   isSettingsOpened,
   fontSizeChanged,
   themeChanged,
-  keyboardHandlerChanged,
   IsSettingsOpen,
   FontSize,
   Theme,
-  KeyboardHandler,
 } from '../../store/EditorSettings/settings';
 
 const EditorSettings = (): JSX.Element => {
   const isSettingsOpen = useAppSelector(IsSettingsOpen);
   const fontSize = useAppSelector(FontSize);
   const theme = useAppSelector(Theme);
-  const keyboardHandler = useAppSelector(KeyboardHandler);
 
   const dispatch = useAppDispatch();
 
@@ -27,18 +24,12 @@ const EditorSettings = (): JSX.Element => {
 
   const editorThemes = ['vs-light', 'vs-dark', 'high-contrast-black'];
 
-  const keyboardHandlers = ['default', 'emacs', 'vim'];
-
   function handleFontSizeChange(newFontSize: number) {
     dispatch(fontSizeChanged(newFontSize));
   }
 
   function handleThemeChange(newTheme: string) {
     dispatch(themeChanged(newTheme));
-  }
-
-  function handleKeyboardHandlerChange(newKeyboardHandler: string) {
-    dispatch(keyboardHandlerChanged(newKeyboardHandler));
   }
 
   return (

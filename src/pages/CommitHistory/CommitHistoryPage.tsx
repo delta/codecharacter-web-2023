@@ -4,7 +4,7 @@ import History from '../../components/CommitHistory/HistoryMain/History';
 
 const CommitHistoryPage = () => {
   const setOpenedHistory = (opened: boolean) => {
-    // dispatch(isTourOpened(opened));
+    !opened ? console.log('opened') : console.log('closed');
   };
 
   return (

@@ -113,7 +113,7 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
           }
         }
       }}
-      onClickClose={({ currentStep, steps, setIsOpen }) => {
+      onClickClose={({ setIsOpen }) => {
         // if (steps?.length === currentStep + 1 )
         setOpened(false);
         setIsOpen(false);

@@ -4,7 +4,7 @@ import { LeaderBoardSteps } from '../../components/TourProvider/LeaderBoardSteps
 
 const LeaderBoardPage = () => {
   const setOpened = (opened: boolean) => {
-    // dispatch(isTourOpened(opened));
+    !opened ? console.log('opened') : console.log('closed');
   };
 
   return (

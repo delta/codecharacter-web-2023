@@ -2,6 +2,7 @@ import {
   CodeApi,
   Language,
   DailyChallengesApi,
+  CurrentUserApi,
 } from '@codecharacter-2023/client';
 import { RendererComponent } from '@codecharacter-2023/renderer';
 import Toast from 'react-hot-toast';
@@ -50,8 +51,6 @@ import {
   Theme,
   IsCommitModalOpen,
   isCommitModalOpened,
-  IsTourOpen,
-  isTourOpened,
 } from '../../store/EditorSettings/settings';
 import MapDesigner from '../../components/MapDesigner/MapDesigner';
 import {
@@ -285,10 +284,18 @@ export default function Dashboard(): JSX.Element {
     }
   };
 
-  const isTourOpen = useAppSelector(IsTourOpen);
+  const currentUserapi = new CurrentUserApi();
 
   const setOpened = (opened: boolean) => {
-    dispatch(isTourOpened(opened));
+    if (opened === false) {
+      currentUserapi
+        .updateCurrentUser({
+          updateTutorialLevel: 'NEXT',
+        })
+        .then(() => {
+          console.log('Tutorial level updated');
+        });
+    }
   };
 
   return (

@@ -4,7 +4,7 @@ import Tour from '../../components/TourProvider/TourProvider';
 
 const BattleTVPage = (): JSX.Element => {
   const setOpened = (opened: boolean) => {
-    // dispatch(isTourOpened(opened));
+    !opened ? console.log('opened') : console.log('closed');
   };
 
   return (
