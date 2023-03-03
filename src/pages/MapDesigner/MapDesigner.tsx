@@ -9,14 +9,14 @@ import { useAppSelector } from '../../store/hooks';
 import { user } from '../../store/User/UserSlice';
 
 const MapDesignerPage = () => {
-  const currentUserapi = new CurrentUserApi(apiConfig);
+  const currentUserApi = new CurrentUserApi(apiConfig);
 
   const User = useAppSelector(user);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const setOpened = (opened: boolean) => {
     if (opened === false) {
-      currentUserapi
+      currentUserApi
         .updateCurrentUser({
           name: User.name,
           country: User.country,
@@ -24,7 +24,7 @@ const MapDesignerPage = () => {
           updateTutorialLevel: 'NEXT',
         })
         .then(() => {
-          Navigate('/Leaderboard');
+          navigate('/Leaderboard');
         })
         .catch(err => {
           if (err instanceof ApiError) Toast.error(err.message);

@@ -262,8 +262,11 @@ export default function Leaderboard(): JSX.Element {
   useEffect(() => {
     setTimeout(() => {
       currentUserapi.getCurrentUser().then(response => {
-        if (response.isTutorialComplete === false) {
-          if (response.tutorialLevel == 3) setIsOpen(true);
+        if (
+          response.isTutorialComplete === false &&
+          response.tutorialLevel == 3
+        ) {
+          setIsOpen(true);
         }
       });
     }, 200);

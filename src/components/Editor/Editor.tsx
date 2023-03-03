@@ -29,9 +29,6 @@ import {
   dcCode,
   changeDcCode,
 } from '../../store/DailyChallenge/dailyChallenge';
-import { useTour } from '@reactour/tour';
-import { CurrentUserApi } from '@codecharacter-2023/client';
-import { apiConfig } from '../../api/ApiConfig';
 
 self.MonacoEnvironment = {
   getWorkerUrl: function (_moduleId: string, label: string) {
@@ -49,7 +46,6 @@ self.MonacoEnvironment = {
 };
 
 export default function CodeEditor(props: Editor.Props): JSX.Element {
-  const currentUserapi = new CurrentUserApi(apiConfig);
   const divCodeEditor = useRef<HTMLDivElement>(null);
   let editor: monaco.editor.IStandaloneCodeEditor;
   const userCode: string =
@@ -63,18 +59,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const keyboardHandler = useAppSelector(KeyboardHandler);
 
   const language = props.language;
-
-  const { setIsOpen } = useTour();
-
-  useEffect(() => {
-    currentUserapi.getCurrentUser().then(response => {
-      setTimeout(() => {
-        if (response.isTutorialComplete === false) {
-          if (response.tutorialLevel == 1) setIsOpen(true);
-        }
-      }, 200);
-    });
-  }, []);
 
   useEffect(() => {
     if (divCodeEditor.current) {

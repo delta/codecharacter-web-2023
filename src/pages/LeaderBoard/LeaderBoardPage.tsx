@@ -9,14 +9,14 @@ import Toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 const LeaderBoardPage = () => {
-  const currentUserapi = new CurrentUserApi(apiConfig);
+  const currentUserApi = new CurrentUserApi(apiConfig);
 
   const User = useAppSelector(user);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const setOpened = (opened: boolean) => {
     if (opened === false) {
-      currentUserapi
+      currentUserApi
         .updateCurrentUser({
           name: User.name,
           country: User.country,
@@ -24,7 +24,7 @@ const LeaderBoardPage = () => {
           updateTutorialLevel: 'NEXT',
         })
         .then(() => {
-          Navigate('/history');
+          navigate('/history');
         })
         .catch(err => {
           if (err instanceof ApiError) Toast.error(err.message);

@@ -51,8 +51,11 @@ export default function History(): JSX.Element {
   useEffect(() => {
     setTimeout(() => {
       currentUserapi.getCurrentUser().then(response => {
-        if (response.isTutorialComplete === false) {
-          if (response.tutorialLevel == 4) setIsOpen(true);
+        if (
+          response.isTutorialComplete === false &&
+          response.tutorialLevel == 4
+        ) {
+          setIsOpen(true);
         }
       });
     }, 200);

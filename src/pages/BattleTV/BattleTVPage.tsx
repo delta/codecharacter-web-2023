@@ -8,13 +8,13 @@ import { useAppSelector } from '../../store/hooks';
 import { user } from '../../store/User/UserSlice';
 
 const BattleTVPage = (): JSX.Element => {
-  const currentUserapi = new CurrentUserApi(apiConfig);
+  const currentUserApi = new CurrentUserApi(apiConfig);
 
   const User = useAppSelector(user);
 
   const setOpened = (opened: boolean) => {
     if (opened === false) {
-      currentUserapi
+      currentUserApi
         .updateCurrentUser({
           name: User.name,
           country: User.country,

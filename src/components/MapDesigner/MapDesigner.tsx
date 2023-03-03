@@ -45,8 +45,11 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
     setTimeout(() => {
       if (props.pageType != 'DailyChallenge') {
         currentUserapi.getCurrentUser().then(response => {
-          if (response.isTutorialComplete === false) {
-            if (response.tutorialLevel == 2) setIsOpen(true);
+          if (
+            response.isTutorialComplete === false &&
+            response.tutorialLevel == 2
+          ) {
+            setIsOpen(true);
           }
         });
       }

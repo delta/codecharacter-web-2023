@@ -211,8 +211,11 @@ export default function BattleTV(): JSX.Element {
   useEffect(() => {
     setTimeout(() => {
       currentUserapi.getCurrentUser().then(response => {
-        if (response.isTutorialComplete === false) {
-          if (response.tutorialLevel == 5) setIsOpen(true);
+        if (
+          response.isTutorialComplete === false &&
+          response.tutorialLevel == 5
+        ) {
+          setIsOpen(true);
         }
       });
     }, 200);

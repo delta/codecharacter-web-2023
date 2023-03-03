@@ -94,6 +94,7 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
               if (steps) {
                 if (currentStep + 1 === steps?.length) {
                   setIsOpen(false);
+                  setOpened(false);
                 } else {
                   setCurrentStep(currentStep + 1);
                 }
@@ -102,19 +103,10 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
           ></Button>
         );
       }}
-      onClickMask={({ setCurrentStep, currentStep, steps, setIsOpen }) => {
+      onClickMask={({ setIsOpen }) => {
         setIsOpen(true);
-        if (steps) {
-          if (currentStep === 5) {
-            setOpened(true);
-            setTimeout(() => {
-              setCurrentStep(6);
-            }, 500);
-          }
-        }
       }}
       onClickClose={({ setIsOpen }) => {
-        // if (steps?.length === currentStep + 1 )
         setOpened(false);
         setIsOpen(false);
       }}
