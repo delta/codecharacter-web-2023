@@ -41,6 +41,7 @@ const TourIntroModal = (): JSX.Element => {
           navigate('/battletv', { replace: true });
           break;
         default:
+          navigate('/dashboard', { replace: true });
           break;
       }
     });

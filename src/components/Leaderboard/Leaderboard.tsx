@@ -9,14 +9,12 @@ import {
   LeaderboardEntry,
   MatchMode,
   TierType,
-  CurrentUserApi,
 } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Loader from '../Loader/Loader';
 import swordImage from '../../assets/sword.png';
 import Toast from 'react-hot-toast';
 import { user } from '../../store/User/UserSlice';
-import { useTour } from '@reactour/tour';
 
 function PaginatedItems() {
   const [page, setPage] = useState(0);
@@ -255,25 +253,8 @@ function PaginatedItems() {
 }
 
 export default function Leaderboard(): JSX.Element {
-  const { setIsOpen } = useTour();
-
-  const currentUserapi = new CurrentUserApi(apiConfig);
-
-  useEffect(() => {
-    setTimeout(() => {
-      currentUserapi.getCurrentUser().then(response => {
-        if (
-          response.isTutorialComplete === false &&
-          response.tutorialLevel == 3
-        ) {
-          setIsOpen(true);
-        }
-      });
-    }, 200);
-  }, []);
-
   return (
-    <div className={styles.body} id="LeaderBoard">
+    <div className={styles.body}>
       <div className={styles.header}>
         <h1 className={styles.header__title}>
           <span>Match Leaderboard</span>
