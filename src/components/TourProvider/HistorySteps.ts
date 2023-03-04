@@ -2,11 +2,11 @@ export const HistorySteps = [
   {
     selector: '#History',
     content:
-      'This is the your Commit History, you can see the commits you made here',
+      'This is the your commit history timeline. You can view your committed maps and code here.',
   },
   {
     selector: '#CommitSelector',
-    content: 'Click Map for map commits and Code for code commits',
+    content: 'Switch between your map and code commits here.',
   },
   {
     selector: '#viewBox',
@@ -15,7 +15,6 @@ export const HistorySteps = [
   {
     selector: '#CommitButton',
     content:
-      'Click this button to load your commit into the editor / map designer',
+      'Click this button to load your commit into the Editor / Map Designer',
   },
-  // ...
 ];

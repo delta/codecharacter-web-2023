@@ -2,7 +2,7 @@ export const MapDesignerSteps = [
   {
     selector: '#tower-selection',
     content:
-      'This is the Defense Towers you can place on the map. You can drag and drop them on the map to place them.',
+      'These are your tower defenses. You can drag and drop them to the map to place them.',
   },
   {
     selector: '#tool-selection',
@@ -11,13 +11,11 @@ export const MapDesignerSteps = [
   },
   {
     selector: '#coins',
-    content:
-      'This is the total coins you have. You can use these coins to build towers on the map.',
+    content: 'This counter displays the coins you have to build your defenses.',
   },
   {
     selector: '#Psuedo',
     content:
-      'This is map where you can place towers. You can drag and drop towers from the left panel to place them on the map.',
+      'This is your Map Designer. You can drag and drop towers to place them on the map.',
   },
-  // ...
 ];

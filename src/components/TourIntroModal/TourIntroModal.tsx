@@ -89,8 +89,8 @@ const TourIntroModal = (): JSX.Element => {
         <Row>
           <Col>
             <p className={styles.tourIntroText}>
-              This is a quick tour of the CodeCharacter Game. You can have a
-              look at the game and then start playing.
+              Hello, {User.name}! Welcome to CodeCharacter. Let&apos;s have a
+              quick tour to get you started.
             </p>
           </Col>
         </Row>
@@ -101,7 +101,7 @@ const TourIntroModal = (): JSX.Element => {
               className={styles.btn}
               onClick={handleShowClick}
             >
-              Show Me
+              Proceed
             </Button>
           </Col>
           <Col className={styles.skipBtn}>

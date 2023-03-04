@@ -2,26 +2,25 @@ export const EditorSteps = [
   {
     selector: '#CodeEditor',
     content:
-      'This is the Code Editor, you can write your code here. You can make use of the default code provided',
+      'This is the Code Editor, you can write your code here. A default code is provided to get you started.',
   },
   {
     selector: '#MAP',
     content:
-      'This is the game-map, you can see the simulation of your code here.',
+      'This is the Game Renderer, your match simulations are displayed here.',
   },
   {
     selector: '#GameLogs',
     content:
-      'This is the game-log, you can see the output logs of your simulated code here.',
+      'This is the match log terminal, you can see the output logs from your simulated code here.',
   },
   {
     selector: '#TopBar',
-    content:
-      'This is the top bar where you access editor settings and other features.',
+    content: 'You can access editor settings and other features here.',
   },
   {
     selector: '#LanguageSelector',
-    content: 'Select the language you want to code in this.',
+    content: 'Choose your preferred language here.',
   },
   {
     selector: '#SaveButton',
@@ -29,7 +28,7 @@ export const EditorSteps = [
   },
   {
     selector: '#SimulateButton',
-    content: 'Click this button to simulate your code on the map.',
+    content: 'Click this button to simulate your code against your own maps.',
   },
   {
     selector: '#CommitButton',
@@ -37,15 +36,15 @@ export const EditorSteps = [
   },
   {
     selector: '#SubmitButton',
-    content: 'Click this button to submit your code.',
+    content:
+      'Click this button to submit your code to the leaderboard for matches.',
   },
   {
     selector: '#Settings',
-    content: 'Click this button to modify the settings of the editor.',
+    content: 'You can access your editor settings here.',
   },
   {
     selector: '#Shortcuts',
-    content: 'Click this button to see editor shortcuts.',
+    content: 'View helpful editor keybindings here.',
   },
-  // ...
 ];
