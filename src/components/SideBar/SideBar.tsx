@@ -15,7 +15,13 @@ import { useEffect, useState } from 'react';
 import styles from './SideBar.module.css';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import deltaLogo from '../../assets/deltaLogo.png';
-import { changePageState } from '../../store/DailyChallenge/dailyChallenge';
+import {
+  changePageState,
+  IsTourOver,
+} from '../../store/DailyChallenge/dailyChallenge';
+import { useTour } from '@reactour/tour';
+import { CurrentUserApi } from '@codecharacter-2023/client';
+import { apiConfig } from '../../api/ApiConfig';
 
 const icons = [
   { icon: codeIcon, route: 'dashboard', tooltip: 'Code Editor' },
@@ -34,10 +40,27 @@ const SideBar: React.FunctionComponent = () => {
   }
   const location = useLocation();
   const [pathName, setpathName] = useState('/dashboard');
+
+  const { setIsOpen } = useTour();
+  const isTourOver = useAppSelector(IsTourOver);
+
+  const currentUserApi = new CurrentUserApi(apiConfig);
+
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     setpathName(location.pathname);
   }, [location]);
-  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    setTimeout(() => {
+      currentUserApi.getCurrentUser().then(res => {
+        if (res.isTutorialComplete === false && res.tutorialLevel === 6) {
+          setIsOpen(true);
+        }
+      });
+    }, 1000);
+  }, [isTourOver]);
 
   return (
     <div>
@@ -95,7 +118,7 @@ const SideBar: React.FunctionComponent = () => {
             })}
           </div>
           <div>
-            <div className={styles.sideBarIcon}>
+            <div className={styles.sideBarIcon} id="documentation">
               <div title="View Documentation">
                 <a
                   href="https://codecharacter-docs-2022.vercel.app/"
@@ -109,7 +132,7 @@ const SideBar: React.FunctionComponent = () => {
                 </a>
               </div>
             </div>
-            <div className={styles.sideBarIcon}>
+            <div className={styles.sideBarIcon} id="DELTA">
               <div title="Made with ❤ by Delta">
                 <div className={styles.deltaLogo}>
                   <img src={deltaLogo} alt="delta" />

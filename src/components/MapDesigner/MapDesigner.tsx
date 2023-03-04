@@ -3,11 +3,16 @@ import {
   MapDesignerComponent,
   MapDesignerUtils,
 } from '@codecharacter-2023/map-designer';
-import { MapApi, DailyChallengesApi } from '@codecharacter-2023/client';
+import {
+  MapApi,
+  DailyChallengesApi,
+  CurrentUserApi,
+} from '@codecharacter-2023/client';
 import Toast from 'react-hot-toast';
 import styles from './MapDesigner.module.css';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { Modal, Container, Row } from 'react-bootstrap';
+import { useTour } from '@reactour/tour';
 
 interface MapDesignerProps {
   pageType: 'MapDesigner' | 'DailyChallenge';
@@ -19,12 +24,15 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
   const [commitName, setCommitName] = useState<string>('');
   const [commitModalError, setCommitModalError] = useState<string>('');
   const [stagedMap, setStagedMap] = useState<Array<Array<number>>>();
+  const { setIsOpen } = useTour();
 
   let mapImg: string;
 
   type ButtonType = 'save' | 'submit' | 'commit';
   const mapAPI = new MapApi(apiConfig);
   const dcAPI = new DailyChallengesApi(apiConfig);
+  const currentUserapi = new CurrentUserApi(apiConfig);
+
   useEffect(() => {
     mapAPI
       .getLatestMap(
@@ -33,6 +41,19 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
       .then(mp => {
         setStagedMap(JSON.parse(mp.map));
       });
+
+    setTimeout(() => {
+      if (props.pageType != 'DailyChallenge') {
+        currentUserapi.getCurrentUser().then(response => {
+          if (
+            response.isTutorialComplete === false &&
+            response.tutorialLevel == 2
+          ) {
+            setIsOpen(true);
+          }
+        });
+      }
+    }, 200);
   }, []);
 
   const compressImage = (button: ButtonType) => {
@@ -178,6 +199,7 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
           readonly={false}
         />
       </div>
+      <div className={styles.PsuedoMap} id="Psuedo"></div>
       <Modal show={modalShow} centered onHide={closeModal}>
         <Modal.Header className={styles.modalHeader} closeButton>
           <Modal.Title className="fw-bold fs-3">Save Map</Modal.Title>

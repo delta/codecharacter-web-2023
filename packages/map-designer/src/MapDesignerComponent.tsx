@@ -52,6 +52,7 @@ const CoinsRemainingText = () => {
         fontSize: '1.5rem',
         padding: '1rem 1rem 0',
       }}
+      id="coins"
     >
       Coins remaining <br /> {coins}
     </p>
@@ -88,7 +89,10 @@ export default function MapDesignerComponent(
           pointerEvents: 'none',
         }}
       >
-        <ButtonGroup style={{ pointerEvents: 'auto', padding: '1rem 1rem 0' }}>
+        <ButtonGroup
+          style={{ pointerEvents: 'auto', padding: '1rem 1rem 0' }}
+          id="tower-selection"
+        >
           {TowerConfig.towers.map(tower => (
             <OverlayTrigger
               key={`${tower.name}-overlay`}
@@ -117,7 +121,10 @@ export default function MapDesignerComponent(
             </OverlayTrigger>
           ))}
         </ButtonGroup>
-        <ButtonGroup style={{ pointerEvents: 'auto', padding: '1rem 1rem 0' }}>
+        <ButtonGroup
+          style={{ pointerEvents: 'auto', padding: '1rem 1rem 0' }}
+          id="tool-selection"
+        >
           <Button
             key="move"
             variant="outline-light"

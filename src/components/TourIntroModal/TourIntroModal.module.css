@@ -1,0 +1,43 @@
+.tourIntroHeader {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(100px);
+    color: white;
+    height: 10vh;
+    border: 0px;
+}
+
+.tourIntroHeader button {
+    background-color: white;
+}
+
+.tourIntroBody {
+    background: #1c1c1c;
+    border: 0px;
+    padding: 1rem 0.7rem 1rem;
+    margin: 0;
+}
+
+.tourIntroText {
+    font-family: 'Roboto', sans-serif;
+    color: #ddd;
+    font-size: large;
+    padding-bottom: 0.5rem;
+}
+
+.showBtn,
+.skipbtn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: medium;
+    font-weight: 600;
+}
+
+.showBtn {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.btn {
+    width: 120px;
+    height: 42px;
+}

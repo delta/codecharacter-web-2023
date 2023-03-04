@@ -6,6 +6,7 @@ import { apiConfig, ApiError } from '../../../api/ApiConfig';
 import {
   CodeApi,
   CodeRevision,
+  CurrentUserApi,
   GameMapRevision,
   MapApi,
 } from '@codecharacter-2023/client';
@@ -22,6 +23,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import Toast, { toast } from 'react-hot-toast';
 import { updateUserCode, changeLanguage } from '../../../store/editor/code';
 import { useNavigate } from 'react-router-dom';
+import { useTour } from '@reactour/tour';
 
 export default function History(): JSX.Element {
   const [SelectedButton, setSelectedButton] = useState('Code');
@@ -42,8 +44,22 @@ export default function History(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const mapApi = new MapApi(apiConfig);
+  const currentUserapi = new CurrentUserApi(apiConfig);
+
+  const { setIsOpen } = useTour();
 
   useEffect(() => {
+    setTimeout(() => {
+      currentUserapi.getCurrentUser().then(response => {
+        if (
+          response.isTutorialComplete === false &&
+          response.tutorialLevel == 4
+        ) {
+          setIsOpen(true);
+        }
+      });
+    }, 200);
+
     const codeApi = new CodeApi(apiConfig);
     codeApi
       .getCodeRevisions()
@@ -155,7 +171,7 @@ export default function History(): JSX.Element {
     <Container fluid className={styles.historyMain}>
       <div className={styles.buttonContainer}>
         <div className={styles.codeMapButton}>
-          <ButtonGroup>
+          <ButtonGroup id="CommitSelector">
             <Button
               className={
                 SelectedButton == 'Map' ? styles.whiteButton : styles.darkButton
@@ -185,7 +201,7 @@ export default function History(): JSX.Element {
       </div>
       <Row className={styles.viewContainer}>
         <Col lg="4" style={{ marginLeft: '5%' }}>
-          <div className={styles.completeTimeline}>
+          <div className={styles.completeTimeline} id="History">
             {(codeFetched && SelectedButton == 'Code') ||
             (mapFetched && SelectedButton == 'Map') ? (
               <CommitHistory
@@ -202,7 +218,7 @@ export default function History(): JSX.Element {
             )}
           </div>
         </Col>
-        <Col lg="9" className={styles.codeView}>
+        <Col lg="9" className={styles.codeView} id="viewBox">
           <div
             className={
               SelectedButton == 'Code' ? styles.codeBox : styles.mapBox
@@ -222,6 +238,7 @@ export default function History(): JSX.Element {
               size="lg"
               onClick={changesEditorDetails}
               variant="outline-light"
+              id="CommitButton"
             >
               LOAD COMMIT
             </Button>

@@ -83,7 +83,7 @@ function PaginatedItems() {
         mapRevisionId: undefined,
       })
       .catch(error => {
-        if (error instanceof ApiError) console.log(error);
+        if (error instanceof ApiError) Toast.error(error.message);
       });
     setShow(false);
   }
@@ -211,10 +211,11 @@ function PaginatedItems() {
             fetchLeaderboardByTier(0, activeTier);
             setPage(0);
           }}
+          id="refresh"
         >
           Refresh
         </button>
-        <Dropdown>
+        <Dropdown id="tiers">
           <Dropdown.Toggle className={styles.button}>
             {activeTier?.toString() || 'All Tiers'}
           </Dropdown.Toggle>

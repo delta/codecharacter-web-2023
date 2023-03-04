@@ -5,18 +5,15 @@ import {
   isSettingsOpened,
   fontSizeChanged,
   themeChanged,
-  keyboardHandlerChanged,
   IsSettingsOpen,
   FontSize,
   Theme,
-  KeyboardHandler,
 } from '../../store/EditorSettings/settings';
 
 const EditorSettings = (): JSX.Element => {
   const isSettingsOpen = useAppSelector(IsSettingsOpen);
   const fontSize = useAppSelector(FontSize);
   const theme = useAppSelector(Theme);
-  const keyboardHandler = useAppSelector(KeyboardHandler);
 
   const dispatch = useAppDispatch();
 
@@ -27,18 +24,12 @@ const EditorSettings = (): JSX.Element => {
 
   const editorThemes = ['vs-light', 'vs-dark', 'high-contrast-black'];
 
-  const keyboardHandlers = ['default', 'emacs', 'vim'];
-
   function handleFontSizeChange(newFontSize: number) {
     dispatch(fontSizeChanged(newFontSize));
   }
 
   function handleThemeChange(newTheme: string) {
     dispatch(themeChanged(newTheme));
-  }
-
-  function handleKeyboardHandlerChange(newKeyboardHandler: string) {
-    dispatch(keyboardHandlerChanged(newKeyboardHandler));
   }
 
   return (
@@ -92,27 +83,6 @@ const EditorSettings = (): JSX.Element => {
                       className={styles.optionsDropdown}
                     >
                       {themeValue}
-                    </option>
-                  ))}
-                </select>
-              </FormGroup>
-            </Col>
-
-            <Col xs={12} className={styles.settingFormGroup}>
-              <FormGroup controlId="editorKeybinding">
-                <div className={styles.settingLabel}>Editor Keybinding</div>
-                <select
-                  className={styles.settingDropdown}
-                  value={keyboardHandler}
-                  onChange={e => handleKeyboardHandlerChange(e.target.value)}
-                >
-                  {keyboardHandlers.map((keyboardHandlerValue: string) => (
-                    <option
-                      value={keyboardHandlerValue}
-                      key={keyboardHandlerValue}
-                      className={styles.optionsDropdown}
-                    >
-                      {keyboardHandlerValue}
                     </option>
                   ))}
                 </select>

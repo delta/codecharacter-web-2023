@@ -21,7 +21,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 2px 2px;
-    height: 42px;
+    height: 45px;
 }
 
 .midDiv {
@@ -86,7 +86,8 @@
     color: #ffffff;
     transform: scale(1.3);
 }
-.toolbarButton:hover span{
+
+.toolbarButton:hover span {
     background-color: #1a1919;
 }
 
@@ -108,38 +109,38 @@
     outline: none;
     box-shadow: none;
 }
-    
+
 .settingDropdown {
     margin-top: 5 px;
 }
 
-.dcToolbar{
+.dcToolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
     width: 100%;
     background-color: #363535;
-    padding: 2px 2px;  
+    padding: 2px 2px;
     max-height: 6vh;
 }
 
-.infoIcon{
+.infoIcon {
     margin-top: 6px;
     transform: scale(1.05);
     width: 5.83rem;
     padding-left: 4rem;
 }
 
-.challName{
-    margin-left: 10px; 
+.challName {
+    margin-left: 10px;
     font-size: 0.8rem;
     background-color: transparent;
     color: #cbcbcb;
     overflow-x: clip;
 }
 
-.mapChallName{
+.mapChallName {
     width: 100%;
     height: 4.3vh;
     display: flex;
@@ -151,11 +152,11 @@
     overflow-y: auto;
 }
 
-.mapChallName::-webkit-scrollbar{
+.mapChallName::-webkit-scrollbar {
     display: none;
 }
 
-.dcMap{
+.dcMap {
     height: 94vh;
     width: 100%;
     display: flex;
@@ -163,7 +164,7 @@
     justify-content: center;
 }
 
-.dcMap > img{
+.dcMap>img {
     object-fit: contain;
 }
 
@@ -194,18 +195,18 @@
     overflow-y: auto;
 }
 
-.editorContainer > span{
+.editorContainer>span {
     height: 100%;
 }
 
-.editorContainer::-webkit-scrollbar{
+.editorContainer::-webkit-scrollbar {
     width: 5px;
-	background: inherit;
+    background: inherit;
 }
 
-.editorContainer::-webkit-scrollbar-thumb{
+.editorContainer::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.644) !important;
-	border-radius: 10px !important;
+    border-radius: 10px !important;
 }
 
 .rightPane {

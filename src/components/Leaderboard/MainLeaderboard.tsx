@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DailyChallengeLeaderboard from './DailyLeaderboard';
 import Leaderboard from './Leaderboard';
 import styles from './Leaderboard.module.css';
+import { CurrentUserApi } from '@codecharacter-2023/client';
+import { useTour } from '@reactour/tour';
+import { apiConfig } from '../../api/ApiConfig';
 
 export default function BattleTV(): JSX.Element {
   const [isDailyChallengeLeaderboard, setIsDailyChallengeLeaderboard] =
@@ -10,8 +13,24 @@ export default function BattleTV(): JSX.Element {
     'Daily Challenge Leaderboard',
   );
 
+  const { setIsOpen } = useTour();
+
+  const currentUserapi = new CurrentUserApi(apiConfig);
+
+  useEffect(() => {
+    setTimeout(() => {
+      currentUserapi.getCurrentUser().then(response => {
+        if (
+          response.isTutorialComplete === false &&
+          response.tutorialLevel == 3
+        ) {
+          setIsOpen(true);
+        }
+      });
+    }, 200);
+  }, []);
   return (
-    <div className={styles.mainleaderboard}>
+    <div className={styles.mainleaderboard} id="LeaderBoard">
       {isDailyChallengeLeaderboard ? (
         <DailyChallengeLeaderboard />
       ) : (

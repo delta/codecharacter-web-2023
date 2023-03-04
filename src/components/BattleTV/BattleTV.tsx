@@ -9,13 +9,20 @@ import {
 } from '../../store/BattleTV/BattleTvSlice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { getAvatarByID } from '../Avatar/Avatar';
-import { Match, MatchMode, Verdict } from '@codecharacter-2023/client';
+import {
+  CurrentUserApi,
+  Match,
+  MatchMode,
+  Verdict,
+} from '@codecharacter-2023/client';
 import { User, user } from '../../store/User/UserSlice';
 import {
   changePageState,
   changeSimulationState,
 } from '../../store/DailyChallenge/dailyChallenge';
 import watchIcon from '../../assets/watch.png';
+import { useTour } from '@reactour/tour';
+import { apiConfig } from '../../api/ApiConfig';
 
 function getIcon(loggedInUser: User, match: Match) {
   if (loggedInUser.username === match.user1.username) {
@@ -198,8 +205,24 @@ function PaginatedItems() {
   );
 }
 export default function BattleTV(): JSX.Element {
+  const { setIsOpen } = useTour();
+  const currentUserapi = new CurrentUserApi(apiConfig);
+
+  useEffect(() => {
+    setTimeout(() => {
+      currentUserapi.getCurrentUser().then(response => {
+        if (
+          response.isTutorialComplete === false &&
+          response.tutorialLevel == 5
+        ) {
+          setIsOpen(true);
+        }
+      });
+    }, 200);
+  }, []);
+
   return (
-    <div className={styles.body}>
+    <div className={styles.body} id="battleTV">
       <div className={styles.header}>
         <h1 className={styles.header__title}>
           <span>Battle TV</span>

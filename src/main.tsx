@@ -15,7 +15,7 @@ import Backgroundvideo from './components/Background/BackgroundVideo';
 
 const persistor = persistStore(store);
 const NavBar = lazy(() => import('./components/NavBar/NavBar'));
-const SideBar = lazy(() => import('./components/SideBar/SideBar'));
+const SideBarWrap = lazy(() => import('./pages/SideBarWrap/SideBarWrap'));
 const EditorSettings = lazy(
   () => import('./components/EditorSettings/EditorSettings'),
 );
@@ -39,7 +39,7 @@ root.render(
             <SelfMatchModal />
             <NavBar />
             <div className={styles.mainWindow}>
-              <SideBar />
+              <SideBarWrap />
               <div className={styles.gameArea}>
                 <Backgroundvideo />
                 <AllRoutes />

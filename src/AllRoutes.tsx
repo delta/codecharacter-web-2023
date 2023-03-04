@@ -7,16 +7,16 @@ import { isloggedIn, loggedIn } from './store/User/UserSlice';
 
 const Home = lazy(() => import('./pages/Home/Home'));
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
-const MapDesigner = lazy(() => import('./components/MapDesigner/MapDesigner'));
-const History = lazy(
-  () => import('./components/CommitHistory/HistoryMain/History'),
+const MapDesignerPage = lazy(() => import('./pages/MapDesigner/MapDesigner'));
+const CommitHistoryPage = lazy(
+  () => import('./pages/CommitHistory/CommitHistoryPage'),
 );
 const Login = lazy(() => import('./pages/Auth/LoginForm'));
 const Register = lazy(() => import('./pages/Auth/RegisterForm'));
-const Leaderboard = lazy(
-  () => import('./components/Leaderboard/MainLeaderboard'),
+const LeaderBoardPage = lazy(
+  () => import('./pages/LeaderBoard/LeaderBoardPage'),
 );
-const BattleTV = lazy(() => import('./components/BattleTV/BattleTV'));
+const BattleTVPage = lazy(() => import('./pages/BattleTV/BattleTVPage'));
 const Verify = lazy(
   () => import('./components/Auth/Auth/Register/ActivateUser/ActivateUser'),
 );
@@ -46,13 +46,10 @@ export default function AllRoutes(): JSX.Element {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route
-        path="/mapdesigner"
-        element={<MapDesigner pageType={'MapDesigner'} />}
-      />
-      <Route path="/history" element={<History />} />
-      <Route path="/leaderboard" element={<Leaderboard />} />
-      <Route path="/battletv" element={<BattleTV />} />
+      <Route path="/mapdesigner" element={<MapDesignerPage />} />
+      <Route path="/history" element={<CommitHistoryPage />} />
+      <Route path="/leaderboard" element={<LeaderBoardPage />} />
+      <Route path="/battletv" element={<BattleTVPage />} />
       <Route path="/activate" element={<Verify />} />
       <Route path="/incomplete-profile" element={<IncompleteProfile />} />
       <Route path="/profile" element={<Profile />} />

@@ -17,6 +17,7 @@ export interface DailyChallengeStateType {
   codeLanguage: string;
   dcMap: Array<Array<number>>;
   isSimulating: boolean;
+  isTourOver: boolean;
 }
 
 const initialState: DailyChallengeStateType = {
@@ -38,6 +39,7 @@ const initialState: DailyChallengeStateType = {
   codeLanguage: 'c_cpp',
   dcMap: [],
   isSimulating: false,
+  isTourOver: false,
 };
 
 export const dailyChallengeSlice = createSlice({
@@ -82,6 +84,9 @@ export const dailyChallengeSlice = createSlice({
     changeSimulationState: (state, action: PayloadAction<boolean>) => {
       state.isSimulating = action.payload;
     },
+    isTourOverChanged: (state, action: PayloadAction<boolean>) => {
+      state.isTourOver = action.payload;
+    },
   },
 });
 
@@ -92,6 +97,7 @@ export const {
   changeDcLanguage,
   changeDcMap,
   changeSimulationState,
+  isTourOverChanged,
 } = dailyChallengeSlice.actions;
 export const dailyChallengeState = (
   state: RootState,
@@ -111,4 +117,6 @@ export const dcMap = (state: RootState): Array<Array<number>> =>
   state.dailyChallenge.dcMap;
 export const dcSimulation = (state: RootState): boolean =>
   state.dailyChallenge.isSimulating;
+export const IsTourOver = (state: RootState): boolean =>
+  state.dailyChallenge.isTourOver;
 export default dailyChallengeSlice.reducer;
