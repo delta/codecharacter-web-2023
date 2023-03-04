@@ -71,8 +71,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
 
   const language = props.language;
 
-  let monacoModel: monaco.editor.ITextModel;
-
   monaco.languages.register({
     id: 'cpp',
     extensions: ['.cpp'],
@@ -120,18 +118,15 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         const socket = toSocket(wsClient);
         const reader = new WebSocketMessageReader(socket);
         reader.listen(message => {
-          const currmsg = JSON.parse(JSON.stringify(message));
-          console.log(message);
           setFilePath(message.message);
           reader.dispose();
-          // socket.dispose()
         });
       };
       return () => {
         wsClient?.close();
       };
     }
-  }, []);
+  }, [props.language]);
 
   useEffect(() => {
     if (divCodeEditor.current) {
@@ -172,7 +167,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
           workspaceFolders: [
             {
               uri: Uri.parse(filePath),
-              name: 'my folder',
+              name: 'parse folder',
               index: 1,
             },
           ],
