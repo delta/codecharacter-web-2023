@@ -24,7 +24,7 @@ const CommitHistoryPage = () => {
           updateTutorialLevel: 'NEXT',
         })
         .then(() => {
-          navigate('/battletv');
+          navigate('/battletv', { replace: true });
         })
         .catch(err => {
           if (err instanceof ApiError) Toast.error(err.message);

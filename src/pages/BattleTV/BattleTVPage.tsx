@@ -27,7 +27,7 @@ const BattleTVPage = (): JSX.Element => {
         })
         .then(() => {
           dispatch(isTourOverChanged(true));
-          navigate('/dashboard');
+          navigate('/dashboard', { replace: true });
         })
         .catch(err => {
           if (err instanceof ApiError) Toast.error(err.message);

@@ -85,7 +85,7 @@ function PaginatedItems() {
         mapRevisionId: undefined,
       })
       .catch(error => {
-        if (error instanceof ApiError) console.log(error);
+        if (error instanceof ApiError) Toast.error(error.message);
       });
     setShow(false);
   }

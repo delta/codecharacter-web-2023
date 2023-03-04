@@ -25,20 +25,20 @@ const TourIntroModal = (): JSX.Element => {
     currentUserApi.getCurrentUser().then(res => {
       switch (res.tutorialLevel) {
         case 1:
-          navigate('/dashboard');
+          navigate('/dashboard', { replace: true });
           setIsOpen(true);
           break;
         case 2:
-          navigate('/mapdesigner');
+          navigate('/mapdesigner', { replace: true });
           break;
         case 3:
-          navigate('/leaderboard');
+          navigate('/leaderboard', { replace: true });
           break;
         case 4:
-          navigate('/history');
+          navigate('/history', { replace: true });
           break;
         case 5:
-          navigate('/battletv');
+          navigate('/battletv', { replace: true });
           break;
         default:
           break;
@@ -56,7 +56,7 @@ const TourIntroModal = (): JSX.Element => {
         updateTutorialLevel: 'NEXT',
       })
       .then(() => {
-        console.log('Tutorial level updated');
+        Toast.success('Tutorial skipped successfully');
       })
       .catch(err => {
         if (err instanceof ApiError) Toast.error(err.message);

@@ -1,4 +1,4 @@
-import Leaderboard from '../../components/Leaderboard/Leaderboard';
+import MainLeaderboard from '../../components/Leaderboard/MainLeaderboard';
 import Tour from '../../components/TourProvider/TourProvider';
 import { LeaderBoardSteps } from '../../components/TourProvider/LeaderBoardSteps';
 import { CurrentUserApi } from '@codecharacter-2023/client';
@@ -24,7 +24,7 @@ const LeaderBoardPage = () => {
           updateTutorialLevel: 'NEXT',
         })
         .then(() => {
-          navigate('/history');
+          navigate('/history', { replace: true });
         })
         .catch(err => {
           if (err instanceof ApiError) Toast.error(err.message);
@@ -34,7 +34,7 @@ const LeaderBoardPage = () => {
 
   return (
     <Tour setOpened={setOpened} steps={LeaderBoardSteps}>
-      <Leaderboard />
+      <MainLeaderboard />
     </Tour>
   );
 };

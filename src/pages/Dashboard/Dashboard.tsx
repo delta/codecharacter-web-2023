@@ -301,7 +301,7 @@ export default function Dashboard(): JSX.Element {
           updateTutorialLevel: 'NEXT',
         })
         .then(() => {
-          navigate('/mapdesigner');
+          navigate('/mapdesigner', { replace: true });
         })
         .catch(err => {
           if (err instanceof ApiError) Toast.error(err.message);

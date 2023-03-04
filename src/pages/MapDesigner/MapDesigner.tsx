@@ -24,7 +24,7 @@ const MapDesignerPage = () => {
           updateTutorialLevel: 'NEXT',
         })
         .then(() => {
-          navigate('/Leaderboard');
+          navigate('/Leaderboard', { replace: true });
         })
         .catch(err => {
           if (err instanceof ApiError) Toast.error(err.message);

@@ -1,7 +1,7 @@
 export const LeaderBoardSteps = [
   {
     selector: '#LeaderBoard',
-    content: 'This is the Leaderboard, you can rank up by completing tasks',
+    content: 'This is the Leaderboard, you can rank up by winning more games',
   },
   {
     selector: '#refresh',
