@@ -8,21 +8,42 @@ import { user } from '../../store/User/UserSlice';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTour } from '@reactour/tour';
+import { IsTourOver } from '../../store/DailyChallenge/dailyChallenge';
 
 const TourIntroModal = (): JSX.Element => {
   const [isTourOpen, setIsTourOpen] = useState(false);
   const currentUserApi = new CurrentUserApi(apiConfig);
+
   const User = useAppSelector(user);
   const navigate = useNavigate();
-
-  const newLocal = 'fw-bold fs-3';
-
   const { setIsOpen } = useTour();
 
+  const isTourOver = useAppSelector(IsTourOver);
+
   const handleShowClick = () => {
-    setIsOpen(true);
     setIsTourOpen(false);
-    navigate('/dashboard');
+    currentUserApi.getCurrentUser().then(res => {
+      switch (res.tutorialLevel) {
+        case 1:
+          navigate('/dashboard');
+          setIsOpen(true);
+          break;
+        case 2:
+          navigate('/mapdesigner');
+          break;
+        case 3:
+          navigate('/leaderboard');
+          break;
+        case 4:
+          navigate('/history');
+          break;
+        case 5:
+          navigate('/battletv');
+          break;
+        default:
+          break;
+      }
+    });
   };
 
   const handleSkipClick = () => {
@@ -32,7 +53,7 @@ const TourIntroModal = (): JSX.Element => {
         name: User.name,
         country: User.country,
         college: User.college,
-        updateTutorialLevel: 'SKIP',
+        updateTutorialLevel: 'NEXT',
       })
       .then(() => {
         console.log('Tutorial level updated');
@@ -42,18 +63,26 @@ const TourIntroModal = (): JSX.Element => {
       });
   };
 
+  const onHide = () => {
+    setIsTourOpen(false);
+  };
+
   useEffect(() => {
-    currentUserApi.getCurrentUser().then(res => {
-      if (res.isTutorialComplete === false && res.tutorialLevel === 1) {
-        setIsTourOpen(true);
-      }
-    });
-  }, []);
+    if (isTourOver === false) {
+      currentUserApi.getCurrentUser().then(res => {
+        if (res.isTutorialComplete === false && res.tutorialLevel < 6) {
+          setIsTourOpen(true);
+        }
+      });
+    }
+  }, [isTourOver]);
 
   return (
-    <Modal show={isTourOpen} centered onHide={handleSkipClick}>
+    <Modal show={isTourOpen} centered onHide={onHide}>
       <Modal.Header className={styles.tourIntroHeader} closeButton>
-        <Modal.Title className={newLocal}>Welcome to CodeCharacter</Modal.Title>
+        <Modal.Title className={'fw-bold fs-3'}>
+          Welcome to CodeCharacter
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body className={styles.tourIntroBody}>

@@ -498,7 +498,7 @@ export default function Dashboard(): JSX.Element {
                     </div>
                     <div className={styles.infoIcon}>
                       <FontAwesomeIcon
-                        title={'Shorcuts'}
+                        title={'Shortcuts'}
                         icon={faCircleInfo as IconProp}
                         color={'#cbcbcb'}
                         onClick={handleOpenInfo}

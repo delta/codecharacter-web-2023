@@ -1,7 +1,7 @@
 export const LeaderBoardSteps = [
   {
     selector: '#LeaderBoard',
-    content: 'This is the Leaderboard, you can Rank up by completing tasks',
+    content: 'This is the Leaderboard, you can rank up by completing tasks',
   },
   {
     selector: '#refresh',
@@ -9,7 +9,7 @@ export const LeaderBoardSteps = [
   },
   {
     selector: '#tiers',
-    content: 'Swith to see the leaderboard for different tiers',
+    content: 'Switch to see the leaderboard for different tiers',
   },
   // ...
 ];

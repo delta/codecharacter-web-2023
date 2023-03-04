@@ -44,8 +44,7 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
           ...base,
           cursor: 'auto',
           border: '1px solid gray',
-          background:
-            'radial-gradient(759px at 14% 22.3%, rgb(10, 94, 68) 0%, rgb(15, 164, 102) 90%)',
+          background: 'rgb(150, 155, 150)',
         }),
         badge: base => ({
           ...base,
@@ -53,7 +52,7 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
             'radial-gradient(759px at 14% 22.3%, rgb(10, 94, 68) 0%, rgb(15, 164, 102) 90%)',
           color: 'white',
           fontSize: '1.25em',
-          fontFamily: 'Noto Sans KR',
+          fontFamily: 'Montserrat',
           borderRadius: 100,
         }),
       }}

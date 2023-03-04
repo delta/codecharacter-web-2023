@@ -1,16 +1,20 @@
 import { CurrentUserApi } from '@codecharacter-2023/client';
 import Toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import BattleTV from '../../components/BattleTV/BattleTV';
 import { BattleTVSteps } from '../../components/TourProvider/BattleTVSteps';
 import Tour from '../../components/TourProvider/TourProvider';
-import { useAppSelector } from '../../store/hooks';
+import { isTourOverChanged } from '../../store/DailyChallenge/dailyChallenge';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { user } from '../../store/User/UserSlice';
 
 const BattleTVPage = (): JSX.Element => {
   const currentUserApi = new CurrentUserApi(apiConfig);
 
   const User = useAppSelector(user);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const setOpened = (opened: boolean) => {
     if (opened === false) {
@@ -22,7 +26,8 @@ const BattleTVPage = (): JSX.Element => {
           updateTutorialLevel: 'NEXT',
         })
         .then(() => {
-          console.log('Tutorial level updated');
+          dispatch(isTourOverChanged(true));
+          navigate('/dashboard');
         })
         .catch(err => {
           if (err instanceof ApiError) Toast.error(err.message);

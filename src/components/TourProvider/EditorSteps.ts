@@ -7,17 +7,17 @@ export const EditorSteps = [
   {
     selector: '#MAP',
     content:
-      'This is the Game map, you can see the simulation of your code here.',
+      'This is the game-map, you can see the simulation of your code here.',
   },
   {
     selector: '#GameLogs',
     content:
-      'This is the Game Log, you can see the output logs of your simulated code here.',
+      'This is the game-log, you can see the output logs of your simulated code here.',
   },
   {
     selector: '#TopBar',
     content:
-      'This is the Top Bar where you access Editor settings and other features.',
+      'This is the top bar where you access editor settings and other features.',
   },
   {
     selector: '#LanguageSelector',
@@ -45,7 +45,7 @@ export const EditorSteps = [
   },
   {
     selector: '#Shortcuts',
-    content: 'Click this button to see Editor Shortcuts.',
+    content: 'Click this button to see editor shortcuts.',
   },
   // ...
 ];

@@ -1,25 +1,13 @@
-export const SidebarSteps = [
+export const SideBarSteps = [
   {
-    selector: '#dashboard',
-    content: 'This DashBoard page, where you can write your code.',
-  },
-  {
-    selector: '#mapdesigner',
-    content: 'This is the Map Designer page, where you can design your map.',
-  },
-  {
-    selector: '#leaderboard',
-    content: 'This is the Leaderboard page, where you can see the leaderboard.',
-  },
-  {
-    selector: '#history',
+    selector: '#documentation',
     content:
-      'This is the Commit History page, where you can see the history of your commits.',
+      'This is the Official Documentation of the game, you can find more about the game inside.',
   },
   {
-    selector: '#battletv',
+    selector: '#DELTA',
     content:
-      'This is the Battle TV page, where you can watch ur previous battles.',
+      'This game was made with ❤ by DELTA FORCE. Click here to visit our website.',
   },
   // ...
 ];
