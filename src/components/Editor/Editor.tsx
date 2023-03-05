@@ -8,6 +8,7 @@ import {
   ErrorAction,
   MonacoServices,
   MessageTransports,
+  Message,
 } from 'monaco-languageclient';
 
 import {
@@ -100,160 +101,154 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   }
 
   useEffect(() => {
-    if (language == 'c_cpp') {
-      const url = `${lspUrl}/${
-        props.language == 'c_cpp' ? 'cpp' : props.language
-      }`;
-      const wsClient = new WebSocket(url);
-      setCurrWebSocket(wsClient);
-      wsClient.onopen = () => {
-        const updater = {
-          operation: 'fileUpdate',
-          code: userCode,
-        };
-        wsClient.send(JSON.stringify(updater));
+    const url = `${lspUrl}/${
+      props.language == 'c_cpp' ? 'cpp' : props.language
+    }`;
+    const wsClient = new WebSocket(url);
+    setCurrWebSocket(wsClient);
+    wsClient.onopen = () => {
+      const updater = {
+        operation: 'fileUpdate',
+        code: userCode,
+      };
+      wsClient.send(JSON.stringify(updater));
 
-        const filePathRequest = {
-          operation: 'getAbsPath',
-        };
-        wsClient.send(JSON.stringify(filePathRequest));
-        const socket = toSocket(wsClient);
-        const reader = new WebSocketMessageReader(socket);
-        reader.listen(message => {
-          setWorkspace({
-            filepath: message.filepath,
-            folderpath: message.folderpath,
-          });
-          reader.dispose();
+      const filePathRequest = {
+        operation: 'getAbsPath',
+      };
+      wsClient.send(JSON.stringify(filePathRequest));
+      const socket = toSocket(wsClient);
+      const reader = new WebSocketMessageReader(socket);
+      reader.listen((message: Message & Editor.Workspace) => {
+        setWorkspace({
+          filepath: message.filepath,
+          folderpath: message.folderpath,
         });
-      };
-      return () => {
-        wsClient?.close();
-      };
-    }
+        reader.dispose();
+      });
+    };
+    return () => {
+      wsClient?.close(1000);
+    };
   }, [props.language]);
 
   useEffect(() => {
-    if (divCodeEditor.current) {
-      editor = monaco.editor.create(divCodeEditor.current, {
-        model: monaco.editor.createModel(
-          userCode,
-          language == 'c_cpp' ? 'cpp' : language,
-          monaco.Uri.parse(workspace.filepath),
-        ),
-        fontSize: fontSize,
-        cursorStyle:
-          keyboardHandler == 'emacs'
-            ? 'block-outline'
-            : keyboardHandler == 'vim'
-            ? 'block'
-            : 'line',
-        scrollBeyondLastLine: true,
-        wrappingIndent: 'same',
-        wrappingStrategy: 'advanced',
-        lineNumbers: 'on',
-        lineNumbersMinChars: 3,
-        lineDecorationsWidth: 10,
-        automaticLayout: true,
-        theme:
-          theme == 'high-contrast-black'
-            ? 'hc-black'
-            : theme == 'vs-light'
-            ? 'vs'
-            : 'vs-dark',
-        cursorBlinking: 'smooth',
-        lightbulb: {
-          enabled: true,
-        },
+    if (!divCodeEditor.current) return;
+    editor = monaco.editor.create(divCodeEditor.current, {
+      model: monaco.editor.createModel(
+        userCode,
+        language == 'c_cpp' ? 'cpp' : language,
+        monaco.Uri.parse(workspace.filepath),
+      ),
+      fontSize: fontSize,
+      cursorStyle:
+        keyboardHandler == 'emacs'
+          ? 'block-outline'
+          : keyboardHandler == 'vim'
+          ? 'block'
+          : 'line',
+      scrollBeyondLastLine: true,
+      wrappingIndent: 'same',
+      wrappingStrategy: 'advanced',
+      lineNumbers: 'on',
+      lineNumbersMinChars: 3,
+      lineDecorationsWidth: 10,
+      automaticLayout: true,
+      theme:
+        theme == 'high-contrast-black'
+          ? 'hc-black'
+          : theme == 'vs-light'
+          ? 'vs'
+          : 'vs-dark',
+      cursorBlinking: 'smooth',
+      lightbulb: {
+        enabled: true,
+      },
+    });
+
+    if (
+      language == 'c_cpp' &&
+      workspace.filepath != '' &&
+      currWebsocket != undefined
+    ) {
+      MonacoServices.install({
+        workspaceFolders: [
+          {
+            uri: Uri.parse(workspace.folderpath),
+            name: 'parse folder',
+            index: 1,
+          },
+        ],
       });
 
-      if (
-        language == 'c_cpp' &&
-        workspace.filepath != '' &&
-        currWebsocket != undefined
-      ) {
-        MonacoServices.install({
-          workspaceFolders: [
-            {
-              uri: Uri.parse(workspace.folderpath),
-              name: 'parse folder',
-              index: 1,
-            },
-          ],
-        });
+      const socket = toSocket(currWebsocket);
+      const reader = new WebSocketMessageReader(socket);
+      const writer = new WebSocketMessageWriter(socket);
+      const languageClient = createLanguageClient({
+        reader,
+        writer,
+      });
+      languageClient.start();
+      reader.onClose(() => languageClient.stop());
+    }
 
-        const socket = toSocket(currWebsocket);
-        const reader = new WebSocketMessageReader(socket);
-        const writer = new WebSocketMessageWriter(socket);
-        const languageClient = createLanguageClient({
-          reader,
-          writer,
-        });
-        languageClient.start();
-        reader.onClose(() => languageClient.stop());
-      }
-
-      editor.onDidChangeModelContent(() => {
-        if (currWebsocket != undefined) {
-          const currUpdater = {
-            operation: 'fileUpdate',
-            code: editor.getValue(),
-          };
-          currWebsocket.send(JSON.stringify(currUpdater));
-        }
-        const codeNlanguage: CodeAndLanguage = {
-          currentUserCode: editor.getValue(),
-          currentUserLanguage: language,
+    editor.onDidChangeModelContent(() => {
+      if (currWebsocket != undefined) {
+        const currUpdater = {
+          operation: 'fileUpdate',
+          code: editor.getValue(),
         };
-        if (props.page == 'Dashboard') {
-          dispatch(updateUserCode(codeNlanguage));
-        } else {
-          dispatch(changeDcCode(codeNlanguage));
-        }
-      });
+        currWebsocket.send(JSON.stringify(currUpdater));
+      }
+      const codeNlanguage: CodeAndLanguage = {
+        currentUserCode: editor.getValue(),
+        currentUserLanguage: language,
+      };
+      if (props.page == 'Dashboard') {
+        dispatch(updateUserCode(codeNlanguage));
+      } else {
+        dispatch(changeDcCode(codeNlanguage));
+      }
+    });
 
-      //Keybinding for save -> CTRL+S
+    //Keybinding for save -> CTRL+S
 
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function () {
+      props.SaveRef.current?.click();
+    });
+
+    //Keybinding for Simulate -> CTRL+ALT+N
+
+    if (props.page == 'Dashboard') {
       editor.addCommand(
-        monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS,
+        monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
         function () {
-          props.SaveRef.current?.click();
+          dispatch(isSelfMatchModalOpened(true));
+          dispatch(codeCommitNameChanged('Current Code'));
+          dispatch(codeCommitIDChanged(null));
+          dispatch(mapCommitNameChanged('Current Map'));
+          dispatch(mapCommitIDChanged(null));
         },
       );
 
-      //Keybinding for Simulate -> CTRL+ALT+N
-
-      if (props.page == 'Dashboard') {
-        editor.addCommand(
-          monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
-          function () {
-            dispatch(isSelfMatchModalOpened(true));
-            dispatch(codeCommitNameChanged('Current Code'));
-            dispatch(codeCommitIDChanged(null));
-            dispatch(mapCommitNameChanged('Current Map'));
-            dispatch(mapCommitIDChanged(null));
-          },
-        );
-
-        //Keybinding for Commit -> CTRL+K
-
-        editor.addCommand(
-          monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK,
-          function () {
-            dispatch(isCommitModalOpened(true));
-          },
-        );
-      }
-
-      //Keybinding for Submit -> CTRL+SHIFT+S
+      //Keybinding for Commit -> CTRL+K
 
       editor.addCommand(
-        monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyS,
+        monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK,
         function () {
-          props.SubmitRef.current?.click();
+          dispatch(isCommitModalOpened(true));
         },
       );
     }
+
+    //Keybinding for Submit -> CTRL+SHIFT+S
+
+    editor.addCommand(
+      monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyS,
+      function () {
+        props.SubmitRef.current?.click();
+      },
+    );
 
     return () => {
       monaco.editor.getModels().forEach(model => model.dispose());
