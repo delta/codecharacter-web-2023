@@ -11,7 +11,7 @@ import {
 import Toast from 'react-hot-toast';
 import styles from './MapDesigner.module.css';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
-import { Modal, Container, Row } from 'react-bootstrap';
+import { Modal, Container, Row, Button } from 'react-bootstrap';
 import { useTour } from '@reactour/tour';
 
 interface MapDesignerProps {

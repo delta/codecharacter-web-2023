@@ -222,7 +222,7 @@ function PaginatedItems() {
         >
           Refresh
         </button>
-        <Dropdown id='tiers'>
+        <Dropdown id="tiers">
           <Dropdown.Toggle variant="dark" className={styles.button}>
             {activeTier?.toString() || 'All Tiers'}
           </Dropdown.Toggle>

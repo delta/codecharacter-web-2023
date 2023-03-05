@@ -10,19 +10,17 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
       steps={steps}
       maskClassName={styles.mask}
       highlightedMaskClassName={styles.highlightedMask}
-      // disableKeyboardNavigation={false}
-      // disableDotsNavigation={false}
       styles={{
         popover: base => ({
           ...base,
           padding: '2% 2% 1% 2%',
           fontSize: '1.25em',
-          fontFamily: 'Roboto',
+          fontFamily: 'Poppins',
           '--reactour-accent': 'blue',
           borderRadius: 10,
-          background: '#363535',
+          background: '#232627',
           borderImage: 'linear-gradient(to right, #92fe9d 0%, #00c9ff 100%)',
-          color: 'white',
+          color: '#eaeaea',
         }),
         close: base => ({
           ...base,
@@ -37,7 +35,7 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
         }),
         arrow: base => ({
           ...base,
-          color: 'white',
+          color: '#eaeaea',
           transform: 'scale(1.3)',
         }),
         dot: base => ({
@@ -52,7 +50,7 @@ const Tour: React.FC<TourProviderType> = ({ setOpened, children, steps }) => {
             'radial-gradient(759px at 14% 22.3%, rgb(10, 94, 68) 0%, rgb(15, 164, 102) 90%)',
           color: 'white',
           fontSize: '1.25em',
-          fontFamily: 'Montserrat',
+          fontFamily: 'Poppins',
           borderRadius: 100,
         }),
       }}
