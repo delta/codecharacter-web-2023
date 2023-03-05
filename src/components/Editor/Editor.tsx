@@ -63,9 +63,11 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const fontSize: number = useAppSelector(FontSize);
   const theme: string = useAppSelector(Theme);
   const dispatch: React.Dispatch<unknown> = useAppDispatch();
-  const [filePath, setFilePath] = useState<string>('');
+  const [workspace, setWorkspace] = useState<Editor.Workspace>({
+    filepath: '',
+    folderpath: '',
+  });
   const [currWebsocket, setCurrWebSocket] = useState<WebSocket>();
-  let wsClient: WebSocket;
 
   const keyboardHandler = useAppSelector(KeyboardHandler);
 
@@ -102,7 +104,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       const url = `${lspUrl}/${
         props.language == 'c_cpp' ? 'cpp' : props.language
       }`;
-      wsClient = new WebSocket(url);
+      const wsClient = new WebSocket(url);
       setCurrWebSocket(wsClient);
       wsClient.onopen = () => {
         const updater = {
@@ -118,7 +120,10 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         const socket = toSocket(wsClient);
         const reader = new WebSocketMessageReader(socket);
         reader.listen(message => {
-          setFilePath(message.message);
+          setWorkspace({
+            filepath: message.filepath,
+            folderpath: message.folderpath,
+          });
           reader.dispose();
         });
       };
@@ -134,7 +139,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         model: monaco.editor.createModel(
           userCode,
           language == 'c_cpp' ? 'cpp' : language,
-          monaco.Uri.parse(filePath + '/player.cpp'),
+          monaco.Uri.parse(workspace.filepath),
         ),
         fontSize: fontSize,
         cursorStyle:
@@ -162,11 +167,15 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         },
       });
 
-      if (language == 'c_cpp' && filePath != '' && currWebsocket != undefined) {
+      if (
+        language == 'c_cpp' &&
+        workspace.filepath != '' &&
+        currWebsocket != undefined
+      ) {
         MonacoServices.install({
           workspaceFolders: [
             {
-              uri: Uri.parse(filePath),
+              uri: Uri.parse(workspace.folderpath),
               name: 'parse folder',
               index: 1,
             },
@@ -256,7 +265,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     language,
     keyboardHandler,
     props.page,
-    filePath,
+    workspace,
     currWebsocket,
   ]);
 
