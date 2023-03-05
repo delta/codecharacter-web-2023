@@ -24,7 +24,6 @@ function RatingHistoryChart() {
   const [items, setItems] = useState<RatingHistory[]>([]);
   const [labelItems, setLabelItems] = useState<string[]>([]);
   const [dataItems, setDataItems] = useState<number[]>([]);
-  const [currentUser, setCurrentUser] = useState<string>('');
   const userApi = new UserApi(apiConfig);
 
   const labels: string[] = [];
@@ -79,13 +78,9 @@ function RatingHistoryChart() {
   useEffect(() => {
     const currentUserApi = new CurrentUserApi(apiConfig);
     currentUserApi.getCurrentUser().then(response => {
-      setCurrentUser(response.id);
+      fetchRatingHistory(response.id);
     });
   }, []);
-
-  useEffect(() => {
-    fetchRatingHistory();
-  }, [currentUser]);
 
   useEffect(() => {
     items &&
@@ -100,9 +95,9 @@ function RatingHistoryChart() {
       });
   }, [isLoaded]);
 
-  function fetchRatingHistory() {
+  function fetchRatingHistory(id: string) {
     setIsLoaded(false);
-    const ratingHistory = userApi.getRatingHistory(currentUser);
+    const ratingHistory = userApi.getRatingHistory(id);
     ratingHistory
       .then(response => {
         setItems(response);
