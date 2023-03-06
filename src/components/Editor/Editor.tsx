@@ -80,16 +80,28 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     aliases: ['CPlusPlus', 'cpp', 'CPP', 'C++', 'c++'],
   });
 
+  monaco.languages.register({
+    id: 'python',
+    extensions: ['.py'],
+    aliases: ['Python', 'py'],
+  });
+
+  monaco.languages.register({
+    id: 'java',
+    extensions: ['.java', '.jar', '.class', '.jav'],
+    aliases: ['Java', 'java'],
+  });
+
   function createLanguageClient(
     transports: MessageTransports,
   ): MonacoLanguageClient {
     return new MonacoLanguageClient({
-      name: 'Sample Language Client',
+      name: 'Code Editor Language Client',
       clientOptions: {
-        documentSelector: ['cpp'],
+        documentSelector: ['cpp', 'python', 'java'],
         errorHandler: {
           error: () => ({ action: ErrorAction.Continue }),
-          closed: () => ({ action: CloseAction.DoNotRestart }),
+          closed: () => ({ action: CloseAction.Restart }),
         },
       },
       connectionProvider: {
@@ -167,11 +179,8 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       },
     });
 
-    if (
-      language == 'c_cpp' &&
-      workspace.filepath != '' &&
-      currWebsocket != undefined
-    ) {
+    let languageClient: MonacoLanguageClient;
+    if (workspace.filepath != '' && currWebsocket != undefined) {
       MonacoServices.install({
         workspaceFolders: [
           {
@@ -185,7 +194,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       const socket = toSocket(currWebsocket);
       const reader = new WebSocketMessageReader(socket);
       const writer = new WebSocketMessageWriter(socket);
-      const languageClient = createLanguageClient({
+      languageClient = createLanguageClient({
         reader,
         writer,
       });
@@ -252,6 +261,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     );
 
     return () => {
+      languageClient?.stop();
       monaco.editor.getModels().forEach(model => model.dispose());
       editor?.dispose();
     };
