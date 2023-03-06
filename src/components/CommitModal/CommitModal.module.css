@@ -1,9 +1,7 @@
 .editorInfoHeader {
-
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #232627;
     backdrop-filter: blur(100px);
-    color: white;
-    height: 10vh;
+    height: 9vh;
     border: 0px;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -11,12 +9,15 @@
     user-select: none;
 }
 
-.editorInfoHeader button {
-    background-color: white;
+.headerText{
+  font-family: 'Poppins';
+  font-size: 28px;
+  color:#aaaaaa;
+  font-weight: bold;
 }
 
 .editorInfoBody {
-    background: #1c1c1c;
+    background-color: #1e1e1e;
     border: 0px;
     padding: 7px 0px;
     margin: 0;
@@ -25,26 +26,46 @@
     -ms-user-select: none;
     user-select: none;
     text-align: center;
+    align-items: center;
 }
 
 .commitModalInput {
-    width: 80%;
-    height: 5vh;
-    margin: 1.75rem auto 5px;
-    border-radius: 0px;
+    width: 90%;
+    margin: 30px 0px 20px 0px;
+    background-color: transparent;
+    box-sizing: border-box;
+    padding: 10px 20px 10px 20px;
+    font-family: 'Poppins';
+    font-size: 20px;
+    color: #aaaaaa;
+    border: 2px solid #aaaaaa;
 }
 
-.commitModalbtn {
-    width: 30%;
-    margin: 1.5rem auto;
-    height: 4.5vh;
-    width: 33%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Montserrat', sans-serif;
-    font-size: medium;
-    font-weight: 600;
-    color: white;
-    border: none;
-}
+.commitModalInput::placeholder {
+    font-family: 'Poppins';
+    font-weight: normal;
+    overflow: visible;
+    vertical-align: top;
+    display: inline-block !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .commitModalbtn {
+    color: #aaaaaa;
+    width: auto;
+    height: 5vh;
+    margin-bottom: 20px;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    background-color: inherit;
+    border: 2px solid #aaaaaa;
+    border-radius: 5px;
+    font-family: 'Poppins';
+    margin-top: 10px;
+    padding: 5px 20px 5px 20px ;
+  }
+

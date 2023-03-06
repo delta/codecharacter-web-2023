@@ -6,17 +6,12 @@ import styles from './profile.module.css';
 import classnames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import {
-  faEye,
-  faEyeSlash,
-  faSpinner,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import {
   getUserDetailsAction,
   user,
   changeUserDetailsAction,
   changeUserCreditionalsAction,
-  loading,
   isCreditionalError,
   isSuccess,
   logout,
@@ -26,8 +21,6 @@ import {
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { getAvatarByID, getAllAvatars } from '../Avatar/Avatar';
-import angleBracketRight from '../../assets/angle_bracket_right.svg';
-import angleBracketLeft from '../../assets/angle_bracket_left.svg';
 import RatingChart from '../RatingChart/RatingChart';
 
 const Profile = (): JSX.Element => {
@@ -100,7 +93,6 @@ const Profile = (): JSX.Element => {
       });
     }
   };
-  const loadingStatus = useAppSelector(loading);
   const dispatch = useAppDispatch();
 
   const success = useAppSelector(isSuccess);
@@ -205,14 +197,10 @@ const Profile = (): JSX.Element => {
     setSelectedAvatar(id);
   };
 
-  const handleGoBacktoDash = () => {
-    navigate(-1);
-  };
-
   const handleGoToCreds = () => {
     if (profileScrollRef.current) {
       profileScrollRef.current.scrollTo({
-        top: 1900,
+        top: 1000,
         behavior: 'smooth',
       });
     }
@@ -253,6 +241,7 @@ const Profile = (): JSX.Element => {
                 className={classnames('mb-4', styles.formField)}
                 controlId="formBasicUserName"
               >
+                <Form.Label className={styles.label}>USERNAME</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder={loggedInUser.name || 'Full Name'}
@@ -265,6 +254,7 @@ const Profile = (): JSX.Element => {
                 className={classnames('mb-4', styles.formField)}
                 controlId="formBasicCollege"
               >
+                <Form.Label className={styles.label}>COLLEGE</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder={loggedInUser.college || 'College'}
@@ -277,6 +267,7 @@ const Profile = (): JSX.Element => {
                 className={classnames('mb-4', styles.formField)}
                 controlId="formBasicEmail"
               >
+                <Form.Label className={styles.label}>COUNTRY</Form.Label>
                 <ReactFlagsSelect
                   selected={selectedFlag}
                   searchable={true}
@@ -289,13 +280,16 @@ const Profile = (): JSX.Element => {
                     styles.flagContainer,
                     styles.inputField,
                   )}
-                  selectedSize={33}
+                  selectedSize={26}
                 />
               </Form.Group>
               <Form.Group
                 className={classnames('mb-4')}
                 controlId="formBasicAvatar"
               >
+                <Form.Label className={styles.label}>
+                  CHOOSE AN AVATAR
+                </Form.Label>
                 <div>
                   <div className={styles.avatarContainer}>
                     {avatars.map((avatar, index: number) => (
@@ -331,27 +325,14 @@ const Profile = (): JSX.Element => {
                     getCountryName(selectedFlag) === loggedInUser.country
                   }
                   size="lg"
-                  className={styles.submitContainer}
+                  className={styles.submitButton}
                 >
-                  Save Changes{' '}
-                  {loadingStatus ? (
-                    <FontAwesomeIcon icon={faSpinner as IconProp} />
-                  ) : (
-                    <></>
-                  )}
+                  SAVE CHANGES{' '}
                 </Button>
               </div>
               <div className={styles.footer}>
                 {
                   <>
-                    <Button
-                      variant="link"
-                      onClick={handleGoBacktoDash}
-                      className={styles.linkButton}
-                    >
-                      <img src={angleBracketLeft} alt="Angle Bracket Left" />
-                      {' GO BACK'}
-                    </Button>
                     <Button
                       variant="link"
                       onClick={() => {
@@ -361,18 +342,19 @@ const Profile = (): JSX.Element => {
                       className={styles.linkButton}
                     >
                       {'CHANGE CREDENTIALS '}
-                      <img src={angleBracketRight} alt="Angle Bracket Right" />
                     </Button>
                   </>
                 }
               </div>
             </div>
             <div>
-              <div className={styles.changeCredsHeader}>Change Credentials</div>
+              <div className={styles.changeCredsHeader}>CHANGE CREDENTIALS</div>
               <Form.Group
                 className={classnames('mb-4', styles.formField)}
                 controlId="formBasicoldPassword"
               >
+                <Form.Label className={styles.label}>OLD PASSWORD</Form.Label>
+
                 <div className={styles.eyeContainer}>
                   <Form.Control
                     type={passwordType.oldpassword}
@@ -402,6 +384,8 @@ const Profile = (): JSX.Element => {
                 className={classnames('mb-4', styles.formField)}
                 controlId="formBasicPassword"
               >
+                <Form.Label className={styles.label}>NEW PASSWORD</Form.Label>
+
                 <div className={styles.eyeContainer}>
                   <Form.Control
                     type={passwordType.password}
@@ -431,6 +415,10 @@ const Profile = (): JSX.Element => {
                 className={classnames('mb-4', styles.formField)}
                 controlId="formBasicConfirmPassword"
               >
+                <Form.Label className={styles.label}>
+                  CONFIRM PASSWORD
+                </Form.Label>
+
                 <div className={styles.eyeContainer}>
                   <Form.Control
                     type={passwordType.confirmPassword}
@@ -466,14 +454,9 @@ const Profile = (): JSX.Element => {
                   }
                   size="lg"
                   id="submit"
-                  className={styles.submitContainer}
+                  className={styles.submitButton}
                 >
-                  Submit{' '}
-                  {loadingStatus ? (
-                    <FontAwesomeIcon icon={faSpinner as IconProp} />
-                  ) : (
-                    <></>
-                  )}
+                  SUBMIT{' '}
                 </Button>
               </div>
             </div>
@@ -484,7 +467,6 @@ const Profile = (): JSX.Element => {
               onClick={handleGoBacktoProfile}
               className={styles.linkButton}
             >
-              <img src={angleBracketLeft} alt="Angle Bracket Left" />
               {' EDIT PROFILE'}
             </Button>
           </div>

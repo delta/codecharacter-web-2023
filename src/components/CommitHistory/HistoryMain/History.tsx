@@ -35,7 +35,7 @@ export default function History(): JSX.Element {
   const [codeLanguage, setCodeLanguage] = useState('');
   const [currentMap, setCurrentMap] = useState<MapObj>({
     map: [],
-    mapImg: 'null',
+    mapImg: '',
   });
   const [currentCommitMessage, setCurrentCommitMessage] = useState<string>('');
   const mapImagesByCommitIds = useAppSelector(mapImagesByCommits);

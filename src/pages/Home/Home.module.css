@@ -8,6 +8,7 @@
   width: 100%;
   height: calc(100vh - 64px);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -20,7 +21,7 @@
 
 .delta {
   display: flex;
-  background-color: #000000;
+
 }
 
 .delta > div {
@@ -34,12 +35,14 @@
 }
 
 .heart {
-  color: red;
+  color: #aaaaaa;
 }
-
+.arrowContainer{
+  position: relative;
+  top: 30%;
+}
 .arrow{
-  position: absolute;
-  bottom: 8%;
+  justify-content: end;
   transition-duration: 0.5s;
 }
 
@@ -51,4 +54,25 @@
   .jumbotron > div {
     font-size: 2px;
   }
+  .arrowContainer{
+    top: 20%;
+  }
 }
+@media screen and (max-width: 900px){
+  .arrowContainer{
+    top: 35%;
+  }
+}
+@media screen and (max-width: 800px){
+  .arrowContainer{
+    top: 40%;
+  }
+}
+@media screen and (max-width: 450px){
+  .arrowContainer{
+    top: 33%;
+  }
+}
+
+
+

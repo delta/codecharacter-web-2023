@@ -96,19 +96,26 @@ function PaginatedItems() {
           <>
             <div className={styles.list}>
               <Modal show={show} onHide={handleClose}>
-                <Modal.Header className={styles.matchHeader} closeButton>
-                  <Modal.Title>Start a new match</Modal.Title>
+                <Modal.Header className={styles.matchHeader}>
+                  <Modal.Title className={styles.headerText}>
+                    Start a new match
+                  </Modal.Title>
+                  <button
+                    type="button"
+                    className="btn-close btn-close-white"
+                    aria-label="Close"
+                    onClick={handleClose}
+                  ></button>
                 </Modal.Header>
                 <Modal.Body className={styles.matchBody}>
                   Do you want to start a match against {currentOpponentUsername}
                   ?
                 </Modal.Body>
                 <Modal.Footer className={styles.matchFooter}>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Close
-                  </Button>
                   <Button
-                    className={styles.matchButton}
+                    className={styles.matchModalBtn}
+                    variant="outline-light"
+                    size="lg"
                     onClick={() => handleMatchStart()}
                   >
                     Start match
@@ -216,12 +223,13 @@ function PaginatedItems() {
           Refresh
         </button>
         <Dropdown id="tiers">
-          <Dropdown.Toggle className={styles.button}>
+          <Dropdown.Toggle variant="dark" className={styles.button}>
             {activeTier?.toString() || 'All Tiers'}
           </Dropdown.Toggle>
 
-          <Dropdown.Menu>
+          <Dropdown.Menu className={styles.menuBackground}>
             <Dropdown.Item
+              className={styles.menuText}
               onClick={() => {
                 setActiveTier(undefined);
                 fetchLeaderboardByTier(0);
@@ -230,6 +238,7 @@ function PaginatedItems() {
               All Tiers
             </Dropdown.Item>
             <Dropdown.Item
+              className={styles.menuText}
               onClick={() => {
                 setActiveTier(TierType.Tier1);
                 fetchLeaderboardByTier(0, TierType.Tier1);
@@ -238,6 +247,7 @@ function PaginatedItems() {
               Tier 1
             </Dropdown.Item>
             <Dropdown.Item
+              className={styles.menuText}
               onClick={() => {
                 setActiveTier(TierType.Tier2);
                 fetchLeaderboardByTier(0, TierType.Tier2);

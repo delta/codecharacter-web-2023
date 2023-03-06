@@ -1,43 +1,56 @@
 .tourIntroHeader {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #232627;
     backdrop-filter: blur(100px);
-    color: white;
-    height: 10vh;
+    height: 9vh;
     border: 0px;
 }
 
-.tourIntroHeader button {
-    background-color: white;
-}
+.headerText{
+    font-family: 'Poppins';
+    font-size: 28px;
+    color:#aaaaaa;
+    font-weight: bold;
+  }
+
 
 .tourIntroBody {
-    background: #1c1c1c;
+    background: #1e1e1e;
     border: 0px;
-    padding: 1rem 0.7rem 1rem;
+    padding: 1rem;
     margin: 0;
 }
 
 .tourIntroText {
-    font-family: 'Roboto', sans-serif;
-    color: #ddd;
-    font-size: large;
+    font-family: 'Poppins';
+    color: #aaaaaa;
+    font-size: 18px;
     padding-bottom: 0.5rem;
 }
 
-.showBtn,
-.skipbtn {
-    font-family: 'Montserrat', sans-serif;
-    font-size: medium;
-    font-weight: 600;
+.skipBtn,
+.showBtn{
+    width: auto;
+    height: 5vh;
+    display: block;
+    margin-top: 5px;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: #aaaaaa;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    background-color: transparent;
 }
 
-.showBtn {
-    display: flex;
-    justify-content: end;
-    align-items: center;
+.skipBtn{
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
-.btn {
-    width: 120px;
-    height: 42px;
-}
+
+
+
+

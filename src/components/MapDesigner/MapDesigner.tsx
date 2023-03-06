@@ -11,7 +11,7 @@ import {
 import Toast from 'react-hot-toast';
 import styles from './MapDesigner.module.css';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
-import { Modal, Container, Row } from 'react-bootstrap';
+import { Modal, Container, Row, Button } from 'react-bootstrap';
 import { useTour } from '@reactour/tour';
 
 interface MapDesignerProps {
@@ -201,8 +201,14 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
       </div>
       <div className={styles.PsuedoMap} id="Psuedo"></div>
       <Modal show={modalShow} centered onHide={closeModal}>
-        <Modal.Header className={styles.modalHeader} closeButton>
-          <Modal.Title className="fw-bold fs-3">Save Map</Modal.Title>
+        <Modal.Header className={styles.modalHeader}>
+          <Modal.Title className={styles.headerText}>Save Map</Modal.Title>
+          <button
+            type="button"
+            className="btn-close btn-close-white"
+            aria-label="Close"
+            onClick={closeModal}
+          ></button>
         </Modal.Header>
 
         <Modal.Body className={styles.modalContent}>
@@ -232,53 +238,73 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
             )}
           </Container>
           <Container fluid className={styles.buttonRow}>
-            <button
+            <Button
               className={styles.modalButton}
+              size="lg"
               onClick={() => {
                 compressImage('save');
               }}
+              variant="outline-light"
             >
-              Save
-            </button>
-            <button
+              SAVE
+            </Button>
+            <Button
               className={styles.modalButton}
+              size="lg"
               onClick={() => {
                 compressImage('submit');
               }}
+              variant="outline-light"
             >
               Submit
-            </button>
+            </Button>
             {props.pageType == 'MapDesigner' ? (
-              <button className={styles.modalButton} onClick={openCommitModal}>
+              <Button
+                className={styles.modalButton}
+                onClick={openCommitModal}
+                variant="outline-light"
+                size="lg"
+              >
                 Commit
-              </button>
+              </Button>
             ) : (
               <></>
             )}
           </Container>
         </Modal.Body>
       </Modal>
-      <Modal show={commitModalShow} centered onHide={closeCommitModal}>
-        <Modal.Header className={styles.modalHeader} closeButton>
-          <Modal.Title className="fw-bold fs-2">Commit Name</Modal.Title>
+      <Modal show={commitModalShow} centered>
+        <Modal.Header className={styles.modalHeader}>
+          <Modal.Title className={styles.headerText}>Commit Name</Modal.Title>
+          <button
+            type="button"
+            className="btn-close btn-close-white"
+            aria-label="Close"
+            onClick={closeCommitModal}
+          ></button>
         </Modal.Header>
         <Modal.Body className={styles.modalContent}>
           <Row>
             <input
+              type="text"
+              placeholder="Enter Commit Message"
+              value={commitName}
               className={styles.commitNameInput}
               onChange={handleCommitName}
-            ></input>
+            />
           </Row>
           <p className={styles.commitModalError}>{commitModalError}</p>
           <div className={styles.buttonRow}>
-            <button
+            <Button
+              size="lg"
+              variant="outline-light"
               className={styles.modalButton}
               onClick={() => {
                 compressImage('commit');
               }}
             >
               Create Map Commit
-            </button>
+            </Button>
           </div>
         </Modal.Body>
       </Modal>

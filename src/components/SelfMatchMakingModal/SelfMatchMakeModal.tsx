@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './SelfMatchModalStyle.module.css';
-import { FormGroup, Col, Container, Row, Modal, Button } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import { FormGroup, Col, Container, Row, Modal } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   isSelfMatchModalOpen,
@@ -110,6 +111,7 @@ const selfMatchModal = (): JSX.Element => {
       .catch(error => {
         if (error instanceof ApiError) Toast.error(error.message);
       });
+    dispatch(isSelfMatchModalOpened(false));
   }
 
   return (
@@ -118,8 +120,14 @@ const selfMatchModal = (): JSX.Element => {
       centered
       onHide={() => dispatch(isSelfMatchModalOpened(false))}
     >
-      <Modal.Header className={styles.selfMatchModalHeader} closeButton>
-        <Modal.Title className="fw-bold fs-3">Self Match</Modal.Title>
+      <Modal.Header className={styles.selfMatchModalHeader}>
+        <Modal.Title className={styles.headerText}>Self Match</Modal.Title>
+        <button
+          type="button"
+          className="btn-close btn-close-white"
+          aria-label="Close"
+          onClick={() => dispatch(isSelfMatchModalOpened(false))}
+        ></button>
       </Modal.Header>
 
       <Modal.Body className={styles.selfMatchModalBody}>
@@ -183,13 +191,16 @@ const selfMatchModal = (): JSX.Element => {
                   ))}
                 </select>
               </FormGroup>
-              <Button
-                className={styles.selfMatchModalSimulateBtn}
-                variant="success"
-                onClick={handleSimulate}
-              >
-                Simulate
-              </Button>
+              <div>
+                <Button
+                  className={styles.selfMatchModalSimulateBtn}
+                  size="lg"
+                  onClick={handleSimulate}
+                  variant="outline-light"
+                >
+                  SIMULATE
+                </Button>
+              </div>
             </Col>
           </Row>
         </Container>

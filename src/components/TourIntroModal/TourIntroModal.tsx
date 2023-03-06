@@ -80,10 +80,16 @@ const TourIntroModal = (): JSX.Element => {
 
   return (
     <Modal show={isTourOpen} centered onHide={onHide}>
-      <Modal.Header className={styles.tourIntroHeader} closeButton>
-        <Modal.Title className={'fw-bold fs-3'}>
+      <Modal.Header className={styles.tourIntroHeader}>
+        <Modal.Title className={styles.headerText}>
           Welcome to CodeCharacter
         </Modal.Title>
+        <button
+          type="button"
+          className="btn-close btn-close-white"
+          aria-label="Close"
+          onClick={onHide}
+        ></button>
       </Modal.Header>
 
       <Modal.Body className={styles.tourIntroBody}>
@@ -96,19 +102,19 @@ const TourIntroModal = (): JSX.Element => {
           </Col>
         </Row>
         <Row>
-          <Col className={styles.showBtn}>
+          <Col>
             <Button
-              variant="success"
-              className={styles.btn}
+              variant="outline-light"
+              className={styles.showBtn}
               onClick={handleShowClick}
             >
               Proceed
             </Button>
           </Col>
-          <Col className={styles.skipBtn}>
+          <Col>
             <Button
-              variant="secondary"
-              className={styles.btn}
+              variant="outline-light"
+              className={styles.skipBtn}
               onClick={handleSkipClick}
             >
               Skip

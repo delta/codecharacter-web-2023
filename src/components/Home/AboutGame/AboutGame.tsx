@@ -1,14 +1,10 @@
 import styles from './AboutGame.module.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import mapimg from './../../../../public/assets/Map.jpeg';
+import mapimg from './../../../../src/assets/renderer.png';
 
 export default function AboutGame(): JSX.Element {
   return (
-    <div
-      style={{
-        background: 'rgba(30, 30, 30, 0.87)',
-      }}
-    >
+    <div>
       <div className={styles.about}>
         <Container fluid className={styles.aboutcontainer}>
           <Row>

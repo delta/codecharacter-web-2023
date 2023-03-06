@@ -6,11 +6,29 @@
 }
 
 .flagContainer {
-  color: black;
   background-color: transparent;
-  border: 3px solid #aaaaaa;
-  padding: 0px;
+  height: 62px;
+  color: #aaaaaa;
+  border: 3px #aaaaaa solid !important;
+  border-radius: 1px;
+  font-size: 25px;
 }
+.flagContainer > button {
+  position: relative;
+  bottom: 5px;
+} 
+.selectedText{
+  color: #aaaaaa !important;
+}
+
+.flagContainer > ul {
+  background-color: #232627;
+}
+
+.flagContainer > ul > div {
+  background-color: #232627;
+}
+
 
 .password,
 .email,

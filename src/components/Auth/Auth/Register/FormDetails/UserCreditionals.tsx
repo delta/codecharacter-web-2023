@@ -13,9 +13,11 @@ export default function UserCreditionals(props: creditionals): JSX.Element {
           className={styles.username}
         />
       </div>
-      <div className={styles.flagContainer}>
+      <div>
         <ReactFlagsSelect
-          searchable
+          searchable={true}
+          className={styles.flagContainer}
+          selectButtonClassName={styles.selectedText}
           selected={props.selectedCode != null ? props.selectedCode : 'IN'}
           onSelect={
             props.handleFlagSelect != null
@@ -24,6 +26,7 @@ export default function UserCreditionals(props: creditionals): JSX.Element {
                   return;
                 }
           }
+          selectedSize={27}
         />
       </div>
       <div>

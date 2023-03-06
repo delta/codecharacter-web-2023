@@ -33,7 +33,7 @@
   font-family: Bai Jamjuree;
   font-style: normal;
   background-color: inherit !important;
-  font-size: 2em ;
+  font-size: 2em;
   border-bottom: 2px solid white;
   border-top: 0;
   border-left: 0;
@@ -53,13 +53,13 @@
   border-top: 0;
   border-left: 0;
   border-right: 0;
-  font-size: 2em ;
+  font-size: 2em;
   transition: 0.5s;
   border-radius: 0px;
   box-shadow: none !important;
 }
 
-.darkButton:hover{
+.darkButton:hover {
   color: #ffffff;
 }
 
@@ -91,7 +91,6 @@
   display: none;
 }
 
-
 .select {
   text-align: right;
   color: #ffffff;
@@ -110,11 +109,10 @@
   background-color: inherit;
   border: 1px solid white;
   border-radius: 5px;
-  font-family: Bai Jamjuree;
+  font-family: 'Poppins';
 }
 
 .selectButton:hover {
-  transform: scale(1.1);
   transition-duration: 0.5s;
   cursor: pointer;
 }
@@ -150,36 +148,37 @@
   display: none;
 }
 
-.mapImg{
-  object-fit:contain;
-  height:100vh;
-  width:100vw; 
+.mapImg {
+  object-fit: contain;
+  height: 100vh;
+  width: 100vw;
   color: #ffffff;
   padding-left: 5rem;
 }
 
-.mapLoad{
+.mapLoad {
   color: #ffffff;
   font-size: 40px;
 }
 
-
-@media only screen and (max-height : 840px) {
-    .codeBox,.mapBox{
-      height: 75vh;
-    }
-    .selectButton{
-      font-size: 14px;
-    }
-    .completeTimeline{
-      height: 62vh;
-    }
+@media only screen and (max-height: 840px) {
+  .codeBox,
+  .mapBox {
+    height: 75vh;
+  }
+  .selectButton {
+    font-size: 14px;
+  }
+  .completeTimeline {
+    height: 62vh;
+  }
 }
-@media only screen and (max-height : 720px) {
-  .codeBox,.mapBox{
+@media only screen and (max-height: 720px) {
+  .codeBox,
+  .mapBox {
     height: 70vh;
   }
-  .completeTimeline{
+  .completeTimeline {
     height: 57vh;
   }
 }

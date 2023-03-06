@@ -4,35 +4,52 @@
   height: 100%;
 }
 
+.headerText{
+  font-family: 'Poppins';
+  font-size: 28px;
+  color:#aaaaaa;
+  font-weight: bold;
+}
+
 .modalHeader {
-  background: rgba(0, 0, 0, 0.8);
+  background: #232627;
   backdrop-filter: blur(100px);
   color: white;
   height: 10vh;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
+  border: 0px;
 }
-.modalHeader button {
-  background-color: white;
+
+
+.headerText{
+  font-family: 'Poppins';
+  font-size: 28px;
+  color:#aaaaaa;
+  font-weight: bold;
 }
+
 .modalContent {
-  background: #1c1c1c;
+  background-color: #1e1e1e;
   padding: 7px 0px;
   margin: 0;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
 }
+
 .contentP {
-  color: #ffffff;
+  color: #aaaaaa;
   padding: 1rem;
   padding-bottom: 0px;
-  font-size: 15px;
-  font-family: 'Montserrat', sans-serif;
+  font-size: 17px;
+  font-family: 'Poppins';
 }
+
 .contentP > span {
-  text-decoration: underline;
   font-weight: bold;
+  letter-spacing: 1px;
 }
+
 .buttonRow {
   display: flex;
   justify-content: space-evenly;
@@ -40,23 +57,35 @@
   margin-bottom: 0.5rem;
   flex-direction: row;
 }
+
 .modalButton {
-  outline: none;
-  border: none;
-  background: #3b4d7c;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  cursor: pointer;
+  color: #aaaaaa;
+  height: 5vh;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+  background-color: inherit;
+  padding: 2px 20px 2px 20px;
+  border: 1px solid #aaaaaa;
+  border-radius: 5px;
+  font-family: 'Poppins';
+  margin-top: 10px;
 }
+
 .commitNameInput {
-  width: 80%;
-  margin-left: 2rem;
+  width: 85%;
+  margin-left: 2.5rem;
+  margin-top: 1rem;
   border: none;
   outline: none;
+  font-family: 'Poppins';
+  font-size: 20px;
+  color: #aaaaaa;
+  border: 2px solid #aaaaaa;
+  background-color: transparent;
+  padding: 10px ;   
 }
+
 .commitModalError {
   width: 100%;
   text-align: center;
