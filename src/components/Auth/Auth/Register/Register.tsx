@@ -49,7 +49,6 @@ export default function Register(): JSX.Element {
 
   useEffect(() => {
     if (registeredStatus) {
-      toast.success('Registered Successfully :)');
       setFormnumber(1);
       navigate('/login', { replace: true });
       navigate(0);

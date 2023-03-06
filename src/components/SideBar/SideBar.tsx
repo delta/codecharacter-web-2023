@@ -135,7 +135,12 @@ const SideBar: React.FunctionComponent = () => {
             </div>
             <div className={styles.sideBarIcon} id="DELTA">
               <div title="Made with ❤ by Delta">
-                <div className={styles.deltaLogo}>
+                <div
+                  className={styles.deltaLogo}
+                  onClick={() => {
+                    window.open('https://delta.nitt.edu/');
+                  }}
+                >
                   <img src={deltaLogo} alt="delta" />
                 </div>
               </div>

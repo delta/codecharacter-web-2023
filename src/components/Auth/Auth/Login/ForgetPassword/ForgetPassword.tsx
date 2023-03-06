@@ -44,7 +44,7 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
         centered
         className={styles.modal}
       >
-        <Modal.Header className={styles.modalHeader}>
+        <Modal.Header className={styles.editorInfoHeader}>
           <Modal.Title className={styles.headerText}>
             Forgot Password
           </Modal.Title>
@@ -56,28 +56,25 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
           ></button>
         </Modal.Header>
 
-        <Modal.Body className={styles.modalContainer}>
+        <Modal.Body className={styles.editorInfoBody}>
           <div>
             <input
               type="name"
               placeholder="EMAIL  &#xf0e0;"
               value={email}
-              className={styles.email}
+              className={styles.forgetPasswordModalInput}
               onChange={handleEmailSubmit}
             />
           </div>
-        </Modal.Body>
-
-        <Modal.Footer className={styles.modalContainer}>
           <Button
-            className={styles.submitBtn}
+            className={styles.forgetPasswordModalbtn}
             size="lg"
             onClick={handleSubmit}
             variant="outline-light"
           >
             SUBMIT
           </Button>
-        </Modal.Footer>
+        </Modal.Body>
       </Modal>
     </div>
   );
