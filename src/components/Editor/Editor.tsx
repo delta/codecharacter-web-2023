@@ -119,10 +119,11 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       wsClient.send(JSON.stringify(filePathRequest));
       const socket = toSocket(wsClient);
       const reader = new WebSocketMessageReader(socket);
-      reader.listen((message: Message & Editor.Workspace) => {
+      reader.listen((message: Message) => {
+        const fileInfo = message as Message & Editor.Workspace;
         setWorkspace({
-          filepath: message.filepath,
-          folderpath: message.folderpath,
+          filepath: fileInfo.filepath,
+          folderpath: fileInfo.folderpath,
         });
         reader.dispose();
       });
