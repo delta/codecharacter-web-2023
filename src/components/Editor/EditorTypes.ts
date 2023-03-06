@@ -11,3 +11,8 @@ export type Props = {
   SaveRef: RefObject<HTMLButtonElement>;
   SubmitRef: RefObject<HTMLButtonElement>;
 };
+
+export type Workspace = {
+  filepath: string;
+  folderpath: string;
+};
