@@ -56,7 +56,7 @@ const StatsText = () => {
       style={{
         textAlign: 'right',
         color: 'white',
-        fontFamily: 'monospace',
+        fontFamily: 'Bai Jamjuree',
         fontSize: '1rem',
         padding: '1rem',
       }}

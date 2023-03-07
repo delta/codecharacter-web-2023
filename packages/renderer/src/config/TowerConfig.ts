@@ -6,8 +6,8 @@ export default class TowerConfig {
     new TowerType(
       2,
       'tower1',
-      'tower_round.png',
-      'tower_round_thumbnail.png',
+      'tower1.png',
+      'tower1_thumbnail.png',
       100,
       4,
       100,
@@ -15,10 +15,19 @@ export default class TowerConfig {
     new TowerType(
       3,
       'tower2',
-      'tower_square.png',
-      'tower_square_thumbnail.png',
+      'tower2.png',
+      'tower2_thumbnail.png',
       100,
       6,
+      200,
+    ),
+    new TowerType(
+      1,
+      'tower2',
+      'tower3.png',
+      'tower3_thumbnail.png',
+      100,
+      4,
       100,
     ),
   ];
