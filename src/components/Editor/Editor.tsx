@@ -23,6 +23,7 @@ import {
   isCommitModalOpened,
   KeyboardHandler,
   Theme,
+  Autocomplete,
 } from '../../store/EditorSettings/settings';
 
 import {
@@ -63,6 +64,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       : useAppSelector(dcCode);
   const fontSize: number = useAppSelector(FontSize);
   const theme: string = useAppSelector(Theme);
+  const autocomplete: boolean = useAppSelector(Autocomplete);
   const dispatch: React.Dispatch<unknown> = useAppDispatch();
   const [workspace, setWorkspace] = useState<Editor.Workspace>({
     filepath: '',
@@ -113,6 +115,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   }
 
   useEffect(() => {
+    if (!autocomplete) return;
     const url = `${lspUrl}/${
       props.language == 'c_cpp' ? 'cpp' : props.language
     }`;
@@ -143,7 +146,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     return () => {
       wsClient?.close(1000);
     };
-  }, [props.language]);
+  }, [props.language, autocomplete]);
 
   useEffect(() => {
     if (!divCodeEditor.current) return;
