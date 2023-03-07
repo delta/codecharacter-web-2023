@@ -431,12 +431,6 @@
           "imagewidth": 512
         },
         {
-          "id": 4,
-          "image": "tile_e.png",
-          "imageheight": 512,
-          "imagewidth": 512
-        },
-        {
           "id": 1,
           "image": "tile_satellite.png",
           "imageheight": 512,
@@ -451,6 +445,12 @@
         {
           "id": 3,
           "image": "building_2.png",
+          "imageheight": 512,
+          "imagewidth": 512
+        },
+        {
+          "id": 4,
+          "image": "tile_e.png",
           "imageheight": 512,
           "imagewidth": 512
         }
@@ -477,13 +477,19 @@
       "tiles": [
         {
           "id": 0,
-          "image": "tower_round.png",
+          "image": "tower1.png",
           "imageheight": 512,
           "imagewidth": 512
         },
         {
           "id": 1,
-          "image": "tower_square.png",
+          "image": "tower2.png",
+          "imageheight": 512,
+          "imagewidth": 512
+        },
+        {
+          "id": 2,
+          "image": "tower3.png",
           "imageheight": 512,
           "imagewidth": 512
         }
