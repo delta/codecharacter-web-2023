@@ -426,7 +426,7 @@
       "tiles": [
         {
           "id": 0,
-          "image": "tile_f.png",
+          "image": "tile_E.png",
           "imageheight": 512,
           "imagewidth": 512
         },
