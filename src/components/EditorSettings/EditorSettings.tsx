@@ -1,4 +1,4 @@
-import { FormGroup, Col, Container, Row, Modal } from 'react-bootstrap';
+import { FormGroup, Col, Container, Row, Modal, Form } from 'react-bootstrap';
 import styles from './EditorSettings.module.css';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -8,6 +8,8 @@ import {
   IsSettingsOpen,
   FontSize,
   Theme,
+  Autocomplete,
+  autoCompleteChanged,
 } from '../../store/EditorSettings/settings';
 
 const EditorSettings = (): JSX.Element => {
@@ -16,6 +18,7 @@ const EditorSettings = (): JSX.Element => {
   const theme = useAppSelector(Theme);
 
   const dispatch = useAppDispatch();
+  const autocomplete = useAppSelector(Autocomplete);
 
   const fontSizeOptions = [];
   for (let i = 8; i <= 40; i += 2) {
@@ -31,6 +34,10 @@ const EditorSettings = (): JSX.Element => {
   function handleThemeChange(newTheme: string) {
     dispatch(themeChanged(newTheme));
   }
+
+  const handleAutocompleteChange = () => {
+    dispatch(autoCompleteChanged(!autocomplete));
+  };
 
   return (
     <Modal
@@ -93,6 +100,19 @@ const EditorSettings = (): JSX.Element => {
                   ))}
                 </select>
               </FormGroup>
+            </Col>
+
+            <Col xs={12}>
+              <div className={styles.autocompletediv}>
+                <div className={styles.autocompleteLabel}>Intellisense</div>
+                <div className={styles.autocompletebtn}>
+                  <Form.Switch
+                    id="autocompleteSwitch"
+                    onChange={handleAutocompleteChange}
+                    checked={autocomplete}
+                  />
+                </div>
+              </div>
             </Col>
           </Row>
         </Container>

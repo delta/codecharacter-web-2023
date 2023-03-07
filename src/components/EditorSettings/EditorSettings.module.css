@@ -19,6 +19,45 @@
   font-weight: bold;
 }
 
+.autocompletediv{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+.autocompletebtn{
+  padding-top: 2px;
+  padding-left: 15px;
+}
+
+.autocompleteLabel{
+  color:#aaaaaa;
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-size: 18px;
+  height: 3vh;
+  margin-bottom: 1.5vh;
+  padding-top: 0.2rem;
+}
+
+input{
+  height: 1.5rem !important;
+  width: 3rem !important;
+  border-color: #232627 !important; 
+}
+
+input:checked{
+  background-color: #232627 !important;
+  border-color: #ffffff !important; 
+}
+
+input:focus{
+  box-shadow: none !important;
+  outline: none;
+}
 
 .editorSettingsBody {
   background-color: #1e1e1e;
