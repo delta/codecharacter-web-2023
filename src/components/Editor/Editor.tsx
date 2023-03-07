@@ -86,13 +86,19 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     aliases: ['Python', 'py'],
   });
 
+  monaco.languages.register({
+    id: 'java',
+    extensions: ['.java', '.jar', '.class', '.jav'],
+    aliases: ['Java', 'java'],
+  });
+
   function createLanguageClient(
     transports: MessageTransports,
   ): MonacoLanguageClient {
     return new MonacoLanguageClient({
       name: 'Code Editor Language Client',
       clientOptions: {
-        documentSelector: ['cpp', 'python'],
+        documentSelector: ['cpp', 'python', 'java'],
         errorHandler: {
           error: () => ({ action: ErrorAction.Continue }),
           closed: () => ({ action: CloseAction.Restart }),
@@ -174,11 +180,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     });
 
     let languageClient: MonacoLanguageClient;
-    if (
-      (language === 'c_cpp' || language === 'python') &&
-      workspace.filepath != '' &&
-      currWebsocket != undefined
-    ) {
+    if (workspace.filepath != '' && currWebsocket != undefined) {
       MonacoServices.install({
         workspaceFolders: [
           {
