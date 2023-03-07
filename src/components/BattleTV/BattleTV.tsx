@@ -23,6 +23,7 @@ import {
 import watchIcon from '../../assets/watch.png';
 import { useTour } from '@reactour/tour';
 import { apiConfig } from '../../api/ApiConfig';
+import codecharacterIcon from '../../../public/assets/codechar_favicon.png';
 
 function getIcon(loggedInUser: User, match: Match) {
   if (loggedInUser.username === match.user1.username) {
@@ -172,7 +173,12 @@ function PaginatedItems() {
                       </span>
                       <div className={styles.picholder}>
                         <img
-                          src={getAvatarByID(match.user1.avatarId).url}
+                          src={
+                            match.user2 == null
+                              ? codecharacterIcon
+                              : getAvatarByID(match.user2?.avatarId as number)
+                                  .url
+                          }
                           className={styles.pic}
                         ></img>
                       </div>
