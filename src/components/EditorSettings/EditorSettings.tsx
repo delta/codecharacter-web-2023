@@ -1,4 +1,4 @@
-import { FormGroup, Col, Container, Row, Modal, Form } from 'react-bootstrap';
+import { FormGroup, Col, Container, Row, Modal } from 'react-bootstrap';
 import styles from './EditorSettings.module.css';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -106,11 +106,14 @@ const EditorSettings = (): JSX.Element => {
               <div className={styles.autocompletediv}>
                 <div className={styles.autocompleteLabel}>Intellisense</div>
                 <div className={styles.autocompletebtn}>
-                  <Form.Switch
-                    id="autocompleteSwitch"
-                    onChange={handleAutocompleteChange}
-                    checked={autocomplete}
-                  />
+                  <div
+                    className={`${styles.toggle} ${
+                      autocomplete ? styles.on : styles.off
+                    }`}
+                    onClick={handleAutocompleteChange}
+                  >
+                    <div className={styles.toggleHandle}></div>
+                  </div>
                 </div>
               </div>
             </Col>
