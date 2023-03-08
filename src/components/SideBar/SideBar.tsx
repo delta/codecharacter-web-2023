@@ -54,11 +54,13 @@ const SideBar: React.FunctionComponent = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      currentUserApi.getCurrentUser().then(res => {
-        if (res.isTutorialComplete === false && res.tutorialLevel === 6) {
-          setIsOpen(true);
-        }
-      });
+      if (localStorage.getItem('token') != null) {
+        currentUserApi.getCurrentUser().then(res => {
+          if (res.isTutorialComplete === false && res.tutorialLevel === 6) {
+            setIsOpen(true);
+          }
+        });
+      }
     }, 1000);
   }, [isTourOver]);
 

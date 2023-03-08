@@ -26,7 +26,6 @@ import {
   MatchMode,
 } from '@codecharacter-2023/client';
 import Toast from 'react-hot-toast';
-import { isloggedIn } from '../../store/User/UserSlice';
 
 const selfMatchModal = (): JSX.Element => {
   const IsSelfMatchModalOpen = useAppSelector(isSelfMatchModalOpen);
@@ -37,7 +36,6 @@ const selfMatchModal = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [completeCodeHistory, setCodeHistory] = useState<CodeRevision[]>([]);
   const [completeMapHistory, setMapHistory] = useState<GameMapRevision[]>([]);
-  const isLogged = useAppSelector(isloggedIn);
 
   useEffect(() => {
     if (localStorage.getItem('token') !== null) {
@@ -72,7 +70,7 @@ const selfMatchModal = (): JSX.Element => {
           }
         });
     }
-  }, [isLogged]);
+  }, [IsSelfMatchModalOpen]);
 
   function handleCodeCommitChange(selectedValue: string) {
     if (selectedValue === 'Current Code') {

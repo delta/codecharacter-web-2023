@@ -51,13 +51,10 @@ const TourIntroModal = (): JSX.Element => {
     setIsTourOpen(false);
     currentUserApi
       .updateCurrentUser({
-        name: User.name,
-        country: User.country,
-        college: User.college,
-        updateTutorialLevel: 'NEXT',
+        updateTutorialLevel: 'SKIP',
       })
       .then(() => {
-        Toast.success('Tutorial skipped successfully');
+        Toast.success('Tutorial skipped');
       })
       .catch(err => {
         if (err instanceof ApiError) Toast.error(err.message);

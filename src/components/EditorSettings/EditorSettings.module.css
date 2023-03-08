@@ -19,6 +19,62 @@
   font-weight: bold;
 }
 
+.autocompletediv{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+.autocompletebtn{
+  padding-top: 2px;
+  padding-left: 15px;
+}
+
+.autocompleteLabel{
+  color:#aaaaaa;
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-size: 18px;
+  height: 3vh;
+  margin-bottom: 1.5vh;
+  padding-top: 0.2rem;
+}
+
+.toggle {
+  width: 55px;
+  height: 28px;
+  border-radius: 25px;
+  background-color: gray;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggleHandle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #fff;
+  position: absolute;
+  top: 3.5px;
+  left: 2.5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.on {
+  background-color: #232627;
+
+}
+
+.on .toggleHandle {
+  transform: translateX(25px);
+}
+
+.off .toggleHandle {
+  transform: translateX(0);
+}
 
 .editorSettingsBody {
   background-color: #1e1e1e;
