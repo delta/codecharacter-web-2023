@@ -1,23 +1,23 @@
-import duck from '../../assets/avatars/duck.png';
-import elephant from '../../assets/avatars/elephant.png';
-import giraffe from '../../assets/avatars/giraffe.png';
-import frog from '../../assets/avatars/frog.png';
-import monkey from '../../assets/avatars/monkey.png';
-import moose from '../../assets/avatars/moose.png';
-import narwhal from '../../assets/avatars/narwhal.png';
-import owl from '../../assets/avatars/owl.png';
-import panda from '../../assets/avatars/panda.png';
-import parrot from '../../assets/avatars/parrot.png';
-import penguin from '../../assets/avatars/penguin.png';
-import pig from '../../assets/avatars/pig.png';
-import rabbit from '../../assets/avatars/rabbit.png';
-import rhino from '../../assets/avatars/rhino.png';
-import sloth from '../../assets/avatars/sloth.png';
-import snake from '../../assets/avatars/snake.png';
-import walrus from '../../assets/avatars/walrus.png';
-import whale from '../../assets/avatars/whale.png';
-import zebra from '../../assets/avatars/zebra.png';
-import horse from '../../assets/avatars/horse.png';
+import avatar0 from '../../assets/avatars/avatar0.png';
+import avatar1 from '../../assets/avatars/avatar1.png';
+import avatar2 from '../../assets/avatars/avatar2.png';
+import avatar3 from '../../assets/avatars/avatar3.png';
+import avatar4 from '../../assets/avatars/avatar4.png';
+import avatar5 from '../../assets/avatars/avatar5.png';
+import avatar6 from '../../assets/avatars/avatar6.png';
+import avatar7 from '../../assets/avatars/avatar7.png';
+import avatar8 from '../../assets/avatars/avatar8.png';
+import avatar9 from '../../assets/avatars/avatar9.png';
+import avatar10 from '../../assets/avatars/avatar10.png';
+import avatar11 from '../../assets/avatars/avatar11.png';
+import avatar12 from '../../assets/avatars/avatar12.png';
+import avatar13 from '../../assets/avatars/avatar13.png';
+import avatar14 from '../../assets/avatars/avatar14.png';
+import avatar15 from '../../assets/avatars/avatar15.png';
+import avatar16 from '../../assets/avatars/avatar16.png';
+import avatar17 from '../../assets/avatars/avatar17.png';
+import avatar18 from '../../assets/avatars/avatar18.png';
+import avatar19 from '../../assets/avatars/avatar19.png';
 
 interface AvatarType {
   id: number;
@@ -27,83 +27,83 @@ interface AvatarType {
 const avatars: AvatarType[] = [
   {
     id: 0,
-    url: duck,
+    url: avatar0,
   },
   {
     id: 1,
-    url: elephant,
+    url: avatar1,
   },
   {
     id: 2,
-    url: giraffe,
+    url: avatar2,
   },
   {
     id: 3,
-    url: frog,
+    url: avatar3,
   },
   {
     id: 4,
-    url: monkey,
+    url: avatar4,
   },
   {
     id: 5,
-    url: moose,
+    url: avatar5,
   },
   {
     id: 6,
-    url: narwhal,
+    url: avatar6,
   },
   {
     id: 7,
-    url: owl,
+    url: avatar7,
   },
   {
     id: 8,
-    url: panda,
+    url: avatar8,
   },
   {
     id: 9,
-    url: parrot,
+    url: avatar9,
   },
   {
     id: 10,
-    url: penguin,
+    url: avatar10,
   },
   {
     id: 11,
-    url: pig,
+    url: avatar11,
   },
   {
     id: 12,
-    url: rabbit,
+    url: avatar12,
   },
   {
     id: 13,
-    url: rhino,
+    url: avatar13,
   },
   {
     id: 14,
-    url: sloth,
+    url: avatar14,
   },
   {
     id: 15,
-    url: snake,
+    url: avatar15,
   },
   {
     id: 16,
-    url: walrus,
+    url: avatar16,
   },
   {
     id: 17,
-    url: whale,
+    url: avatar17,
   },
   {
     id: 18,
-    url: zebra,
+    url: avatar18,
   },
   {
     id: 19,
-    url: horse,
+    url: avatar19,
   },
 ];
 
