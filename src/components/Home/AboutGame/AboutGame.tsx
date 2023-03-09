@@ -1,6 +1,6 @@
 import styles from './AboutGame.module.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import mapimg from './../../../../src/assets/renderer.png';
+import mapimg from './../../../../src/assets/renderer.jpeg';
 
 export default function AboutGame(): JSX.Element {
   return (
