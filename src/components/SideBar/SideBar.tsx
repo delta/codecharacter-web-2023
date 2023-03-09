@@ -123,7 +123,7 @@ const SideBar: React.FunctionComponent = () => {
             <div className={styles.sideBarIcon} id="documentation">
               <div title="View Documentation">
                 <a
-                  href="https://codecharacter-docs-2022.vercel.app/"
+                  href="https://codecharacter-docs-2023.netlify.app/"
                   rel="noreferrer noopener"
                   target="_blank"
                 >
