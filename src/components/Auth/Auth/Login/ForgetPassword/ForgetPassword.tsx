@@ -42,6 +42,7 @@ const ForgetPassword = (props: ForgetPasswordInterface): JSX.Element => {
         onHide={props.handleForgetPassword}
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        contentClassName={styles.content}
         className={styles.modal}
       >
         <Modal.Header className={styles.editorInfoHeader}>

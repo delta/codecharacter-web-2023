@@ -245,8 +245,6 @@
 .matchModalBtn {
   color: #aaaaaa;
   width: 190px;
-  height: 5vh;
-  margin: 10px;
   font-weight: 400;
   font-size: 18px;
   text-align: center;
@@ -255,6 +253,9 @@
   border: 1px solid #aaaaaa;
   border-radius: 5px;
   font-family: 'Poppins';
+}
+.content{
+  background-color: transparent;
 }
 
 .button {

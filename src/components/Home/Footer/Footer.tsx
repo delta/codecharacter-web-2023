@@ -39,6 +39,7 @@ export default function Footer(): JSX.Element {
             <a
               href="https://codecharacter-docs-2022.vercel.app/"
               rel="noreferrer noopener"
+              target="_blank"
               className={styles.links}
             >
               Documentation
@@ -46,7 +47,7 @@ export default function Footer(): JSX.Element {
           </div>
           <div>
             <a
-              href="https://discord.gg/ePQrhrSNk5"
+              href="https://discord.gg/jqHYupbaau"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.links}

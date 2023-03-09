@@ -48,7 +48,7 @@ const CoinsRemainingText = () => {
         textAlign: 'center',
         margin: '0',
         color: 'white',
-        fontFamily: 'Montserrat',
+        fontFamily: 'Poppins',
         fontSize: '1.5rem',
         padding: '1rem 1rem 0',
       }}

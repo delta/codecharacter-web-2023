@@ -60,7 +60,6 @@
 
 .modalButton {
   color: #aaaaaa;
-  height: 5vh;
   font-weight: 400;
   font-size: 18px;
   text-align: center;
@@ -70,6 +69,9 @@
   border-radius: 5px;
   font-family: 'Poppins';
   margin-top: 10px;
+}
+.content{
+  background-color: transparent;
 }
 
 .commitNameInput {

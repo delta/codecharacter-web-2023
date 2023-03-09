@@ -54,6 +54,7 @@ const CommitModal = (): JSX.Element => {
     <Modal
       show={isCommitModalOpen}
       centered
+      contentClassName={styles.content}
       onHide={() => dispatch(isCommitModalOpened(false))}
     >
       <Modal.Header className={styles.editorInfoHeader}>

@@ -22,12 +22,19 @@ const EditorInfo = (): JSX.Element => {
     <Modal
       show={isInfoOpen}
       centered
+      contentClassName={styles.content}
       onHide={() => dispatch(isInfoOpened(false))}
     >
       <Modal.Header className={styles.editorInfoHeader}>
-        <Modal.Title className={styles.headerText}>
-          Editor Shortcuts
-        </Modal.Title>
+        {homePageState == 'Dashboard' ? (
+          <Modal.Title className={styles.headerText}>
+            Editor Shortcuts
+          </Modal.Title>
+        ) : (
+          <Modal.Title className={styles.headerText}>
+            DC Description
+          </Modal.Title>
+        )}
         <button
           type="button"
           className="btn-close btn-close-white"

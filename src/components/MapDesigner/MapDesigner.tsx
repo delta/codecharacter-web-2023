@@ -200,7 +200,12 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
         />
       </div>
       <div className={styles.PsuedoMap} id="Psuedo"></div>
-      <Modal show={modalShow} centered onHide={closeModal}>
+      <Modal
+        show={modalShow}
+        centered
+        onHide={closeModal}
+        contentClassName={styles.content}
+      >
         <Modal.Header className={styles.modalHeader}>
           <Modal.Title className={styles.headerText}>Save Map</Modal.Title>
           <button
