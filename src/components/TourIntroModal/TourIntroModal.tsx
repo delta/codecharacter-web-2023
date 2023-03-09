@@ -3,12 +3,16 @@ import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { CurrentUserApi } from '@codecharacter-2023/client';
 import Toast from 'react-hot-toast';
 import styles from './TourIntroModal.module.css';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { user } from '../../store/User/UserSlice';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTour } from '@reactour/tour';
-import { IsTourOver } from '../../store/DailyChallenge/dailyChallenge';
+import {
+  IsTourOver,
+  IsTourReset,
+  isTourResetChanged,
+} from '../../store/DailyChallenge/dailyChallenge';
 
 const TourIntroModal = (): JSX.Element => {
   const [isTourOpen, setIsTourOpen] = useState(false);
@@ -16,9 +20,11 @@ const TourIntroModal = (): JSX.Element => {
 
   const User = useAppSelector(user);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { setIsOpen } = useTour();
 
   const isTourOver = useAppSelector(IsTourOver);
+  const isTourReset = useAppSelector(IsTourReset);
 
   const handleShowClick = () => {
     setIsTourOpen(false);
@@ -70,10 +76,11 @@ const TourIntroModal = (): JSX.Element => {
       currentUserApi.getCurrentUser().then(res => {
         if (res.isTutorialComplete === false && res.tutorialLevel < 6) {
           setIsTourOpen(true);
+          dispatch(isTourResetChanged(false));
         }
       });
     }
-  }, [isTourOver]);
+  }, [isTourOver, isTourReset]);
 
   return (
     <Modal show={isTourOpen} centered onHide={onHide}>

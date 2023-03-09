@@ -6,8 +6,9 @@ import { ButtonGroup } from 'react-bootstrap';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { CurrentUserApi } from '@codecharacter-2023/client';
 import Toast from 'react-hot-toast';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { user } from '../../store/User/UserSlice';
+import { isTourResetChanged } from '../../store/DailyChallenge/dailyChallenge';
 
 interface dashboardoptions {
   image?: JSX.Element;
@@ -19,16 +20,19 @@ const DashboardOptions = (props: dashboardoptions): JSX.Element => {
   const navigate = useNavigate();
   const User = useAppSelector(user);
 
+  const dispatch = useAppDispatch();
+
   const resetTutorials = () => {
     currentUserApi
       .updateCurrentUser({
         name: User.name,
         country: User.country,
         college: User.college,
-        // updateTutorialLevel: 'RESET',
+        updateTutorialLevel: 'RESET',
       })
       .then(() => {
         navigate('/dashboard');
+        dispatch(isTourResetChanged(true));
       })
       .catch(err => {
         if (err instanceof ApiError) Toast.error(err.message);
