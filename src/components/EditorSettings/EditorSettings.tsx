@@ -44,6 +44,7 @@ const EditorSettings = (): JSX.Element => {
       show={isSettingsOpen}
       centered
       onHide={() => dispatch(isSettingsOpened(false))}
+      contentClassName={styles.content}
     >
       <Modal.Header className={styles.editorSettingsHeader}>
         <Modal.Title className={styles.headerText}>Settings</Modal.Title>

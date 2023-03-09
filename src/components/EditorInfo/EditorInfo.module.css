@@ -16,6 +16,9 @@
   user-select: none;
   height: 9vh;
 }
+.content{
+  background-color: transparent;
+}
 
 .headerText{
   font-family: 'Poppins';

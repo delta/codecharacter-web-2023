@@ -254,6 +254,9 @@
   border-radius: 5px;
   font-family: 'Poppins';
 }
+.content{
+  background-color: transparent;
+}
 
 .button {
   border: #eaeaea thin solid;

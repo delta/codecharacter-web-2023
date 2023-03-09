@@ -70,6 +70,9 @@
   font-family: 'Poppins';
   margin-top: 10px;
 }
+.content{
+  background-color: transparent;
+}
 
 .commitNameInput {
   width: 85%;

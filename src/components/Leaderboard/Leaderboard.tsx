@@ -95,7 +95,11 @@ function PaginatedItems() {
         ) : (
           <>
             <div className={styles.list}>
-              <Modal show={show} onHide={handleClose}>
+              <Modal
+                show={show}
+                onHide={handleClose}
+                contentClassName={styles.content}
+              >
                 <Modal.Header className={styles.matchHeader}>
                   <Modal.Title className={styles.headerText}>
                     Start a new match

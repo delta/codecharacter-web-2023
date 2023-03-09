@@ -26,6 +26,10 @@
     padding-right: 20px;
 }
 
+.content{
+    background-color: transparent;
+}
+
 .selfMatchModalLabel{
     font-family: 'Poppins';
     font-weight: 400;

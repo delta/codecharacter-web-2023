@@ -22,6 +22,7 @@ const EditorInfo = (): JSX.Element => {
     <Modal
       show={isInfoOpen}
       centered
+      contentClassName={styles.content}
       onHide={() => dispatch(isInfoOpened(false))}
     >
       <Modal.Header className={styles.editorInfoHeader}>
