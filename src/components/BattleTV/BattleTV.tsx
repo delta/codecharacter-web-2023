@@ -206,6 +206,16 @@ function PaginatedItems() {
           containerClassName={styles.pagination}
           activeClassName="active"
         />
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            dispatch(fetchBattleTv());
+          }}
+          id="refresh"
+        >
+          Refresh
+        </button>
       </nav>
     </>
   );
