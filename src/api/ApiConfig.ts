@@ -27,8 +27,10 @@ export const apiConfig = new Configuration({
       post: async context => {
         const statusCode = context.response.status;
         if (statusCode === 401) {
+          localStorage.removeItem('token');
           window.location.href = `${homeUrl}/#/login`;
           window.history.forward();
+          window.location.reload();
         } else if (statusCode === 403) {
           const authApi = new AuthApi(apiConfig);
           authApi.getAuthStatus().then(res => {
