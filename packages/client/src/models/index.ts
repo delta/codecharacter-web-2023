@@ -457,6 +457,12 @@ export interface ForgotPasswordRequest {
    * @memberof ForgotPasswordRequest
    */
   email: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ForgotPasswordRequest
+   */
+  recaptchaCode?: string;
 }
 /**
  * Game model
@@ -945,6 +951,7 @@ export const TutorialUpdateType = {
   Next: 'NEXT',
   Previous: 'PREVIOUS',
   Skip: 'SKIP',
+  Reset: 'RESET',
 } as const;
 export type TutorialUpdateType =
   (typeof TutorialUpdateType)[keyof typeof TutorialUpdateType];
