@@ -157,7 +157,7 @@ const NavBar: React.FunctionComponent = () => {
       location.pathname != '/' ? (
         <div className={styles.profileIcons}>
           <div className={styles.notifIconContainer}>
-            <img
+            {/* <img
               src={dcCompletionstatus ? challengeDone : challengeAvailable}
               className={styles.dcIcon}
               title="Daily Challenge"
@@ -166,7 +166,7 @@ const NavBar: React.FunctionComponent = () => {
                   ? setShowCompleted(true)
                   : setShowAvailable(true);
               }}
-            />
+            /> */}
           </div>
           <div className={styles.notifIcon}>
             <Notifs />
