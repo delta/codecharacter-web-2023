@@ -9,6 +9,7 @@ import {
   loggedIn,
   user,
   logout,
+  loading,
 } from '../../store/User/UserSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { AuthApi } from '@codecharacter-2023/client';
@@ -35,6 +36,7 @@ const NavBar: React.FunctionComponent = () => {
   const location = useLocation();
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
+  const loadingAuth = useAppSelector(loading);
   const dcCompletionstatus = useAppSelector(dailyChallengeCompletionState);
   useEffect(() => {
     const cookieValue = document.cookie;
@@ -140,8 +142,17 @@ const NavBar: React.FunctionComponent = () => {
             </NavLink>
           </div>
         )}
+        {location.pathname === '/' && isLogged && (
+          <div className={styles.navContainer}>
+            <NavLink to="/dashboard" className={`${styles.navLink}`}>
+              <img src={signInIcon} />
+              Dashboard
+            </NavLink>
+          </div>
+        )}
       </div>
-      {localStorage.getItem('token') != null &&
+      {isLogged &&
+      !loadingAuth &&
       location.pathname != '/incomplete-profile' &&
       location.pathname != '/' ? (
         <div className={styles.profileIcons}>

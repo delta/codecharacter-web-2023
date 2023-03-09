@@ -5,7 +5,12 @@ import styles from '../auth.module.css';
 import { useNavigate } from 'react-router-dom';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { BASE_PATH } from '../../../../config/config';
-import { loginAction, loginError } from '../../../../store/User/UserSlice';
+import {
+  isloggedIn,
+  loginAction,
+  loginError,
+  loading,
+} from '../../../../store/User/UserSlice';
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import ForgetPassword from './ForgetPassword/ForgetPassword';
@@ -13,6 +18,8 @@ import toast from 'react-hot-toast';
 
 function Login(): JSX.Element {
   const navigate = useNavigate();
+  const isLoggedIn = useAppSelector(isloggedIn);
+  const loadingAuth = useAppSelector(loading);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [open, isOpen] = useState<boolean>(false);
@@ -23,10 +30,10 @@ function Login(): JSX.Element {
   }, [loggedInError]);
 
   useEffect(() => {
-    if (localStorage.getItem('token') != null) {
+    if (isLoggedIn && !loadingAuth) {
       navigate('/dashboard', { replace: true });
     }
-  }, [localStorage.getItem('token')]);
+  }, [isLoggedIn, loadingAuth]);
   const handleForgetPassword = () => {
     if (open == false) isOpen(true);
     else isOpen(false);
