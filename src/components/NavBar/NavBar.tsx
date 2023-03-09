@@ -20,14 +20,11 @@ import { cookieDomain } from '../../config/config';
 
 import signUpIcon from '../../assets/sign_up.svg';
 import signInIcon from '../../assets/sign_in.svg';
-import challengeDone from '../../assets/challenge_done.png';
-import challengeAvailable from '../../assets/challenge_available.png';
 import DcCompleted from '../DcModals/DcCompleted';
 import DcAvailable from '../DcModals/DcAvailable';
 import {
   changePageState,
   changeSimulationState,
-  dailyChallengeCompletionState,
 } from '../../store/DailyChallenge/dailyChallenge';
 
 const NavBar: React.FunctionComponent = () => {
@@ -37,7 +34,6 @@ const NavBar: React.FunctionComponent = () => {
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
   const loadingAuth = useAppSelector(loading);
-  const dcCompletionstatus = useAppSelector(dailyChallengeCompletionState);
   useEffect(() => {
     const cookieValue = document.cookie;
     const bearerToken = cookieValue.split(';');
