@@ -115,7 +115,6 @@ const selfMatchModal = (): JSX.Element => {
   return (
     <Modal
       show={IsSelfMatchModalOpen}
-      style={{ backgroundColor: 'transparent' }}
       centered
       onHide={() => dispatch(isSelfMatchModalOpened(false))}
     >
