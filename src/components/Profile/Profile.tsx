@@ -45,7 +45,6 @@ const Profile = (): JSX.Element => {
     confirmPassword: 'password',
   });
   const err = useAppSelector(isCreditionalError);
-  const profileScrollRef = useRef<HTMLDivElement>(null);
   const oldpasswordTypeAction = () => {
     if (passwordType.oldpassword === 'password') {
       setPasswordType({
@@ -197,6 +196,8 @@ const Profile = (): JSX.Element => {
     setSelectedAvatar(id);
   };
 
+  const profileScrollRef = useRef<HTMLDivElement>(null);
+
   const handleGoToCreds = () => {
     if (profileScrollRef.current) {
       profileScrollRef.current.scrollTo({
@@ -210,6 +211,15 @@ const Profile = (): JSX.Element => {
     if (profileScrollRef.current) {
       profileScrollRef.current.scrollTo({
         top: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const handleGoToRatingChart = () => {
+    if (profileScrollRef.current) {
+      profileScrollRef.current.scrollTo({
+        top: 1900,
         behavior: 'smooth',
       });
     }
@@ -331,20 +341,16 @@ const Profile = (): JSX.Element => {
                 </Button>
               </div>
               <div className={styles.footer}>
-                {
-                  <>
-                    <Button
-                      variant="link"
-                      onClick={() => {
-                        handleGoToCreds();
-                        dispatch(creditionals());
-                      }}
-                      className={styles.linkButton}
-                    >
-                      {'CHANGE CREDENTIALS '}
-                    </Button>
-                  </>
-                }
+                <Button
+                  variant="link"
+                  onClick={() => {
+                    handleGoToCreds();
+                    dispatch(creditionals());
+                  }}
+                  className={styles.linkButton}
+                >
+                  {'CHANGE CREDENTIALS '}
+                </Button>
               </div>
             </div>
             <div>
@@ -459,22 +465,38 @@ const Profile = (): JSX.Element => {
                   SUBMIT{' '}
                 </Button>
               </div>
+              <div className={styles.footer}>
+                <Button
+                  variant="link"
+                  onClick={handleGoBacktoProfile}
+                  className={styles.linkButton}
+                >
+                  {' EDIT PROFILE'}
+                </Button>
+                <Button
+                  variant="link"
+                  onClick={handleGoToRatingChart}
+                  className={styles.linkButton}
+                >
+                  {' RATING CHART'}
+                </Button>
+              </div>
             </div>
           </Form>
+          <RatingChart />
           <div className={styles.footer}>
             <Button
               variant="link"
-              onClick={handleGoBacktoProfile}
+              onClick={() => {
+                handleGoToCreds();
+                dispatch(creditionals());
+              }}
               className={styles.linkButton}
             >
-              {' EDIT PROFILE'}
+              {'CHANGE CREDENTIALS '}
             </Button>
           </div>
         </div>
-      </div>
-      <div>
-        <RatingChart />
-        <div className={styles.emptyspace}></div>
       </div>
     </div>
   );

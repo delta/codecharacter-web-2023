@@ -67,6 +67,7 @@ import Tour from '../../components/TourProvider/TourProvider';
 import { EditorSteps } from '../../components/TourProvider/EditorSteps';
 import { useNavigate } from 'react-router-dom';
 import TourIntroModal from '../../components/TourIntroModal/TourIntroModal';
+import { dcEnable } from '../../config/config';
 
 type SplitPaneState = {
   horizontalPercent: string;
@@ -140,14 +141,16 @@ export default function Dashboard(): JSX.Element {
         dispatch(loggedIn());
       }
     });
-    dailyChallengeAPI
-      .getDailyChallenge()
-      .then(response => {
-        dispatch(initializeDailyChallengeState(response));
-      })
-      .catch(err => {
-        if (err instanceof ApiError) Toast.error(err.message);
-      });
+    if (dcEnable) {
+      dailyChallengeAPI
+        .getDailyChallenge()
+        .then(response => {
+          dispatch(initializeDailyChallengeState(response));
+        })
+        .catch(err => {
+          if (err instanceof ApiError) Toast.error(err.message);
+        });
+    }
   }, []);
 
   useEffect(() => {
