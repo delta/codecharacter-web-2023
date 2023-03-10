@@ -5,10 +5,12 @@ import DropdownToggle from 'react-bootstrap/esm/DropdownToggle';
 import { ButtonGroup } from 'react-bootstrap';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { CurrentUserApi } from '@codecharacter-2023/client';
-import Toast from 'react-hot-toast';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { user } from '../../store/User/UserSlice';
-import { isTourResetChanged } from '../../store/DailyChallenge/dailyChallenge';
+import Toast, { toast } from 'react-hot-toast';
+import { useAppDispatch } from '../../store/hooks';
+import {
+  isTourOverChanged,
+  isTourResetChanged,
+} from '../../store/DailyChallenge/dailyChallenge';
 
 interface dashboardoptions {
   image?: JSX.Element;
@@ -18,21 +20,18 @@ interface dashboardoptions {
 const DashboardOptions = (props: dashboardoptions): JSX.Element => {
   const currentUserApi = new CurrentUserApi(apiConfig);
   const navigate = useNavigate();
-  const User = useAppSelector(user);
-
   const dispatch = useAppDispatch();
 
   const resetTutorials = () => {
     currentUserApi
       .updateCurrentUser({
-        name: User.name,
-        country: User.country,
-        college: User.college,
         updateTutorialLevel: 'RESET',
       })
       .then(() => {
-        navigate('/dashboard');
+        navigate('/dashboard', { replace: true });
+        toast.success('Tutorials reset successfully');
         dispatch(isTourResetChanged(true));
+        dispatch(isTourOverChanged(false));
       })
       .catch(err => {
         if (err instanceof ApiError) Toast.error(err.message);
@@ -49,11 +48,11 @@ const DashboardOptions = (props: dashboardoptions): JSX.Element => {
           <Dropdown.Item as={Link} to="/profile" className={styles.menuText}>
             View Profile
           </Dropdown.Item>
-          <Dropdown.Item onClick={props.onLogout} className={styles.menuText}>
-            Logout
-          </Dropdown.Item>
           <Dropdown.Item onClick={resetTutorials} className={styles.menuText}>
             Tutorials
+          </Dropdown.Item>
+          <Dropdown.Item onClick={props.onLogout} className={styles.menuText}>
+            Logout
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

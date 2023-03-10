@@ -125,7 +125,7 @@ function PaginatedItems() {
                         ></img>
                       </div>
                       <span className={[styles.name].join(' ')}>
-                        {match.user1.username}
+                        {match.user1.username.substring(0, 10)}
                       </span>
                     </span>
                     <span className={styles.coinsusedleft}>

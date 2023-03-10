@@ -160,10 +160,7 @@ function PaginatedItems() {
                               className={styles.pic}
                               src={getAvatarByID(row.user.avatarId).url}
                             ></img>
-                            {' ' +
-                              (row.user.username.length > 100
-                                ? row.user.username.substring(0, 10) + '...'
-                                : row.user.username)}
+                            {' ' + row.user.username.substring(0, 10)}
                           </div>
                         </td>
                         <td className={styles.score}>
