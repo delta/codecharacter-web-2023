@@ -38,8 +38,6 @@ export default function BattleTV(): JSX.Element {
         <Leaderboard />
       )}
       {dcEnable ? (
-        <></>
-      ) : (
         <button
           type="button"
           className={styles.button}
@@ -55,6 +53,8 @@ export default function BattleTV(): JSX.Element {
         >
           {leaderboardType}
         </button>
+      ) : (
+        <></>
       )}
     </div>
   );

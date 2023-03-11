@@ -251,7 +251,7 @@ const Profile = (): JSX.Element => {
                 className={classnames('mb-4', styles.formField)}
                 controlId="formBasicUserName"
               >
-                <Form.Label className={styles.label}>USERNAME</Form.Label>
+                <Form.Label className={styles.label}>NAME</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder={loggedInUser.name || 'Full Name'}
