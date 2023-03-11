@@ -5,6 +5,7 @@ import styles from './Leaderboard.module.css';
 import { CurrentUserApi } from '@codecharacter-2023/client';
 import { useTour } from '@reactour/tour';
 import { apiConfig } from '../../api/ApiConfig';
+import { dcEnable } from '../../config/config';
 
 export default function BattleTV(): JSX.Element {
   const [isDailyChallengeLeaderboard, setIsDailyChallengeLeaderboard] =
@@ -36,21 +37,25 @@ export default function BattleTV(): JSX.Element {
       ) : (
         <Leaderboard />
       )}
-      <button
-        type="button"
-        className={styles.button}
-        onClick={() => {
-          if (!isDailyChallengeLeaderboard) {
-            setIsDailyChallengeLeaderboard(true);
-            setLeaderboardType('Match Leaderboard');
-          } else {
-            setIsDailyChallengeLeaderboard(false);
-            setLeaderboardType('Daily Challenge Leaderboard');
-          }
-        }}
-      >
-        {leaderboardType}
-      </button>
+      {dcEnable ? (
+        <></>
+      ) : (
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            if (!isDailyChallengeLeaderboard) {
+              setIsDailyChallengeLeaderboard(true);
+              setLeaderboardType('Match Leaderboard');
+            } else {
+              setIsDailyChallengeLeaderboard(false);
+              setLeaderboardType('Daily Challenge Leaderboard');
+            }
+          }}
+        >
+          {leaderboardType}
+        </button>
+      )}
     </div>
   );
 }
