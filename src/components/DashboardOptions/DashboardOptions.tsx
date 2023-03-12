@@ -5,7 +5,7 @@ import DropdownToggle from 'react-bootstrap/esm/DropdownToggle';
 import { ButtonGroup } from 'react-bootstrap';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { CurrentUserApi } from '@codecharacter-2023/client';
-import Toast, { toast } from 'react-hot-toast';
+import Toast from 'react-hot-toast';
 import { useAppDispatch } from '../../store/hooks';
 import {
   isTourOverChanged,
@@ -29,7 +29,6 @@ const DashboardOptions = (props: dashboardoptions): JSX.Element => {
       })
       .then(() => {
         navigate('/dashboard', { replace: true });
-        toast.success('Tutorials reset successfully');
         dispatch(isTourResetChanged(true));
         dispatch(isTourOverChanged(false));
       })
@@ -49,7 +48,7 @@ const DashboardOptions = (props: dashboardoptions): JSX.Element => {
             View Profile
           </Dropdown.Item>
           <Dropdown.Item onClick={resetTutorials} className={styles.menuText}>
-            Tutorials
+            Revisit Tutorial
           </Dropdown.Item>
           <Dropdown.Item onClick={props.onLogout} className={styles.menuText}>
             Logout
