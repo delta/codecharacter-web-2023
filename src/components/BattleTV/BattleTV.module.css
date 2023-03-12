@@ -261,3 +261,21 @@
   height: 0;
   width: 0;
 }
+.button {
+  background-color: transparent;
+  color: #eaeaea;
+  margin: 0px 8px;
+  border: 1px solid #eaeaea;
+  padding: 8px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-family: monospace, sans-serif;
+  display: inline-block;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.button:hover {
+  color: #0a1c2a;
+  background-color: #aaaaaa;
+}

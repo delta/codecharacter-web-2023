@@ -10,7 +10,7 @@ export default class TowerConfig {
       'tower1_thumbnail.png',
       400,
       4,
-      100,
+      25,
     ),
     new TowerType(
       1,
@@ -19,7 +19,7 @@ export default class TowerConfig {
       'tower2_thumbnail.png',
       600,
       6,
-      200,
+      50,
     ),
     new TowerType(
       2,
@@ -28,7 +28,7 @@ export default class TowerConfig {
       'tower3_thumbnail.png',
       400,
       6,
-      200,
+      100,
     ),
   ];
 }

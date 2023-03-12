@@ -125,7 +125,7 @@ function PaginatedItems() {
                         ></img>
                       </div>
                       <span className={[styles.name].join(' ')}>
-                        {match.user1.username}
+                        {match.user1.username.substring(0, 10)}
                       </span>
                     </span>
                     <span className={styles.coinsusedleft}>
@@ -206,6 +206,16 @@ function PaginatedItems() {
           containerClassName={styles.pagination}
           activeClassName="active"
         />
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            dispatch(fetchBattleTv());
+          }}
+          id="refresh"
+        >
+          Refresh
+        </button>
       </nav>
     </>
   );
