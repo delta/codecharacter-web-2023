@@ -5,5 +5,6 @@ export const SECRET_KEY = 'YOUR SECRET KEY';
 export const accessUrl = 'ACCESS URL FOR CORS';
 export const homeUrl = 'http://localhost:3000';
 export const lspUrl = 'ws://localhost:8000/ws';
+export const dcEnable = false;
 
 export const cookieDomain = 'localhost';

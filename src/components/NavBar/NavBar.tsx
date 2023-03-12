@@ -16,18 +16,18 @@ import { AuthApi } from '@codecharacter-2023/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Toast from 'react-hot-toast';
 import DashboardOptions from '../DashboardOptions/DashboardOptions';
-import { cookieDomain } from '../../config/config';
+import { cookieDomain, dcEnable } from '../../config/config';
 
 import signUpIcon from '../../assets/sign_up.svg';
 import signInIcon from '../../assets/sign_in.svg';
-// import challengeDone from '../../assets/challenge_done.png';
-// import challengeAvailable from '../../assets/challenge_available.png';
+import challengeDone from '../../assets/challenge_done.png';
+import challengeAvailable from '../../assets/challenge_available.png';
 import DcCompleted from '../DcModals/DcCompleted';
 import DcAvailable from '../DcModals/DcAvailable';
 import {
   changePageState,
   changeSimulationState,
-  // dailyChallengeCompletionState,
+  dailyChallengeCompletionState,
 } from '../../store/DailyChallenge/dailyChallenge';
 
 const NavBar: React.FunctionComponent = () => {
@@ -37,7 +37,7 @@ const NavBar: React.FunctionComponent = () => {
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
   const loadingAuth = useAppSelector(loading);
-  // const dcCompletionstatus = useAppSelector(dailyChallengeCompletionState);
+  const dcCompletionstatus = useAppSelector(dailyChallengeCompletionState);
   useEffect(() => {
     const cookieValue = document.cookie;
     const bearerToken = cookieValue.split(';');
@@ -157,16 +157,20 @@ const NavBar: React.FunctionComponent = () => {
       location.pathname != '/' ? (
         <div className={styles.profileIcons}>
           <div className={styles.notifIconContainer}>
-            {/* <img
-              src={dcCompletionstatus ? challengeDone : challengeAvailable}
-              className={styles.dcIcon}
-              title="Daily Challenge"
-              onClick={() => {
-                dcCompletionstatus
-                  ? setShowCompleted(true)
-                  : setShowAvailable(true);
-              }}
-            /> */}
+            {dcEnable ? (
+              <img
+                src={dcCompletionstatus ? challengeDone : challengeAvailable}
+                className={styles.dcIcon}
+                title="Daily Challenge"
+                onClick={() => {
+                  dcCompletionstatus
+                    ? setShowCompleted(true)
+                    : setShowAvailable(true);
+                }}
+              />
+            ) : (
+              <></>
+            )}
           </div>
           <div className={styles.notifIcon}>
             <Notifs />
