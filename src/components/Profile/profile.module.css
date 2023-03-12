@@ -2,7 +2,7 @@
     display: flex;
     margin-top: 2rem;
     flex-direction: column;
-    height: 1900px;
+    height: 2700px;
 }
 
 .Container {
@@ -13,7 +13,9 @@
     flex-direction: column;
     overflow: hidden;
 }
-
+.Container > .footer {
+    height: 10rem;
+}
 .header {
     color: white;
     padding: 1rem;
@@ -102,8 +104,9 @@
 .footer {
     text-align: center;
     display: flex;
-    flex-direction: column-reverse;
     align-items: center;
+    justify-content: space-evenly;
+
 }
 
 
@@ -253,6 +256,9 @@
 .formContainer > div:nth-child(1) {
     height: 55rem;
 }
+.formContainer > div:nth-child(2) {
+    height: 50rem;
+}
 
 .profileScrollBody {
     height: 100%;
@@ -265,6 +271,3 @@
     top: 10px;
 }
 
-.emptyspace {
-    height: 13vw;
-}
