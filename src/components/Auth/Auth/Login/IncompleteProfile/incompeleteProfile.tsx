@@ -5,7 +5,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import styles from '../../../Auth/Login/IncompleteProfile/incompleteProfile.module.css';
 import OtherDetails from '../../Register/FormDetails/OtherDetails';
 import { useState } from 'react';
-import { CurrentUserApi } from '@codecharacter-2023/client';
+import { CurrentUserApi } from '@codecharacter-2024/client';
 import { apiConfig, ApiError } from '../../../../../api/ApiConfig';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../../store/hooks';

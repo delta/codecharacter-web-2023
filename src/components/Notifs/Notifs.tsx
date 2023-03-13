@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { Notification } from '@codecharacter-2023/client';
+import { Notification } from '@codecharacter-2024/client';
 import styles from './Notifs.module.css';
 import notifIcon from '../../assets/notification.svg';
 

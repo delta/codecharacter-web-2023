@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import {
   MapDesignerComponent,
   MapDesignerUtils,
-} from '@codecharacter-2023/map-designer';
+} from '@codecharacter-2024/map-designer';
 import {
   MapApi,
   DailyChallengesApi,
   CurrentUserApi,
-} from '@codecharacter-2023/client';
+} from '@codecharacter-2024/client';
 import Toast from 'react-hot-toast';
 import styles from './MapDesigner.module.css';
 import { apiConfig, ApiError } from '../../api/ApiConfig';

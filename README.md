@@ -1,19 +1,33 @@
-<h1 align="center">CodeCharacter Web 2023</h1>
-<p align="center">Monorepo for the web app, renderer and map designer of CodeCharacter 2023</p>
+<h1 align="center">CodeCharacter Web 2024</h1>
+<p align="center">Monorepo for the web app, renderer and map designer of CodeCharacter 2024</p>
 
 <p align="center">
-  <a href="https://github.com/delta/codecharacter-web-2023/actions/workflows/ci.yml">
-    <img src="https://github.com/delta/codecharacter-web-2023/actions/workflows/ci.yml/badge.svg"/>
+  <a href="https://github.com/delta/codecharacter-frontend/actions/workflows/ci.yml">
+    <img src="https://github.com/delta/codecharacter-frontend/actions/workflows/ci.yml/badge.svg"/>
   </a>
-  <a href="https://github.com/delta/codecharacter-web-2023/actions/workflows/docs.yml">
-    <img src="https://github.com/delta/codecharacter-web-2023/actions/workflows/docs.yml/badge.svg"/>
+  <a href="https://github.com/delta/codecharacter-frontend/actions/workflows/docs.yml">
+    <img src="https://github.com/delta/codecharacter-frontend/actions/workflows/docs.yml/badge.svg"/>
   </a>
-  <a href="https://codecov.io/gh/delta/codecharacter-web-2023">
-    <img src="https://codecov.io/gh/delta/codecharacter-web-2023/branch/main/graph/badge.svg?token=T4A45WWCWM"/>
+  <a href="https://codecov.io/gh/delta/codecharacter-frontend">
+    <img src="https://codecov.io/gh/delta/codecharacter-frontend/branch/main/graph/badge.svg?token=T4A45WWCWM"/>
   </a>
   <br>
-  <img src=https://img.shields.io/github/deployments/delta/codecharacter-web-2023/Production?label=vercel&logo=vercel">
+  <img src=https://img.shields.io/github/deployments/delta/codecharacter-frontend/Production?label=vercel&logo=vercel">
 </p>
+
+## Setup
+
+1. Configurations
+
+```
+cp config/config.example.ts config/config.ts
+```
+
+3. Default codes
+
+```
+git submodule update --init
+```
 
 ## Scripts
 
@@ -26,6 +40,14 @@
 - `test` runs the test suite with Jest
 - `lint` runs the linter for the project
 - `format` runs the formatter for the project
+
+## Docker
+
+```
+docker compose up
+```
+
+Container will be running on port **3000**
 
 ## Documentation and preview deployments
 

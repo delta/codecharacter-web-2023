@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './forgetpassword.module.css';
-import { AuthApi } from '@codecharacter-2023/client';
+import { AuthApi } from '@codecharacter-2024/client';
 import { ApiError, authConfig } from '../../../../../api/ApiConfig';
 import { toast } from 'react-hot-toast';
 import { Modal } from 'react-bootstrap';

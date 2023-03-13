@@ -6,7 +6,7 @@ import { getAvatarByID } from '../Avatar/Avatar';
 import {
   DailyChallengeLeaderBoardResponse,
   DailyChallengesApi,
-} from '@codecharacter-2023/client';
+} from '@codecharacter-2024/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Loader from '../Loader/Loader';
 import Toast from 'react-hot-toast';
@@ -102,7 +102,7 @@ function PaginatedItems() {
                             {' ' + row.userName.substring(0, 10)}
                           </div>
                         </td>
-                        <td className={styles.score}>{row.score}</td>
+                        <td className={styles.score}>{row.score.toFixed(2)}</td>
                       </tr>
                     ))}
                 </tbody>

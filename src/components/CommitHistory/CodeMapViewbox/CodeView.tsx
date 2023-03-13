@@ -1,4 +1,4 @@
-import { CodeRevision } from '@codecharacter-2023/client';
+import { CodeRevision } from '@codecharacter-2024/client';
 import { CodeBlock, irBlack } from 'react-code-blocks';
 type PropsType = {
   code: CodeRevision['code'];

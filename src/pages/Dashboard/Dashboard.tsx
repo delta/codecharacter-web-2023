@@ -3,8 +3,8 @@ import {
   Language,
   DailyChallengesApi,
   CurrentUserApi,
-} from '@codecharacter-2023/client';
-import { RendererComponent } from '@codecharacter-2023/renderer';
+} from '@codecharacter-2024/client';
+import { RendererComponent } from '@codecharacter-2024/renderer';
 import Toast from 'react-hot-toast';
 import { CodeBlock, irBlack } from 'react-code-blocks';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';

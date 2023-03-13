@@ -1,7 +1,7 @@
 import {
   ChallengeType,
   DailyChallengeGetRequest,
-} from '@codecharacter-2023/client';
+} from '@codecharacter-2024/client';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { CodeAndLanguage, languagesAvailable } from '../editor/code';

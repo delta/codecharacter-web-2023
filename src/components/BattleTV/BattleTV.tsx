@@ -14,7 +14,7 @@ import {
   Match,
   MatchMode,
   Verdict,
-} from '@codecharacter-2023/client';
+} from '@codecharacter-2024/client';
 import { User, user } from '../../store/User/UserSlice';
 import {
   changePageState,
@@ -31,6 +31,10 @@ function getIcon(loggedInUser: User, match: Match) {
     if (match.matchVerdict === Verdict.Player1) {
       return styles.battlecardwin;
     } else if (match.matchVerdict == Verdict.Player2) {
+      return styles.battlecardlose;
+    } else if (match.matchVerdict == Verdict.Success) {
+      return styles.battlecardwin;
+    } else if (match.matchVerdict == Verdict.Failure) {
       return styles.battlecardlose;
     }
   } else {
@@ -110,12 +114,15 @@ function PaginatedItems() {
             ) : (
               currentItems &&
               currentItems.map((match: Match) => (
-                <div
-                  className={styles.item + getMatchMode(match)}
-                  key={match.id}
-                >
+                <div className={styles.item} key={match.id}>
                   <div
-                    className={styles.item + ' ' + getIcon(loggedInUser, match)}
+                    className={
+                      styles.item +
+                      ' ' +
+                      getIcon(loggedInUser, match) +
+                      ' ' +
+                      getMatchMode(match)
+                    }
                   >
                     <span className={styles.username}>
                       <div className={styles.picholder}>

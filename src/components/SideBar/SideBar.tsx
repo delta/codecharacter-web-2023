@@ -20,7 +20,7 @@ import {
   IsTourOver,
 } from '../../store/DailyChallenge/dailyChallenge';
 import { useTour } from '@reactour/tour';
-import { CurrentUserApi } from '@codecharacter-2023/client';
+import { CurrentUserApi } from '@codecharacter-2024/client';
 import { apiConfig } from '../../api/ApiConfig';
 
 const icons = [

@@ -1,4 +1,4 @@
-import { CurrentUserApi } from '@codecharacter-2023/client';
+import { CurrentUserApi } from '@codecharacter-2024/client';
 import Toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { apiConfig, ApiError } from '../../api/ApiConfig';

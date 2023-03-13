@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import DailyChallengeLeaderboard from './DailyLeaderboard';
 import Leaderboard from './Leaderboard';
 import styles from './Leaderboard.module.css';
-import { CurrentUserApi } from '@codecharacter-2023/client';
+import { CurrentUserApi } from '@codecharacter-2024/client';
 import { useTour } from '@reactour/tour';
 import { apiConfig } from '../../api/ApiConfig';
 import { dcEnable } from '../../config/config';

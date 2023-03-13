@@ -15,7 +15,7 @@ import {
   CurrentUserApi,
   RatingHistory,
   UserApi,
-} from '@codecharacter-2023/client';
+} from '@codecharacter-2024/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Toast from 'react-hot-toast';
 

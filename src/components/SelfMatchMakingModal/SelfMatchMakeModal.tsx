@@ -24,7 +24,7 @@ import {
   MapApi,
   MatchApi,
   MatchMode,
-} from '@codecharacter-2023/client';
+} from '@codecharacter-2024/client';
 import Toast from 'react-hot-toast';
 
 const selfMatchModal = (): JSX.Element => {

@@ -8,9 +8,9 @@ export default defineConfig({
   build: {
     lib: {
       formats: ['es'],
-      name: 'codecharacter-map-designer-2023',
+      name: 'codecharacter-map-designer-2024',
       entry: path.resolve(__dirname, 'src/index.ts'),
-      fileName: 'codecharacter-map-designer-2023',
+      fileName: 'codecharacter-map-designer-2024',
     },
     rollupOptions: {
       external: ['phaser', 'lit', 'react'],

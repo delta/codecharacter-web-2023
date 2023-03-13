@@ -1,7 +1,7 @@
 import SideBar from '../../components/SideBar/SideBar';
 import Tour from '../../components/TourProvider/TourProvider';
 import { SideBarSteps } from '../../components/TourProvider/SideBarSteps';
-import { CurrentUserApi } from '@codecharacter-2023/client';
+import { CurrentUserApi } from '@codecharacter-2024/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Toast from 'react-hot-toast';
 

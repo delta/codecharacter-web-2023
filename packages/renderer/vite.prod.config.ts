@@ -8,9 +8,9 @@ export default defineConfig({
   build: {
     lib: {
       formats: ['es'],
-      name: 'codecharacter-renderer-2023',
+      name: 'codecharacter-renderer-2024',
       entry: path.resolve(__dirname, 'src/index.ts'),
-      fileName: 'codecharacter-renderer-2023',
+      fileName: 'codecharacter-renderer-2024',
     },
     rollupOptions: {
       external: ['phaser', 'lit', 'react'],

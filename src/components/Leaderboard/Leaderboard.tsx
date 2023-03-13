@@ -9,7 +9,7 @@ import {
   LeaderboardEntry,
   MatchMode,
   TierType,
-} from '@codecharacter-2023/client';
+} from '@codecharacter-2024/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Loader from '../Loader/Loader';
 import swordImage from '../../assets/sword.png';
@@ -160,7 +160,9 @@ function PaginatedItems() {
                               className={styles.pic}
                               src={getAvatarByID(row.user.avatarId).url}
                             ></img>
-                            {' ' + row.user.username.substring(0, 10)}
+                            <span className={styles.namespan}>
+                              {' ' + row.user.username.substring(0, 10)}
+                            </span>
                           </div>
                         </td>
                         <td className={styles.score}>
@@ -237,6 +239,7 @@ function PaginatedItems() {
               onClick={() => {
                 setActiveTier(undefined);
                 fetchLeaderboardByTier(0);
+                setPage(0);
               }}
             >
               All Tiers
@@ -246,6 +249,7 @@ function PaginatedItems() {
               onClick={() => {
                 setActiveTier(TierType.Tier1);
                 fetchLeaderboardByTier(0, TierType.Tier1);
+                setPage(0);
               }}
             >
               Tier 1
@@ -255,6 +259,7 @@ function PaginatedItems() {
               onClick={() => {
                 setActiveTier(TierType.Tier2);
                 fetchLeaderboardByTier(0, TierType.Tier2);
+                setPage(0);
               }}
             >
               Tier 2

@@ -1,6 +1,6 @@
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
-import { CurrentUserApi } from '@codecharacter-2023/client';
+import { CurrentUserApi } from '@codecharacter-2024/client';
 import Toast from 'react-hot-toast';
 import styles from './TourIntroModal.module.css';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';

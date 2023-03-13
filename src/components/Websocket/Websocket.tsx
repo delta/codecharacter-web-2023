@@ -4,7 +4,7 @@ import {
   Game,
   GameStatus,
   Notification,
-} from '@codecharacter-2023/client';
+} from '@codecharacter-2024/client';
 import { apiConfig } from '../../api/ApiConfig';
 import { Stomp } from '@stomp/stompjs';
 import { useEffect, useState } from 'react';

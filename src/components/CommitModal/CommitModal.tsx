@@ -1,4 +1,4 @@
-import { CodeApi, Language } from '@codecharacter-2023/client';
+import { CodeApi, Language } from '@codecharacter-2024/client';
 import React, { useState } from 'react';
 import { Button, Form, Modal, Row } from 'react-bootstrap';
 import { apiConfig, ApiError } from '../../api/ApiConfig';

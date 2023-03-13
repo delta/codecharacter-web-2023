@@ -1,7 +1,7 @@
 import MainLeaderboard from '../../components/Leaderboard/MainLeaderboard';
 import Tour from '../../components/TourProvider/TourProvider';
 import { LeaderBoardSteps } from '../../components/TourProvider/LeaderBoardSteps';
-import { CurrentUserApi } from '@codecharacter-2023/client';
+import { CurrentUserApi } from '@codecharacter-2024/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { useAppSelector } from '../../store/hooks';
 import { user } from '../../store/User/UserSlice';

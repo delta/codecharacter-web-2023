@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Notification } from '@codecharacter-2023/client';
+import { Notification } from '@codecharacter-2024/client';
 import { RootState } from '../store';
 import { getNotifs, markNotifAsRead } from './notifAPI';
 

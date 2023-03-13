@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from '../../auth.module.css';
 import { ApiError, authConfig } from '../../../../../api/ApiConfig';
-import { AuthApi } from '@codecharacter-2023/client';
+import { AuthApi } from '@codecharacter-2024/client';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Toast, { toast } from 'react-hot-toast';
 

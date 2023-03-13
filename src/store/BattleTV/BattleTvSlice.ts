@@ -1,4 +1,4 @@
-import { Match, MatchApi } from '@codecharacter-2023/client';
+import { Match, MatchApi } from '@codecharacter-2024/client';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { Action, createSlice, ThunkAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';

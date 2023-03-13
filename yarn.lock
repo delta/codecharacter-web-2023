@@ -1627,17 +1627,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codecharacter-2023/client@workspace:packages/client":
+"@codecharacter-2024/client@workspace:packages/client":
   version: 0.0.0-use.local
-  resolution: "@codecharacter-2023/client@workspace:packages/client"
+  resolution: "@codecharacter-2024/client@workspace:packages/client"
   dependencies:
     typescript: "*"
   languageName: unknown
   linkType: soft
 
-"@codecharacter-2023/map-designer@workspace:packages/map-designer":
+"@codecharacter-2024/map-designer@workspace:packages/map-designer":
   version: 0.0.0-use.local
-  resolution: "@codecharacter-2023/map-designer@workspace:packages/map-designer"
+  resolution: "@codecharacter-2024/map-designer@workspace:packages/map-designer"
   dependencies:
     "@custom-elements-manifest/analyzer": ^0.4.17
     "@rollup/plugin-replace": ^3.0.0
@@ -1659,9 +1659,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@codecharacter-2023/renderer@workspace:packages/renderer":
+"@codecharacter-2024/renderer@workspace:packages/renderer":
   version: 0.0.0-use.local
-  resolution: "@codecharacter-2023/renderer@workspace:packages/renderer"
+  resolution: "@codecharacter-2024/renderer@workspace:packages/renderer"
   dependencies:
     "@custom-elements-manifest/analyzer": ^0.4.17
     "@rollup/plugin-replace": ^3.0.0
@@ -1685,14 +1685,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@codecharacter-2023/web@workspace:.":
+"@codecharacter-2024/web@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@codecharacter-2023/web@workspace:."
+  resolution: "@codecharacter-2024/web@workspace:."
   dependencies:
     "@babel/core": ^7.20.7
-    "@codecharacter-2023/client": "workspace:packages/client"
-    "@codecharacter-2023/map-designer": "workspace:packages/map-designer"
-    "@codecharacter-2023/renderer": "workspace:packages/renderer"
+    "@codecharacter-2024/client": "workspace:packages/client"
+    "@codecharacter-2024/map-designer": "workspace:packages/map-designer"
+    "@codecharacter-2024/renderer": "workspace:packages/renderer"
     "@custom-elements-manifest/analyzer": ^0.6.6
     "@fortawesome/fontawesome-svg-core": ^6.2.1
     "@fortawesome/free-brands-svg-icons": ^6.2.1

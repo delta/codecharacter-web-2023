@@ -1,5 +1,5 @@
 import { ApiError, apiConfig } from '../../api/ApiConfig';
-import { GameApi } from '@codecharacter-2023/client';
+import { GameApi } from '@codecharacter-2024/client';
 
 export const getLogs = (id: string): Promise<string> => {
   return new Promise((resolve, reject) => {

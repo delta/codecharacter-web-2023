@@ -1,7 +1,7 @@
 {
-  "name": "@codecharacter-2023/client",
+  "name": "@codecharacter-2024/client",
   "version": "2023.0.0",
-  "description": "OpenAPI client for CodeCharacter 2023",
+  "description": "OpenAPI client for CodeCharacter 2024",
   "author": "Delta Force",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",

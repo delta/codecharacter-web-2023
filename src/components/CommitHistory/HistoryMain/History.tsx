@@ -9,7 +9,7 @@ import {
   CurrentUserApi,
   GameMapRevision,
   MapApi,
-} from '@codecharacter-2023/client';
+} from '@codecharacter-2024/client';
 import {
   MapObj,
   changeHistoryEditorMap,

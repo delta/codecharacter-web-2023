@@ -1,7 +1,7 @@
 import { HistorySteps } from '../../components/TourProvider/HistorySteps';
 import Tour from '../../components/TourProvider/TourProvider';
 import History from '../../components/CommitHistory/HistoryMain/History';
-import { CurrentUserApi } from '@codecharacter-2023/client';
+import { CurrentUserApi } from '@codecharacter-2024/client';
 import { useAppSelector } from '../../store/hooks';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
 import { user } from '../../store/User/UserSlice';

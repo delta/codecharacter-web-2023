@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { RendererUtils } from '@codecharacter-2023/renderer';
+import { RendererUtils } from '@codecharacter-2024/renderer';
 import { LazyLog, ScrollFollow } from 'react-lazylog';
 
 export default function Terminal(): JSX.Element {

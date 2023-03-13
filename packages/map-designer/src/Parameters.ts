@@ -15,9 +15,9 @@ export class Parameters {
 
   static mapTileHalfHeight = 200;
 
-  static mapTileOffsetX = 200;
+  static mapTileOffsetX = 250;
 
-  static mapTileOffsetY = 256;
+  static mapTileOffsetY = 260;
 
   static totalCoins = 6000;
 

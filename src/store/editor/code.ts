@@ -1,4 +1,4 @@
-import { Code } from '@codecharacter-2023/client';
+import { Code } from '@codecharacter-2024/client';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import defaultCppCode from '../../assets/codes/cpp/run.cpp?raw';

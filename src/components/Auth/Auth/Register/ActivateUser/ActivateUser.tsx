@@ -1,4 +1,4 @@
-import { UserApi } from '@codecharacter-2023/client';
+import { UserApi } from '@codecharacter-2024/client';
 import { Card } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';

@@ -1,7 +1,7 @@
 import {
   MapDesignerComponent,
   MapDesignerUtils,
-} from '@codecharacter-2023/map-designer';
+} from '@codecharacter-2024/map-designer';
 
 interface MapViewBoxProps {
   mapCoordinates: Array<Array<number>>;

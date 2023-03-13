@@ -1,4 +1,4 @@
-import { RendererComponent, RendererUtils } from '@codecharacter-2023/renderer';
+import { RendererComponent, RendererUtils } from '@codecharacter-2024/renderer';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { button, text, withKnobs } from '@storybook/addon-knobs';
 

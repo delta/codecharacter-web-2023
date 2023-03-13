@@ -1,4 +1,4 @@
-import { AuthApi, Configuration } from '@codecharacter-2023/client';
+import { AuthApi, Configuration } from '@codecharacter-2024/client';
 import { BASE_PATH, PREFER_DEV_OVERRIDE, homeUrl } from '../config/config';
 export class ApiError extends Error {
   status: number;
