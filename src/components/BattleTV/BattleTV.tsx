@@ -110,12 +110,15 @@ function PaginatedItems() {
             ) : (
               currentItems &&
               currentItems.map((match: Match) => (
-                <div
-                  className={styles.item + getMatchMode(match)}
-                  key={match.id}
-                >
+                <div className={styles.item} key={match.id}>
                   <div
-                    className={styles.item + ' ' + getIcon(loggedInUser, match)}
+                    className={
+                      styles.item +
+                      ' ' +
+                      getIcon(loggedInUser, match) +
+                      ' ' +
+                      getMatchMode(match)
+                    }
                   >
                     <span className={styles.username}>
                       <div className={styles.picholder}>

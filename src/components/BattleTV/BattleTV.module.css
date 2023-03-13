@@ -70,7 +70,7 @@
 }
 
 .automatch {
-  background-color: antiquewhite;
+  background-color: rgba(92, 129, 136, 0.37) !important;
 }
 
 .item .picholder {
