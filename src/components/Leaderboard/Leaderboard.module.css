@@ -122,11 +122,16 @@
   border: none;
   padding: 15px 30px;
   max-width: 0.8rem;
+  overflow-x: auto;
+}
+.list .item .name::-webkit-scrollbar {
+  display: none;
   overflow-x: scroll;
 }
 
-.list .name .name span{
-  overflow: scroll;
+.list .name .name {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .list .item .score {
@@ -175,11 +180,11 @@
   padding: 15px 30px;
 }
 
-.attackButton > img {
+.attackButton>img {
   transition: all 0.3s ease-in-out;
 }
 
-.attackButton > img:hover {
+.attackButton>img:hover {
   transform: scale(1.15);
   cursor: pointer;
 }
@@ -209,26 +214,26 @@
   list-style: none;
 }
 
-.menuText{
+.menuText {
   color: #aaaaaa;
   font-family: 'Poppins';
 }
 
-.menuBackground{
-  background-color:#1e1e1e !important;
-} 
+.menuBackground {
+  background-color: #1e1e1e !important;
+}
 
 .matchHeader {
   background-color: #232627;
-  backdrop-filter: blur(100px);    
+  backdrop-filter: blur(100px);
   height: 9vh;
   border: 0px;
 }
 
-.headerText{
+.headerText {
   font-family: 'Poppins';
   font-size: 28px;
-  color:#aaaaaa;
+  color: #aaaaaa;
   font-weight: bold;
 }
 
@@ -260,7 +265,8 @@
   border-radius: 5px;
   font-family: 'Poppins';
 }
-.content{
+
+.content {
   background-color: transparent;
 }
 
