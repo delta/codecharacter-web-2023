@@ -102,7 +102,7 @@ function PaginatedItems() {
                             {' ' + row.userName.substring(0, 10)}
                           </div>
                         </td>
-                        <td className={styles.score}>{row.score}</td>
+                        <td className={styles.score}>{row.score.toFixed(2)}</td>
                       </tr>
                     ))}
                 </tbody>
