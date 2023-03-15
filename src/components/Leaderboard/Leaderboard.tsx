@@ -237,6 +237,7 @@ function PaginatedItems() {
               onClick={() => {
                 setActiveTier(undefined);
                 fetchLeaderboardByTier(0);
+                setPage(0);
               }}
             >
               All Tiers
@@ -246,6 +247,7 @@ function PaginatedItems() {
               onClick={() => {
                 setActiveTier(TierType.Tier1);
                 fetchLeaderboardByTier(0, TierType.Tier1);
+                setPage(0);
               }}
             >
               Tier 1
@@ -255,6 +257,7 @@ function PaginatedItems() {
               onClick={() => {
                 setActiveTier(TierType.Tier2);
                 fetchLeaderboardByTier(0, TierType.Tier2);
+                setPage(0);
               }}
             >
               Tier 2
