@@ -32,6 +32,10 @@ function getIcon(loggedInUser: User, match: Match) {
       return styles.battlecardwin;
     } else if (match.matchVerdict == Verdict.Player2) {
       return styles.battlecardlose;
+    } else if (match.matchVerdict == Verdict.Success) {
+      return styles.battlecardwin;
+    } else if (match.matchVerdict == Verdict.Failure) {
+      return styles.battlecardlose;
     }
   } else {
     // user is PLAYER2

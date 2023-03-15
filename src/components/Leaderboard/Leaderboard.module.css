@@ -121,6 +121,12 @@
   margin-right: 5px;
   border: none;
   padding: 15px 30px;
+  max-width: 0.8rem;
+  overflow-x: scroll;
+}
+
+.list .name .name span{
+  overflow: scroll;
 }
 
 .list .item .score {
