@@ -1,6 +1,6 @@
 import * as Editor from './EditorTypes';
 import styles from './style.module.css';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
 import {
   MonacoLanguageClient,
@@ -57,7 +57,6 @@ buildWorkerDefinition(
 
 export default function CodeEditor(props: Editor.Props): JSX.Element {
   const divCodeEditor = useRef<HTMLDivElement>(null);
-  let editor: monaco.editor.IStandaloneCodeEditor;
   const userCode: string =
     props.page == 'Dashboard'
       ? useAppSelector(UserCode)
@@ -66,11 +65,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const theme: string = useAppSelector(Theme);
   const autocomplete: boolean = useAppSelector(Autocomplete);
   const dispatch: React.Dispatch<unknown> = useAppDispatch();
-  const [workspace, setWorkspace] = useState<Editor.Workspace>({
-    filepath: '',
-    folderpath: '',
-  });
-  const [currWebsocket, setCurrWebSocket] = useState<WebSocket>();
 
   const keyboardHandler = useAppSelector(KeyboardHandler);
 
@@ -94,9 +88,9 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     aliases: ['Java', 'java'],
   });
 
-  function createLanguageClient(
+  const createLanguageClient = (
     transports: MessageTransports,
-  ): MonacoLanguageClient {
+  ): MonacoLanguageClient => {
     return new MonacoLanguageClient({
       name: 'Code Editor Language Client',
       clientOptions: {
@@ -112,49 +106,19 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         },
       },
     });
-  }
+  };
 
-  useEffect(() => {
-    if (!autocomplete) return;
-    const url = `${lspUrl}/${
-      props.language == 'c_cpp' ? 'cpp' : props.language
-    }`;
-    const wsClient = new WebSocket(url);
-    setCurrWebSocket(wsClient);
-    wsClient.onopen = () => {
-      const updater = {
-        operation: 'fileUpdate',
-        code: userCode,
-      };
-      wsClient.send(JSON.stringify(updater));
-
-      const filePathRequest = {
-        operation: 'getAbsPath',
-      };
-      wsClient.send(JSON.stringify(filePathRequest));
-      const socket = toSocket(wsClient);
-      const reader = new WebSocketMessageReader(socket);
-      reader.listen((message: Message) => {
-        const fileInfo = message as Message & Editor.Workspace;
-        setWorkspace({
-          filepath: fileInfo.filepath,
-          folderpath: fileInfo.folderpath,
-        });
-        reader.dispose();
-      });
-    };
-    return () => {
-      wsClient?.close(1000);
-    };
-  }, [props.language, autocomplete]);
-
-  useEffect(() => {
-    if (!divCodeEditor.current) return;
-    editor = monaco.editor.create(divCodeEditor.current, {
+  const createEditor = (
+    divref: HTMLDivElement,
+    workspace: Editor.Workspace | null,
+    websocket: WebSocket | null,
+  ) => {
+    console.log(workspace);
+    const editor = monaco.editor.create(divref, {
       model: monaco.editor.createModel(
         userCode,
         language == 'c_cpp' ? 'cpp' : language,
-        monaco.Uri.parse(workspace.filepath),
+        monaco.Uri.parse(workspace != null ? workspace.filepath : ''),
       ),
       fontSize: fontSize,
       cursorStyle:
@@ -181,37 +145,13 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         enabled: true,
       },
     });
-
-    let languageClient: MonacoLanguageClient;
-    if (workspace.filepath != '' && currWebsocket != undefined) {
-      MonacoServices.install({
-        workspaceFolders: [
-          {
-            uri: Uri.parse(workspace.folderpath),
-            name: 'parse folder',
-            index: 1,
-          },
-        ],
-      });
-
-      const socket = toSocket(currWebsocket);
-      const reader = new WebSocketMessageReader(socket);
-      const writer = new WebSocketMessageWriter(socket);
-      languageClient = createLanguageClient({
-        reader,
-        writer,
-      });
-      languageClient.start();
-      reader.onClose(() => languageClient.stop());
-    }
-
     editor.onDidChangeModelContent(() => {
-      if (currWebsocket != undefined) {
+      if (websocket != null) {
         const currUpdater = {
           operation: 'fileUpdate',
           code: editor.getValue(),
         };
-        currWebsocket.send(JSON.stringify(currUpdater));
+        websocket.send(JSON.stringify(currUpdater));
       }
       const codeNlanguage: CodeAndLanguage = {
         currentUserCode: editor.getValue(),
@@ -263,46 +203,74 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       },
     );
 
+    return editor;
+  };
+
+  useEffect(() => {
+    if (!divCodeEditor.current) return;
+    let languageClient: MonacoLanguageClient;
+    let editor: monaco.editor.IStandaloneCodeEditor;
+    let wsClient: WebSocket;
+    if (autocomplete) {
+      const url = `${lspUrl}/${
+        props.language == 'c_cpp' ? 'cpp' : props.language
+      }`;
+      wsClient = new WebSocket(url);
+      wsClient.onopen = () => {
+        const updater = {
+          operation: 'fileUpdate',
+          code: userCode,
+        };
+        wsClient.send(JSON.stringify(updater));
+        const filePathRequest = {
+          operation: 'getAbsPath',
+        };
+        wsClient.send(JSON.stringify(filePathRequest));
+        const socket = toSocket(wsClient);
+        const filePathMessageReader = new WebSocketMessageReader(socket);
+        filePathMessageReader.listen((message: Message) => {
+          const fileInfo = message as Message & Editor.Workspace;
+          const workspace: Editor.Workspace = {
+            filepath: fileInfo.filepath,
+            folderpath: fileInfo.folderpath,
+          };
+          filePathMessageReader.dispose();
+          editor = createEditor(
+            divCodeEditor.current as HTMLDivElement,
+            workspace,
+            wsClient,
+          );
+          MonacoServices.install({
+            workspaceFolders: [
+              {
+                uri: Uri.parse(workspace.folderpath),
+                name: 'Workspace',
+                index: 1,
+              },
+            ],
+          });
+          const newSocket = toSocket(wsClient);
+          const writer = new WebSocketMessageWriter(newSocket);
+          const reader = new WebSocketMessageReader(newSocket);
+          languageClient = createLanguageClient({
+            reader,
+            writer,
+          });
+          languageClient.start();
+          reader.onClose(() => languageClient.stop());
+        });
+      };
+    } else {
+      editor = createEditor(divCodeEditor.current, null, null);
+    }
     return () => {
       languageClient?.stop();
       monaco.editor.getModels().forEach(model => model.dispose());
       editor?.dispose();
+      wsClient?.close(1000);
+      console.log('returned');
     };
-  }, [
-    fontSize,
-    theme,
-    language,
-    keyboardHandler,
-    props.page,
-    workspace,
-    currWebsocket,
-  ]);
+  }, [fontSize, theme, language, keyboardHandler, props.page, autocomplete]);
 
-  const userCodeChangeHandler = () => {
-    const codeNlanguage: CodeAndLanguage = {
-      currentUserCode: editor.getValue(),
-      currentUserLanguage: language,
-    };
-    dispatch(updateUserCode(codeNlanguage));
-  };
-
-  const dailyChallengeCodechange = () => {
-    const codeNlanguage: CodeAndLanguage = {
-      currentUserCode: editor.getValue(),
-      currentUserLanguage: language,
-    };
-    dispatch(changeDcCode(codeNlanguage));
-  };
-
-  return (
-    <div
-      className={styles.Editor}
-      ref={divCodeEditor}
-      onChange={
-        props.page == 'Dashboard'
-          ? userCodeChangeHandler
-          : dailyChallengeCodechange
-      }
-    ></div>
-  );
+  return <div className={styles.Editor} ref={divCodeEditor}></div>;
 }
