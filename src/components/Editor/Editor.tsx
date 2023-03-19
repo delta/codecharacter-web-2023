@@ -113,7 +113,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     workspace: Editor.Workspace | null,
     websocket: WebSocket | null,
   ) => {
-    console.log(workspace);
     const editor = monaco.editor.create(divref, {
       model: monaco.editor.createModel(
         userCode,
@@ -268,7 +267,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       monaco.editor.getModels().forEach(model => model.dispose());
       editor?.dispose();
       wsClient?.close(1000);
-      console.log('returned');
     };
   }, [fontSize, theme, language, keyboardHandler, props.page, autocomplete]);
 
