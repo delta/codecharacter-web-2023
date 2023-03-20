@@ -32,6 +32,10 @@ function getIcon(loggedInUser: User, match: Match) {
       return styles.battlecardwin;
     } else if (match.matchVerdict == Verdict.Player2) {
       return styles.battlecardlose;
+    } else if (match.matchVerdict == Verdict.Success) {
+      return styles.battlecardwin;
+    } else if (match.matchVerdict == Verdict.Failure) {
+      return styles.battlecardlose;
     }
   } else {
     // user is PLAYER2
@@ -110,12 +114,15 @@ function PaginatedItems() {
             ) : (
               currentItems &&
               currentItems.map((match: Match) => (
-                <div
-                  className={styles.item + getMatchMode(match)}
-                  key={match.id}
-                >
+                <div className={styles.item} key={match.id}>
                   <div
-                    className={styles.item + ' ' + getIcon(loggedInUser, match)}
+                    className={
+                      styles.item +
+                      ' ' +
+                      getIcon(loggedInUser, match) +
+                      ' ' +
+                      getMatchMode(match)
+                    }
                   >
                     <span className={styles.username}>
                       <div className={styles.picholder}>

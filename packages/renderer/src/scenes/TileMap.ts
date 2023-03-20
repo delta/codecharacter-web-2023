@@ -283,7 +283,7 @@ export class TileMap extends Phaser.Scene {
             onComplete: () => bombSprite.destroy(),
           });
         }
-        tower.healthBar.setHp(newTowerHp);
+        tower.setHp(newTowerHp);
         troop.attack(tower.x, tower.y);
       },
     );
