@@ -12,7 +12,9 @@ import editorReducer from './editor/code';
 import settingsReducer from './EditorSettings/settings';
 import logReducer from './rendererLogs/logSlice';
 import selfMatchModalReducer from './SelfMatchMakeModal/SelfMatchModal';
+import PvPSelfMatchModalReducer from './PvPSelfMatchMakeModal/PvPSelfMatchModal';
 import dailyChallengeReducer from './DailyChallenge/dailyChallenge';
+import pvpCodeReducer from './PvP/pvpCode';
 
 const reducers = combineReducers({
   editorState: editorReducer,
@@ -35,7 +37,9 @@ export const store = configureStore({
     codeEditorReducer: persistedReducer,
     logs: logReducer,
     selfMatchModal: selfMatchModalReducer,
+    pvpSelfMatchModal: PvPSelfMatchModalReducer,
     dailyChallenge: dailyChallengeReducer,
+    pvpEditorReducer: pvpCodeReducer,
   },
   middleware: [thunk],
 });

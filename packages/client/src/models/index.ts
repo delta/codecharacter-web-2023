@@ -124,6 +124,7 @@ export interface CodeRevision {
 export const CodeType = {
   Normal: 'NORMAL',
   DailyChallenge: 'DAILY_CHALLENGE',
+  Pvp: 'PVP',
 } as const;
 export type CodeType = (typeof CodeType)[keyof typeof CodeType];
 
@@ -259,6 +260,12 @@ export interface CreateMatchRequest {
    * @memberof CreateMatchRequest
    */
   codeRevisionId?: string | null;
+  /**
+   * Revision of the code (for SELF-PVP mode)
+   * @type {string}
+   * @memberof CreateMatchRequest
+   */
+  codeRevisionId2?: string | null;
 }
 /**
  * Current user profile model
@@ -703,6 +710,8 @@ export const MatchMode = {
   Manual: 'MANUAL',
   Auto: 'AUTO',
   Dailychallenge: 'DAILYCHALLENGE',
+  Pvp: 'PVP',
+  Selfpvp: 'SELFPVP',
 } as const;
 export type MatchMode = (typeof MatchMode)[keyof typeof MatchMode];
 
@@ -817,6 +826,149 @@ export interface PublicUser {
    * @memberof PublicUser
    */
   avatarId: number;
+}
+/**
+ * PvP Game model
+ * @export
+ * @interface PvPGame
+ */
+export interface PvPGame {
+  /**
+   *
+   * @type {string}
+   * @memberof PvPGame
+   */
+  id: string;
+  /**
+   *
+   * @type {number}
+   * @memberof PvPGame
+   */
+  scorePlayer1: number;
+  /**
+   *
+   * @type {number}
+   * @memberof PvPGame
+   */
+  scorePlayer2: number;
+  /**
+   *
+   * @type {PvPGameStatus}
+   * @memberof PvPGame
+   */
+  status: PvPGameStatus;
+}
+
+/**
+ *
+ * @export
+ */
+export const PvPGameStatus = {
+  Idle: 'IDLE',
+  Executing: 'EXECUTING',
+  Executed: 'EXECUTED',
+  ExecuteError: 'EXECUTE_ERROR',
+} as const;
+export type PvPGameStatus = (typeof PvPGameStatus)[keyof typeof PvPGameStatus];
+
+/**
+ * Response model for PvP leaderboard
+ * @export
+ * @interface PvPLeaderBoardResponse
+ */
+export interface PvPLeaderBoardResponse {
+  /**
+   *
+   * @type {PublicUser}
+   * @memberof PvPLeaderBoardResponse
+   */
+  user: PublicUser;
+  /**
+   *
+   * @type {PvPUserStats}
+   * @memberof PvPLeaderBoardResponse
+   */
+  stats: PvPUserStats;
+}
+/**
+ * PvP Match model
+ * @export
+ * @interface PvPMatch
+ */
+export interface PvPMatch {
+  /**
+   *
+   * @type {string}
+   * @memberof PvPMatch
+   */
+  id: string;
+  /**
+   *
+   * @type {PvPGame}
+   * @memberof PvPMatch
+   */
+  game: PvPGame;
+  /**
+   *
+   * @type {MatchMode}
+   * @memberof PvPMatch
+   */
+  matchMode: MatchMode;
+  /**
+   *
+   * @type {Verdict}
+   * @memberof PvPMatch
+   */
+  matchVerdict: Verdict;
+  /**
+   *
+   * @type {string}
+   * @memberof PvPMatch
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {PublicUser}
+   * @memberof PvPMatch
+   */
+  user1: PublicUser;
+  /**
+   *
+   * @type {PublicUser}
+   * @memberof PvPMatch
+   */
+  user2: PublicUser;
+}
+/**
+ * PvP User stats model
+ * @export
+ * @interface PvPUserStats
+ */
+export interface PvPUserStats {
+  /**
+   *
+   * @type {number}
+   * @memberof PvPUserStats
+   */
+  rating: number;
+  /**
+   *
+   * @type {number}
+   * @memberof PvPUserStats
+   */
+  wins: number;
+  /**
+   *
+   * @type {number}
+   * @memberof PvPUserStats
+   */
+  losses: number;
+  /**
+   *
+   * @type {number}
+   * @memberof PvPUserStats
+   */
+  ties: number;
 }
 /**
  * Rating history model

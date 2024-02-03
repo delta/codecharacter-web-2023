@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import DailyChallengeLeaderboard from './DailyLeaderboard';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import Leaderboard from './Leaderboard';
 import styles from './Leaderboard.module.css';
 import { CurrentUserApi } from '@codecharacter-2024/client';
@@ -8,11 +8,8 @@ import { apiConfig } from '../../api/ApiConfig';
 import { dcEnable } from '../../config/config';
 
 export default function BattleTV(): JSX.Element {
-  const [isDailyChallengeLeaderboard, setIsDailyChallengeLeaderboard] =
-    useState(false);
-  const [leaderboardType, setLeaderboardType] = useState(
-    'Daily Challenge Leaderboard',
-  );
+  const [leaderboardType, setLeaderboardType] = useState('Normal Leaderboard');
+  const [SelectedButton, setSelectedButton] = useState('Normal');
 
   const { setIsOpen } = useTour();
 
@@ -32,29 +29,97 @@ export default function BattleTV(): JSX.Element {
   }, []);
   return (
     <div className={styles.mainleaderboard} id="LeaderBoard">
-      {isDailyChallengeLeaderboard ? (
-        <DailyChallengeLeaderboard />
-      ) : (
-        <Leaderboard />
-      )}
       {dcEnable ? (
-        <button
-          type="button"
-          className={styles.button}
-          onClick={() => {
-            if (!isDailyChallengeLeaderboard) {
-              setIsDailyChallengeLeaderboard(true);
-              setLeaderboardType('Match Leaderboard');
-            } else {
-              setIsDailyChallengeLeaderboard(false);
-              setLeaderboardType('Daily Challenge Leaderboard');
-            }
-          }}
-        >
-          {leaderboardType}
-        </button>
+        <div className={styles.buttonContainer}>
+          <div className={styles.codeMapButton}>
+            <ButtonGroup id="LeaderboardTypeSelector">
+              <Button
+                className={
+                  SelectedButton == 'Normal'
+                    ? styles.whiteButton
+                    : styles.darkButton
+                }
+                onClick={() => {
+                  setSelectedButton('Normal');
+                  setLeaderboardType('Normal Leaderboard');
+                }}
+                variant="outline-light"
+              >
+                Normal
+              </Button>
+              <Button
+                variant="outline-light"
+                className={
+                  SelectedButton == 'PvP'
+                    ? styles.whiteButton
+                    : styles.darkButton
+                }
+                onClick={() => {
+                  setSelectedButton('PvP');
+                  setLeaderboardType('PvP Leaderboard');
+                }}
+              >
+                PvP
+              </Button>
+              <Button
+                variant="outline-light"
+                className={
+                  SelectedButton == 'DC'
+                    ? styles.whiteButton
+                    : styles.darkButton
+                }
+                onClick={() => {
+                  setSelectedButton('DC');
+                  setLeaderboardType('Daily Challenge Leaderboard');
+                }}
+              >
+                Daily Challenges
+              </Button>
+            </ButtonGroup>
+          </div>
+        </div>
       ) : (
-        <></>
+        <div className={styles.buttonContainer}>
+          <div className={styles.codeMapButton}>
+            <ButtonGroup id="LeaderboardTypeSelector">
+              <Button
+                className={
+                  SelectedButton == 'Normal'
+                    ? styles.whiteButton
+                    : styles.darkButton
+                }
+                onClick={() => {
+                  setSelectedButton('Normal');
+                  setLeaderboardType('Normal Leaderboard');
+                }}
+                variant="outline-light"
+              >
+                Normal
+              </Button>
+              <Button
+                variant="outline-light"
+                className={
+                  SelectedButton == 'PvP'
+                    ? styles.whiteButton
+                    : styles.darkButton
+                }
+                onClick={() => {
+                  setSelectedButton('PvP');
+                  setLeaderboardType('PvP Leaderboard');
+                }}
+              >
+                PvP
+              </Button>
+            </ButtonGroup>
+          </div>
+        </div>
+      )}
+      {leaderboardType == 'Daily Challenge Leaderboard' ? (
+        <Leaderboard page={'DailyChallenge'} key={leaderboardType} />
+      ) : leaderboardType == 'PvP Leaderboard' ? (
+        <Leaderboard page={'PvP'} key={leaderboardType} />
+      ) : (
+        <Leaderboard page={'Normal'} key={leaderboardType} />
       )}
     </div>
   );

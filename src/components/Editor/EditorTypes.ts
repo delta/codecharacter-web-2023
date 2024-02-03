@@ -3,6 +3,7 @@ import { RefObject } from 'react';
 interface PageType {
   Dashboard: 'Dashboard';
   DailyChallenge: 'DailyChallenge';
+  PvP: 'PvP';
 }
 
 export type Props = {

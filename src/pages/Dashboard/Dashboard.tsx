@@ -41,6 +41,13 @@ import {
   mapCommitIDChanged,
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
+import {
+  code1CommitIDChanged,
+  code1CommitNameChanged,
+  code2CommitIDChanged,
+  code2CommitNameChanged,
+  isPvPSelfMatchModalOpened,
+} from '../../store/PvPSelfMatchMakeModal/PvPSelfMatchModal';
 import { loggedIn, user } from '../../store/User/UserSlice';
 
 import {
@@ -61,8 +68,13 @@ import {
   dcCodeLanguage,
   dcCode,
   dcSimulation,
+  changePageState,
 } from '../../store/DailyChallenge/dailyChallenge';
-
+import {
+  changePvPLanguage,
+  PvPUserCode,
+  PvPUserLanguage,
+} from '../../store/PvP/pvpCode';
 import Tour from '../../components/TourProvider/TourProvider';
 import { EditorSteps } from '../../components/TourProvider/EditorSteps';
 import { useNavigate } from 'react-router-dom';
@@ -118,6 +130,7 @@ export default function Dashboard(): JSX.Element {
 
   const userCode = useAppSelector(UserCode);
   const dailyChallengeCode = useAppSelector(dcCode);
+  const pvpCode = useAppSelector(PvPUserCode);
   const dispatch = useAppDispatch();
   const dailyChallenge = useAppSelector(dailyChallengeState);
   const pageState = useAppSelector(dailyChallengePageState);
@@ -125,7 +138,9 @@ export default function Dashboard(): JSX.Element {
   const userLanguage =
     pageState == 'Dashboard'
       ? useAppSelector(UserLanguage)
-      : useAppSelector(dcCodeLanguage);
+      : pageState == 'DailyChallenge'
+      ? useAppSelector(dcCodeLanguage)
+      : useAppSelector(PvPUserLanguage);
 
   const codeAPI = new CodeApi(apiConfig);
   const dailyChallengeAPI = new DailyChallengesApi(apiConfig);
@@ -168,6 +183,7 @@ export default function Dashboard(): JSX.Element {
   }, []);
 
   const languages: string[] = ['C++', 'Python', 'Java'];
+  const modes: string[] = ['Normal', 'PvP'];
 
   const localStoreLanguageChose = localStorage.getItem('languageChose');
   const [languageChose, setLanguageChose] = useState(
@@ -175,31 +191,62 @@ export default function Dashboard(): JSX.Element {
   );
 
   const handleLanguageChange = (language: string) => {
+    console.log(language);
     switch (language) {
       case 'C++':
-        pageState == 'Dashboard'
-          ? dispatch(changeLanguage('c_cpp'))
-          : dispatch(changeDcLanguage('c_cpp'));
+        console.log('changed to cpp');
+        console.log(pageState);
+        switch (pageState) {
+          case 'Dashboard':
+            dispatch(changeLanguage('c_cpp'));
+            break;
+          case 'DailyChallenge':
+            dispatch(changeDcLanguage('c_cpp'));
+            break;
+          case 'PvP':
+            console.log('it came to pvp too');
+            dispatch(changePvPLanguage('c_cpp'));
+            break;
+          default:
+            dispatch(changeLanguage('c_cpp'));
+        }
         setLanguageChose('C++');
         localStorage.setItem('languageChose', 'C++');
         break;
       case 'Python':
+        console.log('here');
         pageState == 'Dashboard'
           ? dispatch(changeLanguage('python'))
-          : dispatch(changeDcLanguage('python'));
+          : pageState == 'DailyChallenge'
+          ? dispatch(changeDcLanguage('python'))
+          : dispatch(changePvPLanguage('python'));
         setLanguageChose('Python');
         localStorage.setItem('languageChose', 'Python');
         break;
       case 'Java':
         pageState == 'Dashboard'
           ? dispatch(changeLanguage('java'))
-          : dispatch(changeDcLanguage('java'));
+          : pageState == 'DailyChallenge'
+          ? dispatch(changeDcLanguage('java'))
+          : dispatch(changePvPLanguage('java'));
         setLanguageChose('Java');
         localStorage.setItem('languageChose', 'Java');
         break;
       default:
-        dispatch(changeLanguage('c_cpp'));
+        pageState == 'Dashboard'
+          ? dispatch(changeLanguage('c_cpp'))
+          : pageState == 'DailyChallenge'
+          ? dispatch(changeDcLanguage('c_cpp'))
+          : dispatch(changePvPLanguage('c_cpp'));
     }
+  };
+  const handlePvPTake = () => {
+    dispatch(changePageState('PvP'));
+    navigate('/dashboard', { replace: true });
+  };
+  const handlePvPClose = () => {
+    dispatch(changePageState('Dashboard'));
+    navigate('/dashboard');
   };
 
   const handleSave = () => {
@@ -210,8 +257,18 @@ export default function Dashboard(): JSX.Element {
 
     codeAPI
       .updateLatestCode({
-        codeType: pageState == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
-        code: pageState == 'Dashboard' ? userCode : dailyChallengeCode,
+        codeType:
+          pageState == 'Dashboard'
+            ? 'NORMAL'
+            : pageState == 'DailyChallenge'
+            ? 'DAILY_CHALLENGE'
+            : 'PVP',
+        code:
+          pageState == 'Dashboard'
+            ? userCode
+            : pageState == 'DailyChallenge'
+            ? dailyChallengeCode
+            : pvpCode,
         lock: false,
         language: languageType,
       })
@@ -229,6 +286,14 @@ export default function Dashboard(): JSX.Element {
     dispatch(codeCommitIDChanged(null));
     dispatch(mapCommitNameChanged('Current Map'));
     dispatch(mapCommitIDChanged(null));
+  }
+
+  function handlePvPSimulate() {
+    dispatch(isPvPSelfMatchModalOpened(true));
+    dispatch(code1CommitNameChanged('Current Player 1 Code'));
+    dispatch(code1CommitIDChanged(null));
+    dispatch(code2CommitNameChanged('Current Player 2 Code'));
+    dispatch(code2CommitIDChanged(null));
   }
 
   const isCommitModalOpen = useAppSelector(IsCommitModalOpen);
@@ -260,13 +325,23 @@ export default function Dashboard(): JSX.Element {
 
     codeAPI
       .updateLatestCode({
-        codeType: pageState == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
-        code: pageState == 'Dashboard' ? userCode : dailyChallengeCode,
+        codeType:
+          pageState == 'Dashboard'
+            ? 'NORMAL'
+            : pageState == 'DailyChallenge'
+            ? 'DAILY_CHALLENGE'
+            : 'PVP',
+        code:
+          pageState == 'Dashboard'
+            ? userCode
+            : pageState == 'DailyChallenge'
+            ? dailyChallengeCode
+            : pvpCode,
         lock: true,
         language: languageType,
       })
       .then(() => {
-        if (pageState == 'Dashboard') {
+        if (pageState == 'Dashboard' || pageState == 'PvP') {
           Toast.success('Code Submitted');
         }
       })
@@ -333,7 +408,9 @@ export default function Dashboard(): JSX.Element {
             minSize={520}
           >
             <div className={styles.leftPane}>
-              {pageState == 'Dashboard' || dailyChallenge.challType == 'MAP' ? (
+              {pageState == 'Dashboard' ||
+              pageState == 'PvP' ||
+              dailyChallenge.challType == 'MAP' ? (
                 <ButtonToolbar
                   className={
                     styles.toolbar +
@@ -371,7 +448,10 @@ export default function Dashboard(): JSX.Element {
                         className={styles.toolbarColumn}
                         sm="1"
                         style={{
-                          marginLeft: pageState == 'Dashboard' ? 0 : '20%',
+                          marginLeft:
+                            pageState == 'Dashboard' || pageState == 'PvP'
+                              ? 0
+                              : '20%',
                         }}
                       >
                         <button
@@ -413,6 +493,33 @@ export default function Dashboard(): JSX.Element {
                             </button>
                           </Col>
                         </>
+                      ) : pageState == 'PvP' ? (
+                        <>
+                          <Col className={styles.toolbarColumn} sm="1">
+                            <button
+                              className={styles.toolbarButton}
+                              onClick={handlePvPSimulate}
+                              id="SimulateButton"
+                            >
+                              <FontAwesomeIcon
+                                title="Simulate"
+                                icon={faPlay as IconProp}
+                              />
+                            </button>
+                          </Col>
+                          <Col className={styles.toolbarColumn} sm="1">
+                            <button
+                              className={styles.toolbarButton}
+                              onClick={handleOpenCommitModal}
+                              id="CommitButton"
+                            >
+                              <FontAwesomeIcon
+                                title="Commit"
+                                icon={faCodeBranch as IconProp}
+                              />{' '}
+                            </button>
+                          </Col>
+                        </>
                       ) : (
                         <></>
                       )}
@@ -430,6 +537,24 @@ export default function Dashboard(): JSX.Element {
                         </button>
                       </Col>
                     </div>
+                    <Col className={styles.toolbarColumn1} sm="1">
+                      <Form.Select
+                        className={styles.toolbarButton2}
+                        value={pageState == 'PvP' ? 'PvP' : 'Normal'}
+                        onChange={e =>
+                          e.target.value == 'PvP'
+                            ? handlePvPTake()
+                            : handlePvPClose()
+                        }
+                        id="ModeSelector"
+                      >
+                        {modes.map(mode => (
+                          <option value={mode} key={mode}>
+                            {mode}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Col>
                   </div>
                   <div>
                     <div className={styles.settingsIconDiv}>
@@ -513,6 +638,7 @@ export default function Dashboard(): JSX.Element {
               )}
               <div className={styles.editorContainer} id="CodeEditor">
                 {pageState == 'Dashboard' ||
+                pageState == 'PvP' ||
                 dailyChallenge.challType == 'MAP' ? (
                   <Editor
                     language={userLanguage}
@@ -543,12 +669,16 @@ export default function Dashboard(): JSX.Element {
             <SplitPane
               split="horizontal"
               size={
-                pageState == 'Dashboard' || dailyChallengeSimulationState
+                pageState == 'Dashboard' ||
+                pageState == 'PvP' ||
+                dailyChallengeSimulationState
                   ? verticalPercent
                   : '100%'
               }
               allowResize={
-                pageState == 'Dashboard' || dailyChallengeSimulationState
+                pageState == 'Dashboard' ||
+                pageState == 'PvP' ||
+                dailyChallengeSimulationState
                   ? true
                   : false
               }
@@ -564,7 +694,9 @@ export default function Dashboard(): JSX.Element {
               }}
             >
               <div className={styles.rightPane} id="MAP">
-                {pageState == 'Dashboard' || dailyChallengeSimulationState ? (
+                {pageState == 'Dashboard' ||
+                pageState == 'PvP' ||
+                dailyChallengeSimulationState ? (
                   <RendererComponent />
                 ) : dailyChallenge.challType == 'MAP' ? (
                   <>
@@ -583,7 +715,9 @@ export default function Dashboard(): JSX.Element {
                 )}
               </div>
               <div className={styles.rightPane} id="GameLogs">
-                {pageState == 'Dashboard' || dailyChallengeSimulationState ? (
+                {pageState == 'Dashboard' ||
+                pageState == 'PvP' ||
+                dailyChallengeSimulationState ? (
                   <Terminal />
                 ) : (
                   <></>

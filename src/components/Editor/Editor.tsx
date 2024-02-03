@@ -32,6 +32,8 @@ import {
   UserCode,
 } from '../../store/editor/code';
 
+import { updatePvPUserCode, PvPUserCode } from '../../store/PvP/pvpCode';
+
 import {
   codeCommitIDChanged,
   codeCommitNameChanged,
@@ -39,6 +41,14 @@ import {
   mapCommitIDChanged,
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
+
+import {
+  code1CommitIDChanged,
+  code1CommitNameChanged,
+  code2CommitIDChanged,
+  code2CommitNameChanged,
+  isPvPSelfMatchModalOpened,
+} from '../../store/PvPSelfMatchMakeModal/PvPSelfMatchModal';
 
 import { lspUrl } from '../../config/config';
 
@@ -60,7 +70,9 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const userCode: string =
     props.page == 'Dashboard'
       ? useAppSelector(UserCode)
-      : useAppSelector(dcCode);
+      : props.page == 'DailyChallenge'
+      ? useAppSelector(dcCode)
+      : useAppSelector(PvPUserCode);
   const fontSize: number = useAppSelector(FontSize);
   const theme: string = useAppSelector(Theme);
   const autocomplete: boolean = useAppSelector(Autocomplete);
@@ -158,8 +170,10 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       };
       if (props.page == 'Dashboard') {
         dispatch(updateUserCode(codeNlanguage));
-      } else {
+      } else if (props.page == 'DailyChallenge') {
         dispatch(changeDcCode(codeNlanguage));
+      } else {
+        dispatch(updatePvPUserCode(codeNlanguage));
       }
     });
 
@@ -189,6 +203,19 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK,
         function () {
           dispatch(isCommitModalOpened(true));
+        },
+      );
+    }
+
+    if (props.page == 'PvP') {
+      editor.addCommand(
+        monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
+        function () {
+          dispatch(isPvPSelfMatchModalOpened(true));
+          dispatch(code1CommitNameChanged('Current Player 1 Code'));
+          dispatch(code1CommitIDChanged(null));
+          dispatch(code2CommitNameChanged('Current Player 2 Code'));
+          dispatch(code2CommitIDChanged(null));
         },
       );
     }

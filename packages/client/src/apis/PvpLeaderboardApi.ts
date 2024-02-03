@@ -13,63 +13,60 @@
  */
 
 import * as runtime from '../runtime';
-import type { LeaderboardEntry, TierType } from '../models/index';
+import type { PvPLeaderBoardResponse } from '../models/index';
 
-export interface GetLeaderboardRequest {
+export interface GetPvPLeaderboardRequest {
   page?: number;
   size?: number;
-  tier?: TierType;
 }
 
 /**
- * LeaderboardApi - interface
+ * PvpLeaderboardApi - interface
  *
  * @export
- * @interface LeaderboardApiInterface
+ * @interface PvpLeaderboardApiInterface
  */
-export interface LeaderboardApiInterface {
+export interface PvpLeaderboardApiInterface {
   /**
-   * Get leaderboard
-   * @summary Get leaderboard
+   * Get PvP leaderboard
+   * @summary Get PvP leaderboard
    * @param {number} [page] Index of the page
    * @param {number} [size] Size of the page
-   * @param {TierType} [tier] Leaderboard Tier
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof LeaderboardApiInterface
+   * @memberof PvpLeaderboardApiInterface
    */
-  getLeaderboardRaw(
-    requestParameters: GetLeaderboardRequest,
+  getPvPLeaderboardRaw(
+    requestParameters: GetPvPLeaderboardRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
-  ): Promise<runtime.ApiResponse<Array<LeaderboardEntry>>>;
+  ): Promise<runtime.ApiResponse<Array<PvPLeaderBoardResponse>>>;
 
   /**
-   * Get leaderboard
-   * Get leaderboard
+   * Get PvP leaderboard
+   * Get PvP leaderboard
    */
-  getLeaderboard(
+  getPvPLeaderboard(
     page?: number,
     size?: number,
-    tier?: TierType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
-  ): Promise<Array<LeaderboardEntry>>;
+  ): Promise<Array<PvPLeaderBoardResponse>>;
 }
 
 /**
  *
  */
-export class LeaderboardApi
+export class PvpLeaderboardApi
   extends runtime.BaseAPI
-  implements LeaderboardApiInterface
+  implements PvpLeaderboardApiInterface
 {
   /**
-   * Get leaderboard
-   * Get leaderboard
+   * Get PvP leaderboard
+   * Get PvP leaderboard
    */
-  async getLeaderboardRaw(
-    requestParameters: GetLeaderboardRequest,
+  async getPvPLeaderboardRaw(
+    requestParameters: GetPvPLeaderboardRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
-  ): Promise<runtime.ApiResponse<Array<LeaderboardEntry>>> {
+  ): Promise<runtime.ApiResponse<Array<PvPLeaderBoardResponse>>> {
     const queryParameters: any = {};
 
     if (requestParameters.page !== undefined) {
@@ -78,10 +75,6 @@ export class LeaderboardApi
 
     if (requestParameters.size !== undefined) {
       queryParameters['size'] = requestParameters.size;
-    }
-
-    if (requestParameters.tier !== undefined) {
-      queryParameters['tier'] = requestParameters.tier;
     }
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -96,7 +89,7 @@ export class LeaderboardApi
     }
     const response = await this.request(
       {
-        path: `/leaderboard`,
+        path: `/pvpleaderboard`,
         method: 'GET',
         headers: headerParameters,
         query: queryParameters,
@@ -108,17 +101,16 @@ export class LeaderboardApi
   }
 
   /**
-   * Get leaderboard
-   * Get leaderboard
+   * Get PvP leaderboard
+   * Get PvP leaderboard
    */
-  async getLeaderboard(
+  async getPvPLeaderboard(
     page?: number,
     size?: number,
-    tier?: TierType,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
-  ): Promise<Array<LeaderboardEntry>> {
-    const response = await this.getLeaderboardRaw(
-      { page: page, size: size, tier: tier },
+  ): Promise<Array<PvPLeaderBoardResponse>> {
+    const response = await this.getPvPLeaderboardRaw(
+      { page: page, size: size },
       initOverrides,
     );
     return await response.value();

@@ -11,7 +11,7 @@ import defaultJavaCode from '../../assets/codes/java/Run.java?raw';
 
 export interface DailyChallengeStateType {
   dailyChallenge: DailyChallengeGetRequest;
-  pageType: 'Dashboard' | 'DailyChallenge';
+  pageType: 'Dashboard' | 'DailyChallenge' | 'PvP';
   dcCode: string;
   dcAllLanguagesCode: string[];
   codeLanguage: string;
@@ -64,7 +64,7 @@ export const dailyChallengeSlice = createSlice({
     },
     changePageState: (
       state,
-      action: PayloadAction<'Dashboard' | 'DailyChallenge'>,
+      action: PayloadAction<'Dashboard' | 'DailyChallenge' | 'PvP'>,
     ) => {
       state.pageType = action.payload;
     },
@@ -110,7 +110,7 @@ export const dailyChallengeState = (
 ): DailyChallengeGetRequest => state.dailyChallenge.dailyChallenge;
 export const dailyChallengePageState = (
   state: RootState,
-): 'Dashboard' | 'DailyChallenge' => state.dailyChallenge.pageType;
+): 'Dashboard' | 'DailyChallenge' | 'PvP' => state.dailyChallenge.pageType;
 export const dailyChallengeCompletionState = (
   state: RootState,
 ): boolean | undefined => state.dailyChallenge.dailyChallenge.completionStatus;
