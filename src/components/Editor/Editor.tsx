@@ -32,8 +32,6 @@ import {
   UserCode,
 } from '../../store/editor/code';
 
-import { updatePvPUserCode, PvPUserCode } from '../../store/PvP/pvpCode';
-
 import {
   codeCommitIDChanged,
   codeCommitNameChanged,
@@ -172,8 +170,6 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         dispatch(updateUserCode(codeNlanguage));
       } else if (props.page == 'DailyChallenge') {
         dispatch(changeDcCode(codeNlanguage));
-      } else {
-        dispatch(updatePvPUserCode(codeNlanguage));
       }
     });
 

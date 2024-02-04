@@ -95,11 +95,7 @@ export class GameApi extends runtime.BaseAPI implements GameApiInterface {
       initOverrides,
     );
 
-    if (this.isJsonMime(response.headers.get('content-type'))) {
-      return new runtime.JSONApiResponse<string>(response);
-    } else {
-      return new runtime.TextApiResponse(response) as any;
-    }
+    return new runtime.TextApiResponse(response) as any;
   }
 
   /**

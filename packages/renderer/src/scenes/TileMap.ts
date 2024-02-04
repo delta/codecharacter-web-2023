@@ -14,9 +14,11 @@ import { Parse } from '../parser/Parser.js';
 export class TileMap extends Phaser.Scene {
   controls!: Phaser.Cameras.Controls.SmoothedKeyControl;
 
-  troops: Troop[] = [];
+  troops: Map<number, Troop> = new Map();
 
-  towers: Tower[] = [];
+  opponent_troops: Map<number, Troop> = new Map();
+
+  towers: Map<number, Tower> = new Map();
 
   spriteGroup!: Phaser.GameObjects.Group;
 
@@ -157,13 +159,13 @@ export class TileMap extends Phaser.Scene {
         );
         tower.setDepth(tower.y);
         healthBar.setDepth(tower.depth);
-        this.towers.push(this.add.existing(tower));
+        this.towers.set(this.towers.size, this.add.existing(tower));
       },
     );
 
     events.on(
       RendererEvents.SPAWN_TROOP,
-      (typeId: number, x: number, y: number) => {
+      (typeId: number, id: number, x: number, y: number, actorType = 'A') => {
         const tile = this.groundLayer.getTileAt(x, y);
         let direction: Direction = 'northEast';
         if (y === 0) {
@@ -196,28 +198,36 @@ export class TileMap extends Phaser.Scene {
           direction,
         );
         troop.setDepth(troop.y);
-        this.troops.push(this.add.existing(troop));
+        actorType === 'D'
+          ? this.opponent_troops.set(id, troop)
+          : this.troops.set(id, this.add.existing(troop));
       },
     );
 
-    events.on(RendererEvents.MOVE_TROOP, (id: number, x: number, y: number) => {
-      const troop = this.troops[id];
-      const tile = this.groundLayer.getTileAt(x, y);
-      troop.moveTo(
-        tile.pixelX + Parameters.mapTileHalfWidth,
-        tile.pixelY + Parameters.mapTileHalfHeight,
-      );
-    });
+    events.on(
+      RendererEvents.MOVE_TROOP,
+      (id: number, x: number, y: number, actorType = 'A') => {
+        const troop =
+          actorType === 'D'
+            ? this.opponent_troops.get(id)
+            : this.troops.get(id);
+        const tile = this.groundLayer.getTileAt(x, y);
+        troop?.moveTo(
+          tile.pixelX + Parameters.mapTileHalfWidth,
+          tile.pixelY + Parameters.mapTileHalfHeight,
+        );
+      },
+    );
 
     events.on(
       RendererEvents.SHOOT_TROOP,
       (towerId: number, troopId: number, newTroopHp: number) => {
-        const troop = this.troops[troopId];
-        const tower = this.towers[towerId];
+        const troop = this.troops.get(troopId);
+        const tower = this.towers.get(towerId);
+        if (troop === undefined || tower === undefined) return;
         troop.setHp(newTroopHp);
-
-        const dx = troop.x - tower.x;
-        const dy = troop.y - tower.y;
+        const dx = troop?.x - tower?.x;
+        const dy = troop?.y - tower?.y;
         const angle = Phaser.Math.RadToDeg(Math.atan2(dy, dx / 2));
 
         const attackArc = this.add.arc(
@@ -245,13 +255,16 @@ export class TileMap extends Phaser.Scene {
     events.on(
       RendererEvents.SHOOT_TOWER,
       (troopId: number, towerId: number, newTowerHp: number) => {
-        const troop = this.troops[troopId];
-        const tower = this.towers[towerId];
-        const dx = tower.x - troop.x;
-        const dy = tower.y - troop.y;
+        const attacker = this.troops.get(troopId);
+        const tower = this.towers.get(towerId);
+        if (attacker === undefined || tower === undefined) {
+          return;
+        }
+        const dx = tower.x - attacker.x;
+        const dy = tower.y - attacker.y;
         const angle = Phaser.Math.RadToDeg(Math.atan2(dy, dx / 2));
-        if (troop.troopType.spritesheet !== 'drone') {
-          const laserSprite = this.add.image(troop.x, troop.y, 'laser');
+        if (attacker.troopType.spritesheet !== 'drone') {
+          const laserSprite = this.add.image(attacker.x, attacker.y, 'laser');
           laserSprite.setRotation(angle);
           this.tweens.add({
             targets: [laserSprite],
@@ -262,7 +275,7 @@ export class TileMap extends Phaser.Scene {
             onComplete: () => laserSprite.destroy(),
           });
         } else {
-          const bombSprite = this.add.sprite(troop.x, troop.y, 'bomb', 0);
+          const bombSprite = this.add.sprite(attacker.x, attacker.y, 'bomb', 0);
           bombSprite.setRotation(angle);
           this.anims.create({
             key: 'bomb',
@@ -284,13 +297,75 @@ export class TileMap extends Phaser.Scene {
           });
         }
         tower.setHp(newTowerHp);
-        troop.attack(tower.x, tower.y);
+        attacker.attack(tower.x, tower.y);
+      },
+    );
+
+    events.on(
+      RendererEvents.SHOOT_PVP,
+      (
+        shooterId: number,
+        targetId: number,
+        newTargetHp: number,
+        isopponent: boolean,
+      ) => {
+        const shooter = isopponent
+          ? this.opponent_troops.get(shooterId)
+          : this.troops.get(shooterId);
+        const target = isopponent
+          ? this.towers.get(targetId)
+          : this.opponent_troops.get(targetId);
+        if (shooter === undefined || target === undefined) {
+          return;
+        }
+        const dx = target.x - shooter.x;
+        const dy = target.y - shooter.y;
+        const angle = Phaser.Math.RadToDeg(Math.atan2(dy, dx / 2));
+        if (shooter.troopType.spritesheet !== 'drone') {
+          const laserSprite = this.add.image(shooter.x, shooter.y, 'laser');
+          laserSprite.setRotation(angle);
+          this.tweens.add({
+            targets: [laserSprite],
+            x: target.x,
+            y: target.y,
+            duration: Parameters.timePerTurn,
+            ease: 'Power2',
+            onComplete: () => laserSprite.destroy(),
+          });
+        } else {
+          const bombSprite = this.add.sprite(shooter.x, shooter.y, 'bomb', 0);
+          bombSprite.setRotation(angle);
+          this.anims.create({
+            key: 'bomb',
+            frames: this.anims.generateFrameNumbers('bomb', {
+              start: 0,
+              end: 2,
+            }),
+            frameRate: 10,
+            repeat: 0,
+          });
+          bombSprite.play('bomb');
+          this.tweens.add({
+            targets: [bombSprite],
+            x: target.x,
+            y: target.y,
+            duration: Parameters.timePerTurn,
+            ease: 'Power2',
+            onComplete: () => bombSprite.destroy(),
+          });
+        }
+        target.setHp(newTargetHp);
+        shooter.attack(target.x, target.y);
       },
     );
 
     events.on(RendererEvents.DEAD, (actorType: string, id: number) => {
-      if (actorType === 'A') {
-        const troop = this.troops[id];
+      if (actorType === 'A' || (actorType === 'D' && this.towers.size === 0)) {
+        const troop =
+          actorType === 'A'
+            ? this.troops.get(id)
+            : this.opponent_troops.get(id);
+        if (troop === undefined) return;
         troop.dead();
         this.tweens.add({
           targets: [troop, troop.healthBar.bar, troop.shadow?.shadow],
@@ -303,7 +378,8 @@ export class TileMap extends Phaser.Scene {
           },
         });
       } else if (actorType === 'D') {
-        const tower = this.towers[id];
+        const tower = this.towers.get(id);
+        if (tower === undefined) return;
         this.tweens.add({
           targets: [tower, tower.healthBar],
           alpha: 0,
@@ -362,8 +438,10 @@ export class TileMap extends Phaser.Scene {
           events.emit(
             RendererEvents.SPAWN_TROOP,
             instruction.typeId,
+            instruction.id,
             instruction.posX,
             instruction.posY,
+            instruction.actorType,
           );
         } else if (instruction instanceof Instructions.Move) {
           events.emit(
@@ -371,8 +449,28 @@ export class TileMap extends Phaser.Scene {
             instruction.id,
             instruction.posX,
             instruction.posY,
+            instruction.actorType,
           );
         } else if (instruction instanceof Instructions.Shoot) {
+          if (this.towers.size === 0) {
+            if (instruction.target === 'A') {
+              events.emit(
+                RendererEvents.SHOOT_PVP,
+                instruction.id1,
+                instruction.id2,
+                instruction.targetNewHp,
+                true,
+              );
+            } else if (instruction.target === 'D') {
+              events.emit(
+                RendererEvents.SHOOT_PVP,
+                instruction.id1,
+                instruction.id2,
+                instruction.targetNewHp,
+                false,
+              );
+            }
+          }
           if (instruction.target === 'A') {
             events.emit(
               RendererEvents.SHOOT_TROOP,
@@ -456,8 +554,8 @@ export class TileMap extends Phaser.Scene {
       tower.healthBar.destroy();
       tower.destroy();
     });
-    this.troops = [];
-    this.towers = [];
+    this.troops = new Map();
+    this.towers = new Map();
 
     const tweens = this.tweens.getAllTweens();
     tweens.forEach(tween => {

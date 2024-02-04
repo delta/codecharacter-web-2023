@@ -10,7 +10,6 @@ import {
   LeaderboardEntry,
   MatchMode,
   TierType,
-  PvpLeaderboardApi,
   PvPLeaderBoardResponse,
   DailyChallengeLeaderBoardResponse,
   DailyChallengesApi,
@@ -50,6 +49,8 @@ function PaginatedItems(props: LeaderboardType.Props) {
 
   const itemsPerPage = 8;
   const currentUserName = useAppSelector(user).username;
+
+  const leaderboardAPI = new LeaderboardApi(apiConfig);
 
   switch (props.page) {
     case 'PvP':
@@ -103,7 +104,6 @@ function PaginatedItems(props: LeaderboardType.Props) {
 
   const fetchLeaderboardByTier = (pageNum: number, tier?: TierType) => {
     setIsLoaded(false);
-    const leaderboardAPI = new LeaderboardApi(apiConfig);
     leaderboardAPI
       .getLeaderboard(pageNum, itemsPerPage, tier)
       .then(response => {
@@ -126,8 +126,7 @@ function PaginatedItems(props: LeaderboardType.Props) {
 
   const fetchPvPLeaderboard = (pageNum: number) => {
     setIsPvPLoaded(false);
-    const pvpLeaderBoardApi = new PvpLeaderboardApi(apiConfig);
-    pvpLeaderBoardApi
+    leaderboardAPI
       .getPvPLeaderboard(pageNum, itemsPerPage)
       .then(response => {
         setPvpItems(response);
@@ -136,7 +135,7 @@ function PaginatedItems(props: LeaderboardType.Props) {
       .catch(error => {
         if (error instanceof ApiError) Toast.error(error.message);
       });
-    pvpLeaderBoardApi
+    leaderboardAPI
       .getPvPLeaderboard(pageNum + 1, itemsPerPage)
       .then(response => {
         setPvpNextItems(response);
@@ -149,9 +148,8 @@ function PaginatedItems(props: LeaderboardType.Props) {
 
   const fetchDcLeaderboard = (pageNum: number) => {
     setIsDcLoaded(false);
-    const dcLeaderBoardApi = new DailyChallengesApi(apiConfig);
-    dcLeaderBoardApi
-      .getDailyChallengeLeaderBoard(pageNum, itemsPerPage)
+    const DcApi = new DailyChallengesApi(apiConfig);
+    DcApi.getDailyChallengeLeaderBoard(pageNum, itemsPerPage)
       .then(response => {
         setDcItems(response);
         setIsDcLoaded(true);
@@ -159,8 +157,7 @@ function PaginatedItems(props: LeaderboardType.Props) {
       .catch(error => {
         if (error instanceof ApiError) Toast.error(error.message);
       });
-    dcLeaderBoardApi
-      .getDailyChallengeLeaderBoard(pageNum + 1, itemsPerPage)
+    DcApi.getDailyChallengeLeaderBoard(pageNum + 1, itemsPerPage)
       .then(response => {
         setDcNextItems(response);
         setIsLoaded(true);

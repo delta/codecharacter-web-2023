@@ -30,6 +30,8 @@ class RendererEvents {
   static readonly SHUTDOWN = 'SHUTDOWN';
 
   static readonly LOAD_LOG = 'LOAD_LOG';
+
+  static readonly SHOOT_PVP = 'SHOOT_PVP';
 }
 
 const events = new Phaser.Events.EventEmitter();

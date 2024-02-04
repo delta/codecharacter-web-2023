@@ -18,7 +18,7 @@ import type {
   GenericError,
   Match,
   PvPMatch,
-} from '../models/index';
+} from '../models';
 
 export interface CreateMatchOperationRequest {
   createMatchRequest: CreateMatchRequest;

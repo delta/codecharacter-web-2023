@@ -20,7 +20,7 @@ import type {
   PasswordLoginRequest,
   PasswordLoginResponse,
   ResetPasswordRequest,
-} from '../models/index';
+} from '../models';
 
 export interface ForgotPasswordOperationRequest {
   forgotPasswordRequest: ForgotPasswordRequest;

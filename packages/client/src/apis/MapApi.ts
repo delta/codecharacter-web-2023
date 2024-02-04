@@ -21,7 +21,7 @@ import type {
   GenericError,
   MapCommitByCommitIdResponse,
   UpdateLatestMapRequest,
-} from '../models/index';
+} from '../models';
 
 export interface CreateMapRevisionOperationRequest {
   createMapRevisionRequest: CreateMapRevisionRequest;

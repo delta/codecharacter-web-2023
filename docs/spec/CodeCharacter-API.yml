@@ -332,7 +332,6 @@ paths:
                         rating: 500
                         wins: 6
                         losses: 0
-                        ties: 1
                     - user:
                         username: testUser2
                         name: >-
@@ -345,7 +344,6 @@ paths:
                         rating: 50
                         wins: 3
                         losses: 3
-                        ties: 0
                     - user:
                         username: testUser3
                         name: >-
@@ -358,7 +356,6 @@ paths:
                         rating: 80
                         wins: 1
                         losses: 0
-                        ties: 0
                     - user:
                         username: testUser4
                         name: Test User4
@@ -369,7 +366,6 @@ paths:
                         rating: 230
                         wins: 0
                         losses: 0
-                        ties: 3
                     - user:
                         username: testUser5
                         name: Test User5 Test Test
@@ -380,7 +376,6 @@ paths:
                         rating: 850
                         wins: 0
                         losses: 0
-                        ties: 4
                     - user:
                         username: testUser6
                         name: >-
@@ -393,7 +388,6 @@ paths:
                         rating: 600
                         wins: 0
                         losses: 0
-                        ties: 2
                     - user:
                         username: testUser7
                         name: >-
@@ -406,7 +400,6 @@ paths:
                         rating: 57
                         wins: 20
                         losses: 70
-                        ties: 1
                     - user:
                         username: testUser8
                         name: Test User8
@@ -417,7 +410,6 @@ paths:
                         rating: 850
                         wins: 0
                         losses: 0
-                        ties: 0
                     - user:
                         username: testUser9
                         name: Test User9
@@ -428,7 +420,6 @@ paths:
                         rating: 78
                         wins: 0
                         losses: 0
-                        ties: 4
                     - user:
                         username: testUser10
                         name: Test User10
@@ -439,12 +430,11 @@ paths:
                         rating: 10
                         wins: 0
                         losses: 0
-                        ties: 2
         '401':
           description: Unauthorized
       operationId: getPvPLeaderboard
       tags:
-        - pvpLeaderboard
+        - leaderboard
       parameters:
         - schema:
             type: integer
@@ -2307,7 +2297,6 @@ components:
         stats:
           $ref: '#/components/schemas/UserStats'
       required:
-        - user
         - user
         - stats
       description: Leaderboard entry model

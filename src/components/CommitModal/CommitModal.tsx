@@ -2,8 +2,8 @@ import { CodeApi, Language } from '@codecharacter-2024/client';
 import React, { useState } from 'react';
 import { Button, Form, Modal, Row } from 'react-bootstrap';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
-import { UserCode, UserLanguage } from '../../store/editor/code';
-
+import { GameType, UserCode, UserLanguage } from '../../store/editor/code';
+import { CurrentGameType } from '../../store/editor/code';
 import {
   IsCommitModalOpen,
   isCommitModalOpened,
@@ -17,7 +17,7 @@ const CommitModal = (): JSX.Element => {
   const isCommitModalOpen = useAppSelector(IsCommitModalOpen);
   const userLanguage = useAppSelector(UserLanguage);
   const userCode = useAppSelector(UserCode);
-
+  const currentCodeState = useAppSelector(CurrentGameType);
   const dispatch = useAppDispatch();
 
   const codeAPI = new CodeApi(apiConfig);
@@ -39,6 +39,7 @@ const CommitModal = (): JSX.Element => {
         code: userCode,
         message: commitName,
         language: languageType,
+        codeType: currentCodeState === GameType.NORMAL ? 'NORMAL' : 'PVP',
       })
       .then(() => {
         Toast.success('Code Committed');

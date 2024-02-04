@@ -10,13 +10,15 @@ import { Stomp } from '@stomp/stompjs';
 import { useEffect, useState } from 'react';
 import Toast from 'react-hot-toast';
 import { getLogAction } from '../../store/rendererLogs/logSlice';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { BASE_PATH } from '../../config/config';
+import { CurrentGameType } from '../../store/editor/code';
 import { changeSimulationState } from '../../store/DailyChallenge/dailyChallenge';
 
 export const Websocket: React.FunctionComponent = () => {
   const currentUserapi = new CurrentUserApi(apiConfig);
   const dispatch = useAppDispatch();
+  const gameType = useAppSelector(CurrentGameType);
   const [user, setUser] = useState<CurrentUserProfile>();
 
   useEffect(() => {
@@ -40,6 +42,7 @@ export const Websocket: React.FunctionComponent = () => {
               getLogAction({
                 id: game.id,
                 callback: () => (window.location.href = './#/dashboard'),
+                gameType: gameType,
               }),
             );
             break;
@@ -50,6 +53,7 @@ export const Websocket: React.FunctionComponent = () => {
               getLogAction({
                 id: game.id,
                 callback: () => (window.location.href = './#/dashboard'),
+                gameType: gameType,
               }),
             );
             break;

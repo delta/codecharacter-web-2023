@@ -20,6 +20,7 @@ import {
   AuthApi,
   CodeApi,
   CodeRevision,
+  CodeType,
   MatchApi,
   MatchMode,
 } from '@codecharacter-2024/client';
@@ -45,7 +46,7 @@ const PvPSelfMatchModal = (): JSX.Element => {
             if (localStorage.getItem('token') != null) {
               const codeApi = new CodeApi(apiConfig);
               codeApi
-                .getCodeRevisions()
+                .getCodeRevisions(CodeType.Pvp)
                 .then(codeResp => setCodeHistory(codeResp))
                 .catch(error => {
                   if (error instanceof ApiError) Toast.error(error.message);
@@ -92,7 +93,7 @@ const PvPSelfMatchModal = (): JSX.Element => {
     // figure out how to create pvp match
     matchAPI
       .createMatch({
-        mode: MatchMode.Pvp,
+        mode: MatchMode.Selfpvp,
         codeRevisionId: Code1CommitID,
         codeRevisionId2: Code2CommitID,
       })

@@ -19,7 +19,7 @@ import type {
   DailyChallengeMatchRequest,
   GenericError,
   Match,
-} from '../models/index';
+} from '../models';
 
 export interface CreateDailyChallengeMatchRequest {
   dailyChallengeMatchRequest: DailyChallengeMatchRequest;
