@@ -72,7 +72,6 @@ import {
   dcCodeLanguage,
   dcCode,
   dcSimulation,
-  changePageState,
 } from '../../store/DailyChallenge/dailyChallenge';
 import Tour from '../../components/TourProvider/TourProvider';
 import { EditorSteps } from '../../components/TourProvider/EditorSteps';
@@ -291,8 +290,6 @@ export default function Dashboard(): JSX.Element {
       dispatch(code2CommitIDChanged(null));
     }
   }
-
-  function handlePvPSimulate() {}
 
   const isCommitModalOpen = useAppSelector(IsCommitModalOpen);
 

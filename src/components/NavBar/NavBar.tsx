@@ -28,7 +28,6 @@ import {
   changePageState,
   changeSimulationState,
   dailyChallengeCompletionState,
-  dailyChallengePageState,
 } from '../../store/DailyChallenge/dailyChallenge';
 
 const NavBar: React.FunctionComponent = () => {
@@ -38,7 +37,6 @@ const NavBar: React.FunctionComponent = () => {
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
   const loadingAuth = useAppSelector(loading);
-  const pageState = useAppSelector(dailyChallengePageState);
   const dcCompletionstatus = useAppSelector(dailyChallengeCompletionState);
   useEffect(() => {
     const cookieValue = document.cookie;
