@@ -68,9 +68,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
   const userCode: string =
     props.page == 'Dashboard'
       ? useAppSelector(UserCode)
-      : props.page == 'DailyChallenge'
-      ? useAppSelector(dcCode)
-      : useAppSelector(PvPUserCode);
+      : useAppSelector(dcCode);
   const fontSize: number = useAppSelector(FontSize);
   const theme: string = useAppSelector(Theme);
   const autocomplete: boolean = useAppSelector(Autocomplete);
@@ -291,7 +289,15 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       editor?.dispose();
       wsClient?.close(1000);
     };
-  }, [fontSize, theme, language, keyboardHandler, props.page, autocomplete]);
+  }, [
+    fontSize,
+    theme,
+    language,
+    keyboardHandler,
+    props.page,
+    autocomplete,
+    props.gameType,
+  ]);
 
   return <div className={styles.Editor} ref={divCodeEditor}></div>;
 }

@@ -11,8 +11,8 @@ import defaultPvPJavaCode from '../../assets/codes/java/RunPvP.java?raw';
 export const languagesAvailable = ['c_cpp', 'python', 'java'];
 
 export enum GameType {
-  NORMAL = 'NORMAL',
-  PVP = 'PVP',
+  NORMAL,
+  PVP,
 }
 
 export interface editorStateType {
@@ -40,6 +40,11 @@ const initialState: editorStateType = {
 export interface CodeAndLanguage {
   currentUserCode: string;
   currentUserLanguage: string;
+}
+
+export interface GameTypeAndLanguage {
+  gameType: GameType;
+  language: string;
 }
 
 export const editorSlice = createSlice({
@@ -85,17 +90,22 @@ export const editorSlice = createSlice({
       state.userCode = newCodeAndLanguage.currentUserCode;
     },
 
-    updateEditorCodeState: (state, action: PayloadAction<GameType>) => {
-      state.gameType = action.payload;
-      console.log(state);
-      if (action.payload === GameType.NORMAL) {
+    updateEditorCodeState: (
+      state,
+      action: PayloadAction<GameTypeAndLanguage>,
+    ) => {
+      state.gameType = action.payload.gameType;
+      console.log(action);
+      if (action.payload.gameType === GameType.NORMAL) {
         state.userCode =
           state.allLanguagesNormalCode[
-            languagesAvailable.indexOf(state.language)
+            languagesAvailable.indexOf(action.payload.language)
           ];
       } else {
         state.userCode =
-          state.allLanguagesPvPCode[languagesAvailable.indexOf(state.language)];
+          state.allLanguagesPvPCode[
+            languagesAvailable.indexOf(action.payload.language)
+          ];
       }
     },
 

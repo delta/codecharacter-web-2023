@@ -199,7 +199,7 @@ export class TileMap extends Phaser.Scene {
         );
         troop.setDepth(troop.y);
         actorType === 'D'
-          ? this.opponent_troops.set(id, troop)
+          ? this.opponent_troops.set(id, this.add.existing(troop))
           : this.troops.set(id, this.add.existing(troop));
       },
     );
@@ -554,9 +554,14 @@ export class TileMap extends Phaser.Scene {
       tower.healthBar.destroy();
       tower.destroy();
     });
+    this.opponent_troops.forEach(troop => {
+      troop.removeAllListeners();
+      troop.healthBar.destroy();
+      troop.destroy();
+    });
     this.troops = new Map();
     this.towers = new Map();
-
+    this.opponent_troops = new Map();
     const tweens = this.tweens.getAllTweens();
     tweens.forEach(tween => {
       tween.complete();
@@ -565,6 +570,9 @@ export class TileMap extends Phaser.Scene {
 
   update(): void {
     this.troops.forEach(skeleton => {
+      skeleton.update();
+    });
+    this.opponent_troops.forEach(skeleton => {
       skeleton.update();
     });
   }

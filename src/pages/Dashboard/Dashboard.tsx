@@ -237,10 +237,17 @@ export default function Dashboard(): JSX.Element {
     }
   };
   const handlePvPTake = () => {
-    dispatch(updateEditorCodeState(GameType.PVP));
+    dispatch(
+      updateEditorCodeState({ gameType: GameType.PVP, language: userLanguage }),
+    );
   };
   const handlePvPClose = () => {
-    dispatch(updateEditorCodeState(GameType.NORMAL));
+    dispatch(
+      updateEditorCodeState({
+        gameType: GameType.NORMAL,
+        language: userLanguage,
+      }),
+    );
   };
 
   const handleSave = () => {
@@ -600,6 +607,7 @@ export default function Dashboard(): JSX.Element {
                     page={pageState}
                     SaveRef={saveButtonRef}
                     SubmitRef={submitButtonRef}
+                    gameType={currentGameType}
                   />
                 ) : (
                   <CodeBlock
