@@ -7,6 +7,7 @@ import {
 import { apiConfig } from '../../api/ApiConfig';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import toast from 'react-hot-toast';
 
 export enum BattleType {
   NORMAL,
@@ -35,19 +36,19 @@ export const initialState = {
     battleType: BattleType.NORMAL,
     battles: [] as Match[],
     hasbeenFetched: false,
-    page: 1,
+    page: 0,
   },
   PvPbattles: {
     battleType: BattleType.PVP,
     battles: [] as PvPMatch[],
     hasbeenFetched: false,
-    page: 1,
+    page: 0,
   },
   Dcbattles: {
     battleType: BattleType.DC,
     battles: [] as Match[],
     hasbeenFetched: false,
-    page: 1,
+    page: 0,
   },
 };
 
@@ -57,6 +58,7 @@ export const fetchBattlesAction = createAsyncThunk(
     reqobj: { battleTvType: BattleType; page: number },
     { rejectWithValue },
   ) => {
+    console.log('called');
     try {
       switch (reqobj.battleTvType) {
         case BattleType.NORMAL:
@@ -64,7 +66,6 @@ export const fetchBattlesAction = createAsyncThunk(
           const normalResponse = await matchesAPI.getUserNormalMatches(
             reqobj.page,
           );
-          // console.log(normalResponse)
           return {
             battles: normalResponse,
             battleType: BattleType.NORMAL,
@@ -99,23 +100,39 @@ const battleTvSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchBattlesAction.fulfilled, (state, { payload }) => {
-      state.loading = false;
-      switch (payload.battleType) {
-        case BattleType.NORMAL:
-          state.Normalbattles.battles = payload.battles as Match[];
-          state.Normalbattles.hasbeenFetched = true;
-          state.Normalbattles.page = payload.page;
-          break;
-        case BattleType.PVP:
-          state.PvPbattles.battles = payload.battles as PvPMatch[];
-          state.PvPbattles.hasbeenFetched = true;
-          state.PvPbattles.page = payload.page;
-          break;
-        case BattleType.DC:
-          state.Dcbattles.battles = payload.battles as Match[];
-          state.Dcbattles.hasbeenFetched = true;
-          state.Dcbattles.page = payload.page;
-          break;
+      if (payload.battles.length !== 0) {
+        state.loading = false;
+        switch (payload.battleType) {
+          case BattleType.NORMAL:
+            state.Normalbattles.battles = payload.battles as Match[];
+            state.Normalbattles.hasbeenFetched = true;
+            state.Normalbattles.page = payload.page;
+            break;
+          case BattleType.PVP:
+            state.PvPbattles.battles = payload.battles as PvPMatch[];
+            state.PvPbattles.hasbeenFetched = true;
+            state.PvPbattles.page = payload.page;
+            break;
+          case BattleType.DC:
+            state.Dcbattles.battles = payload.battles as Match[];
+            state.Dcbattles.hasbeenFetched = true;
+            state.Dcbattles.page = payload.page;
+            break;
+        }
+      } else {
+        state.loading = false;
+        toast.error('No more battles to show');
+        switch (payload.battleType) {
+          case BattleType.NORMAL:
+            state.Normalbattles.hasbeenFetched = true;
+            break;
+          case BattleType.PVP:
+            state.PvPbattles.hasbeenFetched = true;
+            break;
+          case BattleType.DC:
+            state.Dcbattles.hasbeenFetched = true;
+            break;
+        }
       }
     });
     builder.addCase(fetchBattlesAction.rejected, state => {

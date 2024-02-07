@@ -2,8 +2,12 @@ import { CodeApi, Language } from '@codecharacter-2024/client';
 import React, { useState } from 'react';
 import { Button, Form, Modal, Row } from 'react-bootstrap';
 import { apiConfig, ApiError } from '../../api/ApiConfig';
-import { GameType, UserCode, UserLanguage } from '../../store/editor/code';
-import { CurrentGameType } from '../../store/editor/code';
+import {
+  GameType,
+  UserCode,
+  UserLanguage,
+  CurrentGameType,
+} from '../../store/editor/code';
 import {
   IsCommitModalOpen,
   isCommitModalOpened,

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
 import { getLogAction } from '../../store/rendererLogs/logSlice';
 import { useNavigate } from 'react-router-dom';
 import styles from './BattleTV.module.css';
@@ -88,7 +87,6 @@ function getUsersGame(
 }
 
 function PaginatedItems({ battleTvType }: { battleTvType: BattleType }) {
-  const [pageCount, setPageCount] = useState(0);
   const navigate = useNavigate();
   const currentBattles =
     battleTvType == BattleType.PVP
@@ -99,25 +97,17 @@ function PaginatedItems({ battleTvType }: { battleTvType: BattleType }) {
   const loading = useAppSelector(loadingSelector);
   const loggedInUser = useAppSelector(user);
   const hasErrors = useAppSelector(hasErrorsSelector);
+  const pageCount = currentBattles.page;
 
   // initialize the redux hook
   const dispatch = useAppDispatch();
 
   if (!currentBattles.hasbeenFetched) {
-    if (currentBattles.page !== pageCount) {
-      dispatch(
-        fetchBattlesAction({ battleTvType: battleTvType, page: pageCount }),
-      );
-    }
-  }
-
-  const handlePageClick = (event: { selected: number }) => {
-    setPageCount(event.selected);
+    console.log('fetching battles');
     dispatch(
-      fetchBattlesAction({ battleTvType: battleTvType, page: event.selected }),
+      fetchBattlesAction({ battleTvType: battleTvType, page: pageCount }),
     );
-    console.log('changed');
-  };
+  }
 
   return (
     <>
@@ -237,21 +227,37 @@ function PaginatedItems({ battleTvType }: { battleTvType: BattleType }) {
         )}
       </>
       <nav className={styles.paginationouter}>
-        <ReactPaginate
-          previousLabel="<"
-          nextLabel=">"
-          pageLinkClassName={styles.pageNum}
-          previousLinkClassName={styles.pageNum}
-          nextLinkClassName={styles.pageNum}
-          breakLabel="..."
-          breakLinkClassName={styles.pageNum}
-          pageCount={69}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={styles.pagination}
-          activeClassName="active"
-        />
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            if (pageCount !== 0) {
+              dispatch(
+                fetchBattlesAction({
+                  battleTvType: battleTvType,
+                  page: pageCount - 1,
+                }),
+              );
+            }
+          }}
+        >
+          {'<'}
+        </button>
+        <div className={styles.button}>{pageCount + 1}</div>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => {
+            dispatch(
+              fetchBattlesAction({
+                battleTvType: battleTvType,
+                page: pageCount + 1,
+              }),
+            );
+          }}
+        >
+          {'>'}
+        </button>
         <button
           type="button"
           className={styles.button}

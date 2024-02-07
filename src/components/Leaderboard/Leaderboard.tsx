@@ -479,8 +479,13 @@ function PaginatedItems(props: LeaderboardType.Props) {
           type="button"
           className={styles.button}
           onClick={() => {
-            fetchLeaderboardByTier(0, activeTier);
-            setPage(0);
+            if (props.page == 'Normal') {
+              fetchLeaderboardByTier(0, activeTier);
+              setPage(0);
+            } else {
+              fetchPvPLeaderboard(0);
+              setPage(0);
+            }
           }}
           id="refresh"
         >
