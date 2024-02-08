@@ -1800,12 +1800,15 @@ components:
         createdAt:
           type: string
           format: date-time
+        codeType:
+          $ref: '#/components/schemas/CodeType'
       required:
         - id
         - code
         - message
         - language
         - createdAt
+        - codeType
     CreateCodeRevisionRequest:
       title: CreateCodeRevisionRequest
       type: object

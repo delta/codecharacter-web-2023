@@ -4,7 +4,10 @@ import {
 } from '@codecharacter-2024/client';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { CodeAndLanguage, languagesAvailable } from '../editor/code';
+import {
+  UpdateUserCodeRequestObject,
+  languagesAvailable,
+} from '../editor/code';
 import defaultCppCode from '../../assets/codes/cpp/run.cpp?raw';
 import defaultPythonCode from '../../assets/codes/python/run.py?raw';
 import defaultJavaCode from '../../assets/codes/java/Run.java?raw';
@@ -68,7 +71,10 @@ export const dailyChallengeSlice = createSlice({
     ) => {
       state.pageType = action.payload;
     },
-    changeDcCode: (state, action: PayloadAction<CodeAndLanguage>) => {
+    changeDcCode: (
+      state,
+      action: PayloadAction<UpdateUserCodeRequestObject>,
+    ) => {
       const tempCurrentUserLanguage = action.payload.currentUserLanguage;
       const desiredIndex = languagesAvailable.indexOf(tempCurrentUserLanguage);
       state.dcAllLanguagesCode[desiredIndex] = action.payload.currentUserCode;

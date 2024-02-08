@@ -28,7 +28,7 @@ import {
 
 import {
   updateUserCode,
-  CodeAndLanguage,
+  UpdateUserCodeRequestObject,
   UserCode,
 } from '../../store/editor/code';
 
@@ -160,7 +160,7 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         };
         websocket.send(JSON.stringify(currUpdater));
       }
-      const codeNlanguage: CodeAndLanguage = {
+      const codeNlanguage: UpdateUserCodeRequestObject = {
         currentUserCode: editor.getValue(),
         currentUserLanguage: language,
       };

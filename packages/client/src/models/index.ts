@@ -115,6 +115,12 @@ export interface CodeRevision {
    * @memberof CodeRevision
    */
   createdAt: string;
+  /**
+   *
+   * @type {CodeType}
+   * @memberof CodeRevision
+   */
+  codeType: CodeType;
 }
 
 /**

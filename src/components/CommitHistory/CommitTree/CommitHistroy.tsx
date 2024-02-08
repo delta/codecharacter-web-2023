@@ -51,9 +51,12 @@ export default function CommitHistory(props: PropsType): JSX.Element {
                 props.commitID(eachCommit.id);
               }}
             >
-              <h6 className="vertical-timeline-element-title">
-                {eachCommit.message}
-              </h6>
+              <>
+                <h6 className="vertical-timeline-element-title">
+                  {eachCommit.message}
+                </h6>
+                <h6>{'codeType' in eachCommit ? eachCommit.codeType : ''}</h6>
+              </>
             </VerticalTimelineElement>
           );
         })

@@ -37,9 +37,10 @@ const initialState: editorStateType = {
   gameType: GameType.NORMAL,
 };
 
-export interface CodeAndLanguage {
+export interface UpdateUserCodeRequestObject {
   currentUserCode: string;
   currentUserLanguage: string;
+  gameType?: GameType;
 }
 
 export interface GameTypeAndLanguage {
@@ -73,14 +74,19 @@ export const editorSlice = createSlice({
       state.allLanguagesPvPCode[desiredIndex] = action.payload.code;
     },
 
-    updateUserCode: (state, action: PayloadAction<CodeAndLanguage>) => {
+    updateUserCode: (
+      state,
+      action: PayloadAction<UpdateUserCodeRequestObject>,
+    ) => {
       const tempCurrentUserLanguage = action.payload.currentUserLanguage;
       const desiredIndex = languagesAvailable.indexOf(tempCurrentUserLanguage);
-      const newCodeAndLanguage: CodeAndLanguage = {
+      const newCodeAndLanguage: UpdateUserCodeRequestObject = {
         currentUserCode: action.payload.currentUserCode,
         currentUserLanguage: action.payload.currentUserLanguage,
       };
-      if (state.gameType === GameType.NORMAL) {
+      const gameType = action.payload.gameType ?? state.gameType;
+      state.gameType = gameType;
+      if (gameType === GameType.NORMAL) {
         state.allLanguagesNormalCode[desiredIndex] =
           newCodeAndLanguage.currentUserCode;
       } else {
