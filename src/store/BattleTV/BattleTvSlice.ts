@@ -58,7 +58,6 @@ export const fetchBattlesAction = createAsyncThunk(
     reqobj: { battleTvType: BattleType; page: number },
     { rejectWithValue },
   ) => {
-    console.log('called');
     try {
       switch (reqobj.battleTvType) {
         case BattleType.NORMAL:

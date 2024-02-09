@@ -103,7 +103,6 @@ function PaginatedItems({ battleTvType }: { battleTvType: BattleType }) {
   const dispatch = useAppDispatch();
 
   if (!currentBattles.hasbeenFetched) {
-    console.log('fetching battles');
     dispatch(
       fetchBattlesAction({ battleTvType: battleTvType, page: pageCount }),
     );

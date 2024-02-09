@@ -6,12 +6,10 @@ export const getLogs = (id: string, gametype: GameType): Promise<string> => {
   return new Promise((resolve, reject) => {
     const gameAPI = new GameApi(apiConfig);
     const pvpGameApi = new PvpGameApi(apiConfig);
-    console.log(gametype.toString());
     if (gametype === GameType.NORMAL) {
       gameAPI
         .getGameLogsByGameId(id)
         .then(logs => {
-          console.log(`fetched ${logs}`);
           resolve(logs);
         })
         .catch(error => {
@@ -23,7 +21,6 @@ export const getLogs = (id: string, gametype: GameType): Promise<string> => {
       pvpGameApi
         .getPvpGameLogsByGameId(id)
         .then(logs => {
-          console.log(`fetched ${logs}`);
           resolve(logs);
         })
         .catch(error => {

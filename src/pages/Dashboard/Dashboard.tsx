@@ -3,6 +3,7 @@ import {
   Language,
   DailyChallengesApi,
   CurrentUserApi,
+  CodeType,
 } from '@codecharacter-2024/client';
 import { RendererComponent } from '@codecharacter-2024/renderer';
 import Toast from 'react-hot-toast';
@@ -177,7 +178,7 @@ export default function Dashboard(): JSX.Element {
         .finally(() => localStorage.setItem('firstTime', 'false'));
 
       codeAPI
-        .getLatestCode('PVP')
+        .getLatestCode(CodeType.Pvp)
         .then(response => {
           dispatch(initializePvPEditorStates(response));
         })
@@ -196,11 +197,8 @@ export default function Dashboard(): JSX.Element {
   );
 
   const handleLanguageChange = (language: string) => {
-    console.log(language);
     switch (language) {
       case 'C++':
-        console.log('changed to cpp');
-        console.log(pageState);
         switch (pageState) {
           case 'Dashboard':
             dispatch(changeLanguage('c_cpp'));

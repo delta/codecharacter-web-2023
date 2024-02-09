@@ -65,6 +65,7 @@ export const editorSlice = createSlice({
     },
 
     initializePvPEditorStates: (state, action: PayloadAction<Code>) => {
+      state.userCode = action.payload.code;
       if (action.payload.language === 'C' || action.payload.language === 'CPP')
         state.language = 'c_cpp';
       else if (action.payload.language === 'PYTHON') state.language = 'python';
@@ -72,6 +73,7 @@ export const editorSlice = createSlice({
       state.lastSavedAt = action.payload.lastSavedAt;
       const desiredIndex = languagesAvailable.indexOf(state.language);
       state.allLanguagesPvPCode[desiredIndex] = action.payload.code;
+      state.gameType = GameType.PVP;
     },
 
     updateUserCode: (
@@ -89,7 +91,7 @@ export const editorSlice = createSlice({
       if (gameType === GameType.NORMAL) {
         state.allLanguagesNormalCode[desiredIndex] =
           newCodeAndLanguage.currentUserCode;
-      } else {
+      } else if (gameType === GameType.PVP) {
         state.allLanguagesPvPCode[desiredIndex] =
           newCodeAndLanguage.currentUserCode;
       }
@@ -101,7 +103,6 @@ export const editorSlice = createSlice({
       action: PayloadAction<GameTypeAndLanguage>,
     ) => {
       state.gameType = action.payload.gameType;
-      console.log(action);
       if (action.payload.gameType === GameType.NORMAL) {
         state.userCode =
           state.allLanguagesNormalCode[

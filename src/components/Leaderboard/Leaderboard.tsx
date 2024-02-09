@@ -129,7 +129,6 @@ function PaginatedItems(props: LeaderboardType.Props) {
     leaderboardAPI
       .getPvPLeaderboard(pageNum, itemsPerPage)
       .then(response => {
-        console.log(response);
         setPvpItems(response);
         setIsPvPLoaded(true);
       })

@@ -19,7 +19,6 @@ export const Websocket: React.FunctionComponent = () => {
   const currentUserapi = new CurrentUserApi(apiConfig);
   const dispatch = useAppDispatch();
   const gameType = useAppSelector(CurrentGameType);
-  console.log(gameType.toString());
   const [user, setUser] = useState<CurrentUserProfile>();
 
   useEffect(() => {
@@ -37,7 +36,6 @@ export const Websocket: React.FunctionComponent = () => {
             break;
           case GameStatus.Executed:
             Toast.success('Executed successfully!');
-            console.log(gameType);
             // TODO: find non-hacky way to do this
             dispatch(changeSimulationState(true));
             dispatch(

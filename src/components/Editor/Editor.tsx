@@ -27,6 +27,7 @@ import {
 } from '../../store/EditorSettings/settings';
 
 import {
+  GameType,
   updateUserCode,
   UpdateUserCodeRequestObject,
   UserCode,
@@ -172,50 +173,36 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
     });
 
     //Keybinding for save -> CTRL+S
-
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function () {
       props.SaveRef.current?.click();
     });
 
     //Keybinding for Simulate -> CTRL+ALT+N
-
-    if (props.page == 'Dashboard') {
-      editor.addCommand(
-        monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
-        function () {
+    editor.addCommand(
+      monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
+      function () {
+        if (GameType.NORMAL) {
           dispatch(isSelfMatchModalOpened(true));
           dispatch(codeCommitNameChanged('Current Code'));
           dispatch(codeCommitIDChanged(null));
           dispatch(mapCommitNameChanged('Current Map'));
           dispatch(mapCommitIDChanged(null));
-        },
-      );
-
-      //Keybinding for Commit -> CTRL+K
-
-      editor.addCommand(
-        monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK,
-        function () {
-          dispatch(isCommitModalOpened(true));
-        },
-      );
-    }
-
-    if (props.page == 'PvP') {
-      editor.addCommand(
-        monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
-        function () {
+        } else if (GameType.PVP) {
           dispatch(isPvPSelfMatchModalOpened(true));
-          dispatch(code1CommitNameChanged('Current Player 1 Code'));
+          dispatch(code1CommitNameChanged('Current Code'));
           dispatch(code1CommitIDChanged(null));
-          dispatch(code2CommitNameChanged('Current Player 2 Code'));
+          dispatch(code2CommitNameChanged('Current Code'));
           dispatch(code2CommitIDChanged(null));
-        },
-      );
-    }
+        }
+      },
+    );
+
+    //Keybinding for Commit -> CTRL+K
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK, function () {
+      dispatch(isCommitModalOpened(true));
+    });
 
     //Keybinding for Submit -> CTRL+SHIFT+S
-
     editor.addCommand(
       monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyS,
       function () {
