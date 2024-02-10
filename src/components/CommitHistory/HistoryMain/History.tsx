@@ -6,6 +6,7 @@ import { apiConfig, ApiError } from '../../../api/ApiConfig';
 import {
   CodeApi,
   CodeRevision,
+  CodeType,
   CurrentUserApi,
   GameMapRevision,
   MapApi,
@@ -21,7 +22,12 @@ import styles from './History.module.css';
 import CodeView from '../CodeMapViewbox/CodeView';
 import { Col, Container, Row } from 'react-bootstrap';
 import Toast, { toast } from 'react-hot-toast';
-import { updateUserCode, changeLanguage } from '../../../store/editor/code';
+import {
+  updateUserCode,
+  changeLanguage,
+  updateEditorCodeState,
+  GameType,
+} from '../../../store/editor/code';
 import { useNavigate } from 'react-router-dom';
 import { useTour } from '@reactour/tour';
 
@@ -33,6 +39,9 @@ export default function History(): JSX.Element {
   const [codeFetched, setCodeFetched] = useState<boolean>(false);
   const [currentCode, setCurrentCode] = useState('');
   const [codeLanguage, setCodeLanguage] = useState('');
+  const [currentcodeType, setCurrentCodeType] = useState<CodeType>(
+    CodeType.Normal,
+  );
   const [currentMap, setCurrentMap] = useState<MapObj>({
     map: [],
     mapImg: '',
@@ -64,8 +73,17 @@ export default function History(): JSX.Element {
     codeApi
       .getCodeRevisions()
       .then(codeResp => {
-        setCodeFetched(true);
-        setCodeHistory(codeResp);
+        codeApi
+          .getCodeRevisions(CodeType.Pvp)
+          .then(pvpCodeResp => {
+            setCodeHistory([...codeResp, ...pvpCodeResp]);
+            setCodeFetched(true);
+          })
+          .catch(pvpCodeError => {
+            if (pvpCodeError instanceof ApiError) {
+              Toast.error(pvpCodeError.message);
+            }
+          });
       })
       .catch(codeError => {
         if (codeError instanceof ApiError) {
@@ -96,6 +114,7 @@ export default function History(): JSX.Element {
         setCurrentCode(codeData.code);
         setCodeLanguage(codeData.language.toLowerCase());
         setCurrentCommitMessage(codeData.message);
+        setCurrentCodeType(codeData.codeType);
       }
     });
     completeMapHistory.forEach(mapData => {
@@ -138,6 +157,19 @@ export default function History(): JSX.Element {
         updateUserCode({
           currentUserLanguage: codeLanguage === 'cpp' ? 'c_cpp' : codeLanguage,
           currentUserCode: currentCode,
+          gameType:
+            currentcodeType === CodeType.Normal
+              ? GameType.NORMAL
+              : GameType.PVP,
+        }),
+      );
+      dispatch(
+        updateEditorCodeState({
+          gameType:
+            currentcodeType === CodeType.Normal
+              ? GameType.NORMAL
+              : GameType.PVP,
+          language: codeLanguage === 'cpp' ? 'c_cpp' : codeLanguage,
         }),
       );
       dispatch(changeLanguage(codeLanguage === 'cpp' ? 'c_cpp' : codeLanguage));

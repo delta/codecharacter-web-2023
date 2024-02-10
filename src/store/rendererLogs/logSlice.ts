@@ -2,6 +2,7 @@ import { RendererUtils } from '@codecharacter-2024/renderer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { getLogs } from './logAPI';
+import { GameType } from '../editor/code';
 
 const initialState = {
   logs: '',
@@ -9,9 +10,13 @@ const initialState = {
 
 export const getLogAction = createAsyncThunk(
   'logs/getLogs',
-  async (idWithCallback: { id: string; callback: () => void }) => {
+  async (idWithCallback: {
+    id: string;
+    callback: () => void;
+    gameType: GameType;
+  }) => {
     try {
-      getLogs(idWithCallback.id).then(logs => {
+      getLogs(idWithCallback.id, idWithCallback.gameType).then(logs => {
         idWithCallback.callback();
         setTimeout(() => {
           RendererUtils.loadLog(logs);

@@ -50,7 +50,10 @@ export class Move {
 
   posY: number;
 
-  constructor(id: number, posX: number, posY: number) {
+  actorType: string;
+
+  constructor(actorType: string, id: number, posX: number, posY: number) {
+    this.actorType = actorType;
     this.id = id;
     this.posX = posX;
     this.posY = posY;
@@ -85,13 +88,17 @@ export class Spawn {
 
   hp: number;
 
+  actorType: string;
+
   constructor(
+    actorType: string,
     id: number,
     typeId: number,
     posX: number,
     posY: number,
     hp: number,
   ) {
+    this.actorType = actorType;
     this.id = id;
     this.typeId = typeId;
     this.posX = posX;

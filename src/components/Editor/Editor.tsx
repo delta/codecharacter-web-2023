@@ -27,8 +27,9 @@ import {
 } from '../../store/EditorSettings/settings';
 
 import {
+  GameType,
   updateUserCode,
-  CodeAndLanguage,
+  UpdateUserCodeRequestObject,
   UserCode,
 } from '../../store/editor/code';
 
@@ -39,6 +40,14 @@ import {
   mapCommitIDChanged,
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
+
+import {
+  code1CommitIDChanged,
+  code1CommitNameChanged,
+  code2CommitIDChanged,
+  code2CommitNameChanged,
+  isPvPSelfMatchModalOpened,
+} from '../../store/PvPSelfMatchMakeModal/PvPSelfMatchModal';
 
 import { lspUrl } from '../../config/config';
 
@@ -152,49 +161,48 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         };
         websocket.send(JSON.stringify(currUpdater));
       }
-      const codeNlanguage: CodeAndLanguage = {
+      const codeNlanguage: UpdateUserCodeRequestObject = {
         currentUserCode: editor.getValue(),
         currentUserLanguage: language,
       };
       if (props.page == 'Dashboard') {
         dispatch(updateUserCode(codeNlanguage));
-      } else {
+      } else if (props.page == 'DailyChallenge') {
         dispatch(changeDcCode(codeNlanguage));
       }
     });
 
     //Keybinding for save -> CTRL+S
-
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function () {
       props.SaveRef.current?.click();
     });
 
     //Keybinding for Simulate -> CTRL+ALT+N
-
-    if (props.page == 'Dashboard') {
-      editor.addCommand(
-        monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
-        function () {
+    editor.addCommand(
+      monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN,
+      function () {
+        if (GameType.NORMAL) {
           dispatch(isSelfMatchModalOpened(true));
           dispatch(codeCommitNameChanged('Current Code'));
           dispatch(codeCommitIDChanged(null));
           dispatch(mapCommitNameChanged('Current Map'));
           dispatch(mapCommitIDChanged(null));
-        },
-      );
+        } else if (GameType.PVP) {
+          dispatch(isPvPSelfMatchModalOpened(true));
+          dispatch(code1CommitNameChanged('Current Code'));
+          dispatch(code1CommitIDChanged(null));
+          dispatch(code2CommitNameChanged('Current Code'));
+          dispatch(code2CommitIDChanged(null));
+        }
+      },
+    );
 
-      //Keybinding for Commit -> CTRL+K
-
-      editor.addCommand(
-        monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK,
-        function () {
-          dispatch(isCommitModalOpened(true));
-        },
-      );
-    }
+    //Keybinding for Commit -> CTRL+K
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK, function () {
+      dispatch(isCommitModalOpened(true));
+    });
 
     //Keybinding for Submit -> CTRL+SHIFT+S
-
     editor.addCommand(
       monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyS,
       function () {
@@ -268,7 +276,15 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
       editor?.dispose();
       wsClient?.close(1000);
     };
-  }, [fontSize, theme, language, keyboardHandler, props.page, autocomplete]);
+  }, [
+    fontSize,
+    theme,
+    language,
+    keyboardHandler,
+    props.page,
+    autocomplete,
+    props.gameType,
+  ]);
 
   return <div className={styles.Editor} ref={divCodeEditor}></div>;
 }

@@ -26,7 +26,7 @@ const EditorInfo = (): JSX.Element => {
       onHide={() => dispatch(isInfoOpened(false))}
     >
       <Modal.Header className={styles.editorInfoHeader}>
-        {homePageState == 'Dashboard' ? (
+        {homePageState == 'Dashboard' || homePageState == 'PvP' ? (
           <Modal.Title className={styles.headerText}>
             Editor Shortcuts
           </Modal.Title>
@@ -44,7 +44,7 @@ const EditorInfo = (): JSX.Element => {
       </Modal.Header>
 
       <Modal.Body className={styles.editorInfoBody}>
-        {homePageState == 'Dashboard' ? (
+        {homePageState == 'Dashboard' || homePageState == 'PvP' ? (
           <Row>
             {shortcuts.map((shortcut, index) => (
               <Col key={index} xs={12} className={styles.InfoGroup}>

@@ -102,6 +102,8 @@ const NavBar: React.FunctionComponent = () => {
 
   const [showCompleted, setShowCompleted] = useState(false);
   const handleCloseCompleted = () => {
+    dispatch(changePageState('Dashboard'));
+    navigate('/dashboard', { replace: true });
     //Add logic for redirection to view dc leaderboard once done
     setShowCompleted(false);
   };

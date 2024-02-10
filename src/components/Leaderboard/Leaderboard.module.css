@@ -299,3 +299,75 @@
   color: #aaaaaa;
   background-color: #ffffff;
 }
+
+.selectButton {
+  position: relative;
+  color: #ffffff;
+  width: 190px;
+  height: 5vh;
+  margin: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  background-color: inherit;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-family: 'Poppins';
+}
+
+.selectButton:hover {
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.whiteButton {
+  align-content: right;
+  color: #ffffff !important;
+  font-weight: 400;
+  font-family: Bai Jamjuree;
+  font-style: normal;
+  background-color: inherit !important;
+  font-size: 2em;
+  border-bottom: 2px solid white;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  transition: 0.5s;
+  border-radius: 0;
+  padding: 0 50px;
+}
+
+.darkButton {
+  align-content: right;
+  color: rgba(234, 234, 234, 0.6);
+  background-color: inherit !important;
+  font-family: Bai Jamjuree;
+  font-weight: 400;
+  font-style: normal;
+  border-bottom: 2px solid rgba(234, 234, 234, 0.6);
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  font-size: 2em;
+  transition: 0.5s;
+  border-radius: 0px;
+  box-shadow: none !important;
+  padding: 0 50px;
+}
+
+.darkButton:hover {
+  color: #ffffff;
+}
+
+.whiteButton:active,
+.darkButton:active {
+  box-shadow: none;
+}

@@ -35,9 +35,10 @@ export function Parse(line: string): instructions.Instruction {
 
   if (ParsedArray[0] === 'MOVE') {
     return new instructions.Move(
-      Number(ParsedArray[1]),
+      String(ParsedArray[1]),
       Number(ParsedArray[2]),
       Number(ParsedArray[3]),
+      Number(ParsedArray[4]),
     );
   }
 
@@ -52,11 +53,12 @@ export function Parse(line: string): instructions.Instruction {
 
   if (ParsedArray[0] === 'SPAWN') {
     return new instructions.Spawn(
-      Number(ParsedArray[1]),
+      String(ParsedArray[1]),
       Number(ParsedArray[2]),
       Number(ParsedArray[3]),
       Number(ParsedArray[4]),
       Number(ParsedArray[5]),
+      Number(ParsedArray[6]),
     );
   }
 

@@ -3,6 +3,7 @@ import {
   Language,
   DailyChallengesApi,
   CurrentUserApi,
+  CodeType,
 } from '@codecharacter-2024/client';
 import { RendererComponent } from '@codecharacter-2024/renderer';
 import Toast from 'react-hot-toast';
@@ -30,6 +31,10 @@ import {
   initializeEditorStates,
   UserCode,
   UserLanguage,
+  initializePvPEditorStates,
+  updateEditorCodeState,
+  GameType,
+  CurrentGameType,
 } from '../../store/editor/code';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import styles from './Dashboard.module.css';
@@ -41,6 +46,13 @@ import {
   mapCommitIDChanged,
   mapCommitNameChanged,
 } from '../../store/SelfMatchMakeModal/SelfMatchModal';
+import {
+  code1CommitIDChanged,
+  code1CommitNameChanged,
+  code2CommitIDChanged,
+  code2CommitNameChanged,
+  isPvPSelfMatchModalOpened,
+} from '../../store/PvPSelfMatchMakeModal/PvPSelfMatchModal';
 import { loggedIn, user } from '../../store/User/UserSlice';
 
 import {
@@ -62,7 +74,6 @@ import {
   dcCode,
   dcSimulation,
 } from '../../store/DailyChallenge/dailyChallenge';
-
 import Tour from '../../components/TourProvider/TourProvider';
 import { EditorSteps } from '../../components/TourProvider/EditorSteps';
 import { useNavigate } from 'react-router-dom';
@@ -122,6 +133,7 @@ export default function Dashboard(): JSX.Element {
   const dailyChallenge = useAppSelector(dailyChallengeState);
   const pageState = useAppSelector(dailyChallengePageState);
   const dailyChallengeSimulationState = useAppSelector(dcSimulation);
+  const currentGameType = useAppSelector(CurrentGameType);
   const userLanguage =
     pageState == 'Dashboard'
       ? useAppSelector(UserLanguage)
@@ -164,10 +176,20 @@ export default function Dashboard(): JSX.Element {
           if (err instanceof ApiError) Toast.error(err.message);
         })
         .finally(() => localStorage.setItem('firstTime', 'false'));
+
+      codeAPI
+        .getLatestCode(CodeType.Pvp)
+        .then(response => {
+          dispatch(initializePvPEditorStates(response));
+        })
+        .catch(err => {
+          if (err instanceof ApiError) Toast.error(err.message);
+        });
     }
   }, []);
 
   const languages: string[] = ['C++', 'Python', 'Java'];
+  const modes: string[] = ['Normal', 'PvP'];
 
   const localStoreLanguageChose = localStorage.getItem('languageChose');
   const [languageChose, setLanguageChose] = useState(
@@ -177,9 +199,16 @@ export default function Dashboard(): JSX.Element {
   const handleLanguageChange = (language: string) => {
     switch (language) {
       case 'C++':
-        pageState == 'Dashboard'
-          ? dispatch(changeLanguage('c_cpp'))
-          : dispatch(changeDcLanguage('c_cpp'));
+        switch (pageState) {
+          case 'Dashboard':
+            dispatch(changeLanguage('c_cpp'));
+            break;
+          case 'DailyChallenge':
+            dispatch(changeDcLanguage('c_cpp'));
+            break;
+          default:
+            dispatch(changeLanguage('c_cpp'));
+        }
         setLanguageChose('C++');
         localStorage.setItem('languageChose', 'C++');
         break;
@@ -194,12 +223,28 @@ export default function Dashboard(): JSX.Element {
         pageState == 'Dashboard'
           ? dispatch(changeLanguage('java'))
           : dispatch(changeDcLanguage('java'));
+
         setLanguageChose('Java');
         localStorage.setItem('languageChose', 'Java');
         break;
       default:
-        dispatch(changeLanguage('c_cpp'));
+        pageState == 'Dashboard'
+          ? dispatch(changeLanguage('c_cpp'))
+          : dispatch(changeDcLanguage('c_cpp'));
     }
+  };
+  const handlePvPTake = () => {
+    dispatch(
+      updateEditorCodeState({ gameType: GameType.PVP, language: userLanguage }),
+    );
+  };
+  const handlePvPClose = () => {
+    dispatch(
+      updateEditorCodeState({
+        gameType: GameType.NORMAL,
+        language: userLanguage,
+      }),
+    );
   };
 
   const handleSave = () => {
@@ -210,7 +255,12 @@ export default function Dashboard(): JSX.Element {
 
     codeAPI
       .updateLatestCode({
-        codeType: pageState == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
+        codeType:
+          pageState == 'Dashboard'
+            ? currentGameType == GameType.NORMAL
+              ? 'NORMAL'
+              : 'PVP'
+            : 'DAILY_CHALLENGE',
         code: pageState == 'Dashboard' ? userCode : dailyChallengeCode,
         lock: false,
         language: languageType,
@@ -224,11 +274,19 @@ export default function Dashboard(): JSX.Element {
   };
 
   function handleSimulate() {
-    dispatch(isSelfMatchModalOpened(true));
-    dispatch(codeCommitNameChanged('Current Code'));
-    dispatch(codeCommitIDChanged(null));
-    dispatch(mapCommitNameChanged('Current Map'));
-    dispatch(mapCommitIDChanged(null));
+    if (currentGameType == GameType.NORMAL) {
+      dispatch(isSelfMatchModalOpened(true));
+      dispatch(codeCommitNameChanged('Current Code'));
+      dispatch(codeCommitIDChanged(null));
+      dispatch(mapCommitNameChanged('Current Map'));
+      dispatch(mapCommitIDChanged(null));
+    } else {
+      dispatch(isPvPSelfMatchModalOpened(true));
+      dispatch(code1CommitNameChanged('Current Code'));
+      dispatch(code1CommitIDChanged(null));
+      dispatch(code2CommitNameChanged('Current Code'));
+      dispatch(code2CommitIDChanged(null));
+    }
   }
 
   const isCommitModalOpen = useAppSelector(IsCommitModalOpen);
@@ -260,7 +318,12 @@ export default function Dashboard(): JSX.Element {
 
     codeAPI
       .updateLatestCode({
-        codeType: pageState == 'Dashboard' ? 'NORMAL' : 'DAILY_CHALLENGE',
+        codeType:
+          pageState == 'Dashboard'
+            ? currentGameType == GameType.NORMAL
+              ? 'NORMAL'
+              : 'PVP'
+            : 'DAILY_CHALLENGE',
         code: pageState == 'Dashboard' ? userCode : dailyChallengeCode,
         lock: true,
         language: languageType,
@@ -430,6 +493,26 @@ export default function Dashboard(): JSX.Element {
                         </button>
                       </Col>
                     </div>
+                    <Col className={styles.toolbarColumn1} sm="1">
+                      <Form.Select
+                        className={styles.toolbarButton2}
+                        value={
+                          currentGameType == GameType.PVP ? 'PvP' : 'Normal'
+                        }
+                        onChange={e =>
+                          e.target.value == 'PvP'
+                            ? handlePvPTake()
+                            : handlePvPClose()
+                        }
+                        id="ModeSelector"
+                      >
+                        {modes.map(mode => (
+                          <option value={mode} key={mode}>
+                            {mode}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Col>
                   </div>
                   <div>
                     <div className={styles.settingsIconDiv}>
@@ -519,6 +602,7 @@ export default function Dashboard(): JSX.Element {
                     page={pageState}
                     SaveRef={saveButtonRef}
                     SubmitRef={submitButtonRef}
+                    gameType={currentGameType}
                   />
                 ) : (
                   <CodeBlock

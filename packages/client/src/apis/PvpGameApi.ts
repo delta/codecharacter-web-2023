@@ -14,35 +14,35 @@
 
 import * as runtime from '../runtime';
 
-export interface GetGameLogsByGameIdRequest {
+export interface GetPvpGameLogsByGameIdRequest {
   gameId: string;
 }
 
 /**
- * GameApi - interface
+ * PvpGameApi - interface
  *
  * @export
- * @interface GameApiInterface
+ * @interface PvpGameApiInterface
  */
-export interface GameApiInterface {
+export interface PvpGameApiInterface {
   /**
-   * Get game logs by game ID
-   * @summary Get game logs by game ID
+   * Get pvp game logs by game ID
+   * @summary Get pvp game logs by game ID
    * @param {string} gameId UUID of the game
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof GameApiInterface
+   * @memberof PvpGameApiInterface
    */
-  getGameLogsByGameIdRaw(
-    requestParameters: GetGameLogsByGameIdRequest,
+  getPvpGameLogsByGameIdRaw(
+    requestParameters: GetPvpGameLogsByGameIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<string>>;
 
   /**
-   * Get game logs by game ID
-   * Get game logs by game ID
+   * Get pvp game logs by game ID
+   * Get pvp game logs by game ID
    */
-  getGameLogsByGameId(
+  getPvpGameLogsByGameId(
     gameId: string,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<string>;
@@ -51,13 +51,13 @@ export interface GameApiInterface {
 /**
  *
  */
-export class GameApi extends runtime.BaseAPI implements GameApiInterface {
+export class PvpGameApi extends runtime.BaseAPI implements PvpGameApiInterface {
   /**
-   * Get game logs by game ID
-   * Get game logs by game ID
+   * Get pvp game logs by game ID
+   * Get pvp game logs by game ID
    */
-  async getGameLogsByGameIdRaw(
-    requestParameters: GetGameLogsByGameIdRequest,
+  async getPvpGameLogsByGameIdRaw(
+    requestParameters: GetPvpGameLogsByGameIdRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<runtime.ApiResponse<string>> {
     if (
@@ -66,7 +66,7 @@ export class GameApi extends runtime.BaseAPI implements GameApiInterface {
     ) {
       throw new runtime.RequiredError(
         'gameId',
-        'Required parameter requestParameters.gameId was null or undefined when calling getGameLogsByGameId.',
+        'Required parameter requestParameters.gameId was null or undefined when calling getPvpGameLogsByGameId.',
       );
     }
 
@@ -84,7 +84,7 @@ export class GameApi extends runtime.BaseAPI implements GameApiInterface {
     }
     const response = await this.request(
       {
-        path: `/games/{gameId}/logs`.replace(
+        path: `/pvpgames/{gameId}/logs`.replace(
           `{${'gameId'}}`,
           encodeURIComponent(String(requestParameters.gameId)),
         ),
@@ -99,14 +99,14 @@ export class GameApi extends runtime.BaseAPI implements GameApiInterface {
   }
 
   /**
-   * Get game logs by game ID
-   * Get game logs by game ID
+   * Get pvp game logs by game ID
+   * Get pvp game logs by game ID
    */
-  async getGameLogsByGameId(
+  async getPvpGameLogsByGameId(
     gameId: string,
     initOverrides?: RequestInit | runtime.InitOverrideFunction,
   ): Promise<string> {
-    const response = await this.getGameLogsByGameIdRaw(
+    const response = await this.getPvpGameLogsByGameIdRaw(
       { gameId: gameId },
       initOverrides,
     );

@@ -22,6 +22,9 @@ const EditorSettings = lazy(
 const SelfMatchModal = lazy(
   () => import('./components/SelfMatchMakingModal/SelfMatchMakeModal'),
 );
+const PvPSelfMatchModal = lazy(
+  () => import('./components/PvPSelfMatchMakingModal/PvPSelfMatchMakeModal'),
+);
 const EditorInfo = lazy(() => import('./components/EditorInfo/EditorInfo'));
 const CommitModal = lazy(() => import('./components/CommitModal/CommitModal'));
 
@@ -37,6 +40,7 @@ root.render(
             <EditorInfo />
             <CommitModal />
             <SelfMatchModal />
+            <PvPSelfMatchModal />
             <NavBar />
             <div className={styles.mainWindow}>
               <SideBarWrap />
