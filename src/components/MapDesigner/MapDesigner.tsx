@@ -7,6 +7,7 @@ import {
   MapApi,
   DailyChallengesApi,
   CurrentUserApi,
+  TutorialsApi,
 } from '@codecharacter-2024/client';
 import Toast from 'react-hot-toast';
 import styles from './MapDesigner.module.css';
@@ -15,7 +16,7 @@ import { Modal, Container, Row, Button } from 'react-bootstrap';
 import { useTour } from '@reactour/tour';
 
 interface MapDesignerProps {
-  pageType: 'MapDesigner' | 'DailyChallenge';
+  pageType: 'MapDesigner' | 'DailyChallenge' | 'Tutorials';
 }
 
 export default function MapDesigner(props: MapDesignerProps): JSX.Element {
@@ -32,11 +33,14 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
   const mapAPI = new MapApi(apiConfig);
   const dcAPI = new DailyChallengesApi(apiConfig);
   const currentUserapi = new CurrentUserApi(apiConfig);
+  const tutorialAPI = new TutorialsApi(apiConfig);
 
   useEffect(() => {
     mapAPI
       .getLatestMap(
-        props.pageType == 'MapDesigner' ? 'NORMAL' : 'DAILY_CHALLENGE',
+        props.pageType == 'MapDesigner' || props.pageType == 'Tutorials'
+          ? 'NORMAL'
+          : 'DAILY_CHALLENGE',
       )
       .then(mp => {
         setStagedMap(JSON.parse(mp.map));
@@ -102,7 +106,9 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
         mapAPI
           .updateLatestMap({
             mapType:
-              props.pageType == 'MapDesigner' ? 'NORMAL' : 'DAILY_CHALLENGE',
+              props.pageType == 'MapDesigner' || props.pageType == 'Tutorials'
+                ? 'NORMAL'
+                : 'DAILY_CHALLENGE',
             mapImage: mapImg,
             map: JSON.stringify(stagedMap),
             lock: false,
@@ -121,7 +127,9 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
         mapAPI
           .updateLatestMap({
             mapType:
-              props.pageType == 'MapDesigner' ? 'NORMAL' : 'DAILY_CHALLENGE',
+              props.pageType == 'MapDesigner' || props.pageType == 'Tutorials'
+                ? 'NORMAL'
+                : 'DAILY_CHALLENGE',
             mapImage: mapImg,
             map: JSON.stringify(stagedMap),
             lock: true,
@@ -143,6 +151,21 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
             })
             .then(() => {
               Toast.success('Daily Challenge submitted succesfully');
+            })
+            .catch(error => {
+              if (error instanceof ApiError) {
+                Toast.error(error.message);
+              }
+            });
+        }
+        if (props.pageType == 'Tutorials') {
+          tutorialAPI
+            .createCodeTutorialMatch({
+              value: JSON.stringify(stagedMap),
+              codeTutorialNumber: 4,
+            })
+            .then(() => {
+              Toast.success('Code Tutorial submitted succesfully');
             })
             .catch(error => {
               if (error instanceof ApiError) {
@@ -180,7 +203,7 @@ export default function MapDesigner(props: MapDesignerProps): JSX.Element {
 
   useEffect(() => {
     MapDesignerUtils.setLocalStorageKey(
-      props.pageType == 'MapDesigner'
+      props.pageType == 'MapDesigner' || props.pageType == 'Tutorials'
         ? 'cc-map-designer-map'
         : 'dc-map-designer-map',
     );

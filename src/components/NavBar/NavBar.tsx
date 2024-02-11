@@ -17,18 +17,20 @@ import { apiConfig, ApiError } from '../../api/ApiConfig';
 import Toast from 'react-hot-toast';
 import DashboardOptions from '../DashboardOptions/DashboardOptions';
 import { cookieDomain, dcEnable } from '../../config/config';
-
 import signUpIcon from '../../assets/sign_up.svg';
 import signInIcon from '../../assets/sign_in.svg';
 import challengeDone from '../../assets/challenge_done.png';
 import challengeAvailable from '../../assets/challenge_available.png';
+import tutorialIcon from '../../assets/tutorial.png';
 import DcCompleted from '../DcModals/DcCompleted';
 import DcAvailable from '../DcModals/DcAvailable';
 import {
   changePageState,
   changeSimulationState,
   dailyChallengeCompletionState,
+  dailyChallengePageState,
 } from '../../store/DailyChallenge/dailyChallenge';
+import ViewTutorial from '../TutorialModals/ViewTutorial';
 
 const NavBar: React.FunctionComponent = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +39,7 @@ const NavBar: React.FunctionComponent = () => {
   const loggedInUser = useAppSelector(user);
   const isLogged = useAppSelector(isloggedIn);
   const loadingAuth = useAppSelector(loading);
+  const pageState = useAppSelector(dailyChallengePageState);
   const dcCompletionstatus = useAppSelector(dailyChallengeCompletionState);
   useEffect(() => {
     const cookieValue = document.cookie;
@@ -108,6 +111,18 @@ const NavBar: React.FunctionComponent = () => {
     setShowCompleted(false);
   };
 
+  const [showTutorial, setShowTutorial] = useState(false);
+  const handleTutorialTake = () => {
+    dispatch(changePageState('Tutorials'));
+    navigate('/dashboard', { replace: true });
+    setShowTutorial(false);
+  };
+  const handleTutorialClose = () => {
+    dispatch(changePageState('Dashboard'));
+    navigate('/dashboard');
+    setShowTutorial(false);
+  };
+
   return (
     <div className={styles.navBar}>
       <DcCompleted
@@ -120,11 +135,25 @@ const NavBar: React.FunctionComponent = () => {
         handleClose={handleCloseAvailable}
         handleTake={handleTake}
       />
+      <ViewTutorial
+        show={showTutorial}
+        handleTutorialClose={handleTutorialClose}
+        handleTutorialTake={handleTutorialTake}
+      />
       <div className={styles.navBarContainer}>
         <div className={styles.branding}>
           <Link to="/" className={styles.logoLink}>
             <div className={styles.navLogo}>{'<CodeCharacter/>'}</div>
           </Link>
+          <div className={styles.codeContainer}>
+            {pageState == 'Tutorials' ? (
+              <div className={styles.codeTutorialHeading}>
+                {'Code Tutorials'}
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
 
         {(location.pathname === '/' || location.pathname === '/register') &&
@@ -159,6 +188,19 @@ const NavBar: React.FunctionComponent = () => {
       location.pathname != '/' ? (
         <div className={styles.profileIcons}>
           <div className={styles.notifIconContainer}>
+            {pageState == 'Dashboard' ? (
+              <img
+                src={tutorialIcon}
+                className={styles.tutorialIcon}
+                title="Code Tutorials"
+                onClick={() => {
+                  setShowTutorial(true);
+                }}
+              />
+            ) : (
+              <></>
+            )}
+
             {dcEnable ? (
               <img
                 src={dcCompletionstatus ? challengeDone : challengeAvailable}

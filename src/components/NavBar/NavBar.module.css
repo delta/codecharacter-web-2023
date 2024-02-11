@@ -5,6 +5,8 @@
   background-color: #232627;
   width: 100%;
   z-index: 1000;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 
 .navBarContainer {
@@ -60,6 +62,9 @@
 
 .branding {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .profileIcons {
@@ -118,6 +123,54 @@
   cursor: pointer;
   opacity: 0.8;
 }
+
+.tutorialIcon {
+  height: 37px;
+  width: auto;
+  margin-top: 5px;
+  position: relative;
+  margin-right: 2rem;
+}
+
+.tutorialIcon:hover{
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.navbarTextButton {
+  background-color: #374043; 
+  color: #fff; 
+  border: none;
+  height: 50%;
+  width: max-content;
+  padding: 8px 10px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px; 
+  margin-right: 40px; 
+}
+
+.navbarTextButton:hover {
+  background-color: #141515; 
+}
+.codeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+.codeTutorialHeading {
+  font-family: 'Bai Jamjuree', sans-serif;
+  color: #ffffff;
+  font-size: 28px;
+  margin: 0.5rem 1rem;
+}
+.notifIconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 @media screen and (max-width:650px) {
   .navLogo {

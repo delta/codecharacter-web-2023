@@ -3,6 +3,7 @@ import { events, RendererEvents } from './events/EventEmitter';
 
 export class RendererUtils {
   static loadLog(log: string): void {
+    console.log('loadLog', log);
     events.emit(RendererEvents.LOAD_LOG, log);
     events.emit(RendererEvents.RESET_UI);
   }

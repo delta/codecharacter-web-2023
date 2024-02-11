@@ -66,6 +66,7 @@ export const getUserDetails = (): Promise<{
   country: string;
   avatarId: number;
   isTutorialComplete: boolean;
+  codeTutorialNumber: number | undefined;
 }> => {
   return new Promise((resolve, reject) => {
     const currentUserapi = new CurrentUserApi(apiConfig);
@@ -82,6 +83,7 @@ export const getUserDetails = (): Promise<{
           country: res.country,
           avatarId: res.avatarId,
           isTutorialComplete: res.isTutorialComplete,
+          codeTutorialNumber: res.codeTutorialLevel,
         });
       })
       .catch(error => {

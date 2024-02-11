@@ -5,6 +5,7 @@ interface PageType {
   Dashboard: 'Dashboard';
   DailyChallenge: 'DailyChallenge';
   PvP: 'PvP';
+  Tutorials: 'Tutorials';
 }
 
 export type Props = {
@@ -13,6 +14,7 @@ export type Props = {
   SaveRef: RefObject<HTMLButtonElement>;
   SubmitRef: RefObject<HTMLButtonElement>;
   gameType: GameType;
+  tutorialNumber: number;
 };
 
 export type Workspace = {

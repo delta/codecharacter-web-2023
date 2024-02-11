@@ -122,6 +122,31 @@ export interface CodeRevision {
    */
   codeType: CodeType;
 }
+/**
+ * Request Model for the tutorial mode
+ * @export
+ * @interface CodeTutorialMatchRequest
+ */
+export interface CodeTutorialMatchRequest {
+  /**
+   *
+   * @type {string}
+   * @memberof CodeTutorialMatchRequest
+   */
+  value: string;
+  /**
+   *
+   * @type {Language}
+   * @memberof CodeTutorialMatchRequest
+   */
+  language?: Language;
+  /**
+   *
+   * @type {number}
+   * @memberof CodeTutorialMatchRequest
+   */
+  codeTutorialNumber: number;
+}
 
 /**
  *
@@ -327,6 +352,12 @@ export interface CurrentUserProfile {
    * @memberof CurrentUserProfile
    */
   tutorialLevel: number;
+  /**
+   *
+   * @type {number}
+   * @memberof CurrentUserProfile
+   */
+  codeTutorialLevel: number;
   /**
    *
    * @type {TierType}
@@ -1102,6 +1133,75 @@ export const TierType = {
 export type TierType = (typeof TierType)[keyof typeof TierType];
 
 /**
+ * The object containing the code for the tutorial
+ * @export
+ * @interface TutorialCodeObject
+ */
+export interface TutorialCodeObject {
+  /**
+   *
+   * @type {string}
+   * @memberof TutorialCodeObject
+   */
+  cpp?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof TutorialCodeObject
+   */
+  java?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof TutorialCodeObject
+   */
+  python?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof TutorialCodeObject
+   */
+  image?: string;
+}
+/**
+ * Game model
+ * @export
+ * @interface TutorialGame
+ */
+export interface TutorialGame {
+  /**
+   *
+   * @type {string}
+   * @memberof TutorialGame
+   */
+  id: string;
+  /**
+   *
+   * @type {number}
+   * @memberof TutorialGame
+   */
+  destruction: number;
+  /**
+   *
+   * @type {number}
+   * @memberof TutorialGame
+   */
+  coinsUsed: number;
+  /**
+   *
+   * @type {string}
+   * @memberof TutorialGame
+   */
+  logs?: string;
+  /**
+   *
+   * @type {GameStatus}
+   * @memberof TutorialGame
+   */
+  status: GameStatus;
+}
+
+/**
  *
  * @export
  */
@@ -1114,6 +1214,43 @@ export const TutorialUpdateType = {
 export type TutorialUpdateType =
   (typeof TutorialUpdateType)[keyof typeof TutorialUpdateType];
 
+/**
+ * Get the game tutorials
+ * @export
+ * @interface TutorialsGetRequest
+ */
+export interface TutorialsGetRequest {
+  /**
+   *
+   * @type {number}
+   * @memberof TutorialsGetRequest
+   */
+  tutorialId: number;
+  /**
+   *
+   * @type {string}
+   * @memberof TutorialsGetRequest
+   */
+  tutorialName: string;
+  /**
+   *
+   * @type {ChallengeType}
+   * @memberof TutorialsGetRequest
+   */
+  tutorialType?: ChallengeType;
+  /**
+   *
+   * @type {string}
+   * @memberof TutorialsGetRequest
+   */
+  description?: string;
+  /**
+   *
+   * @type {TutorialCodeObject}
+   * @memberof TutorialsGetRequest
+   */
+  tutorialCodes: TutorialCodeObject;
+}
 /**
  * Update current user profile request
  * @export

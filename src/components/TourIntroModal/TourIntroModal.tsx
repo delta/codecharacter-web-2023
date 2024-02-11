@@ -60,7 +60,7 @@ const TourIntroModal = (): JSX.Element => {
         updateTutorialLevel: 'SKIP',
       })
       .then(() => {
-        Toast.success('Tutorial skipped');
+        Toast.success('Tour skipped');
       })
       .catch(err => {
         if (err instanceof ApiError) Toast.error(err.message);

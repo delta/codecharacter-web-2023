@@ -11,4 +11,5 @@ export * from './MatchApi';
 export * from './NotificationApi';
 export * from './PvpGameApi';
 export * from './StatsApi';
+export * from './TutorialsApi';
 export * from './UserApi';

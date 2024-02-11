@@ -48,7 +48,7 @@ const DashboardOptions = (props: dashboardoptions): JSX.Element => {
             View Profile
           </Dropdown.Item>
           <Dropdown.Item onClick={resetTutorials} className={styles.menuText}>
-            Revisit Tutorial
+            Revisit Tour
           </Dropdown.Item>
           <Dropdown.Item onClick={props.onLogout} className={styles.menuText}>
             Logout

@@ -20,6 +20,7 @@ export interface User {
   college: string;
   avatarId: number;
   recaptchaCode: string;
+  codeTutorialNumber: number;
 }
 
 interface register {
@@ -48,6 +49,7 @@ const initialState: register = {
     college: '',
     avatarId: 0,
     recaptchaCode: '',
+    codeTutorialNumber: 1,
   },
   loading: false,
   isRegistered: false,
@@ -203,6 +205,7 @@ export const UserSlice = createSlice({
         state.user.country = action.payload.country;
         state.user.college = action.payload.college;
         state.user.avatarId = action.payload.avatarId;
+        state.user.codeTutorialNumber = action.payload.codeTutorialNumber;
       })
       .addCase(getUserDetailsAction.rejected, state => {
         state.loading = false;
@@ -259,5 +262,7 @@ export const isSuccess = (state: RootState): boolean =>
   state.user.isSuccessCreditonals;
 export const isSuccessUser = (state: RootState): boolean =>
   state.user.isSuccessUser;
+export const codeTutorialLevel = (state: RootState): number =>
+  state.user.user.codeTutorialNumber;
 
 export default UserSlice.reducer;

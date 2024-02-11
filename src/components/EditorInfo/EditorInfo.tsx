@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Col, Modal, Row } from 'react-bootstrap';
 
 import { IsInfoOpen, isInfoOpened } from '../../store/EditorSettings/settings';
@@ -9,11 +10,14 @@ import {
   dailyChallengePageState,
   dcDescription,
 } from '../../store/DailyChallenge/dailyChallenge';
+import {
+  tutorialDescription,
+  tutorialCode,
+} from '../../store/Tutorials/tutorials';
 
 const EditorInfo = (): JSX.Element => {
   const homePageState = useAppSelector(dailyChallengePageState);
   const dailyChallengeDescription = useAppSelector(dcDescription);
-
   const isInfoOpen = useAppSelector(IsInfoOpen);
 
   const dispatch = useAppDispatch();
@@ -26,7 +30,7 @@ const EditorInfo = (): JSX.Element => {
       onHide={() => dispatch(isInfoOpened(false))}
     >
       <Modal.Header className={styles.editorInfoHeader}>
-        {homePageState == 'Dashboard' || homePageState == 'PvP' ? (
+        {homePageState == 'Dashboard' || homePageState == 'Tutorials' ? (
           <Modal.Title className={styles.headerText}>
             Editor Shortcuts
           </Modal.Title>
@@ -44,7 +48,7 @@ const EditorInfo = (): JSX.Element => {
       </Modal.Header>
 
       <Modal.Body className={styles.editorInfoBody}>
-        {homePageState == 'Dashboard' || homePageState == 'PvP' ? (
+        {homePageState == 'Dashboard' || homePageState == 'Tutorials' ? (
           <Row>
             {shortcuts.map((shortcut, index) => (
               <Col key={index} xs={12} className={styles.InfoGroup}>
