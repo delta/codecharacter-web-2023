@@ -54,7 +54,7 @@ import {
   code2CommitNameChanged,
   isPvPSelfMatchModalOpened,
 } from '../../store/PvPSelfMatchMakeModal/PvPSelfMatchModal';
-import { loggedIn, user } from '../../store/User/UserSlice';
+import { codeTutorialLevel, loggedIn, user } from '../../store/User/UserSlice';
 
 import {
   IsSettingsOpen,
@@ -299,7 +299,7 @@ export default function Dashboard(): JSX.Element {
     if (userLanguage === 'c_cpp') languageType = Language.Cpp;
     else if (userLanguage === 'python') languageType = Language.Python;
     else if (userLanguage === 'java') languageType = Language.Java;
-    if(pageState == 'Tutorials') return;
+    if (pageState == 'Tutorials') return;
     codeAPI
       .updateLatestCode({
         codeType:
@@ -361,27 +361,27 @@ export default function Dashboard(): JSX.Element {
     if (userLanguage === 'c_cpp') languageType = Language.Cpp;
     else if (userLanguage === 'python') languageType = Language.Python;
     else if (userLanguage === 'java') languageType = Language.Java;
-    if(pageState!='Tutorials'){
-    codeAPI
-      .updateLatestCode({
-        codeType:
-          pageState == 'Dashboard'
-            ? currentGameType == GameType.NORMAL
-              ? 'NORMAL'
-              : 'PVP'
-            : 'DAILY_CHALLENGE',
-        code: pageState == 'Dashboard' ? userCode : dailyChallengeCode,
-        lock: true,
-        language: languageType,
-      })
-      .then(() => {
-        if (pageState == 'Dashboard') {
-          Toast.success('Code Submitted');
-        }
-      })
-      .catch(err => {
-        if (err instanceof ApiError) Toast.error(err.message);
-      });
+    if (pageState != 'Tutorials') {
+      codeAPI
+        .updateLatestCode({
+          codeType:
+            pageState == 'Dashboard'
+              ? currentGameType == GameType.NORMAL
+                ? 'NORMAL'
+                : 'PVP'
+              : 'DAILY_CHALLENGE',
+          code: pageState == 'Dashboard' ? userCode : dailyChallengeCode,
+          lock: true,
+          language: languageType,
+        })
+        .then(() => {
+          if (pageState == 'Dashboard') {
+            Toast.success('Code Submitted');
+          }
+        })
+        .catch(err => {
+          if (err instanceof ApiError) Toast.error(err.message);
+        });
     }
 
     if (pageState == 'DailyChallenge') {
