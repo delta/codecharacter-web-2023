@@ -153,11 +153,11 @@ function PaginatedItems({ battleTvType }: { battleTvType: BattleType }) {
                           ? match.game.scorePlayer1
                           : [...match.games.values()][0].coinsUsed}
                       </span>
-                      <span className={styles.scoreleft}>
-                        {'game' in match
-                          ? '----'
-                          : [...match.games.values()][0].destruction.toFixed(2)}
-                      </span>
+                      {'games' in match && (
+                        <span className={styles.scoreleft}>
+                          {[...match.games.values()][0].destruction.toFixed(2)}
+                        </span>
+                      )}
                       <div
                         className={styles.watchButton}
                         onClick={() => {
@@ -192,13 +192,13 @@ function PaginatedItems({ battleTvType }: { battleTvType: BattleType }) {
                               [...match.games.values()].length === 1 ? 0 : 1
                             ].destruction.toFixed(2)}
                       </span>
-                      <span className={styles.coinsusedright}>
-                        {'game' in match
-                          ? '----'
-                          : [...match.games.values()][
-                              [...match.games.values()].length === 1 ? 0 : 1
-                            ].coinsUsed}
-                      </span>
+                      {'games' in match && (
+                        <span className={styles.scoreleft}>
+                          {[...match.games.values()][
+                            [...match.games.values()].length === 1 ? 0 : 1
+                          ].destruction.toFixed(2)}
+                        </span>
+                      )}
                       <span className={styles.username}>
                         <span className={[styles.name, styles.right].join(' ')}>
                           {match.user2 !== null

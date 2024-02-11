@@ -46,7 +46,6 @@ const Statistics = () => {
           }
           cdata.push(currentDataObject);
         }
-        console.log(cdata);
         setData(cdata);
       })
       .catch(error => {

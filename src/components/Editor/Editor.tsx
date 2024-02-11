@@ -61,6 +61,7 @@ import {
 } from '../../store/Tutorials/tutorials';
 import { buildWorkerDefinition } from 'monaco-editor-workers';
 import { Uri } from 'vscode';
+import toast from 'react-hot-toast';
 
 buildWorkerDefinition(
   '../../node_modules/monaco-editor-workers/dist/workers',
@@ -231,6 +232,14 @@ export default function CodeEditor(props: Editor.Props): JSX.Element {
         props.language == 'c_cpp' ? 'cpp' : props.language
       }`;
       wsClient = new WebSocket(url);
+      wsClient.onerror = () => {
+        toast.error('Error occured in lsp');
+        editor = createEditor(
+          divCodeEditor.current as HTMLDivElement,
+          null,
+          null,
+        );
+      };
       wsClient.onopen = () => {
         const updater = {
           operation: 'fileUpdate',

@@ -426,7 +426,6 @@ export default function Dashboard(): JSX.Element {
         if (err instanceof ApiError) Toast.error(err.message);
       });
   };
-  // console.log(tutorialAllLanguagesCode[]);
   const handlePrevTutorial = () => {
     tutorialAPI
       .getCodeTutorialByNumber(codeTutorialNumber - 1)

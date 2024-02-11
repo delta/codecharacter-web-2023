@@ -1,7 +1,5 @@
 import styles from './GraphToolTip.module.css';
 export const BarChartToolTip = ({ active, payload }: ToolTipProps) => {
-  console.log(active);
-  console.log(payload);
   if (active && payload && payload.length) {
     return (
       <div className={styles.barChartToolTip}>
@@ -17,9 +15,6 @@ export const BarChartToolTip = ({ active, payload }: ToolTipProps) => {
 };
 
 export const LineChartToolTip = ({ active, payload }: ToolTipProps) => {
-  console.log(active);
-  console.log(payload);
-
   if (active && payload && payload.length) {
     return (
       <div className={styles.barChartToolTip}>
@@ -38,9 +33,6 @@ export const LineChartToolTip = ({ active, payload }: ToolTipProps) => {
 };
 
 export const AreaChartToolTip = ({ active, payload }: ToolTipProps) => {
-  console.log(active);
-  console.log(payload);
-
   if (active && payload && payload.length) {
     return (
       <div className={styles.barChartToolTip}>
@@ -61,9 +53,6 @@ export const AreaChartToolTip = ({ active, payload }: ToolTipProps) => {
   return null;
 };
 export const DCToolTip = ({ active, payload }: ToolTipProps) => {
-  console.log(active);
-  console.log(payload);
-
   if (active && payload && payload.length) {
     return (
       <div className={styles.barChartToolTip}>
