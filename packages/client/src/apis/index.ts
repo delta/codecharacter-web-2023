@@ -10,4 +10,5 @@ export * from './MapApi';
 export * from './MatchApi';
 export * from './NotificationApi';
 export * from './PvpGameApi';
+export * from './StatsApi';
 export * from './UserApi';

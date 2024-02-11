@@ -31,7 +31,7 @@ const IncompleteProfile = lazy(
     import('./components/Auth/Auth/Login/IncompleteProfile/incompeleteProfile'),
 );
 const Profile = lazy(() => import('./components/Profile/Profile'));
-
+const Statistics = lazy(() => import('./pages/Statistics/Statistics'));
 export default function AllRoutes(): JSX.Element {
   const dispatch = useAppDispatch();
   const logIn = useAppSelector(isloggedIn);
@@ -46,6 +46,7 @@ export default function AllRoutes(): JSX.Element {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/statistics" element={<Statistics />} />
       <Route path="/mapdesigner" element={<MapDesignerPage />} />
       <Route path="/history" element={<CommitHistoryPage />} />
       <Route path="/leaderboard" element={<LeaderBoardPage />} />

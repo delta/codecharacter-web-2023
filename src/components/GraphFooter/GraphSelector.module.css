@@ -1,0 +1,30 @@
+.title {
+    border: 1px solid #ffffff50 !important;
+    border-radius: 10px;
+    background: #ffffff05 !important;
+    font-size: 1rem;
+    box-shadow: none !important;
+    font-family: monospace !important;
+    align-self: end;
+}
+
+.footer {
+    background-color: #10101080 !important;
+    backdrop-filter: blur(30px);
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+    border: 1px solid #ffffff50 !important;
+    font-family: monospace !important;
+}
+
+.button:hover {
+    background-color: transparent !important;
+    color: #ffffffa0;
+}
+
+.button {
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+}

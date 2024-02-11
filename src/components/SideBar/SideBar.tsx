@@ -9,6 +9,7 @@ import leaderboardIcon from '../../assets/leaderboard.svg';
 import commitIcon from '../../assets/commit.svg';
 import battletvIcon from '../../assets/battletv.svg';
 import documentationIcon from '../../assets/documentation.svg';
+import statisticsIcon from '../../assets/statistics.svg';
 
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -29,6 +30,7 @@ const icons = [
   { icon: leaderboardIcon, route: 'leaderboard', tooltip: 'Leaderboard' },
   { icon: commitIcon, route: 'history', tooltip: 'Commits' },
   { icon: battletvIcon, route: 'battletv', tooltip: 'Battle TV' },
+  { icon: statisticsIcon, route: 'statistics', tooltip: 'Statistics' },
 ];
 
 const SideBar: React.FunctionComponent = () => {

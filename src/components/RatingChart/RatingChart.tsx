@@ -94,7 +94,6 @@ function RatingHistoryChart() {
         setLabelItems(labels);
       });
   }, [isLoaded]);
-
   function fetchRatingHistory(id: string) {
     setIsLoaded(false);
     const ratingHistory = userApi.getRatingHistory(id);

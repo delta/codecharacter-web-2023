@@ -1,0 +1,85 @@
+.bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #00000072;
+  backdrop-filter: blur(17px);
+  flex-direction: column;
+}
+
+.title {
+  text-align: center;
+  padding: 20px;
+  color: white;
+  transform: translateY(-40px);
+  letter-spacing: 5px;
+  font-family: monospace, sans-serif;
+  font-weight: 900;
+  z-index: 1;
+}
+
+.labelX {
+  font-family: monospace, sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  width: 12.5rem;
+  color: grey;
+}
+
+.graphParent {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.parent {
+  display: grid;
+  height: 100%;
+}
+
+.bg,
+.footer {
+  grid-area: 1/1;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  padding-top: 3rem;
+}
+
+.lines {
+  stroke-width: 4px !important;
+}
+
+.axis {
+  font-family: monospace;
+  font-size: 1.1rem;
+  stroke-width: 4px;
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+.graphContainer {
+  margin-top: 2%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-direction: column;
+  height: fit-content;
+  width: fit-content;
+}
+
+.error {
+  text-align: center;
+  color: white;
+  letter-spacing: 5px;
+  font-size: 1.5rem;
+  font-family: monospace, sans-serif;
+  font-weight: 900;
+}

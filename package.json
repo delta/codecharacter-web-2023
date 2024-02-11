@@ -62,6 +62,7 @@
     "react-router-dom": "^6.6.1",
     "react-split-pane": "^0.1.92",
     "react-vertical-timeline-component": "^3.6.0",
+    "recharts": "^2.10.3",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "vscode-ws-jsonrpc": "^2.0.2",

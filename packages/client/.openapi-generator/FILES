@@ -9,6 +9,7 @@ src/apis/MapApi.ts
 src/apis/MatchApi.ts
 src/apis/NotificationApi.ts
 src/apis/PvpGameApi.ts
+src/apis/StatsApi.ts
 src/apis/UserApi.ts
 src/apis/index.ts
 src/index.ts
